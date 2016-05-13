@@ -5,12 +5,11 @@
 [![License](https://img.shields.io/cocoapods/l/UIViewControllerTransitions.svg?style=flat)](http://cocoapods.org/pods/UIViewControllerTransitions)
 [![Platform](https://img.shields.io/cocoapods/p/UIViewControllerTransitions.svg?style=flat)](http://cocoapods.org/pods/UIViewControllerTransitions)
 
+[![Demo Video](Screenshot/video_sh.png)](https://youtu.be/wIY7EJLmQrk)
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
-[![Demo Video](Screenshot/video_sh.png)](https://youtu.be/wIY7EJLmQrk)
-<br />
 
 #### UIViewController DragDrop Transition Example
 <img src="Screenshot/sh_002.png" width="280" />
