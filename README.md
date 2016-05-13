@@ -16,8 +16,6 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 <br />
 In First View Controller
 ```objective-c
-#import <UIViewControllerTransitions/UIViewControllerTransitions.h>
-
 DragDropTransitionSecondViewController *secondViewController = [[DragDropTransitionSecondViewController alloc] initWithNibName:@"DragDropTransitionSecondView" bundle:[NSBundle mainBundle]];
 
 UIViewControllerDragDropTransition *transition = [[UIViewControllerDragDropTransition alloc] init];
