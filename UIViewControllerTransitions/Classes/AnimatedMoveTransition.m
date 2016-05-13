@@ -24,7 +24,7 @@
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
     [toViewController viewWillAppear:YES];
     
-//    if (toViewController.view.alpha <= 0)
+    if (toViewController.view.alpha <= 0)
         toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     
     toViewController.view.hidden = NO;
