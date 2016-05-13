@@ -1,13 +1,13 @@
 //
 //  DemoViewController.h
-//  UIViewControllerTransitions
+//  ModalTransitionAnimator
 //
-//  Created by Steve Kim on 05/13/2016.
+//  Created by Steve Kim on 05/12/2016.
 //  Copyright (c) 2016 Steve Kim. All rights reserved.
 //
 
 @import UIKit;
 
-@interface DemoViewController : UIViewController
+@interface DemoViewController : UITableViewController
 
 @end

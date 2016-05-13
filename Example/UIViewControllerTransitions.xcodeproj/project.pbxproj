@@ -22,6 +22,16 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		DC303CC31CE58EF80085395D /* DragDropTransitionFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC303CBD1CE58EF80085395D /* DragDropTransitionFirstView.xib */; };
+		DC303CC41CE58EF80085395D /* DragDropTransitionFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC303CBF1CE58EF80085395D /* DragDropTransitionFirstViewController.m */; };
+		DC303CC51CE58EF80085395D /* DragDropTransitionSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC303CC01CE58EF80085395D /* DragDropTransitionSecondView.xib */; };
+		DC303CC61CE58EF80085395D /* DragDropTransitionSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC303CC21CE58EF80085395D /* DragDropTransitionSecondViewController.m */; };
+		DC303CC91CE58F160085395D /* ex.png in Resources */ = {isa = PBXBuildFile; fileRef = DC303CC71CE58F160085395D /* ex.png */; };
+		DC303CCA1CE58F160085395D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC303CC81CE58F160085395D /* LaunchScreen.storyboard */; };
+		DC303CD21CE596700085395D /* MoveTransitionFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC303CD01CE596700085395D /* MoveTransitionFirstViewController.m */; };
+		DC303CD31CE596700085395D /* MoveTransitionFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC303CD11CE596700085395D /* MoveTransitionFirstView.xib */; };
+		DC303CD71CE596FD0085395D /* MoveTransitionSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC303CD51CE596FD0085395D /* MoveTransitionSecondViewController.m */; };
+		DC303CD81CE596FD0085395D /* MoveTransitionSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC303CD61CE596FD0085395D /* MoveTransitionSecondView.xib */; };
 		ED7B14BEBD59CBA340049AB7 /* Pods_UIViewControllerTransitions_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D544000CF3B29512EAF0D13B /* Pods_UIViewControllerTransitions_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +73,20 @@
 		C73CA04607B807B38338EFCA /* Pods_UIViewControllerTransitions_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UIViewControllerTransitions_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C980721F417434BDACFD36B6 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		D544000CF3B29512EAF0D13B /* Pods_UIViewControllerTransitions_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UIViewControllerTransitions_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC303CBD1CE58EF80085395D /* DragDropTransitionFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DragDropTransitionFirstView.xib; sourceTree = "<group>"; };
+		DC303CBE1CE58EF80085395D /* DragDropTransitionFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragDropTransitionFirstViewController.h; sourceTree = "<group>"; };
+		DC303CBF1CE58EF80085395D /* DragDropTransitionFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DragDropTransitionFirstViewController.m; sourceTree = "<group>"; };
+		DC303CC01CE58EF80085395D /* DragDropTransitionSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DragDropTransitionSecondView.xib; sourceTree = "<group>"; };
+		DC303CC11CE58EF80085395D /* DragDropTransitionSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragDropTransitionSecondViewController.h; sourceTree = "<group>"; };
+		DC303CC21CE58EF80085395D /* DragDropTransitionSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DragDropTransitionSecondViewController.m; sourceTree = "<group>"; };
+		DC303CC71CE58F160085395D /* ex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex.png; sourceTree = "<group>"; };
+		DC303CC81CE58F160085395D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DC303CCF1CE596700085395D /* MoveTransitionFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveTransitionFirstViewController.h; sourceTree = "<group>"; };
+		DC303CD01CE596700085395D /* MoveTransitionFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveTransitionFirstViewController.m; sourceTree = "<group>"; };
+		DC303CD11CE596700085395D /* MoveTransitionFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoveTransitionFirstView.xib; sourceTree = "<group>"; };
+		DC303CD41CE596FD0085395D /* MoveTransitionSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveTransitionSecondViewController.h; sourceTree = "<group>"; };
+		DC303CD51CE596FD0085395D /* MoveTransitionSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveTransitionSecondViewController.m; sourceTree = "<group>"; };
+		DC303CD61CE596FD0085395D /* MoveTransitionSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoveTransitionSecondView.xib; sourceTree = "<group>"; };
 		E90FAC279C8476B56523BDCD /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E9EABE18F8A41F65FB32BC92 /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,9 +167,23 @@
 			children = (
 				6003F59C195388D20070C39A /* DemoAppDelegate.h */,
 				6003F59D195388D20070C39A /* DemoAppDelegate.m */,
-				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* DemoViewController.h */,
 				6003F5A6195388D20070C39A /* DemoViewController.m */,
+				DC303CBE1CE58EF80085395D /* DragDropTransitionFirstViewController.h */,
+				DC303CBF1CE58EF80085395D /* DragDropTransitionFirstViewController.m */,
+				DC303CC11CE58EF80085395D /* DragDropTransitionSecondViewController.h */,
+				DC303CC21CE58EF80085395D /* DragDropTransitionSecondViewController.m */,
+				DC303CCF1CE596700085395D /* MoveTransitionFirstViewController.h */,
+				DC303CD01CE596700085395D /* MoveTransitionFirstViewController.m */,
+				DC303CD41CE596FD0085395D /* MoveTransitionSecondViewController.h */,
+				DC303CD51CE596FD0085395D /* MoveTransitionSecondViewController.m */,
+				DC303CBD1CE58EF80085395D /* DragDropTransitionFirstView.xib */,
+				DC303CC01CE58EF80085395D /* DragDropTransitionSecondView.xib */,
+				DC303CD11CE596700085395D /* MoveTransitionFirstView.xib */,
+				DC303CD61CE596FD0085395D /* MoveTransitionSecondView.xib */,
+				DC303CC81CE58F160085395D /* LaunchScreen.storyboard */,
+				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
+				DC303CC71CE58F160085395D /* ex.png */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -276,9 +314,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC303CC91CE58F160085395D /* ex.png in Resources */,
+				DC303CC51CE58EF80085395D /* DragDropTransitionSecondView.xib in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				DC303CCA1CE58F160085395D /* LaunchScreen.storyboard in Resources */,
+				DC303CC31CE58EF80085395D /* DragDropTransitionFirstView.xib in Resources */,
+				DC303CD81CE596FD0085395D /* MoveTransitionSecondView.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				DC303CD31CE596700085395D /* MoveTransitionFirstView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,9 +434,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC303CC41CE58EF80085395D /* DragDropTransitionFirstViewController.m in Sources */,
+				DC303CC61CE58EF80085395D /* DragDropTransitionSecondViewController.m in Sources */,
 				6003F59E195388D20070C39A /* DemoAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* DemoViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				DC303CD21CE596700085395D /* MoveTransitionFirstViewController.m in Sources */,
+				DC303CD71CE596FD0085395D /* MoveTransitionSecondViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,6 @@
+framework module UIViewControllerTransitions {
+  umbrella header "UIViewControllerTransitions-umbrella.h"
+
+  export *
+  module * { export * }
+}

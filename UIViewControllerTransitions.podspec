@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "UIViewControllerTransitions"
-  s.version          = "0.1.0"
+  s.version          = "1.0.0"
   s.summary          = "A short description of UIViewControllerTransitions."
 
 # This description is used to generate tags and improve search results.
@@ -21,22 +21,14 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/UIViewControllerTransitions"
+  s.homepage         = "https://github.com/pisces/UIViewControllerTransitions"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Steve Kim" => "hh963103@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/UIViewControllerTransitions.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/pisces/UIViewControllerTransitions.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '7.0'
 
   s.source_files = 'UIViewControllerTransitions/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'UIViewControllerTransitions' => ['UIViewControllerTransitions/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end

@@ -1,0 +1,6 @@
+framework module Pods_UIViewControllerTransitions_Tests {
+  umbrella header "Pods-UIViewControllerTransitions_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

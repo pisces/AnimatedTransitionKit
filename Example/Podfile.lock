@@ -1,0 +1,16 @@
+PODS:
+  - UIViewControllerTransitions (1.0.0)
+
+DEPENDENCIES:
+  - UIViewControllerTransitions (from `../`)
+
+EXTERNAL SOURCES:
+  UIViewControllerTransitions:
+    :path: ../
+
+SPEC CHECKSUMS:
+  UIViewControllerTransitions: 1c7e6ab3a18c1b7f70d1f25d2fe04d2d37e06c40
+
+PODFILE CHECKSUM: 95ed24ff60f6256aab943e76af4fb1cac0d7065c
+
+COCOAPODS: 1.0.0
