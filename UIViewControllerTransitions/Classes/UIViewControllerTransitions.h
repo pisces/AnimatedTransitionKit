@@ -10,6 +10,7 @@
 #define UIViewControllerTransitions_h
 
 #import "UIViewControllerDragDropTransition.h"
+#import "UIViewControllerFadeTransition.h"
 #import "UIViewControllerMoveTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
 

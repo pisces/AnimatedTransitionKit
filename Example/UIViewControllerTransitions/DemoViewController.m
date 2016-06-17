@@ -9,6 +9,7 @@
 #import "DemoViewController.h"
 #import "DragDropTransitionFirstViewController.h"
 #import "MoveTransitionFirstViewController.h"
+#import "FadeTransitionFirstViewController.h"
 
 @interface DemoViewController ()
 
@@ -23,7 +24,7 @@
     [super viewDidLoad];
     
     self.title = @"UIViewController Transitions Demo";
-    exampleTitles = @[@"UIViewController DragDrop Transition", @"UIViewController Move Transition"];
+    exampleTitles = @[@"UIViewController DragDrop Transition", @"UIViewController Move Transition", @"UIViewController Fade Transition"];
 }
 
 // ================================================================================================
@@ -69,6 +70,8 @@
         controller = [[DragDropTransitionFirstViewController alloc] initWithNibName:@"DragDropTransitionFirstView" bundle:[NSBundle mainBundle]];
     } else if (indexPath.row == 1) {
         controller = [[MoveTransitionFirstViewController alloc] initWithNibName:@"MoveTransitionFirstView" bundle:[NSBundle mainBundle]];
+    } else if (indexPath.row == 2) {
+        controller = [[FadeTransitionFirstViewController alloc] initWithNibName:@"FadeTransitionFirstView" bundle:[NSBundle mainBundle]];
     }
     
     [self.navigationController pushViewController:controller animated:YES];

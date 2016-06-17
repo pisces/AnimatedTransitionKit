@@ -2,10 +2,12 @@
 
 #import "AbstractUIViewControllerTransition.h"
 #import "AnimatedDragDropTransition.h"
+#import "AnimatedFadeTransition.h"
 #import "AnimatedMoveTransition.h"
 #import "AnimatedTransition.h"
 #import "UIMaskedImageView.h"
 #import "UIViewControllerDragDropTransition.h"
+#import "UIViewControllerFadeTransition.h"
 #import "UIViewControllerMoveTransition.h"
 #import "UIViewControllerTransitions.h"
 #import "UIViewControllerTransitionsMacro.h"
