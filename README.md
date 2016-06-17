@@ -1,6 +1,6 @@
 # UIViewControllerTransitions
 
-[![CI Status](http://img.shields.io/travis/Steve Kim/UIViewControllerTransitions.svg?style=flat)](https://travis-ci.org/Steve Kim/UIViewControllerTransitions)
+[![CI Status](http://img.shields.io/travis/pisces/UIViewControllerTransitions.svg?style=flat)](https://travis-ci.org/Steve Kim/UIViewControllerTransitions)
 [![Version](https://img.shields.io/cocoapods/v/UIViewControllerTransitions.svg?style=flat)](http://cocoapods.org/pods/UIViewControllerTransitions)
 [![License](https://img.shields.io/cocoapods/l/UIViewControllerTransitions.svg?style=flat)](http://cocoapods.org/pods/UIViewControllerTransitions)
 [![Platform](https://img.shields.io/cocoapods/p/UIViewControllerTransitions.svg?style=flat)](http://cocoapods.org/pods/UIViewControllerTransitions)

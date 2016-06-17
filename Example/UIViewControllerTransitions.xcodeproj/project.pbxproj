@@ -32,6 +32,10 @@
 		DC303CD31CE596700085395D /* MoveTransitionFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC303CD11CE596700085395D /* MoveTransitionFirstView.xib */; };
 		DC303CD71CE596FD0085395D /* MoveTransitionSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC303CD51CE596FD0085395D /* MoveTransitionSecondViewController.m */; };
 		DC303CD81CE596FD0085395D /* MoveTransitionSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC303CD61CE596FD0085395D /* MoveTransitionSecondView.xib */; };
+		DCC9C1A11D144B5C00C2A6D6 /* FadeTransitionFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC9C1A01D144B5C00C2A6D6 /* FadeTransitionFirstViewController.m */; };
+		DCC9C1A31D144B8100C2A6D6 /* FadeTransitionFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCC9C1A21D144B8100C2A6D6 /* FadeTransitionFirstView.xib */; };
+		DCC9C1A51D144BD400C2A6D6 /* FadeTransitionSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCC9C1A41D144BD400C2A6D6 /* FadeTransitionSecondView.xib */; };
+		DCC9C1A81D144BFE00C2A6D6 /* FadeTransitionSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC9C1A71D144BFE00C2A6D6 /* FadeTransitionSecondViewController.m */; };
 		ED7B14BEBD59CBA340049AB7 /* Pods_UIViewControllerTransitions_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D544000CF3B29512EAF0D13B /* Pods_UIViewControllerTransitions_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +91,12 @@
 		DC303CD41CE596FD0085395D /* MoveTransitionSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveTransitionSecondViewController.h; sourceTree = "<group>"; };
 		DC303CD51CE596FD0085395D /* MoveTransitionSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveTransitionSecondViewController.m; sourceTree = "<group>"; };
 		DC303CD61CE596FD0085395D /* MoveTransitionSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoveTransitionSecondView.xib; sourceTree = "<group>"; };
+		DCC9C19F1D144B5C00C2A6D6 /* FadeTransitionFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FadeTransitionFirstViewController.h; sourceTree = "<group>"; };
+		DCC9C1A01D144B5C00C2A6D6 /* FadeTransitionFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FadeTransitionFirstViewController.m; sourceTree = "<group>"; };
+		DCC9C1A21D144B8100C2A6D6 /* FadeTransitionFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FadeTransitionFirstView.xib; sourceTree = "<group>"; };
+		DCC9C1A41D144BD400C2A6D6 /* FadeTransitionSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FadeTransitionSecondView.xib; sourceTree = "<group>"; };
+		DCC9C1A61D144BFE00C2A6D6 /* FadeTransitionSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FadeTransitionSecondViewController.h; sourceTree = "<group>"; };
+		DCC9C1A71D144BFE00C2A6D6 /* FadeTransitionSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FadeTransitionSecondViewController.m; sourceTree = "<group>"; };
 		E90FAC279C8476B56523BDCD /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E9EABE18F8A41F65FB32BC92 /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -173,12 +183,18 @@
 				DC303CBF1CE58EF80085395D /* DragDropTransitionFirstViewController.m */,
 				DC303CC11CE58EF80085395D /* DragDropTransitionSecondViewController.h */,
 				DC303CC21CE58EF80085395D /* DragDropTransitionSecondViewController.m */,
+				DCC9C19F1D144B5C00C2A6D6 /* FadeTransitionFirstViewController.h */,
+				DCC9C1A01D144B5C00C2A6D6 /* FadeTransitionFirstViewController.m */,
+				DCC9C1A61D144BFE00C2A6D6 /* FadeTransitionSecondViewController.h */,
+				DCC9C1A71D144BFE00C2A6D6 /* FadeTransitionSecondViewController.m */,
 				DC303CCF1CE596700085395D /* MoveTransitionFirstViewController.h */,
 				DC303CD01CE596700085395D /* MoveTransitionFirstViewController.m */,
 				DC303CD41CE596FD0085395D /* MoveTransitionSecondViewController.h */,
 				DC303CD51CE596FD0085395D /* MoveTransitionSecondViewController.m */,
 				DC303CBD1CE58EF80085395D /* DragDropTransitionFirstView.xib */,
 				DC303CC01CE58EF80085395D /* DragDropTransitionSecondView.xib */,
+				DCC9C1A21D144B8100C2A6D6 /* FadeTransitionFirstView.xib */,
+				DCC9C1A41D144BD400C2A6D6 /* FadeTransitionSecondView.xib */,
 				DC303CD11CE596700085395D /* MoveTransitionFirstView.xib */,
 				DC303CD61CE596FD0085395D /* MoveTransitionSecondView.xib */,
 				DC303CC81CE58F160085395D /* LaunchScreen.storyboard */,
@@ -318,6 +334,8 @@
 				DC303CC51CE58EF80085395D /* DragDropTransitionSecondView.xib in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				DCC9C1A51D144BD400C2A6D6 /* FadeTransitionSecondView.xib in Resources */,
+				DCC9C1A31D144B8100C2A6D6 /* FadeTransitionFirstView.xib in Resources */,
 				DC303CCA1CE58F160085395D /* LaunchScreen.storyboard in Resources */,
 				DC303CC31CE58EF80085395D /* DragDropTransitionFirstView.xib in Resources */,
 				DC303CD81CE596FD0085395D /* MoveTransitionSecondView.xib in Resources */,
@@ -434,10 +452,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCC9C1A11D144B5C00C2A6D6 /* FadeTransitionFirstViewController.m in Sources */,
 				DC303CC41CE58EF80085395D /* DragDropTransitionFirstViewController.m in Sources */,
 				DC303CC61CE58EF80085395D /* DragDropTransitionSecondViewController.m in Sources */,
 				6003F59E195388D20070C39A /* DemoAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* DemoViewController.m in Sources */,
+				DCC9C1A81D144BFE00C2A6D6 /* FadeTransitionSecondViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				DC303CD21CE596700085395D /* MoveTransitionFirstViewController.m in Sources */,
 				DC303CD71CE596FD0085395D /* MoveTransitionSecondViewController.m in Sources */,

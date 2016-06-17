@@ -1,8 +1,8 @@
 {
   "name": "UIViewControllerTransitions",
-  "version": "1.0.0",
-  "summary": "A short description of UIViewControllerTransitions.",
-  "description": "TODO: Add long description of the pod here.",
+  "version": "1.0.1",
+  "summary": "Custom UIViewController Transitions.",
+  "description": "This library helps you to apply and create Custom UIViewController Transitions.",
   "homepage": "https://github.com/pisces/UIViewControllerTransitions",
   "license": "MIT",
   "authors": {
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/pisces/UIViewControllerTransitions.git",
-    "tag": "1.0.0"
+    "tag": "1.0.1"
   },
   "platforms": {
     "ios": "7.0"
