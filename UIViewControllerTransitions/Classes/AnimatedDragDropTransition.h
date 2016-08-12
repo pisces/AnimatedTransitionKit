@@ -27,6 +27,7 @@ typedef void (^AnimatedDragDropTransitionCompletionBlock)(void);
 @end
 
 @interface AnimatedDragDropTransition : AnimatedTransition <AnimatedDragDropTransitionProtected>
+@property (nonatomic) UIViewContentMode imageViewContentMode;
 @property (nonnull, nonatomic, strong) AnimatedDragDropTransitionSource *transitionSource;
 @property (nonnull, nonatomic, strong) UIImage *sourceImage;
 @property (nonnull, nonatomic, strong) UIImageView *dismissiontImageView;

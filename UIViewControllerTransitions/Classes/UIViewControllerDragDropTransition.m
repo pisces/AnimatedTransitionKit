@@ -19,8 +19,15 @@
 
 #pragma mark - Overridden: AbstractUIViewControllerTransition
 
+- (void)initProperties {
+    [super initProperties];
+    
+    _imageViewContentMode = UIViewContentModeScaleAspectFill;
+}
+
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     AnimatedDragDropTransition *transition = [AnimatedDragDropTransition new];
+    transition.imageViewContentMode = _imageViewContentMode;
     transition.transitionSource = _dismissionSource;
     transition.dismissiontImageView = dismissionImageView;
     
@@ -36,6 +43,7 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     AnimatedDragDropTransition *transition = [AnimatedDragDropTransition new];
     transition.presenting = YES;
+    transition.imageViewContentMode = _imageViewContentMode;
     transition.transitionSource =_presentingSource;
     transition.sourceImage = _sourceImage;
     return transition;

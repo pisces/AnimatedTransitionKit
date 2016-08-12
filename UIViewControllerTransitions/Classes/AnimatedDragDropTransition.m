@@ -130,7 +130,7 @@
     UIMaskedImageView *imageView = [[UIMaskedImageView alloc] initWithFrame:_transitionSource.from()];
     imageView.clipsToBounds = YES;
     imageView.backgroundColor = [UIColor clearColor];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.contentMode = _imageViewContentMode;
     imageView.image = _sourceImage;
     return imageView;
 }

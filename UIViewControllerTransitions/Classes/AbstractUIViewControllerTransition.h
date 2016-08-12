@@ -13,6 +13,7 @@
 - (void)animateTransitionCancelled:(UIPanGestureRecognizer * _Nonnull)gestureRecognizer;
 - (void)animateTransitionChanged:(UIPanGestureRecognizer * _Nonnull)gestureRecognizer;
 - (void)animateTransitionCancelCompleted;
+- (void)initProperties;
 @end
 
 @protocol UIViewControllerTransitionDataSource;
@@ -27,6 +28,7 @@
 
 @property (nonatomic) BOOL allowsGestureTransitions;
 @property (nonatomic) CGFloat bounceHeight;
+@property (nonatomic) NSTimeInterval duration;
 @property (nonatomic, strong) UIViewController * _Nullable viewController;
 @property (nonatomic, weak) id<UIViewControllerTransitionDataSource> _Nullable dismissionDataSource;
 @property (nonatomic, weak) id<UIViewControllerTransitionDelegate> _Nullable dismissionDelegate;

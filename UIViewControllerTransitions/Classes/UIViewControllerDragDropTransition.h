@@ -19,6 +19,7 @@
     UIMaskedImageView *dismissionImageView;
 }
 
+@property (nonatomic) UIViewContentMode imageViewContentMode;
 @property (nullable, nonatomic, strong) AnimatedDragDropTransitionSource *dismissionSource;
 @property (nullable, nonatomic, strong) AnimatedDragDropTransitionSource *presentingSource;
 @property (nullable, nonatomic, strong) UIImage *sourceImage;

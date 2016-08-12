@@ -102,18 +102,23 @@
 }
 
 // ================================================================================================
-//  Private
+//  Protected
 // ================================================================================================
 
-#pragma mark - Private methods
+#pragma mark - Protected methods
 
 - (void)initProperties {
     _allowsGestureTransitions = YES;
     _bounceHeight = 100;
+    _duration = 0.6;
     panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
 }
 
-#pragma mark -  UIGestureRecognizer selector
+// ================================================================================================
+//  Private
+// ================================================================================================
+
+#pragma mark - UIGestureRecognizer selector
 
 - (void)panned:(UIPanGestureRecognizer *)gestureRecognizer {
     if (!_allowsGestureTransitions)
