@@ -16,10 +16,6 @@
 
 #pragma mark - Overridden: AnimatedTransition
 
-- (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 0.6;
-}
-
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
     [toViewController viewWillAppear:YES];
     
