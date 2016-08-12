@@ -54,8 +54,9 @@
     
     if (dismissionImage) {
         dismissionImageView = [[UIMaskedImageView alloc] initWithImage:dismissionImage];
-        dismissionImageView.contentMode = UIViewContentModeScaleAspectFill;
+        dismissionImageView.backgroundColor = [UIColor clearColor];
         dismissionImageView.clipsToBounds = YES;
+        dismissionImageView.contentMode = _imageViewContentMode;
         
         if ([_dismissionDataSource respondsToSelector:@selector(sourceImageRectForDismission)])
             dismissionImageView.frame = [_dismissionDataSource sourceImageRectForDismission];
