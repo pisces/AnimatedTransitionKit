@@ -30,6 +30,7 @@
     transition.imageViewContentMode = _imageViewContentMode;
     transition.transitionSource = _dismissionSource;
     transition.dismissiontImageView = dismissionImageView;
+    transition.duration = self.durationForDismission;
     
     if ([_dismissionDataSource respondsToSelector:@selector(sourceImageForDismission)]) {
         transition.sourceImage = [_dismissionDataSource sourceImageForDismission];
@@ -43,6 +44,7 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     AnimatedDragDropTransition *transition = [AnimatedDragDropTransition new];
     transition.presenting = YES;
+    transition.duration = self.durationForPresenting;
     transition.imageViewContentMode = _imageViewContentMode;
     transition.transitionSource =_presentingSource;
     transition.sourceImage = _sourceImage;
@@ -85,7 +87,7 @@
 
 - (void)animateTransitionChanged:(UIPanGestureRecognizer *)gestureRecognizer {
     CGPoint p = [gestureRecognizer locationInView:self.viewController.view.window];
-    CGFloat y = originViewPoint.y + (p.y - originPoint.y);
+    CGFloat y = self.originViewPoint.y + (p.y - self.originPoint.y);
     CGFloat alpha = MIN(0.5, 0.5 * ABS(y) / self.bounceHeight);
     CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * ABS(y) / self.bounceHeight));
     
@@ -99,7 +101,7 @@
         navigationController.navigationBar.alpha = 1 - ABS(y)/self.bounceHeight;
     }
     
-    dismissionImageView.frame = CGRectMakeXY(dismissionImageView.frame, originDismissionImageViewPoint.x + (p.x - originPoint.x), originDismissionImageViewPoint.y + (p.y - originPoint.y));
+    dismissionImageView.frame = CGRectMakeXY(dismissionImageView.frame, originDismissionImageViewPoint.x + (p.x - self.originPoint.x), originDismissionImageViewPoint.y + (p.y - self.originPoint.y));
 }
 
 - (void)animateTransitionCancelCompleted {

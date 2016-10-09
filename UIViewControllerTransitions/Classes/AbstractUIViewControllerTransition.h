@@ -20,16 +20,13 @@
 @protocol UIViewControllerTransitionDelegate;
 
 @interface AbstractUIViewControllerTransition : NSObject <AbstractUIViewControllerTransitionProtected, UIViewControllerTransitioningDelegate>
-{
-@protected
-    CGPoint originPoint;
-    CGPoint originViewPoint;
-}
-
 @property (nonatomic) BOOL allowsGestureTransitions;
 @property (nonatomic) CGFloat bounceHeight;
-@property (nonatomic) NSTimeInterval duration;
+@property (nonatomic) NSTimeInterval durationForDismission;
+@property (nonatomic) NSTimeInterval durationForPresenting;
 @property (nonatomic, strong) UIViewController * _Nullable viewController;
+@property (nonatomic, readonly) CGPoint originPoint;
+@property (nonatomic, readonly) CGPoint originViewPoint;
 @property (nonatomic, weak) id<UIViewControllerTransitionDataSource> _Nullable dismissionDataSource;
 @property (nonatomic, weak) id<UIViewControllerTransitionDelegate> _Nullable dismissionDelegate;
 - (id _Nonnull)initWithViewController:(UIViewController * _Nullable)viewController;

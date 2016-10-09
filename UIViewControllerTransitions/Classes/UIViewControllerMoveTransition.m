@@ -22,12 +22,15 @@
 #pragma mark - Overridden: AbstractUIViewControllerTransition
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    return [AnimatedMoveTransition new];
+    AnimatedMoveTransition *transition = [AnimatedMoveTransition new];
+    transition.duration = self.durationForDismission;
+    return transition;
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     AnimatedMoveTransition *transition = [AnimatedMoveTransition new];
     transition.presenting = YES;
+    transition.duration = self.durationForPresenting;
     return transition;
 }
 
@@ -49,7 +52,7 @@
 
 - (void)animateTransitionChanged:(UIPanGestureRecognizer *)gestureRecognizer {
     const CGPoint p = [gestureRecognizer locationInView:self.viewController.view.window];
-    const CGFloat y = originViewPoint.y + (p.y - originPoint.y);
+    const CGFloat y = self.originViewPoint.y + (p.y - self.originPoint.y);
     const CGFloat alpha = MIN(0.5, 0.5 * ABS(y) / self.bounceHeight);
     const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * ABS(y) / self.bounceHeight));
     
