@@ -19,4 +19,5 @@
     UIViewController *toViewController;
 }
 @property (nonatomic) BOOL presenting;
+@property (nonatomic) NSTimeInterval duration;
 @end

@@ -102,18 +102,24 @@
 }
 
 // ================================================================================================
-//  Private
+//  Protected
 // ================================================================================================
 
-#pragma mark - Private methods
+#pragma mark - Protected methods
 
 - (void)initProperties {
     _allowsGestureTransitions = YES;
     _bounceHeight = 100;
+    _durationForDismission = _durationForPresenting = 0.6;
     panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
+    panGestureRecognizer.cancelsTouchesInView = NO;
 }
 
-#pragma mark -  UIGestureRecognizer selector
+// ================================================================================================
+//  Private
+// ================================================================================================
+
+#pragma mark - UIGestureRecognizer selector
 
 - (void)panned:(UIPanGestureRecognizer *)gestureRecognizer {
     if (!_allowsGestureTransitions)
@@ -125,8 +131,8 @@
         return;
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        originPoint = [gestureRecognizer locationInView:_viewController.view.window];
-        originViewPoint = _viewController.view.frame.origin;
+        _originPoint = [gestureRecognizer locationInView:_viewController.view.window];
+        _originViewPoint = _viewController.view.frame.origin;
         
         [self animateTransitionBegan:gestureRecognizer];
         [_dismissionDelegate didBeginTransition];
@@ -135,7 +141,7 @@
     } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
                gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
         CGPoint p = [gestureRecognizer locationInView:_viewController.view.window];
-        CGFloat y = originViewPoint.y + (p.y - originPoint.y);
+        CGFloat y = _originViewPoint.y + (p.y - _originPoint.y);
         
         if (ABS(y) > _bounceHeight) {
             [_viewController dismissViewControllerAnimated:YES completion:^{

@@ -91,7 +91,7 @@
     toViewController.view.alpha = 0;
     toViewController.view.frame = fromViewController.view.bounds;
     
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
+    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:1.0 options:7 animations:^{
         imageView.frame = _transitionSource.to();
         toViewController.view.alpha = 1;
         fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
@@ -128,9 +128,9 @@
 
 - (UIMaskedImageView *)createImageView {
     UIMaskedImageView *imageView = [[UIMaskedImageView alloc] initWithFrame:_transitionSource.from()];
-    imageView.clipsToBounds = YES;
     imageView.backgroundColor = [UIColor clearColor];
-    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
+    imageView.contentMode = _imageViewContentMode;
     imageView.image = _sourceImage;
     return imageView;
 }

@@ -13,5 +13,6 @@
 #import "UIViewControllerFadeTransition.h"
 #import "UIViewControllerMoveTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
+#import "AnimatedMoveTransition.h"
 
 #endif /* UIViewControllerTransitions_h */

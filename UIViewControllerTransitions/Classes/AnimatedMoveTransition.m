@@ -17,10 +17,6 @@
 
 #pragma mark - Overridden: AnimatedTransition
 
-- (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return 1.0;
-}
-
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
     [toViewController viewWillAppear:YES];
     
@@ -30,15 +26,15 @@
     toViewController.view.hidden = NO;
     toViewController.view.window.backgroundColor = [UIColor blackColor];
     
+    const CGFloat y = fromViewController.view.frame.origin.y;
+    const CGFloat h = CGRectGetHeight(fromViewController.view.frame);
+    const CGRect toFrame = CGRectMakeY(fromViewController.view.frame, y < 0 ? -h : h);
+    
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
         toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
         toViewController.view.alpha = 1;
         toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        
-        const CGFloat y = CGRectGetMaxY(fromViewController.view.frame);
-        const CGFloat h = CGRectGetHeight(fromViewController.view.frame);
-        
-        fromViewController.view.frame = CGRectMakeY(fromViewController.view.frame, y >= 0 ? h : -h);
+        fromViewController.view.frame = toFrame;
     } completion:^(BOOL finished) {
         toViewController.view.userInteractionEnabled = YES;
         toViewController.view.window.backgroundColor = [UIColor whiteColor];
