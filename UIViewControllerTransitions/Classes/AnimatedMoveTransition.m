@@ -28,7 +28,7 @@
     
     const CGFloat y = fromViewController.view.frame.origin.y;
     const CGFloat h = CGRectGetHeight(fromViewController.view.frame);
-    const CGRect toFrame = CGRectMakeY(fromViewController.view.frame, y < 0 ? -h : h);
+    const CGRect toFrame = CGRectMakeY(fromViewController.view.frame, y >= 0 ? h : -h);
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
         toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
