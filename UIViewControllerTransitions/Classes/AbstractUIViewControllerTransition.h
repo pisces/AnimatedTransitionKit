@@ -24,7 +24,7 @@
 @property (nonatomic) CGFloat bounceHeight;
 @property (nonatomic) NSTimeInterval durationForDismission;
 @property (nonatomic) NSTimeInterval durationForPresenting;
-@property (nonatomic, strong) UIViewController * _Nullable viewController;
+@property (nonatomic, weak) UIViewController * _Nullable viewController;
 @property (nonatomic, readonly) CGPoint originPoint;
 @property (nonatomic, readonly) CGPoint originViewPoint;
 @property (nonatomic, weak) id<UIViewControllerTransitionDataSource> _Nullable dismissionDataSource;
