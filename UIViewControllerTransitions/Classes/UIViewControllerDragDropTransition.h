@@ -28,6 +28,6 @@
 
 @protocol UIViewControllerDragDropTransitionDataSource <UIViewControllerTransitionDataSource>
 @optional
-- (UIImage * _Nonnull)sourceImageForDismission;
+- (UIImage * _Nullable)sourceImageForDismission;
 - (CGRect)sourceImageRectForDismission;
 @end
