@@ -24,11 +24,12 @@
 @property (nonatomic) CGFloat bounceHeight;
 @property (nonatomic) NSTimeInterval durationForDismission;
 @property (nonatomic) NSTimeInterval durationForPresenting;
-@property (nonatomic, weak) UIViewController * _Nullable viewController;
+@property (nullable, nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, readonly) CGPoint originPoint;
 @property (nonatomic, readonly) CGPoint originViewPoint;
-@property (nonatomic, weak) id<UIViewControllerTransitionDataSource> _Nullable dismissionDataSource;
-@property (nonatomic, weak) id<UIViewControllerTransitionDelegate> _Nullable dismissionDelegate;
+@property (nullable, nonatomic, weak) id<UIViewControllerTransitionDataSource> dismissionDataSource;
+@property (nullable, nonatomic, weak) id<UIViewControllerTransitionDelegate> dismissionDelegate;
+@property (nonnull, nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
 - (id _Nonnull)initWithViewController:(UIViewController * _Nullable)viewController;
 @end
 

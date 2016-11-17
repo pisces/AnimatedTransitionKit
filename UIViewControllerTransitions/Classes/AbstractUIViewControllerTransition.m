@@ -12,7 +12,6 @@
 @implementation AbstractUIViewControllerTransition
 {
     BOOL keyboardShowing;
-    UIPanGestureRecognizer *panGestureRecognizer;
 }
 
 // ================================================================================================
@@ -22,7 +21,7 @@
 #pragma mark - Overridden: NSObject
 
 - (void)dealloc {
-    [_viewController.view removeGestureRecognizer:panGestureRecognizer];
+    [_viewController.view removeGestureRecognizer:_panGestureRecognizer];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -73,14 +72,14 @@
         return;
     
     if (_viewController) {
-        [_viewController.view removeGestureRecognizer:panGestureRecognizer];
+        [_viewController.view removeGestureRecognizer:_panGestureRecognizer];
     }
     
     _viewController = viewController;
     _viewController.transitioningDelegate = self;
     _viewController.modalPresentationStyle = UIModalPresentationCustom;
     
-    [_viewController.view addGestureRecognizer:panGestureRecognizer];
+    [_viewController.view addGestureRecognizer:_panGestureRecognizer];
 }
 
 // ================================================================================================
@@ -111,8 +110,7 @@
     _allowsGestureTransitions = YES;
     _bounceHeight = 100;
     _durationForDismission = _durationForPresenting = 0.6;
-    panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
-    panGestureRecognizer.cancelsTouchesInView = NO;
+    _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
 }
 
 // ================================================================================================
@@ -127,7 +125,7 @@
     
     if (gestureRecognizer.numberOfTouches > 1 ||
         keyboardShowing ||
-        ([_dismissionDataSource respondsToSelector:@selector(shouldRequireTransitionFailure)] && ![_dismissionDataSource shouldRequireTransitionFailure]))
+        ([_dismissionDataSource respondsToSelector:@selector(shouldRequireTransitionFailure)] && [_dismissionDataSource shouldRequireTransitionFailure]))
         return;
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
