@@ -56,7 +56,7 @@
     if (toViewController.view.alpha <= 0)
         toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
+    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:1.0 options:7 animations:^{
         imageView.frame = to;
         fromViewController.view.alpha = 0;
         toViewController.view.alpha = 1;
@@ -104,11 +104,10 @@
         fromViewController.view.hidden = YES;
         fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
         
+        _transitionSource.completion();
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [imageView removeFromSuperview];
-            
-            _transitionSource.completion();
-            
             [self clear];
         });
     }];
