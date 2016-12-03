@@ -33,6 +33,12 @@
     }
 }
 
+#pragma mark - Public methods
+
+- (UIWindow *)statusBarWindow {
+    return [[UIApplication sharedApplication] valueForKey:@"statusBarWindow"];
+}
+
 // ================================================================================================
 //  Protected
 // ================================================================================================

@@ -27,6 +27,7 @@
 @property (nullable, nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, readonly) CGPoint originPoint;
 @property (nonatomic, readonly) CGPoint originViewPoint;
+@property (nonatomic, readonly) UIWindow *statusBarWindow;
 @property (nullable, nonatomic, weak) id<UIViewControllerTransitionDataSource> dismissionDataSource;
 @property (nullable, nonatomic, weak) id<UIViewControllerTransitionDelegate> dismissionDelegate;
 @property (nonnull, nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;

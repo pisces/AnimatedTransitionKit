@@ -34,8 +34,10 @@
         toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
         toViewController.view.alpha = 1;
         toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, y);
         fromViewController.view.frame = toFrame;
     } completion:^(BOOL finished) {
+        self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, 0);
         toViewController.view.userInteractionEnabled = YES;
         toViewController.view.window.backgroundColor = [UIColor whiteColor];
         
@@ -48,6 +50,7 @@
     fromViewController.view.userInteractionEnabled = NO;
     fromViewController.view.window.backgroundColor = [UIColor blackColor];
     
+    self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, fromViewController.view.bounds.size.height);
     toViewController.view.frame = CGRectMake(0, fromViewController.view.bounds.size.height, fromViewController.view.bounds.size.width, fromViewController.view.bounds.size.height);
     
     [transitionContext.containerView addSubview:toViewController.view];
@@ -55,6 +58,7 @@
     [toViewController viewWillAppear:YES];
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
+        self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, 0);
         toViewController.view.frame = CGRectMakeY(toViewController.view.frame, 0);
         fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
         fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);

@@ -41,12 +41,13 @@
 }
 
 - (void)animateTransitionCancelled:(UIPanGestureRecognizer *)gestureRecognizer {
+    self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, 0);
     self.viewController.view.frame = CGRectMakeY(self.viewController.view.frame, 0);
     self.viewController.presentingViewController.view.alpha = 0;
     self.viewController.presentingViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     
     const CGFloat y = CGRectGetMinY(self.viewController.view.frame);
-
+    
     [UIApplication sharedApplication].statusBarStyle = y > [UIApplication sharedApplication].statusBarFrame.size.height ? UIStatusBarStyleLightContent : originStatusBarStyle;
 }
 
@@ -56,6 +57,7 @@
     const CGFloat alpha = MIN(0.5, 0.5 * ABS(y) / self.bounceHeight);
     const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * ABS(y) / self.bounceHeight));
     
+    self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, y);
     self.viewController.view.frame = CGRectMakeY(self.viewController.view.frame, y);
     self.viewController.presentingViewController.view.hidden = NO;
     self.viewController.presentingViewController.view.alpha = alpha;

@@ -55,6 +55,10 @@
     return self;
 }
 
+- (UIWindow *)statusBarWindow {
+    return [[UIApplication sharedApplication] valueForKey:@"statusBarWindow"];
+}
+
 // ================================================================================================
 //  Protocol Implementation
 // ================================================================================================
