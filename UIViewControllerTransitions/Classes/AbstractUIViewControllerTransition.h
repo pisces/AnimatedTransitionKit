@@ -42,6 +42,7 @@
 @protocol UIViewControllerTransitionDelegate <NSObject>
 @optional
 - (void)didBeginTransition;
+- (void)didChangeTransition;
 - (void)didEndTransition;
 @end
 
