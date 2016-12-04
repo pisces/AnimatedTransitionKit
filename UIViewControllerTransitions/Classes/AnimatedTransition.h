@@ -20,4 +20,5 @@
 }
 @property (nonatomic) BOOL presenting;
 @property (nonatomic) NSTimeInterval duration;
+@property (nonatomic, readonly) UIWindow *statusBarWindow;
 @end

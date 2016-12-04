@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "UIViewControllerTransitions"
-  s.version          = "1.0.24"
+  s.version          = "1.0.25"
   s.summary          = "Custom UIViewController Transitions."
 
 # This description is used to generate tags and improve search results.

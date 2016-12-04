@@ -52,17 +52,15 @@
 }
 
 - (void)animateTransitionBegan:(UIPanGestureRecognizer *)gestureRecognizer {
-    UIImage *dismissionImage = [_dismissionDataSource respondsToSelector:@selector(sourceImageForDismission)] ? [_dismissionDataSource sourceImageForDismission] : nil;
+    const BOOL hasSouceImageForDismission = [_dismissionDataSource respondsToSelector:@selector(sourceImageForDismission)] && [_dismissionDataSource sourceImageForDismission];
+    const UIImage *dismissionImage = hasSouceImageForDismission ? [_dismissionDataSource sourceImageForDismission] : _sourceImage;
     
     if (dismissionImage) {
         dismissionImageView = [[UIMaskedImageView alloc] initWithImage:dismissionImage];
         dismissionImageView.backgroundColor = [UIColor clearColor];
         dismissionImageView.clipsToBounds = YES;
         dismissionImageView.contentMode = _imageViewContentMode;
-        
-        if ([_dismissionDataSource respondsToSelector:@selector(sourceImageRectForDismission)])
-            dismissionImageView.frame = [_dismissionDataSource sourceImageRectForDismission];
-        
+        dismissionImageView.frame = hasSouceImageForDismission && [_dismissionDataSource respondsToSelector:@selector(sourceImageRectForDismission)] ? [_dismissionDataSource sourceImageRectForDismission] : [_presentingSource to]();
         originDismissionImageViewPoint = dismissionImageView.frame.origin;
         
         [self.viewController.view.window addSubview:dismissionImageView];
@@ -86,10 +84,11 @@
 }
 
 - (void)animateTransitionChanged:(UIPanGestureRecognizer *)gestureRecognizer {
-    CGPoint p = [gestureRecognizer locationInView:self.viewController.view.window];
-    CGFloat y = self.originViewPoint.y + (p.y - self.originPoint.y);
-    CGFloat alpha = MIN(0.5, 0.5 * ABS(y) / self.bounceHeight);
-    CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * ABS(y) / self.bounceHeight));
+    const CGPoint p = [gestureRecognizer locationInView:self.viewController.view.window];
+    const CGFloat y = self.originViewPoint.y + (p.y - self.originPoint.y);
+    const CGFloat alpha = MIN(0.5, 0.5 * ABS(y) / self.bounceHeight);
+    const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * ABS(y) / self.bounceHeight));
+    const CGFloat imageScale = MIN(1, (MAX(0.5, 1 - ABS(y)/CGRectGetHeight(self.viewController.view.frame))));
     
     self.viewController.presentingViewController.view.hidden = NO;
     self.viewController.presentingViewController.view.alpha = alpha;
@@ -101,6 +100,7 @@
         navigationController.navigationBar.alpha = 1 - ABS(y)/self.bounceHeight;
     }
     
+    dismissionImageView.transform = CGAffineTransformMakeScale(imageScale, imageScale);
     dismissionImageView.frame = CGRectMakeXY(dismissionImageView.frame, originDismissionImageViewPoint.x + (p.x - self.originPoint.x), originDismissionImageViewPoint.y + (p.y - self.originPoint.y));
 }
 
