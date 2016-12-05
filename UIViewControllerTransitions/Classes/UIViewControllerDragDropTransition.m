@@ -80,7 +80,10 @@
         navigationController.navigationBar.alpha = 1;
     }
     
-    dismissionImageView.frame = CGRectMakeXY(dismissionImageView.frame, originDismissionImageViewPoint.x, originDismissionImageViewPoint.y);
+    [UIView animateWithDuration:0.25 delay:0 options:7<<16 animations:^{
+        dismissionImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        dismissionImageView.frame = CGRectMakeXY(dismissionImageView.frame, originDismissionImageViewPoint.x, originDismissionImageViewPoint.y);
+    } completion:nil];
 }
 
 - (void)animateTransitionChanged:(UIPanGestureRecognizer *)gestureRecognizer {
@@ -100,8 +103,7 @@
         navigationController.navigationBar.alpha = 1 - ABS(y)/self.bounceHeight;
     }
     
-    dismissionImageView.transform = CGAffineTransformMakeScale(imageScale, imageScale);
-    dismissionImageView.frame = CGRectMakeXY(dismissionImageView.frame, originDismissionImageViewPoint.x + (p.x - self.originPoint.x), originDismissionImageViewPoint.y + (p.y - self.originPoint.y));
+    dismissionImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(imageScale, imageScale), (p.x - self.originPoint.x), (p.y - self.originPoint.y));
 }
 
 - (void)animateTransitionCancelCompleted {
