@@ -140,7 +140,6 @@
         [_dismissionDelegate didBeginTransition];
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         [self animateTransitionChanged:gestureRecognizer];
-        [_dismissionDelegate didChangeTransition];
     } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
                gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
         CGPoint p = [gestureRecognizer locationInView:_viewController.view.window];

@@ -34,7 +34,7 @@
         toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
         toViewController.view.alpha = 1;
         toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, y);
+        self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, toFrame.origin.y);
         fromViewController.view.frame = toFrame;
     } completion:^(BOOL finished) {
         self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, 0);
