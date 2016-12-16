@@ -10,10 +10,6 @@
 
 @implementation AnimatedDragDropTransitionSource
 
-// ================================================================================================
-//  Public
-// ================================================================================================
-
 #pragma mark - Public methods
 
 - (void)clear {
@@ -37,10 +33,6 @@
 
 @implementation AnimatedDragDropTransition
 
-// ================================================================================================
-//  Overridden: AnimatedTransition
-// ================================================================================================
-
 #pragma mark - Overridden: AnimatedTransition
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -59,7 +51,7 @@
         toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 animations:^{
-        imageView.layer.transform = CATransform3DMakeRotation(_transitionSource.rotation() * M_PI / 180, 0, 0, 1);
+        imageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
         imageView.frame = to;
         fromViewController.view.alpha = 0;
         toViewController.view.alpha = 1;
@@ -95,7 +87,7 @@
     toViewController.view.frame = fromViewController.view.bounds;
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 animations:^{
-        imageView.layer.transform = CATransform3DMakeRotation(_transitionSource.rotation() * M_PI / 180, 0, 0, 1);
+        imageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
         imageView.frame = _transitionSource.to();
         toViewController.view.alpha = 1;
         fromViewController.view.alpha = 0;
@@ -118,10 +110,6 @@
     }];
 }
 
-// ================================================================================================
-//  Protected
-// ================================================================================================
-
 #pragma mark - Protected methods
 
 - (void)clear {
@@ -139,5 +127,11 @@
     imageView.layer.anchorPoint = CGPointMake(0.5, 0.5);
     return imageView;
 }
-                                     
+
+#pragma mark - Private methods
+
+- (CGFloat)angle {
+    return _transitionSource.rotation ? _transitionSource.rotation() * M_PI / 180 : 0;
+}
+
 @end
