@@ -60,7 +60,7 @@
         dismissionImageView.backgroundColor = [UIColor clearColor];
         dismissionImageView.clipsToBounds = YES;
         dismissionImageView.contentMode = _imageViewContentMode;
-        dismissionImageView.frame = hasSouceImageForDismission && [_dismissionDataSource respondsToSelector:@selector(sourceImageRectForDismission)] ? [_dismissionDataSource sourceImageRectForDismission] : [_presentingSource to]();
+        dismissionImageView.frame = hasSouceImageForDismission && [_dismissionDataSource respondsToSelector:@selector(sourceImageRectForDismission)] ? [_dismissionDataSource sourceImageRectForDismission] : [_dismissionSource from]();
         
         originDismissionImageViewPoint = dismissionImageView.frame.origin;
         
