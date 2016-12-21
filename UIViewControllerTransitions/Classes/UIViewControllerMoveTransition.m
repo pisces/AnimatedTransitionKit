@@ -21,13 +21,13 @@
 
 #pragma mark - Overridden: AbstractUIViewControllerTransition
 
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+- (AnimatedTransition *)animatedTransitionForDismissedController:(UIViewController *)dismissed {
     AnimatedMoveTransition *transition = [AnimatedMoveTransition new];
     transition.duration = self.durationForDismission;
     return transition;
 }
 
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+- (AnimatedTransition *)animatedTransitionForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     AnimatedMoveTransition *transition = [AnimatedMoveTransition new];
     transition.presenting = YES;
     transition.duration = self.durationForPresenting;

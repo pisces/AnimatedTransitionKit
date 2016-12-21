@@ -30,20 +30,28 @@
     const CGFloat h = CGRectGetHeight(fromViewController.view.frame);
     const CGRect toFrame = CGRectMakeY(fromViewController.view.frame, y >= 0 ? h : -h);
     
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
+    void (^animations)(void) = ^void (void) {
         toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
         toViewController.view.alpha = 1;
         toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
         self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, toFrame.origin.y);
         fromViewController.view.frame = toFrame;
-    } completion:^(BOOL finished) {
+    };
+    void (^completion)(BOOL) = ^void (BOOL finished) {
         self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, 0);
         toViewController.view.userInteractionEnabled = YES;
         toViewController.view.window.backgroundColor = [UIColor whiteColor];
         
         [toViewController viewDidAppear:YES];
         [transitionContext completeTransition:YES];
-    }];
+    };
+    
+    if (transitionContext.animated) {
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:animations completion:completion];
+    } else {
+        animations();
+        completion(NO);
+    }
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {

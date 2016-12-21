@@ -10,15 +10,18 @@
 
 typedef CGRect (^AnimatedDragDropTransitionSourceBlock)(void);
 typedef void (^AnimatedDragDropTransitionCompletionBlock)(void);
+typedef CGFloat (^AnimatedDragDropTransitionValueBlock)(void);
 
 @interface AnimatedDragDropTransitionSource: NSObject;
 @property (nullable, nonatomic, copy) AnimatedDragDropTransitionSourceBlock from;
 @property (nullable, nonatomic, copy) AnimatedDragDropTransitionSourceBlock to;
+@property (nullable, nonatomic, copy) AnimatedDragDropTransitionValueBlock rotation;
 @property (nullable, nonatomic, copy) AnimatedDragDropTransitionCompletionBlock completion;
 - (void)clear;
 - (AnimatedDragDropTransitionSource * _Nonnull)from:(_Nonnull AnimatedDragDropTransitionSourceBlock)from
-                                        to:(_Nonnull AnimatedDragDropTransitionSourceBlock)to
-                                completion:(_Nullable AnimatedDragDropTransitionCompletionBlock)completion;
+                                                 to:(_Nonnull AnimatedDragDropTransitionSourceBlock)to
+                                           rotation:(_Nullable AnimatedDragDropTransitionValueBlock)rotation
+                                         completion:(_Nullable AnimatedDragDropTransitionCompletionBlock)completion;
 @end
 
 @protocol AnimatedDragDropTransitionProtected <NSObject>
