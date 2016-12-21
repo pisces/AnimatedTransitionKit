@@ -25,7 +25,7 @@
     _imageViewContentMode = UIViewContentModeScaleAspectFill;
 }
 
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+- (AnimatedTransition *)animatedTransitionForDismissedController:(UIViewController *)dismissed {
     AnimatedDragDropTransition *transition = [AnimatedDragDropTransition new];
     transition.imageViewContentMode = _imageViewContentMode;
     transition.transitionSource = _dismissionSource;
@@ -41,7 +41,7 @@
     return transition;
 }
 
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+- (AnimatedTransition *)animatedTransitionForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     AnimatedDragDropTransition *transition = [AnimatedDragDropTransition new];
     transition.presenting = YES;
     transition.duration = self.durationForPresenting;

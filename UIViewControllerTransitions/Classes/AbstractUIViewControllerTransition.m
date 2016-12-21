@@ -7,11 +7,15 @@
 //
 
 #import "AbstractUIViewControllerTransition.h"
+#import "AnimatedTransition.h"
+#import "UIViewControllerTransitionsMacro.h"
 #import <objc/runtime.h>
 
 @implementation AbstractUIViewControllerTransition
 {
     BOOL keyboardShowing;
+    __weak UIViewController *presentedController;
+    __weak UIViewController *sourceController;
 }
 
 // ================================================================================================
@@ -21,6 +25,7 @@
 #pragma mark - Overridden: NSObject
 
 - (void)dealloc {
+    [self dismiss];
     [_viewController.view removeGestureRecognizer:_panGestureRecognizer];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -49,10 +54,29 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         
-        self.viewController = viewController;
+        _viewController = viewController;
     }
     
     return self;
+}
+
+- (void)dismiss {
+    [presentedController.navigationController viewWillDisappear:NO];
+    [sourceController.navigationController viewWillAppear:NO];
+    
+    presentedController.navigationController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+    [presentedController.navigationController.view removeFromSuperview];
+    
+    sourceController.navigationController.view.alpha = 1;
+    sourceController.navigationController.view.hidden = NO;
+    sourceController.navigationController.view.userInteractionEnabled = YES;
+    sourceController.navigationController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    sourceController.navigationController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+    
+    [presentedController.navigationController viewDidDisappear:NO];
+    [sourceController.navigationController viewDidAppear:NO];
+    
+    self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, 0);
 }
 
 - (UIWindow *)statusBarWindow {
@@ -65,10 +89,22 @@
 
 #pragma mark - UIViewControllerTransitioning delegate
 
-- (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    return [self animatedTransitionForDismissedController:dismissed];
 }
 
-- (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    presentedController = presented;
+    sourceController = source;
+    return [self animatedTransitionForForPresentedController:presented presentingController:presenting sourceController:source];
+}
+
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
+    return nil;
+}
+
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
+    return nil;
 }
 
 - (void)setViewController:(UIViewController *)viewController {
@@ -91,6 +127,14 @@
 // ================================================================================================
 
 #pragma mark - Protected methods
+
+- (AnimatedTransition *)animatedTransitionForDismissedController:(UIViewController *)dismissed {
+    return nil;
+}
+
+- (AnimatedTransition *)animatedTransitionForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    return nil;
+}
 
 - (void)animateTransitionBegan:(UIPanGestureRecognizer *)gestureRecognizer {
 }
