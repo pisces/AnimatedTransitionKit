@@ -38,6 +38,7 @@
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
     UIImageView *imageView = _dismissiontImageView ? _dismissiontImageView : [self createImageView];
     
+    [fromViewController viewWillDisappear:YES];
     [toViewController viewWillAppear:YES];
     
     if (!_dismissiontImageView)
@@ -61,6 +62,7 @@
         toViewController.view.userInteractionEnabled = YES;
         toViewController.view.window.backgroundColor = [UIColor whiteColor];
         
+        [fromViewController viewDidDisappear:YES];
         [imageView removeFromSuperview];
         [fromViewController.view removeFromSuperview];
         [toViewController viewDidAppear:YES];
