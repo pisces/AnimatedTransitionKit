@@ -52,26 +52,29 @@
 }
 
 - (void)animateTransitionBegan:(UIPanGestureRecognizer *)gestureRecognizer {
-    const BOOL hasSouceImageForDismission = [_dismissionDataSource respondsToSelector:@selector(sourceImageForDismission)] && [_dismissionDataSource sourceImageForDismission];
-    const UIImage *dismissionImage = hasSouceImageForDismission ? [_dismissionDataSource sourceImageForDismission] : _sourceImage;
+    const UIImage *dismissionImage = [_dismissionDataSource respondsToSelector:@selector(sourceImageForDismission)] ? [_dismissionDataSource sourceImageForDismission] : nil;
     
     if (dismissionImage) {
         dismissionImageView = [[UIMaskedImageView alloc] initWithImage:dismissionImage];
         dismissionImageView.backgroundColor = [UIColor clearColor];
         dismissionImageView.clipsToBounds = YES;
         dismissionImageView.contentMode = _imageViewContentMode;
-        dismissionImageView.frame = hasSouceImageForDismission && [_dismissionDataSource respondsToSelector:@selector(sourceImageRectForDismission)] ? [_dismissionDataSource sourceImageRectForDismission] : [_dismissionSource from]();
+        dismissionImageView.frame = [_dismissionDataSource respondsToSelector:@selector(sourceImageRectForDismission)] ? [_dismissionDataSource sourceImageRectForDismission] : [_dismissionSource from]();
         
         originDismissionImageViewPoint = dismissionImageView.frame.origin;
         
         [self.viewController.view.window addSubview:dismissionImageView];
+        
+        self.viewController.view.window.backgroundColor = [UIColor blackColor];
+        self.viewController.presentingViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     }
-    
-    self.viewController.view.window.backgroundColor = [UIColor blackColor];
-    self.viewController.presentingViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
 }
 
 - (void)animateTransitionCancelled:(UIPanGestureRecognizer *)gestureRecognizer {
+    if (!dismissionImageView) {
+        return;
+    }
+    
     self.viewController.view.alpha = 1;
     self.viewController.presentingViewController.view.alpha = 0;
     self.viewController.presentingViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
@@ -88,6 +91,10 @@
 }
 
 - (void)animateTransitionChanged:(UIPanGestureRecognizer *)gestureRecognizer {
+    if (!dismissionImageView) {
+        return;
+    }
+    
     const CGPoint p = [gestureRecognizer locationInView:self.viewController.view.window];
     const CGFloat y = self.originViewPoint.y + (p.y - self.originPoint.y);
     const CGFloat alpha = MIN(0.5, 0.5 * ABS(y) / self.bounceHeight);
@@ -108,6 +115,10 @@
 }
 
 - (void)animateTransitionCancelCompleted {
+    if (!dismissionImageView) {
+        return;
+    }
+    
     self.viewController.presentingViewController.view.hidden = YES;
     self.viewController.presentingViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
     originDismissionImageViewPoint = CGPointZero;
