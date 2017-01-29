@@ -11,6 +11,9 @@
 #import "UIViewControllerTransitionsMacro.h"
 #import <objc/runtime.h>
 
+@interface AbstractUIViewControllerTransition () <UIGestureRecognizerDelegate>
+@end
+
 @implementation AbstractUIViewControllerTransition
 {
     BOOL keyboardShowing;
@@ -159,6 +162,21 @@
     _bounceHeight = 100;
     _durationForDismission = _durationForPresenting = 0.6;
     _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
+    _panGestureRecognizer.delegate = self;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([self.dismissionDataSource respondsToSelector:@selector(shouldReceiveTouchWithGestureRecognizer:touch:)]) {
+        return [self.dismissionDataSource shouldReceiveTouchWithGestureRecognizer:gestureRecognizer touch:touch];
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ([self.dismissionDataSource respondsToSelector:@selector(shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
+        return [self.dismissionDataSource shouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
+    }
+    return NO;
 }
 
 // ================================================================================================
@@ -168,13 +186,9 @@
 #pragma mark - UIGestureRecognizer selector
 
 - (void)panned:(UIPanGestureRecognizer *)gestureRecognizer {
-    if (!_allowsGestureTransitions)
+    if (!_allowsGestureTransitions || gestureRecognizer.numberOfTouches > 1 || keyboardShowing) {
         return;
-    
-    if (gestureRecognizer.numberOfTouches > 1 ||
-        keyboardShowing ||
-        ([_dismissionDataSource respondsToSelector:@selector(shouldRequireTransitionFailure)] && [_dismissionDataSource shouldRequireTransitionFailure]))
-        return;
+    }
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         _originPoint = [gestureRecognizer locationInView:_viewController.view.window];

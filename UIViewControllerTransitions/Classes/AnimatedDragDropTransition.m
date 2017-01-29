@@ -6,6 +6,7 @@
 //
 
 #import "AnimatedDragDropTransition.h"
+#import "AbstractUIViewControllerTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
 
 @implementation AnimatedDragDropTransitionSource
@@ -38,17 +39,20 @@
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
     UIImageView *imageView = _dismissiontImageView ? _dismissiontImageView : [self createImageView];
     
+    [fromViewController viewWillDisappear:YES];
     [toViewController viewWillAppear:YES];
     
-    if (!_dismissiontImageView)
+    if (!_dismissiontImageView) {
         [fromViewController.view.window addSubview:imageView];
+    }
     
     toViewController.view.hidden = NO;
     CGRect to = _transitionSource.to();
     toViewController.view.window.backgroundColor = [UIColor blackColor];
     
-    if (toViewController.view.alpha <= 0)
+    if (toViewController.view.alpha <= 0) {
         toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
+    }
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 animations:^{
         imageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
@@ -61,13 +65,13 @@
         toViewController.view.userInteractionEnabled = YES;
         toViewController.view.window.backgroundColor = [UIColor whiteColor];
         
-        [imageView removeFromSuperview];
+        [fromViewController viewDidDisappear:YES];
         [fromViewController.view removeFromSuperview];
         [toViewController viewDidAppear:YES];
         [transitionContext completeTransition:YES];
-        
         _transitionSource.completion();
         
+        [imageView removeFromSuperview];
         [self clear];
     }];
 }
@@ -85,6 +89,7 @@
     
     toViewController.view.alpha = 0;
     toViewController.view.frame = fromViewController.view.bounds;
+    toViewController.transition.panGestureRecognizer.enabled = NO;
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 animations:^{
         imageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
@@ -106,6 +111,7 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [imageView removeFromSuperview];
             [self clear];
+            toViewController.transition.panGestureRecognizer.enabled = YES;
         });
     }];
 }
