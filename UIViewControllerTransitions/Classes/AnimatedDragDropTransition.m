@@ -66,11 +66,12 @@
         toViewController.view.window.backgroundColor = [UIColor whiteColor];
         
         [fromViewController viewDidDisappear:YES];
-        [imageView removeFromSuperview];
         [fromViewController.view removeFromSuperview];
         [toViewController viewDidAppear:YES];
         [transitionContext completeTransition:YES];
         _transitionSource.completion();
+        
+        [imageView removeFromSuperview];
         [self clear];
     }];
 }
