@@ -137,7 +137,11 @@
 #pragma mark - Private methods
 
 - (CGFloat)angle {
-    return _transitionSource.rotation ? _transitionSource.rotation() * M_PI / 180 : 0;
+    if (![_transitionSource respondsToSelector:@selector(rotation)] || !_transitionSource.rotation) {
+        return 0;
+    }
+    CGFloat rotation = _transitionSource.rotation();
+    return rotation != 0 ? rotation * M_PI / 180 : 0;
 }
 
 @end
