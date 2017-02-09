@@ -43,6 +43,8 @@
         return smallRect;
     } to:^CGRect{
         return bigRect;
+    } rotation:^CGFloat{
+        return 0;
     } completion:^{
         imageView.hidden = YES;
         controller.imageView.hidden = NO;
@@ -52,6 +54,8 @@
         return bigRect;
     } to:^CGRect{
         return smallRect;
+    } rotation:^CGFloat{
+        return 0;
     } completion:^{
         imageView.hidden = NO;
     }];
