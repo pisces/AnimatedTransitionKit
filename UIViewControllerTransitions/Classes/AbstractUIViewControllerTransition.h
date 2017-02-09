@@ -14,8 +14,8 @@
 - (void)animateTransitionCancelled:(UIPanGestureRecognizer * _Nonnull)gestureRecognizer;
 - (void)animateTransitionChanged:(UIPanGestureRecognizer * _Nonnull)gestureRecognizer;
 - (void)animateTransitionCancelCompleted;
-- (AnimatedTransition *)animatedTransitionForDismissedController:(UIViewController *)dismissed;
-- (AnimatedTransition *)animatedTransitionForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source;
+- (AnimatedTransition * _Nullable)animatedTransitionForDismissedController:(UIViewController * _Nullable)dismissed;
+- (AnimatedTransition * _Nullable)animatedTransitionForForPresentedController:(UIViewController * _Nullable)presented presentingController:(UIViewController * _Nullable)presenting sourceController:(UIViewController * _Nullable)source;
 - (void)initProperties;
 @end
 
@@ -40,8 +40,8 @@
 
 @protocol UIViewControllerTransitionDataSource <NSObject>
 @optional
-- (BOOL)shouldReceiveTouchWithGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer touch:(UITouch *)touch;
-- (BOOL)shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+- (BOOL)shouldReceiveTouchWithGestureRecognizer:(UIGestureRecognizer * _Nullable)gestureRecognizer touch:(UITouch * _Nullable)touch;
+- (BOOL)shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer * _Nullable)otherGestureRecognizer;
 @end
 
 @protocol UIViewControllerTransitionDelegate <NSObject>

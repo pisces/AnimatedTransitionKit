@@ -52,7 +52,7 @@
 }
 
 - (void)animateTransitionBegan:(UIPanGestureRecognizer *)gestureRecognizer {
-    const UIImage *dismissionImage = [_dismissionDataSource respondsToSelector:@selector(sourceImageForDismission)] ? [_dismissionDataSource sourceImageForDismission] : nil;
+    UIImage *dismissionImage = [_dismissionDataSource respondsToSelector:@selector(sourceImageForDismission)] ? [_dismissionDataSource sourceImageForDismission] : nil;
     
     if (dismissionImage) {
         dismissionImageView = [[UIMaskedImageView alloc] initWithImage:dismissionImage];
