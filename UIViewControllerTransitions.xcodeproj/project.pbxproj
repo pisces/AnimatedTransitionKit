@@ -63,6 +63,7 @@
 		234A7CF51E4C62E400DA1446 /* UIViewControllerMoveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIViewControllerMoveTransition.m; path = Classes/UIViewControllerMoveTransition.m; sourceTree = "<group>"; };
 		234A7CF61E4C62E400DA1446 /* UIViewControllerTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewControllerTransitions.h; path = Classes/UIViewControllerTransitions.h; sourceTree = "<group>"; };
 		234A7CF71E4C62E400DA1446 /* UIViewControllerTransitionsMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewControllerTransitionsMacro.h; path = Classes/UIViewControllerTransitionsMacro.h; sourceTree = "<group>"; };
+		23B336031E4C7A86008AA055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +125,7 @@
 				234A7CF51E4C62E400DA1446 /* UIViewControllerMoveTransition.m */,
 				234A7CF61E4C62E400DA1446 /* UIViewControllerTransitions.h */,
 				234A7CF71E4C62E400DA1446 /* UIViewControllerTransitionsMacro.h */,
+				23B336031E4C7A86008AA055 /* Info.plist */,
 			);
 			path = UIViewControllerTransitions;
 			sourceTree = "<group>";
@@ -381,7 +383,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = UIViewControllerTransitions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.apache.pisces.iOS.UIViewControllerTransitions;
@@ -398,7 +400,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = UIViewControllerTransitions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.apache.pisces.iOS.UIViewControllerTransitions;
