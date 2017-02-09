@@ -41,7 +41,7 @@
 @protocol UIViewControllerTransitionDataSource <NSObject>
 @optional
 - (BOOL)shouldReceiveTouchWithGestureRecognizer:(UIGestureRecognizer * _Nullable)gestureRecognizer touch:(UITouch * _Nullable)touch;
-- (BOOL)shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer * _Nullable)otherGestureRecognizer;
+- (BOOL)shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer;
 @end
 
 @protocol UIViewControllerTransitionDelegate <NSObject>
