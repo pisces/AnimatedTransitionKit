@@ -35,15 +35,19 @@ transition.presentingSource = [[AnimatedDragDropTransitionSource new] from:^CGRe
     return smallRect;
 } to:^CGRect{
     return bigRect;
+} rotation:^CGFloat{
+    return 0;
 } completion:^{
     imageView.hidden = YES;
     controller.imageView.hidden = NO;
 }];
-
+    
 transition.dismissionSource = [[AnimatedDragDropTransitionSource new] from:^CGRect{
     return bigRect;
 } to:^CGRect{
     return smallRect;
+} rotation:^CGFloat{
+    return 0;
 } completion:^{
     imageView.hidden = NO;
 }];
