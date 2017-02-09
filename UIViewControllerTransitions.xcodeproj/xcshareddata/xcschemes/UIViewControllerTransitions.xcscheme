@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F589195388D20070C39A"
-               BuildableName = "UIViewControllerTransitions_Example.app"
-               BlueprintName = "UIViewControllerTransitions_Example"
+               BlueprintIdentifier = "234A7CC51E4C623100DA1446"
+               BuildableName = "UIViewControllerTransitions.framework"
+               BlueprintName = "UIViewControllerTransitions"
                ReferencedContainer = "container:UIViewControllerTransitions.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F5AD195388D20070C39A"
-               BuildableName = "UIViewControllerTransitions_Tests.xctest"
-               BlueprintName = "UIViewControllerTransitions_Tests"
+               BlueprintIdentifier = "234A7CCE1E4C623100DA1446"
+               BuildableName = "UIViewControllerTransitionsTests.xctest"
+               BlueprintName = "UIViewControllerTransitionsTests"
                ReferencedContainer = "container:UIViewControllerTransitions.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "UIViewControllerTransitions_Example.app"
-            BlueprintName = "UIViewControllerTransitions_Example"
+            BlueprintIdentifier = "234A7CC51E4C623100DA1446"
+            BuildableName = "UIViewControllerTransitions.framework"
+            BlueprintName = "UIViewControllerTransitions"
             ReferencedContainer = "container:UIViewControllerTransitions.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -61,16 +61,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "UIViewControllerTransitions_Example.app"
-            BlueprintName = "UIViewControllerTransitions_Example"
+            BlueprintIdentifier = "234A7CC51E4C623100DA1446"
+            BuildableName = "UIViewControllerTransitions.framework"
+            BlueprintName = "UIViewControllerTransitions"
             ReferencedContainer = "container:UIViewControllerTransitions.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -80,16 +79,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "UIViewControllerTransitions_Example.app"
-            BlueprintName = "UIViewControllerTransitions_Example"
+            BlueprintIdentifier = "234A7CC51E4C623100DA1446"
+            BuildableName = "UIViewControllerTransitions.framework"
+            BlueprintName = "UIViewControllerTransitions"
             ReferencedContainer = "container:UIViewControllerTransitions.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

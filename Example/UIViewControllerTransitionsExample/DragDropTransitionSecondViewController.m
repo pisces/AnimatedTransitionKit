@@ -38,6 +38,9 @@
     _imageView.hidden = YES;
 }
 
+- (void)didChangeTransition {
+}
+
 - (void)didEndTransition {
     _imageView.hidden = NO;
 }
