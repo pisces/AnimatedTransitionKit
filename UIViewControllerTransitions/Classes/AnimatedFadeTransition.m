@@ -17,6 +17,9 @@
 #pragma mark - Overridden: AnimatedTransition
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
+    BOOL userInteractionEnabled = toViewController.view.userInteractionEnabled;
+    UIColor *backgroundColor = toViewController.view.window.backgroundColor;
+    
     [toViewController viewWillAppear:YES];
     
     toViewController.view.hidden = NO;
@@ -27,16 +30,18 @@
         toViewController.view.alpha = 1;
         toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
     } completion:^(BOOL finished) {
-        toViewController.view.userInteractionEnabled = YES;
-        toViewController.view.window.backgroundColor = [UIColor whiteColor];
+        toViewController.view.userInteractionEnabled = userInteractionEnabled;
+        toViewController.view.window.backgroundColor = backgroundColor;
         
         [fromViewController.view removeFromSuperview];
         [toViewController viewDidAppear:YES];
-        [transitionContext completeTransition:YES];
+        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
+    BOOL userInteractionEnabled = fromViewController.view.userInteractionEnabled;
+    
     fromViewController.view.userInteractionEnabled = NO;
     
     toViewController.view.frame = CGRectMake(0, fromViewController.view.bounds.size.height, fromViewController.view.bounds.size.width, fromViewController.view.bounds.size.height);
@@ -54,9 +59,13 @@
     } completion:^(BOOL finished) {
         [fromViewController viewDidDisappear:YES];
         [toViewController viewDidAppear:YES];
-        [transitionContext completeTransition:YES];
+        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         
-        fromViewController.view.hidden = YES;
+        fromViewController.view.userInteractionEnabled = userInteractionEnabled;
+        
+        if (![transitionContext transitionWasCancelled]) {
+            fromViewController.view.hidden = YES;
+        }
     }];
 }
 

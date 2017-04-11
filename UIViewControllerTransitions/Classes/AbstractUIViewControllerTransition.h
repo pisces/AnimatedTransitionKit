@@ -28,6 +28,7 @@
 @property (nonatomic) NSTimeInterval durationForDismission;
 @property (nonatomic) NSTimeInterval durationForPresenting;
 @property (nullable, nonatomic, weak) UIViewController *viewController;
+@property (nullable, nonatomic, strong) UIPercentDrivenInteractiveTransition *presentingInteractor;
 @property (nonatomic, readonly) CGPoint originPoint;
 @property (nonatomic, readonly) CGPoint originViewPoint;
 @property (nullable, nonatomic, readonly) UIWindow *statusBarWindow;

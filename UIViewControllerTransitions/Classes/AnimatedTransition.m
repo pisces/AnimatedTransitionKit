@@ -26,7 +26,7 @@
     toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     toViewController.modalPresentationCapturesStatusBarAppearance = YES;
     
-    if (self.presenting) {
+    if (_presenting) {
         [self animateTransitionForPresenting:transitionContext];
     } else {
         [self animateTransitionForDismission:transitionContext];

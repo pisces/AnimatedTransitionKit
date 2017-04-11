@@ -1,6 +1,6 @@
 //
 //  DemoViewController.m
-//  ModalTransitionAnimator
+//  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 05/12/2016.
 //  Copyright (c) 2016 Steve Kim. All rights reserved.
@@ -24,7 +24,10 @@
     [super viewDidLoad];
     
     self.title = @"UIViewController Transitions Demo";
-    exampleTitles = @[@"UIViewController DragDrop Transition", @"UIViewController Move Transition", @"UIViewController Fade Transition"];
+    exampleTitles = @[@"UIViewController DragDrop Transition",
+                      @"UIViewController Move Transition",
+                      @"UIViewController Fade Transition",
+                      @"Present UIViewController by gesture"];
 }
 
 // ================================================================================================
@@ -72,6 +75,8 @@
         controller = [[MoveTransitionFirstViewController alloc] initWithNibName:@"MoveTransitionFirstView" bundle:[NSBundle mainBundle]];
     } else if (indexPath.row == 2) {
         controller = [[FadeTransitionFirstViewController alloc] initWithNibName:@"FadeTransitionFirstView" bundle:[NSBundle mainBundle]];
+    } else if (indexPath.row == 3) {
+        controller = [[GesturePresentingFirstViewController alloc] initWithNibName:@"GesturePresentingFirstView" bundle:[NSBundle mainBundle]];
     }
     
     [self.navigationController pushViewController:controller animated:YES];

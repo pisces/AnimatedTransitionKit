@@ -27,6 +27,10 @@
 		234A7D3D1E4C64A100DA1446 /* MoveTransitionSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 234A7D291E4C64A100DA1446 /* MoveTransitionSecondView.xib */; };
 		234A7D3E1E4C64A100DA1446 /* MoveTransitionSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 234A7D2B1E4C64A100DA1446 /* MoveTransitionSecondViewController.m */; };
 		23857C7C1E4C67FB00F21787 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23857C7A1E4C67FB00F21787 /* InfoPlist.strings */; };
+		23D385351E9CD84100AD48D0 /* GesturePresentingFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D385341E9CD84100AD48D0 /* GesturePresentingFirstViewController.swift */; };
+		23D385371E9CD87D00AD48D0 /* GesturePresentingFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23D385361E9CD87D00AD48D0 /* GesturePresentingFirstView.xib */; };
+		23D385391E9CDB4400AD48D0 /* GesturePresentingSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D385381E9CDB4400AD48D0 /* GesturePresentingSecondViewController.swift */; };
+		23D3853B1E9CDB5F00AD48D0 /* GesturePresentingSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23D3853A1E9CDB5F00AD48D0 /* GesturePresentingSecondView.xib */; };
 		57246E27B51970FB1C442B1E /* Pods_UIViewControllerTransitions_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73CA04607B807B38338EFCA /* Pods_UIViewControllerTransitions_Tests.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -52,8 +56,8 @@
 		04582A65F794DF91D8743740 /* Pods-UIViewControllerTransitions_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example.release.xcconfig"; sourceTree = "<group>"; };
 		1EAE91E06958D6BE144D1C6C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		234A7D0C1E4C646300DA1446 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = UIViewControllerTransitionsExample/main.m; sourceTree = SOURCE_ROOT; };
-		234A7D0E1E4C647900DA1446 /* UIViewControllerTransitions-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewControllerTransitions-Prefix.pch"; path = "UIViewControllerTransitionsExample/UIViewControllerTransitions-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		234A7D0F1E4C648A00DA1446 /* UIViewControllerTransitions-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "UIViewControllerTransitions-Info.plist"; path = "UIViewControllerTransitionsExample/UIViewControllerTransitions-Info.plist"; sourceTree = SOURCE_ROOT; };
+		234A7D0E1E4C647900DA1446 /* UIViewControllerTransitions_Example-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewControllerTransitions_Example-Prefix.pch"; path = "UIViewControllerTransitionsExample/UIViewControllerTransitions_Example-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		234A7D0F1E4C648A00DA1446 /* UIViewControllerTransitions_Example-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "UIViewControllerTransitions_Example-Info.plist"; path = "UIViewControllerTransitionsExample/UIViewControllerTransitions_Example-Info.plist"; sourceTree = SOURCE_ROOT; };
 		234A7D111E4C64A100DA1446 /* DemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoAppDelegate.h; path = UIViewControllerTransitionsExample/DemoAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		234A7D121E4C64A100DA1446 /* DemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemoAppDelegate.m; path = UIViewControllerTransitionsExample/DemoAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		234A7D131E4C64A100DA1446 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoViewController.h; path = UIViewControllerTransitionsExample/DemoViewController.h; sourceTree = SOURCE_ROOT; };
@@ -81,6 +85,11 @@
 		234A7D2A1E4C64A100DA1446 /* MoveTransitionSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoveTransitionSecondViewController.h; path = UIViewControllerTransitionsExample/MoveTransitionSecondViewController.h; sourceTree = SOURCE_ROOT; };
 		234A7D2B1E4C64A100DA1446 /* MoveTransitionSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoveTransitionSecondViewController.m; path = UIViewControllerTransitionsExample/MoveTransitionSecondViewController.m; sourceTree = SOURCE_ROOT; };
 		23857C7B1E4C67FB00F21787 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = UIViewControllerTransitionsExample/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		23D385341E9CD84100AD48D0 /* GesturePresentingFirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GesturePresentingFirstViewController.swift; path = UIViewControllerTransitionsExample/GesturePresentingFirstViewController.swift; sourceTree = SOURCE_ROOT; };
+		23D385361E9CD87D00AD48D0 /* GesturePresentingFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GesturePresentingFirstView.xib; path = UIViewControllerTransitionsExample/GesturePresentingFirstView.xib; sourceTree = SOURCE_ROOT; };
+		23D385381E9CDB4400AD48D0 /* GesturePresentingSecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GesturePresentingSecondViewController.swift; path = UIViewControllerTransitionsExample/GesturePresentingSecondViewController.swift; sourceTree = SOURCE_ROOT; };
+		23D3853A1E9CDB5F00AD48D0 /* GesturePresentingSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GesturePresentingSecondView.xib; path = UIViewControllerTransitionsExample/GesturePresentingSecondView.xib; sourceTree = SOURCE_ROOT; };
+		23D3853C1E9CE54E00AD48D0 /* UIViewControllerTransitions_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIViewControllerTransitions_Example-Bridging-Header.h"; path = "UIViewControllerTransitionsExample/UIViewControllerTransitions_Example-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		53C0476F04B756FBA6350C2A /* UIViewControllerTransitions.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = UIViewControllerTransitions.podspec; path = ../UIViewControllerTransitions.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* UIViewControllerTransitions_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIViewControllerTransitions_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -188,6 +197,10 @@
 				234A7D1F1E4C64A100DA1446 /* FadeTransitionSecondView.xib */,
 				234A7D201E4C64A100DA1446 /* FadeTransitionSecondViewController.h */,
 				234A7D211E4C64A100DA1446 /* FadeTransitionSecondViewController.m */,
+				23D385341E9CD84100AD48D0 /* GesturePresentingFirstViewController.swift */,
+				23D385381E9CDB4400AD48D0 /* GesturePresentingSecondViewController.swift */,
+				23D385361E9CD87D00AD48D0 /* GesturePresentingFirstView.xib */,
+				23D3853A1E9CDB5F00AD48D0 /* GesturePresentingSecondView.xib */,
 				234A7D221E4C64A100DA1446 /* Images.xcassets */,
 				234A7D231E4C64A100DA1446 /* LaunchScreen.storyboard */,
 				234A7D251E4C64A100DA1446 /* Main.storyboard */,
@@ -207,9 +220,10 @@
 			isa = PBXGroup;
 			children = (
 				23857C7A1E4C67FB00F21787 /* InfoPlist.strings */,
-				234A7D0F1E4C648A00DA1446 /* UIViewControllerTransitions-Info.plist */,
+				234A7D0F1E4C648A00DA1446 /* UIViewControllerTransitions_Example-Info.plist */,
 				234A7D0C1E4C646300DA1446 /* main.m */,
-				234A7D0E1E4C647900DA1446 /* UIViewControllerTransitions-Prefix.pch */,
+				23D3853C1E9CE54E00AD48D0 /* UIViewControllerTransitions_Example-Bridging-Header.h */,
+				234A7D0E1E4C647900DA1446 /* UIViewControllerTransitions_Example-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -298,6 +312,7 @@
 				ORGANIZATIONNAME = "Steve Kim";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					6003F5AD195388D20070C39A = {
@@ -333,10 +348,12 @@
 				234A7D321E4C64A100DA1446 /* ex.png in Resources */,
 				234A7D3D1E4C64A100DA1446 /* MoveTransitionSecondView.xib in Resources */,
 				234A7D381E4C64A100DA1446 /* LaunchScreen.storyboard in Resources */,
+				23D3853B1E9CDB5F00AD48D0 /* GesturePresentingSecondView.xib in Resources */,
 				234A7D3B1E4C64A100DA1446 /* MoveTransitionFirstView.xib in Resources */,
 				234A7D301E4C64A100DA1446 /* DragDropTransitionSecondView.xib in Resources */,
 				234A7D371E4C64A100DA1446 /* Images.xcassets in Resources */,
 				234A7D3A1E4C64A100DA1446 /* Main.storyboard in Resources */,
+				23D385371E9CD87D00AD48D0 /* GesturePresentingFirstView.xib in Resources */,
 				234A7D2E1E4C64A100DA1446 /* DragDropTransitionFirstView.xib in Resources */,
 				23857C7C1E4C67FB00F21787 /* InfoPlist.strings in Resources */,
 				234A7D331E4C64A100DA1446 /* FadeTransitionFirstView.xib in Resources */,
@@ -459,6 +476,8 @@
 				234A7D341E4C64A100DA1446 /* FadeTransitionFirstViewController.m in Sources */,
 				234A7D361E4C64A100DA1446 /* FadeTransitionSecondViewController.m in Sources */,
 				234A7D2F1E4C64A100DA1446 /* DragDropTransitionFirstViewController.m in Sources */,
+				23D385391E9CDB4400AD48D0 /* GesturePresentingSecondViewController.swift in Sources */,
+				23D385351E9CD84100AD48D0 /* GesturePresentingFirstViewController.swift in Sources */,
 				234A7D3C1E4C64A100DA1446 /* MoveTransitionFirstViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -578,17 +597,23 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E9EABE18F8A41F65FB32BC92 /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UIViewControllerTransitionsExample/UIViewControllerTransitions-Prefix.pch";
-				INFOPLIST_FILE = "UIViewControllerTransitionsExample/UIViewControllerTransitions-Info.plist";
+				GCC_PREFIX_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Prefix.pch";
+				INFOPLIST_FILE = "${PROJECT_NAME}/${PRODUCT_NAME}-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -597,17 +622,22 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 04582A65F794DF91D8743740 /* Pods-UIViewControllerTransitions_Example.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "UIViewControllerTransitionsExample/UIViewControllerTransitions-Prefix.pch";
-				INFOPLIST_FILE = "UIViewControllerTransitionsExample/UIViewControllerTransitions-Info.plist";
+				GCC_PREFIX_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Prefix.pch";
+				INFOPLIST_FILE = "${PROJECT_NAME}/${PRODUCT_NAME}-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -616,6 +646,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 73BAF19C0A1FB5035CB5C931 /* Pods-UIViewControllerTransitions_Tests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -640,6 +671,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E90FAC279C8476B56523BDCD /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

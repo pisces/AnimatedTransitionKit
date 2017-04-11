@@ -37,6 +37,8 @@
 #pragma mark - Overridden: AnimatedTransition
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
+    BOOL userInteractionEnabled = toViewController.view.userInteractionEnabled;
+    UIColor *backgroundColor = toViewController.view.window.backgroundColor;
     UIImageView *imageView = _dismissiontImageView ? _dismissiontImageView : [self createImageView];
     
     [fromViewController viewWillDisappear:YES];
@@ -62,13 +64,13 @@
         toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
         toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
     } completion:^(BOOL finished) {
-        toViewController.view.userInteractionEnabled = YES;
-        toViewController.view.window.backgroundColor = [UIColor whiteColor];
+        toViewController.view.userInteractionEnabled = userInteractionEnabled;
+        toViewController.view.window.backgroundColor = backgroundColor;
         
         [fromViewController viewDidDisappear:YES];
         [fromViewController.view removeFromSuperview];
         [toViewController viewDidAppear:YES];
-        [transitionContext completeTransition:YES];
+        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         _transitionSource.completion();
         
         [imageView removeFromSuperview];
@@ -77,6 +79,9 @@
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
+    BOOL userInteractionEnabled = fromViewController.view.userInteractionEnabled;
+    UIColor *backgroundColor = fromViewController.view.window.backgroundColor;
+    
     UIImageView *imageView = [self createImageView];
     
     fromViewController.view.userInteractionEnabled = NO;
@@ -101,10 +106,15 @@
     } completion:^(BOOL finished) {
         [fromViewController viewDidDisappear:YES];
         [toViewController viewDidAppear:YES];
-        [transitionContext completeTransition:YES];
+        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         
-        fromViewController.view.hidden = YES;
         fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        fromViewController.view.userInteractionEnabled = userInteractionEnabled;
+        fromViewController.view.window.backgroundColor = backgroundColor;
+        
+        if (![transitionContext transitionWasCancelled]) {
+            fromViewController.view.hidden = YES;
+        }
         
         _transitionSource.completion();
         
