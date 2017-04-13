@@ -30,18 +30,13 @@
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     
-//    PanningInteractiveTransition *presentingInteractor = [PanningInteractiveTransition new];
-//    [presentingInteractor attach:self presentViewController:navigationController];
-    
-    PanningInteractiveTransition *dismissionInteractor = [PanningInteractiveTransition new];
-    [dismissionInteractor attach:navigationController presentViewController:nil];
-    
     UIViewControllerDragDropTransition *transition = [UIViewControllerDragDropTransition new];
     transition.sourceImage = imageView.image;
     transition.dismissionDelegate = controller;
     transition.dismissionDataSource = controller;
-    transition.dismissionInteractor = dismissionInteractor;
-//    transition.presentingInteractor = presentingInteractor;
+    transition.allowsInteraction = YES;
+    
+    [transition.dismissionInteractor attach:navigationController presentViewController:nil];
     
     const CGFloat w = CGRectGetWidth(self.view.frame);
     const CGFloat statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);

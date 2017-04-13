@@ -133,8 +133,10 @@
         
         [self setNavigationBarAlpha:self.aboveViewController];
     } completion:^(BOOL finished) {
-        [self.aboveViewController viewDidDisappear:YES];
-        [self.belowViewController viewDidAppear:YES];
+        [self.aboveViewController viewDidAppear:YES];
+        [self.belowViewController viewDidDisappear:YES];
+        [_dismissionImageView removeFromSuperview];
+        _dismissionImageView = nil;
         
         completion();
     }];
