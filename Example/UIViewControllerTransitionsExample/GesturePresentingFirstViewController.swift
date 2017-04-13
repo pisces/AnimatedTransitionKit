@@ -33,6 +33,8 @@ import UIViewControllerTransitions
         
         let transition = UIViewControllerMoveTransition()
         transition.isAllowsInteraction = true
+//        transition.dismissionInteractor?.direction = .horizontal
+//        transition.presentingInteractor?.direction = .horizontal
         
         secondNavigationController = UINavigationController(rootViewController: secondViewController)
         secondNavigationController.modalPresentationStyle = .custom

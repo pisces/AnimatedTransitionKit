@@ -50,7 +50,15 @@
 - (void)panned {
     const AbstractUIViewControllerTransition *transition = self.currentViewController.transition;
     const CGPoint newPoint = [_panGestureRecognizer locationInView:self.currentViewController.view.window];
+    const CGPoint velocity = [_panGestureRecognizer velocityInView:self.currentViewController.view.window];
     const BOOL isDismissing = self.presentViewController == nil;
+    
+    if (!transition.interactionEnabled &&
+        (self.direction == InteractiveTransitionDirectionVertical ?
+         (isDismissing ? velocity.y < 0 : velocity.y > 0) :
+         (isDismissing ? velocity.x < 0 : velocity.x > 0))) {
+        return;
+    }
     
     switch (_panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
@@ -71,6 +79,10 @@
             break;
         }
         case UIGestureRecognizerStateChanged: {
+            if (!transition.interactionEnabled) {
+                return;
+            }
+            
             const CGPoint translation = [_panGestureRecognizer translationInView:self.viewController.view.window];
             const CGFloat targetSize = self.direction == InteractiveTransitionDirectionVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat point = self.direction == InteractiveTransitionDirectionVertical ? translation.y : translation.x;
@@ -94,6 +106,10 @@
         }
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
+            if (!transition.interactionEnabled) {
+                return;
+            }
+            
             void (^completion)(void) = ^void(void) {
                 if (isDismissing) {
                     [transition.dismissionDelegate didEndTransition];

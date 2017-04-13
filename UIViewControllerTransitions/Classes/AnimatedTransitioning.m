@@ -12,6 +12,14 @@
 
 #pragma mark - Properties
 
+- (UIViewController *)aboveViewController {
+    return _presenting ? toViewController : fromViewController;
+}
+
+- (UIViewController *)belowViewController {
+    return _presenting ? fromViewController : toViewController;
+}
+
 - (CGSize)screenSize {
     return [UIScreen mainScreen].bounds.size;
 }
@@ -43,21 +51,16 @@
 }
 
 - (void)interactionBegan:(UIPercentDrivenInteractiveTransition * _Nonnull)interactor {
-    [self updateControllers];
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    [self updateControllers];
 }
 
 - (void)interactionChanged:(UIPercentDrivenInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
-    [self updateControllers];
-    
-    bouncePercent = percent * (self.screenSize.height / _aboveViewController.transition.bounceHeight);
+    bouncePercent = percent * (self.screenSize.height / self.aboveViewController.transition.bounceHeight);
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    [self updateControllers];
 }
 
 #pragma mark - Protected methods
@@ -68,13 +71,6 @@
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
     context = transitionContext;
-}
-
-#pragma mark - Private methods
-
-- (void)updateControllers {
-    _belowViewController = _presenting ? fromViewController : toViewController;
-    _aboveViewController = _presenting ? toViewController : fromViewController;
 }
 
 @end

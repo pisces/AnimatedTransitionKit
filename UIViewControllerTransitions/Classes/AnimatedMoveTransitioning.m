@@ -12,6 +12,37 @@
 
 @implementation AnimatedMoveTransitioning
 
+#pragma mark - Properties
+
+- (InteractiveTransitionDirection)direction {
+    return self.presenting ? self.aboveViewController.transition.presentingInteractor.direction : self.aboveViewController.transition.dismissionInteractor.direction;
+}
+
+- (CGRect)cancelFrameTo {
+    if (self.direction == InteractiveTransitionDirectionVertical) {
+        return CGRectMakeY(self.aboveViewController.view.frame, self.presenting ? self.screenSize.height : 0);
+    }
+    return CGRectMakeX(self.aboveViewController.view.frame, self.presenting ? self.screenSize.width : 0);
+}
+
+- (CGRect)frameFrom {
+    if (self.direction == InteractiveTransitionDirectionVertical) {
+        return CGRectMakeY(self.aboveViewController.view.frame, self.presenting ? self.screenSize.height : 0);
+    }
+    return CGRectMakeX(self.aboveViewController.view.frame, self.presenting ? self.screenSize.width : 0);
+}
+
+- (CGRect)frameTo {
+    const CGFloat value = self.direction == InteractiveTransitionDirectionVertical ? self.screenSize.height : self.screenSize.width;
+    
+    if (self.direction == InteractiveTransitionDirectionVertical) {
+        const CGFloat y = self.aboveViewController.view.frame.origin.y;
+        return CGRectMakeY(self.aboveViewController.view.frame, self.presenting ? 0 : y >= 0 ? value : -value);
+    }
+    const CGFloat x = self.aboveViewController.view.frame.origin.x;
+    return CGRectMakeX(self.aboveViewController.view.frame, self.presenting ? 0 : x >= 0 ? value : -value);
+}
+
 #pragma mark - Overridden: AnimatedTransitioning
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -25,21 +56,16 @@
     toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     toViewController.view.hidden = NO;
     toViewController.view.window.backgroundColor = [UIColor blackColor];
-    fromViewController.view.frame = CGRectMakeY(fromViewController.view.frame, 0);
+    fromViewController.view.frame = self.frameFrom;
     
-    const CGFloat y = fromViewController.view.frame.origin.y;
-    const CGFloat h = self.screenSize.height;
-    const CGRect frame = CGRectMakeY(fromViewController.view.frame, y >= 0 ? h : -h);
-    
-    void (^animations)(void) = ^void (void) {
+    [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 options:7<<16 animations:^{
         if (!transitionContext.isInteractive) {
             toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
             toViewController.view.alpha = 1;
             toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-            fromViewController.view.frame = frame;
+            fromViewController.view.frame = self.frameTo;
         }
-    };
-    void (^completion)(BOOL) = ^void (BOOL finished) {
+    } completion:^(BOOL finished) {
         if (!transitionContext.isInteractive) {
             toViewController.view.window.backgroundColor = backgroundColor;
             
@@ -47,14 +73,7 @@
             [toViewController viewDidAppear:YES];
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }
-    };
-    
-    if (transitionContext.animated) {
-        [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 options:7<<16 animations:animations completion:completion];
-    } else {
-        animations();
-        completion(NO);
-    }
+    }];
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -63,7 +82,7 @@
     UIColor *backgroundColor = fromViewController.view.window.backgroundColor;
     
     fromViewController.view.window.backgroundColor = [UIColor blackColor];
-    toViewController.view.frame = CGRectMakeY(fromViewController.view.frame, self.screenSize.height);
+    toViewController.view.frame = self.frameFrom;
     
     [transitionContext.containerView addSubview:toViewController.view];
     [fromViewController viewWillDisappear:YES];
@@ -71,7 +90,7 @@
     
     [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 options:7<<16 animations:^{
         if (!transitionContext.isInteractive) {
-            toViewController.view.frame = CGRectMakeY(toViewController.view.frame, 0);
+            toViewController.view.frame = self.frameTo;
             fromViewController.view.alpha = 0.5;
             fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
             fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
@@ -94,38 +113,21 @@
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor {
-    [super interactionBegan:interactor];
-    
-    const CGFloat y = self.presenting ? self.screenSize.height : 0;
-    self.aboveViewController.view.frame = CGRectMakeY(self.aboveViewController.view.frame, y);
+    self.aboveViewController.view.frame = self.frameFrom;
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    [super interactionCancelled:interactor completion:completion];
-    
-    CGRect frame;
-    if (interactor.direction == InteractiveTransitionDirectionVertical) {
-        frame = CGRectMakeY(self.aboveViewController.view.frame, self.presenting ? self.screenSize.height : 0);
-    } else {
-        frame = CGRectMakeX(self.aboveViewController.view.frame, self.presenting ? self.screenSize.width : 0);
-    }
-    
     const CGFloat alpha = self.presenting ? 1 : 0.5;
     const CGFloat scale = self.presenting ? 1 : 0.94;
     
     [UIView animateWithDuration:0.2 delay:0 options:7<<16 animations:^{
-        self.aboveViewController.view.frame = frame;
+        self.aboveViewController.view.frame = self.cancelFrameTo;
         self.belowViewController.view.alpha = alpha;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
     } completion:^(BOOL finished) {
-        if (self.presenting) {
-            [self.aboveViewController viewDidDisappear:YES];
-            [self.belowViewController viewDidAppear:YES];
-        } else {
-            [self.belowViewController viewDidDisappear:YES];
-            [self.aboveViewController viewDidAppear:YES];
-        }
+        [toViewController viewDidDisappear:YES];
+        [fromViewController viewDidAppear:YES];
         
         completion();
     }];
@@ -154,31 +156,17 @@
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    [super interactionCompleted:interactor completion:completion];
-    
-    CGRect frame;
-    if (interactor.direction == InteractiveTransitionDirectionVertical) {
-        frame = CGRectMakeY(self.aboveViewController.view.frame, self.presenting ? 0 : self.screenSize.height);
-    } else {
-        frame = CGRectMakeX(self.aboveViewController.view.frame, self.presenting ? 0 : self.screenSize.width);
-    }
-    
     const CGFloat alpha = self.presenting ? 0.5 : 1;
     const CGFloat scale = self.presenting ? 0.94 : 1;
     
     [UIView animateWithDuration:0.2 delay:0 options:7<<16 animations:^{
-        self.aboveViewController.view.frame = frame;
+        self.aboveViewController.view.frame = self.frameTo;
         self.belowViewController.view.alpha = alpha;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
     } completion:^(BOOL finished) {
-        if (self.presenting) {
-            [self.belowViewController viewDidDisappear:YES];
-            [self.aboveViewController viewDidAppear:YES];
-        } else {
-            [self.aboveViewController viewDidDisappear:YES];
-            [self.belowViewController viewDidAppear:YES];
-        }
+        [fromViewController viewDidDisappear:YES];
+        [toViewController viewDidAppear:YES];
         
         completion();
     }];
