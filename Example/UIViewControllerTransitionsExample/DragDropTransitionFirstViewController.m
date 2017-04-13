@@ -28,10 +28,20 @@
 - (void)tapped {
     DragDropTransitionSecondViewController *controller = [[DragDropTransitionSecondViewController alloc] initWithNibName:@"DragDropTransitionSecondView" bundle:[NSBundle mainBundle]];
     
-    UIViewControllerDragDropTransition *transition = [[UIViewControllerDragDropTransition alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    
+//    PanningInteractiveTransition *presentingInteractor = [PanningInteractiveTransition new];
+//    [presentingInteractor attach:self presentViewController:navigationController];
+    
+    PanningInteractiveTransition *dismissionInteractor = [PanningInteractiveTransition new];
+    [dismissionInteractor attach:navigationController presentViewController:nil];
+    
+    UIViewControllerDragDropTransition *transition = [UIViewControllerDragDropTransition new];
     transition.sourceImage = imageView.image;
     transition.dismissionDelegate = controller;
     transition.dismissionDataSource = controller;
+    transition.dismissionInteractor = dismissionInteractor;
+//    transition.presentingInteractor = presentingInteractor;
     
     const CGFloat w = CGRectGetWidth(self.view.frame);
     const CGFloat statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
@@ -39,7 +49,7 @@
     const CGRect bigRect = CGRectMake(0, statusBarHeight+navigationBarHeight, w, w);
     const CGRect smallRect = CGRectMake(CGRectGetMinX(imageView.frame), CGRectGetMinY(imageView.frame), CGRectGetWidth(imageView.frame), CGRectGetHeight(imageView.frame));
     
-    transition.presentingSource = [[AnimatedDragDropTransitionSource new] from:^CGRect{
+    transition.presentingSource = [[AnimatedDragDropTransitioningSource new] from:^CGRect{
         return smallRect;
     } to:^CGRect{
         return bigRect;
@@ -50,7 +60,7 @@
         controller.imageView.hidden = NO;
     }];
     
-    transition.dismissionSource = [[AnimatedDragDropTransitionSource new] from:^CGRect{
+    transition.dismissionSource = [[AnimatedDragDropTransitioningSource new] from:^CGRect{
         return bigRect;
     } to:^CGRect{
         return smallRect;
@@ -60,7 +70,6 @@
         imageView.hidden = NO;
     }];
     
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     navigationController.transition = transition;
     
     [self presentViewController:navigationController animated:YES completion:nil];

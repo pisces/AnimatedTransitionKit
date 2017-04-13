@@ -1,6 +1,6 @@
 //
 //  UIViewControllerFadeTransition.h
-//  Pods
+//  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 6/18/16.
 //

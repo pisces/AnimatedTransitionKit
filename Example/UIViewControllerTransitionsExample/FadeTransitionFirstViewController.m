@@ -10,20 +10,35 @@
 #import "FadeTransitionSecondViewController.h"
 
 @implementation FadeTransitionFirstViewController
+{
+    UINavigationController *secondNavigationController;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"Fade Transition First View";
+    
+    FadeTransitionSecondViewController *controller = [[FadeTransitionSecondViewController alloc] initWithNibName:@"FadeTransitionSecondView" bundle:[NSBundle mainBundle]];
+    
+    secondNavigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    secondNavigationController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    PanningInteractiveTransition *presentingInteractor = [PanningInteractiveTransition new];
+    [presentingInteractor attach:self presentViewController:secondNavigationController];
+    
+    PanningInteractiveTransition *dismissionInteractor = [PanningInteractiveTransition new];
+    [dismissionInteractor attach:secondNavigationController presentViewController:nil];
+    
+    UIViewControllerFadeTransition *transition = [UIViewControllerFadeTransition new];
+    transition.dismissionInteractor = dismissionInteractor;
+    transition.presentingInteractor = presentingInteractor;
+    
+    secondNavigationController.transition = transition;
 }
 
 - (IBAction)buttonClicked:(id)sender {
-    FadeTransitionSecondViewController *controller = [[FadeTransitionSecondViewController alloc] initWithNibName:@"FadeTransitionSecondView" bundle:[NSBundle mainBundle]];
-    
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-    navigationController.transition = [[UIViewControllerFadeTransition alloc] init];
-    
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self presentViewController:secondNavigationController animated:YES completion:nil];
 }
 
 @end

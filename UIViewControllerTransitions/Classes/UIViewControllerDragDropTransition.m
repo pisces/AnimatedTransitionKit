@@ -1,6 +1,6 @@
 //
 //  UIViewControllerDragDropTransition.m
-//  ModalTransitionAnimator
+//  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 5/12/16.
 //
@@ -13,10 +13,6 @@
 
 @synthesize dismissionDataSource = _dismissionDataSource;
 
-// ================================================================================================
-//  Overridden: AbstractUIViewControllerTransition
-// ================================================================================================
-
 #pragma mark - Overridden: AbstractUIViewControllerTransition
 
 - (void)initProperties {
@@ -25,105 +21,30 @@
     _imageViewContentMode = UIViewContentModeScaleAspectFill;
 }
 
-- (AnimatedTransition *)animatedTransitionForDismissedController:(UIViewController *)dismissed {
-    AnimatedDragDropTransition *transition = [AnimatedDragDropTransition new];
-    transition.imageViewContentMode = _imageViewContentMode;
-    transition.transitionSource = _dismissionSource;
-    transition.dismissiontImageView = dismissionImageView;
-    transition.duration = self.durationForDismission;
+- (AnimatedTransitioning *)animatedTransitioningForDismissedController:(UIViewController *)dismissed {
+    AnimatedDragDropTransitioning *transitioning = [AnimatedDragDropTransitioning new];
+    transitioning.imageViewContentMode = _imageViewContentMode;
+    transitioning.transitionSource = _dismissionSource;
+    transitioning.dismissionImageView = dismissionImageView;
+    transitioning.duration = self.durationForDismission;
     
     if ([_dismissionDataSource respondsToSelector:@selector(sourceImageForDismission)]) {
-        transition.sourceImage = [_dismissionDataSource sourceImageForDismission];
+        transitioning.sourceImage = [_dismissionDataSource sourceImageForDismission];
     }
     
     dismissionImageView = nil;
     
-    return transition;
+    return transitioning;
 }
 
-- (AnimatedTransition *)animatedTransitionForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    AnimatedDragDropTransition *transition = [AnimatedDragDropTransition new];
-    transition.presenting = YES;
-    transition.duration = self.durationForPresenting;
-    transition.imageViewContentMode = _imageViewContentMode;
-    transition.transitionSource =_presentingSource;
-    transition.sourceImage = _sourceImage;
-    return transition;
-}
-
-- (void)animateTransitionBegan:(UIPanGestureRecognizer *)gestureRecognizer {
-    UIImage *dismissionImage = [_dismissionDataSource respondsToSelector:@selector(sourceImageForDismission)] ? [_dismissionDataSource sourceImageForDismission] : nil;
-    
-    if (dismissionImage) {
-        dismissionImageView = [[UIMaskedImageView alloc] initWithImage:dismissionImage];
-        dismissionImageView.backgroundColor = [UIColor clearColor];
-        dismissionImageView.clipsToBounds = YES;
-        dismissionImageView.contentMode = _imageViewContentMode;
-        dismissionImageView.frame = [_dismissionDataSource respondsToSelector:@selector(sourceImageRectForDismission)] ? [_dismissionDataSource sourceImageRectForDismission] : [_dismissionSource from]();
-        
-        originDismissionImageViewPoint = dismissionImageView.frame.origin;
-        
-        [self.viewController.view.window addSubview:dismissionImageView];
-        
-        self.viewController.view.window.backgroundColor = [UIColor blackColor];
-        self.viewController.presentingViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
-    }
-}
-
-- (void)animateTransitionCancelled:(UIPanGestureRecognizer *)gestureRecognizer {
-    if (!dismissionImageView) {
-        return;
-    }
-    
-    self.viewController.view.alpha = 1;
-    self.viewController.presentingViewController.view.alpha = 0;
-    self.viewController.presentingViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
-    
-    if ([self.viewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navigationController = (UINavigationController *) self.viewController;
-        navigationController.navigationBar.alpha = 1;
-    }
-    
-    [UIView animateWithDuration:0.25 delay:0 options:7<<16 animations:^{
-        dismissionImageView.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        dismissionImageView.frame = CGRectMakeXY(dismissionImageView.frame, originDismissionImageViewPoint.x, originDismissionImageViewPoint.y);
-    } completion:nil];
-}
-
-- (void)animateTransitionChanged:(UIPanGestureRecognizer *)gestureRecognizer {
-    if (!dismissionImageView) {
-        return;
-    }
-    
-    const CGPoint p = [gestureRecognizer locationInView:self.viewController.view.window];
-    const CGFloat y = self.originViewPoint.y + (p.y - self.originPoint.y);
-    const CGFloat alpha = MIN(0.5, 0.5 * ABS(y) / self.bounceHeight);
-    const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * ABS(y) / self.bounceHeight));
-    const CGFloat imageScale = MIN(1, (MAX(0.5, 1 - ABS(y)/CGRectGetHeight(self.viewController.view.frame))));
-    
-    self.viewController.presentingViewController.view.hidden = NO;
-    self.viewController.presentingViewController.view.alpha = alpha;
-    self.viewController.presentingViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
-    self.viewController.view.alpha = 1 - alpha;
-    
-    if ([self.viewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navigationController = (UINavigationController *) self.viewController;
-        navigationController.navigationBar.alpha = 1 - ABS(y)/self.bounceHeight;
-    }
-    
-    dismissionImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(imageScale, imageScale), (p.x - self.originPoint.x), (p.y - self.originPoint.y));
-}
-
-- (void)animateTransitionCancelCompleted {
-    if (!dismissionImageView) {
-        return;
-    }
-    
-    self.viewController.presentingViewController.view.hidden = YES;
-    self.viewController.presentingViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-    originDismissionImageViewPoint = CGPointZero;
-    
-    [dismissionImageView removeFromSuperview];
+- (AnimatedTransitioning *)animatedTransitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    AnimatedDragDropTransitioning *transitioning = [AnimatedDragDropTransitioning new];
+    transitioning.presenting = YES;
+    transitioning.duration = self.durationForPresenting;
+    transitioning.imageViewContentMode = _imageViewContentMode;
+    transitioning.transitionSource =_presentingSource;
+    transitioning.sourceImage = _sourceImage;
+    return transitioning;
 }
 
 @end

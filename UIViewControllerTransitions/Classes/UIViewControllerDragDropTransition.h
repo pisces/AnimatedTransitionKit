@@ -1,13 +1,13 @@
 //
 //  UIViewControllerDragDropTransition.h
-//  ModalTransitionAnimator
+//  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 5/12/16.
 //
 //
 
 #import "AbstractUIViewControllerTransition.h"
-#import "AnimatedDragDropTransition.h"
+#import "AnimatedDragDropTransitioning.h"
 #import "UIMaskedImageView.h"
 
 @protocol UIViewControllerDragDropTransitionDataSource;
@@ -20,8 +20,8 @@
 }
 
 @property (nonatomic) UIViewContentMode imageViewContentMode;
-@property (nullable, nonatomic, strong) AnimatedDragDropTransitionSource *dismissionSource;
-@property (nullable, nonatomic, strong) AnimatedDragDropTransitionSource *presentingSource;
+@property (nullable, nonatomic, strong) AnimatedDragDropTransitioningSource *dismissionSource;
+@property (nullable, nonatomic, strong) AnimatedDragDropTransitioningSource *presentingSource;
 @property (nullable, nonatomic, strong) UIImage *sourceImage;
 @property (nullable, nonatomic, weak) id<UIViewControllerDragDropTransitionDataSource, UIViewControllerTransitionDataSource> dismissionDataSource;
 @end

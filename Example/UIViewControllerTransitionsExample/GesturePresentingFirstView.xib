@@ -18,7 +18,25 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qs7-IE-wpf">
+                    <rect key="frame" x="30" y="313.5" width="315" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Dhk-g6-h4b"/>
+                    </constraints>
+                    <state key="normal" title="Present Second View"/>
+                    <connections>
+                        <action selector="clicked" destination="-1" eventType="touchUpInside" id="KUg-rh-Mo1"/>
+                    </connections>
+                </button>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Qs7-IE-wpf" secondAttribute="trailing" constant="30" id="Spm-8n-RCm"/>
+                <constraint firstItem="Qs7-IE-wpf" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="pMp-N5-R09"/>
+                <constraint firstItem="Qs7-IE-wpf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="vZR-yl-z76"/>
+            </constraints>
+            <point key="canvasLocation" x="34.5" y="54.5"/>
         </view>
     </objects>
 </document>

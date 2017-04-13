@@ -1,6 +1,6 @@
 //
 //  UIViewControllerTransitions.h
-//  Pods
+//  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 5/12/16.
 //
@@ -13,7 +13,7 @@
 #import "UIViewControllerFadeTransition.h"
 #import "UIViewControllerMoveTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
-#import "AnimatedMoveTransition.h"
+#import "AnimatedMoveTransitioning.h"
 #import "PanningInteractiveTransition.h"
 
 #endif /* UIViewControllerTransitions_h */

@@ -1,13 +1,14 @@
 //
 //  AbstractUIViewControllerTransition.m
-//  ModalTransitionAnimator
+//  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 5/12/16.
 //
 //
 
 #import "AbstractUIViewControllerTransition.h"
-#import "AnimatedTransition.h"
+#import "AnimatedTransitioning.h"
+#import "PanningInteractiveTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
 #import <objc/runtime.h>
 
@@ -16,21 +17,18 @@
 
 @implementation AbstractUIViewControllerTransition
 {
-    BOOL keyboardShowing;
-    __weak UIViewController *presentedController;
-    __weak UIViewController *sourceController;
+    AnimatedTransitioning *dismissTransitioning;
+    AnimatedTransitioning *presentTransitioning;
 }
-
-// ================================================================================================
-//  Overridden: NSObject
-// ================================================================================================
 
 #pragma mark - Overridden: NSObject
 
 - (void)dealloc {
     [self dismiss];
-    [_viewController.view removeGestureRecognizer:_panGestureRecognizer];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    
+    
+    
 }
 
 - (id)init {
@@ -43,9 +41,31 @@
     return self;
 }
 
-// ================================================================================================
-//  Public
-// ================================================================================================
+#pragma mark - Properties
+
+- (void)setDismissionInteractor:(AbstractInteractiveTransition *)dismissionInteractor {
+    if ([dismissionInteractor isEqual:_dismissionInteractor]) {
+        return;
+    }
+    
+    _dismissionInteractor = dismissionInteractor;
+    
+    if ([dismissionInteractor isKindOfClass:[PanningInteractiveTransition class]]) {
+        ((PanningInteractiveTransition *) dismissionInteractor).panGestureRecognizer.delegate = self;
+    }
+}
+
+- (void)setPresentingInteractor:(AbstractInteractiveTransition *)presentingInteractor {
+    if ([presentingInteractor isEqual:_presentingInteractor]) {
+        return;
+    }
+    
+    _presentingInteractor = presentingInteractor;
+    
+    if ([presentingInteractor isKindOfClass:[PanningInteractiveTransition class]]) {
+        ((PanningInteractiveTransition *) presentingInteractor).panGestureRecognizer.delegate = self;
+    }
+}
 
 #pragma mark - Public methods
 
@@ -54,8 +74,6 @@
     
     if (self) {
         [self initProperties];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         
         _viewController = viewController;
     }
@@ -64,108 +82,49 @@
 }
 
 - (void)dismiss {
-    [presentedController.navigationController viewWillDisappear:NO];
-    [sourceController.navigationController viewWillAppear:NO];
-    
-    presentedController.navigationController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-    [presentedController.navigationController.view removeFromSuperview];
-    
-    sourceController.navigationController.view.alpha = 1;
-    sourceController.navigationController.view.hidden = NO;
-    sourceController.navigationController.view.userInteractionEnabled = YES;
-    sourceController.navigationController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-    sourceController.navigationController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    
-    [presentedController.navigationController viewDidDisappear:NO];
-    [sourceController.navigationController viewDidAppear:NO];
-    
-    self.statusBarWindow.frame = CGRectMakeY(self.statusBarWindow.frame, 0);
 }
-
-- (UIWindow *)statusBarWindow {
-    return [[UIApplication sharedApplication] valueForKey:@"statusBarWindow"];
-}
-
-// ================================================================================================
-//  Protocol Implementation
-// ================================================================================================
 
 #pragma mark - UIViewControllerTransitioning delegate
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    return [self animatedTransitionForDismissedController:dismissed];
+    [self clear];
+    
+    dismissTransitioning = [self animatedTransitioningForDismissedController:dismissed];
+    return dismissTransitioning;
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    presentedController = presented;
-    sourceController = source;
-    return [self animatedTransitionForForPresentedController:presented presentingController:presenting sourceController:source];
-}
-
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
-    return _presentingInteractor;
+    [self clear];
+    
+    presentTransitioning = [self animatedTransitioningForForPresentedController:presented presentingController:presenting sourceController:source];
+    return presentTransitioning;
 }
 
 - (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
-    return nil;
+    return (_allowsInteraction && _interactionEnabled) ? _dismissionInteractor : nil;
+}
+
+- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
+    return (_allowsInteraction && _interactionEnabled) ? _presentingInteractor : nil;
 }
 
 - (void)setViewController:(UIViewController *)viewController {
-    if ([viewController isEqual:_viewController])
+    if ([viewController isEqual:_viewController]) {
         return;
-    
-    if (_viewController) {
-        [_viewController.view removeGestureRecognizer:_panGestureRecognizer];
     }
     
     _viewController = viewController;
     _viewController.transitioningDelegate = self;
     _viewController.modalPresentationStyle = UIModalPresentationCustom;
-    
-    [_viewController.view addGestureRecognizer:_panGestureRecognizer];
 }
 
-// ================================================================================================
-//  Protected
-// ================================================================================================
-
-#pragma mark - Protected methods
-
-- (AnimatedTransition *)animatedTransitionForDismissedController:(UIViewController *)dismissed {
-    return nil;
-}
-
-- (AnimatedTransition *)animatedTransitionForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    return nil;
-}
-
-- (void)animateTransitionBegan:(UIPanGestureRecognizer *)gestureRecognizer {
-}
-
-- (void)animateTransitionCancelled:(UIPanGestureRecognizer *)gestureRecognizer {
-}
-
-- (void)animateTransitionChanged:(UIPanGestureRecognizer *)gestureRecognizer {
-}
-
-- (void)animateTransitionCancelCompleted {
-}
-
-// ================================================================================================
-//  Protected
-// ================================================================================================
-
-#pragma mark - Protected methods
-
-- (void)initProperties {
-    _allowsGestureTransitions = YES;
-    _bounceHeight = 100;
-    _durationForDismission = _durationForPresenting = 0.6;
-    _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
-    _panGestureRecognizer.delegate = self;
-}
+#pragma mark - UIGestureRecognizer delegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if (!_allowsInteraction) {
+        return NO;
+    }
+    
     if ([self.dismissionDataSource respondsToSelector:@selector(shouldReceiveTouchWithGestureRecognizer:touch:)]) {
         return [self.dismissionDataSource shouldReceiveTouchWithGestureRecognizer:gestureRecognizer touch:touch];
     }
@@ -173,60 +132,73 @@
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if (!_allowsInteraction) {
+        return NO;
+    }
+    
     if ([self.dismissionDataSource respondsToSelector:@selector(shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
         return [self.dismissionDataSource shouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
     }
     return NO;
 }
 
-// ================================================================================================
-//  Private
-// ================================================================================================
+#pragma mark - Public methods
 
-#pragma mark - UIGestureRecognizer selector
-
-- (void)panned:(UIPanGestureRecognizer *)gestureRecognizer {
-    if (!_allowsGestureTransitions || gestureRecognizer.numberOfTouches > 1 || keyboardShowing) {
-        return;
-    }
-    
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        _originPoint = [gestureRecognizer locationInView:_viewController.view.window];
-        _originViewPoint = _viewController.view.frame.origin;
-        
-        [self animateTransitionBegan:gestureRecognizer];
-        [_dismissionDelegate didBeginTransition];
-    } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        [self animateTransitionChanged:gestureRecognizer];
-        [_dismissionDelegate didChangeTransition];
-    } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded ||
-               gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
-        CGPoint p = [gestureRecognizer locationInView:_viewController.view.window];
-        CGFloat y = _originViewPoint.y + (p.y - _originPoint.y);
-        
-        if (ABS(y) > _bounceHeight) {
-            [_viewController dismissViewControllerAnimated:YES completion:^{
-                [_dismissionDelegate didEndTransition];
-            }];
-        } else {
-            [UIView animateWithDuration:0.2 delay:0 options:7<<16 animations:^{
-                [self animateTransitionCancelled:gestureRecognizer];
-            } completion:^(BOOL finished) {
-                [self animateTransitionCancelCompleted];
-                [_dismissionDelegate didEndTransition];
-            }];
-        }
+- (void)interactiveTransitionBegan:(AbstractInteractiveTransition * _Nonnull)interactor {
+    if ([interactor isEqual:_presentingInteractor]) {
+        [presentTransitioning interactionBegan:interactor];
+    } else if ([interactor isEqual:_dismissionInteractor]) {
+        [dismissTransitioning interactionBegan:interactor];
     }
 }
 
-#pragma mark - Notification selector
-
-- (void)keyboardWillShow:(NSNotification *)notification {
-    keyboardShowing = YES;
+- (void)interactiveTransitionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor  completion:(void (^_Nullable)(void))completion {
+    if ([interactor isEqual:_presentingInteractor]) {
+        [presentTransitioning interactionCancelled:interactor completion:completion];
+    } else if ([interactor isEqual:_dismissionInteractor]) {
+        [dismissTransitioning interactionCancelled:interactor completion:completion];
+    }
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
-    keyboardShowing = NO;
+- (void)interactiveTransitionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
+    if ([interactor isEqual:_presentingInteractor]) {
+        [presentTransitioning interactionChanged:interactor percent:percent];
+    } else if ([interactor isEqual:_dismissionInteractor]) {
+        [dismissTransitioning interactionChanged:interactor percent:percent];
+    }
+}
+
+- (void)interactiveTransitionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
+    if ([interactor isEqual:_presentingInteractor]) {
+        [presentTransitioning interactionCompleted:interactor completion:completion];
+    } else if ([interactor isEqual:_dismissionInteractor]) {
+        [dismissTransitioning interactionCompleted:interactor completion:completion];
+        [self clear];
+    }
+}
+
+#pragma mark - Protected methods
+
+- (AnimatedTransitioning *)animatedTransitioningForDismissedController:(UIViewController *)dismissed {
+    return nil;
+}
+
+- (AnimatedTransitioning *)animatedTransitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    return nil;
+}
+
+- (void)initProperties {
+    _bounceHeight = 100;
+    _durationForDismission = _durationForPresenting = 0.6;
+    self.dismissionInteractor = [PanningInteractiveTransition new];
+    self.presentingInteractor = [PanningInteractiveTransition new];
+}
+
+#pragma mark - Private methods
+
+- (void)clear {
+    dismissTransitioning = nil;
+    presentTransitioning = nil;
 }
 
 @end
