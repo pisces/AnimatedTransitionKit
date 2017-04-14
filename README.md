@@ -352,7 +352,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '7.0'
 
 target '<Your Target Name>' do
-    pod 'UIViewControllerTransitions', '~> 2.0'
+    pod 'UIViewControllerTransitions', '~> 2.0.0'
 end
 ```
 
@@ -376,7 +376,7 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/UIViewControllerTransitions" ~> 2.0
+github "pisces/UIViewControllerTransitions" ~> 2.0.0
 ```
 
 Run `carthage update` to build the framework and drag the built `UIViewControllerTransitions.framework` into your Xcode project.
