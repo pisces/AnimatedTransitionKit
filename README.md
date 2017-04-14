@@ -27,32 +27,9 @@ import UIViewControllerTransitions
 ```
 
 ## Example
-<img src="Screenshot/sh_001.png" width="320" />
-
-### Using percent driven interactive transition
-
-```swift
-override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    let secondViewController = SecondViewController(nibName: "SecondView", bundle: .main)
-    let secondNavigationController = UINavigationController(rootViewController: secondViewController)
-
-    let transition = MoveTransition()
-    transition.isAllowsInteraction = true
-
-    // Attach view controller to interactive transition for dismission
-    transition.dismissionInteractor?.attach(secondNavigationController, present: nil)
-
-    // Attach view controller to interactive transition for presenting
-    transition.presentingInteractor?.attach(self, present: secondNavigationController)
-
-    secondNavigationController.transition = transition
-}
-```
+![](Screenshot/ExDragDropTransition.gif) ![](Screenshot/ExMoveTransition.gif)
 
 ### DragDropTransition Example
-![](Screenshot/ExDragDropTransition.gif)
 
 ```swift
 import UIViewControllerTransitions
@@ -86,7 +63,6 @@ class DragDropTransitionFirstViewController: UIViewController {
         transition.sourceImage = imageView.image
         transition.interactionDelegate = secondViewController
         transition.interactionDataSource = secondViewController
-        transition.dismissionInteractor?.attach(secondNavigationController, present: nil)
         
         let w = self.view.frame.size.width
         let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
@@ -174,7 +150,6 @@ class DragDropTransitionSecondViewController: UIViewController, DragDropInteract
 ```
 
 ### MoveTransition Example
-![](Screenshot/ExMoveTransition.gif)
 
 ```swift
 import UIViewControllerTransitions
@@ -200,7 +175,6 @@ class MoveTransitionFirstViewController: UIViewController {
         
         let transition = MoveTransition()
         transition.isAllowsInteraction = true
-        transition.dismissionInteractor?.attach(secondViewController, present: nil)
         transition.presentingInteractor?.attach(self, present: secondViewController)
         
         secondViewController.transition = transition
@@ -248,6 +222,25 @@ class MoveTransitionSecondViewController: UIViewController {
     @objc private func close() {
         self.dismiss(animated: true, completion: nil)
     }
+}
+```
+
+### Using percent driven interactive transition
+
+```swift
+override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    let secondViewController = SecondViewController(nibName: "SecondView", bundle: .main)
+    let secondNavigationController = UINavigationController(rootViewController: secondViewController)
+
+    let transition = MoveTransition()
+    transition.isAllowsInteraction = true
+
+    // Attach view controller to interactive transition for presenting
+    transition.presentingInteractor?.attach(self, present: secondNavigationController)
+
+    secondNavigationController.transition = transition
 }
 ```
 
@@ -325,7 +318,6 @@ class AnimatedCustomTransitioning: AnimatedTransitioning {
 ```swift
 let transition = CustomTransition()
 transition.isAllowsInteraction = true
-transition.dismissionInteractor?.attach(secondViewController, present: nil)
 transition.presentingInteractor?.attach(self, present: secondViewController)
 
 secondViewController.transition = transition
@@ -383,7 +375,7 @@ Run `carthage update` to build the framework and drag the built `UIViewControlle
 
 ## Requirements
 
-iOS Deployment Target 8.0 higher
+iOS Deployment Target 7.0 higher
 
 ## Author
 

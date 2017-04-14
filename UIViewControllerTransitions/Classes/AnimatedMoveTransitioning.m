@@ -73,12 +73,9 @@
             
             [fromViewController viewDidDisappear:YES];
             [toViewController viewDidAppear:YES];
+            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }
     }];
-    
-    if (!transitionContext.isInteractive) {
-        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-    }
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
