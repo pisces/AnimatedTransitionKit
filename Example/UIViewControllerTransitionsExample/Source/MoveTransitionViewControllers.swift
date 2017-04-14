@@ -29,7 +29,6 @@ class MoveTransitionFirstViewController: UIViewController {
         
         let transition = MoveTransition()
         transition.isAllowsInteraction = true
-        transition.dismissionInteractor?.attach(secondViewController, present: nil)
         transition.presentingInteractor?.attach(self, present: secondViewController)
         
         secondViewController.transition = transition

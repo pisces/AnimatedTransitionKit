@@ -11,24 +11,34 @@
 #import "PanningInteractiveTransition.h"
 #import "AbstractUIViewControllerTransition.h"
 
+@interface PanningInteractiveTransition ()
+@property (nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
+@end
+
 @implementation PanningInteractiveTransition
 {
 @private
     BOOL shouldComplete;
 }
 
+@synthesize gestureRecognizer = _gestureRecognizer;
+
 #pragma mark - Properties
+
+- (UIPanGestureRecognizer *)panGestureRecognizer {
+    return (UIPanGestureRecognizer *) _gestureRecognizer;
+}
 
 - (BOOL)shouldBlockInteraction {
     const BOOL isDismissing = self.presentViewController == nil;
-    const CGPoint velocity = [_panGestureRecognizer velocityInView:self.currentViewController.view.window];
+    const CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.window];
     return !self.currentViewController.transition.interactionEnabled && (self.direction == InteractiveTransitionDirectionVertical ? (isDismissing ? velocity.y < 0 : velocity.y > 0) : (isDismissing ? velocity.x < 0 : velocity.x > 0));
 }
 
 #pragma mark - Con(De)structor
 
 - (void)dealloc {
-    [_panGestureRecognizer removeTarget:self action:@selector(panned)];
+    [_gestureRecognizer removeTarget:self action:@selector(panned)];
 }
 
 - (id)init {
@@ -37,7 +47,7 @@
     if (self) {
         self.completionSpeed = 0.0;
         self.completionCurve = UIViewAnimationCurveLinear;
-        _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned)];
+        _gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned)];
     }
     
     return self;
@@ -48,11 +58,11 @@
 - (void)attach:(UIViewController *)viewController presentViewController:(UIViewController *)presentViewController {
     [super attach:viewController presentViewController:presentViewController];
     
-    [self.viewController.view addGestureRecognizer:_panGestureRecognizer];
+    [self.viewController.view addGestureRecognizer:_gestureRecognizer];
 }
 
 - (void)detach {
-    [self.viewController.view removeGestureRecognizer:_panGestureRecognizer];
+    [self.viewController.view removeGestureRecognizer:_gestureRecognizer];
     
     [super detach];
 }
@@ -61,14 +71,14 @@
 
 - (void)panned {
     const AbstractUIViewControllerTransition *transition = self.currentViewController.transition;
-    const CGPoint newPoint = [_panGestureRecognizer locationInView:self.currentViewController.view.window];
+    const CGPoint newPoint = [self.panGestureRecognizer locationInView:self.currentViewController.view.window];
     const BOOL isDismissing = self.presentViewController == nil;
     
     if (self.shouldBlockInteraction) {
         return;
     }
     
-    switch (_panGestureRecognizer.state) {
+    switch (self.panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
             self.beginPoint = newPoint;
             transition.interactionEnabled = YES;
@@ -87,7 +97,7 @@
                 return;
             }
             
-            const CGPoint translation = [_panGestureRecognizer translationInView:self.currentViewController.view.window];
+            const CGPoint translation = [self.panGestureRecognizer translationInView:self.currentViewController.view.window];
             const CGFloat targetSize = self.direction == InteractiveTransitionDirectionVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat point = self.direction == InteractiveTransitionDirectionVertical ? translation.y : translation.x;
             const CGFloat dragAmount = targetSize * (self.presentViewController ? -1 : 1);
@@ -117,7 +127,7 @@
                 self.point = CGPointZero;
             };
             
-            if (_panGestureRecognizer.state == UIGestureRecognizerStateCancelled || !shouldComplete) {
+            if (_gestureRecognizer.state == UIGestureRecognizerStateCancelled || !shouldComplete) {
                 [self cancelInteractiveTransition];
                 [transition interactiveTransitionCancelled:self completion:completion];
             } else {

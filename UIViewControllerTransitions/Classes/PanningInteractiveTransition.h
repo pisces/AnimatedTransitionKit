@@ -13,5 +13,4 @@
 
 @interface PanningInteractiveTransition : AbstractInteractiveTransition
 @property (nonatomic, readonly) BOOL shouldBlockInteraction;
-@property (nonnull, nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
 @end

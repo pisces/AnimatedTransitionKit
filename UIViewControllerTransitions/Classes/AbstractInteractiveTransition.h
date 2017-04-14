@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 @property (nonatomic) CGPoint beginPoint;
 @property (nonatomic) CGPoint beginViewPoint;
 @property (nonatomic) CGPoint point;
+@property (nonnull, nonatomic, readonly) UIGestureRecognizer *gestureRecognizer;
 @property (nullable, readonly) UIViewController *presentViewController;
 @property (nonnull, readonly) UIViewController *viewController;
 @property (nonnull, readonly) UIViewController *currentViewController;

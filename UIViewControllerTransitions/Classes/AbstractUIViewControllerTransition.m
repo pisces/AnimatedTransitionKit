@@ -22,10 +22,6 @@
 #pragma mark - Overridden: NSObject
 
 - (void)dealloc {
-    
-    
-    
-    
 }
 
 - (id)init {
@@ -48,7 +44,7 @@
     _dismissionInteractor = dismissionInteractor;
     
     if ([dismissionInteractor isKindOfClass:[PanningInteractiveTransition class]]) {
-        ((PanningInteractiveTransition *) dismissionInteractor).panGestureRecognizer.delegate = self;
+        ((PanningInteractiveTransition *) dismissionInteractor).gestureRecognizer.delegate = self;
     }
 }
 
@@ -60,7 +56,7 @@
     _presentingInteractor = presentingInteractor;
     
     if ([presentingInteractor isKindOfClass:[PanningInteractiveTransition class]]) {
-        ((PanningInteractiveTransition *) presentingInteractor).panGestureRecognizer.delegate = self;
+        ((PanningInteractiveTransition *) presentingInteractor).gestureRecognizer.delegate = self;
     }
 }
 
@@ -106,6 +102,8 @@
     _viewController = viewController;
     _viewController.transitioningDelegate = self;
     _viewController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    [_dismissionInteractor attach:_viewController presentViewController:nil];
 }
 
 #pragma mark - UIGestureRecognizer delegate
