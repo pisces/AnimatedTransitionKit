@@ -3,6 +3,8 @@
 //  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 5/12/16.
+//  Modified by Steve Kim on 4/14/17.
+//      - Renew design and add new feature interactive transition
 //
 //
 
@@ -16,15 +18,10 @@
 @end
 
 @implementation AbstractUIViewControllerTransition
-{
-    AnimatedTransitioning *dismissTransitioning;
-    AnimatedTransitioning *presentTransitioning;
-}
 
 #pragma mark - Overridden: NSObject
 
 - (void)dealloc {
-    [self dismiss];
     
     
     
@@ -81,23 +78,16 @@
     return self;
 }
 
-- (void)dismiss {
-}
-
 #pragma mark - UIViewControllerTransitioning delegate
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    [self clear];
-    
-    dismissTransitioning = [self animatedTransitioningForDismissedController:dismissed];
-    return dismissTransitioning;
+    _transitioning = [self animatedTransitioningForDismissedController:dismissed];
+    return _transitioning;
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    [self clear];
-    
-    presentTransitioning = [self animatedTransitioningForForPresentedController:presented presentingController:presenting sourceController:source];
-    return presentTransitioning;
+    _transitioning = [self animatedTransitioningForForPresentedController:presented presentingController:presenting sourceController:source];
+    return _transitioning;
 }
 
 - (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
@@ -125,8 +115,8 @@
         return NO;
     }
     
-    if ([self.dismissionDataSource respondsToSelector:@selector(shouldReceiveTouchWithGestureRecognizer:touch:)]) {
-        return [self.dismissionDataSource shouldReceiveTouchWithGestureRecognizer:gestureRecognizer touch:touch];
+    if ([_interactionDataSource respondsToSelector:@selector(shouldReceiveTouchWithGestureRecognizer:touch:)]) {
+        return [_interactionDataSource shouldReceiveTouchWithGestureRecognizer:gestureRecognizer touch:touch];
     }
     return YES;
 }
@@ -136,8 +126,8 @@
         return NO;
     }
     
-    if ([self.dismissionDataSource respondsToSelector:@selector(shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
-        return [self.dismissionDataSource shouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
+    if ([_interactionDataSource respondsToSelector:@selector(shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
+        return [_interactionDataSource shouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
     }
     return NO;
 }
@@ -145,36 +135,27 @@
 #pragma mark - Public methods
 
 - (void)interactiveTransitionBegan:(AbstractInteractiveTransition * _Nonnull)interactor {
-    if ([interactor isEqual:_presentingInteractor]) {
-        [presentTransitioning interactionBegan:interactor];
-    } else if ([interactor isEqual:_dismissionInteractor]) {
-        [dismissTransitioning interactionBegan:interactor];
-    }
+    [_transitioning interactionBegan:interactor];
+    [_interactionDelegate didBeginTransitioning];
 }
 
 - (void)interactiveTransitionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor  completion:(void (^_Nullable)(void))completion {
-    if ([interactor isEqual:_presentingInteractor]) {
-        [presentTransitioning interactionCancelled:interactor completion:completion];
-    } else if ([interactor isEqual:_dismissionInteractor]) {
-        [dismissTransitioning interactionCancelled:interactor completion:completion];
-    }
+    [_transitioning interactionCancelled:interactor completion:^{
+        [_interactionDelegate didEndTransitioning];
+        completion();
+    }];
 }
 
 - (void)interactiveTransitionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
-    if ([interactor isEqual:_presentingInteractor]) {
-        [presentTransitioning interactionChanged:interactor percent:percent];
-    } else if ([interactor isEqual:_dismissionInteractor]) {
-        [dismissTransitioning interactionChanged:interactor percent:percent];
-    }
+    [_transitioning interactionChanged:interactor percent:percent];
+    [_interactionDelegate didChangeTransitioning:percent];
 }
 
 - (void)interactiveTransitionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    if ([interactor isEqual:_presentingInteractor]) {
-        [presentTransitioning interactionCompleted:interactor completion:completion];
-    } else if ([interactor isEqual:_dismissionInteractor]) {
-        [dismissTransitioning interactionCompleted:interactor completion:completion];
-        [self clear];
-    }
+    [_transitioning interactionCompleted:interactor completion:^{
+        [_interactionDelegate didEndTransitioning];
+        completion();
+    }];
 }
 
 #pragma mark - Protected methods
@@ -197,8 +178,7 @@
 #pragma mark - Private methods
 
 - (void)clear {
-    dismissTransitioning = nil;
-    presentTransitioning = nil;
+    _transitioning = nil;
 }
 
 @end

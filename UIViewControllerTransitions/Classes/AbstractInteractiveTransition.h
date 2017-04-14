@@ -3,6 +3,8 @@
 //  UIViewControllerTransitions
 //
 //  Created by pisces on 13/04/2017.
+//  Modified by Steve Kim on 4/14/17.
+//      - Renew design and add new feature interactive transition
 //
 //
 

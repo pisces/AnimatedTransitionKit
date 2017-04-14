@@ -3,6 +3,8 @@
 //  UIViewControllerTransitions
 //
 //  Created by pisces on 11/04/2017.
+//  Modified by Steve Kim on 4/14/17.
+//      - Renew design and add new feature interactive transition
 //
 //
 
@@ -15,6 +17,14 @@
     BOOL shouldComplete;
 }
 
+#pragma mark - Properties
+
+- (BOOL)shouldBlockInteraction {
+    const BOOL isDismissing = self.presentViewController == nil;
+    const CGPoint velocity = [_panGestureRecognizer velocityInView:self.currentViewController.view.window];
+    return !self.currentViewController.transition.interactionEnabled && (self.direction == InteractiveTransitionDirectionVertical ? (isDismissing ? velocity.y < 0 : velocity.y > 0) : (isDismissing ? velocity.x < 0 : velocity.x > 0));
+}
+
 #pragma mark - Con(De)structor
 
 - (void)dealloc {
@@ -25,6 +35,8 @@
     self = [super init];
     
     if (self) {
+        self.completionSpeed = 0.0;
+        self.completionCurve = UIViewAnimationCurveLinear;
         _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned)];
     }
     
@@ -50,13 +62,9 @@
 - (void)panned {
     const AbstractUIViewControllerTransition *transition = self.currentViewController.transition;
     const CGPoint newPoint = [_panGestureRecognizer locationInView:self.currentViewController.view.window];
-    const CGPoint velocity = [_panGestureRecognizer velocityInView:self.currentViewController.view.window];
     const BOOL isDismissing = self.presentViewController == nil;
     
-    if (!transition.interactionEnabled &&
-        (self.direction == InteractiveTransitionDirectionVertical ?
-         (isDismissing ? velocity.y < 0 : velocity.y > 0) :
-         (isDismissing ? velocity.x < 0 : velocity.x > 0))) {
+    if (self.shouldBlockInteraction) {
         return;
     }
     
@@ -72,10 +80,6 @@
             }
             
             [transition interactiveTransitionBegan:self];
-            
-            if (isDismissing) {
-                [transition.dismissionDelegate didBeginTransition];
-            }
             break;
         }
         case UIGestureRecognizerStateChanged: {
@@ -83,7 +87,7 @@
                 return;
             }
             
-            const CGPoint translation = [_panGestureRecognizer translationInView:self.viewController.view.window];
+            const CGPoint translation = [_panGestureRecognizer translationInView:self.currentViewController.view.window];
             const CGFloat targetSize = self.direction == InteractiveTransitionDirectionVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat point = self.direction == InteractiveTransitionDirectionVertical ? translation.y : translation.x;
             const CGFloat dragAmount = targetSize * (self.presentViewController ? -1 : 1);
@@ -98,10 +102,6 @@
             
             [self updateInteractiveTransition:percent];
             [transition interactiveTransitionChanged:self percent:percent];
-            
-            if (isDismissing) {
-                [transition.dismissionDelegate didChangeTransition];
-            }
             break;
         }
         case UIGestureRecognizerStateCancelled:
@@ -111,10 +111,6 @@
             }
             
             void (^completion)(void) = ^void(void) {
-                if (isDismissing) {
-                    [transition.dismissionDelegate didEndTransition];
-                }
-                
                 transition.interactionEnabled = NO;
                 self.beginPoint = CGPointZero;
                 self.beginViewPoint = CGPointZero;

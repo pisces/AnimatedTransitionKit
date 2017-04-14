@@ -4,6 +4,8 @@
 //
 //  Created by pisces on 2015. 9. 24..
 //  Copyright (c) 2013 ~ 2016 Steve Kim. All rights reserved.
+//  Modified by Steve Kim on 4/14/17.
+//      - Renew design and add new feature interactive transition
 //
 
 #import "AnimatedMoveTransitioning.h"
@@ -20,16 +22,16 @@
 
 - (CGRect)cancelFrameTo {
     if (self.direction == InteractiveTransitionDirectionVertical) {
-        return CGRectMakeY(self.aboveViewController.view.frame, self.presenting ? self.screenSize.height : 0);
+        return CGRectMake(0, self.presenting ? self.screenSize.height : 0, self.screenSize.width, self.screenSize.height);
     }
-    return CGRectMakeX(self.aboveViewController.view.frame, self.presenting ? self.screenSize.width : 0);
+    return CGRectMake(self.presenting ? self.screenSize.width : 0, 0, self.screenSize.width, self.screenSize.height);
 }
 
 - (CGRect)frameFrom {
     if (self.direction == InteractiveTransitionDirectionVertical) {
-        return CGRectMakeY(self.aboveViewController.view.frame, self.presenting ? self.screenSize.height : 0);
+        return CGRectMake(0, self.presenting ? self.screenSize.height : 0, self.screenSize.width, self.screenSize.height);
     }
-    return CGRectMakeX(self.aboveViewController.view.frame, self.presenting ? self.screenSize.width : 0);
+    return CGRectMake(self.presenting ? self.screenSize.width : 0, 0, self.screenSize.width, self.screenSize.height);
 }
 
 - (CGRect)frameTo {
@@ -71,9 +73,12 @@
             
             [fromViewController viewDidDisappear:YES];
             [toViewController viewDidAppear:YES];
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }
     }];
+    
+    if (!transitionContext.isInteractive) {
+        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+    }
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {

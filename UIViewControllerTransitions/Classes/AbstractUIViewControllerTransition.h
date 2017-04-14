@@ -3,6 +3,8 @@
 //  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 5/12/16.
+//  Modified by Steve Kim on 4/14/17.
+//      - Renew design and add new feature interactive transition
 //
 //
 
@@ -20,8 +22,8 @@
 - (void)interactiveTransitionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion;
 @end
 
-@protocol UIViewControllerTransitionDataSource;
-@protocol UIViewControllerTransitionDelegate;
+@protocol InteractiveTransitionDataSource;
+@protocol InteractiveTransitionDelegate;
 
 @interface AbstractUIViewControllerTransition : NSObject <AbstractUIViewControllerTransitionProtected, UIViewControllerTransitioningDelegate>
 @property (nonatomic, getter=isAllowsInteraction) BOOL allowsInteraction;
@@ -30,25 +32,25 @@
 @property (nonatomic) NSTimeInterval durationForDismission;
 @property (nonatomic) NSTimeInterval durationForPresenting;
 @property (nullable, nonatomic, weak) UIViewController *viewController;
+@property (nullable, nonatomic, readonly) AnimatedTransitioning *transitioning;
 @property (nullable, nonatomic, strong) AbstractInteractiveTransition *dismissionInteractor;
 @property (nullable, nonatomic, strong) AbstractInteractiveTransition *presentingInteractor;
-@property (nullable, nonatomic, weak) id<UIViewControllerTransitionDataSource> dismissionDataSource;
-@property (nullable, nonatomic, weak) id<UIViewControllerTransitionDelegate> dismissionDelegate;
+@property (nullable, nonatomic, weak) id<InteractiveTransitionDataSource> interactionDataSource;
+@property (nullable, nonatomic, weak) id<InteractiveTransitionDelegate> interactionDelegate;
 - (id _Nonnull)initWithViewController:(__weak UIViewController * _Nullable)viewController;
-- (void)dismiss;
 @end
 
-@protocol UIViewControllerTransitionDataSource <NSObject>
+@protocol InteractiveTransitionDataSource <NSObject>
 @optional
 - (BOOL)shouldReceiveTouchWithGestureRecognizer:(UIGestureRecognizer * _Nullable)gestureRecognizer touch:(UITouch * _Nullable)touch;
 - (BOOL)shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer;
 @end
 
-@protocol UIViewControllerTransitionDelegate <NSObject>
+@protocol InteractiveTransitionDelegate <NSObject>
 @optional
-- (void)didBeginTransition;
-- (void)didChangeTransition;
-- (void)didEndTransition;
+- (void)didBeginTransitioning;
+- (void)didChangeTransitioning:(CGFloat)percent;
+- (void)didEndTransitioning;
 @end
 
 @interface UIViewController (UIViewControllerTransitions)
