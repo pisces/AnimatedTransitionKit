@@ -22,8 +22,6 @@
 		238D0AD41EA0D40800D9C55C /* AnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0ABA1EA0D40800D9C55C /* AnimatedTransitioning.m */; };
 		238D0AD51EA0D40800D9C55C /* DragDropTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0ABB1EA0D40800D9C55C /* DragDropTransition.h */; };
 		238D0AD61EA0D40800D9C55C /* DragDropTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0ABC1EA0D40800D9C55C /* DragDropTransition.m */; };
-		238D0AD71EA0D40800D9C55C /* DragDropTransitionFirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D0ABD1EA0D40800D9C55C /* DragDropTransitionFirstViewController.swift */; };
-		238D0AD81EA0D40800D9C55C /* DragDropTransitionViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D0ABE1EA0D40800D9C55C /* DragDropTransitionViewControllers.swift */; };
 		238D0AD91EA0D40800D9C55C /* FadeTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0ABF1EA0D40800D9C55C /* FadeTransition.h */; };
 		238D0ADA1EA0D40800D9C55C /* FadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AC01EA0D40800D9C55C /* FadeTransition.m */; };
 		238D0ADB1EA0D40800D9C55C /* MoveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC11EA0D40800D9C55C /* MoveTransition.h */; };
@@ -32,8 +30,8 @@
 		238D0ADE1EA0D40800D9C55C /* PanningInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AC41EA0D40800D9C55C /* PanningInteractiveTransition.m */; };
 		238D0ADF1EA0D40800D9C55C /* UIMaskedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC51EA0D40800D9C55C /* UIMaskedImageView.h */; };
 		238D0AE01EA0D40800D9C55C /* UIMaskedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AC61EA0D40800D9C55C /* UIMaskedImageView.m */; };
-		238D0AE11EA0D40800D9C55C /* UIViewControllerTransitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC71EA0D40800D9C55C /* UIViewControllerTransitions.h */; };
 		238D0AE21EA0D40800D9C55C /* UIViewControllerTransitionsMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC81EA0D40800D9C55C /* UIViewControllerTransitionsMacro.h */; };
+		238D0AE31EA0D79600D9C55C /* UIViewControllerTransitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC71EA0D40800D9C55C /* UIViewControllerTransitions.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +61,6 @@
 		238D0ABA1EA0D40800D9C55C /* AnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimatedTransitioning.m; path = Classes/AnimatedTransitioning.m; sourceTree = "<group>"; };
 		238D0ABB1EA0D40800D9C55C /* DragDropTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DragDropTransition.h; path = Classes/DragDropTransition.h; sourceTree = "<group>"; };
 		238D0ABC1EA0D40800D9C55C /* DragDropTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DragDropTransition.m; path = Classes/DragDropTransition.m; sourceTree = "<group>"; };
-		238D0ABD1EA0D40800D9C55C /* DragDropTransitionFirstViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DragDropTransitionFirstViewController.swift; path = Classes/DragDropTransitionFirstViewController.swift; sourceTree = "<group>"; };
-		238D0ABE1EA0D40800D9C55C /* DragDropTransitionViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DragDropTransitionViewControllers.swift; path = Classes/DragDropTransitionViewControllers.swift; sourceTree = "<group>"; };
 		238D0ABF1EA0D40800D9C55C /* FadeTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FadeTransition.h; path = Classes/FadeTransition.h; sourceTree = "<group>"; };
 		238D0AC01EA0D40800D9C55C /* FadeTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FadeTransition.m; path = Classes/FadeTransition.m; sourceTree = "<group>"; };
 		238D0AC11EA0D40800D9C55C /* MoveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoveTransition.h; path = Classes/MoveTransition.h; sourceTree = "<group>"; };
@@ -131,8 +127,6 @@
 				238D0ABA1EA0D40800D9C55C /* AnimatedTransitioning.m */,
 				238D0ABB1EA0D40800D9C55C /* DragDropTransition.h */,
 				238D0ABC1EA0D40800D9C55C /* DragDropTransition.m */,
-				238D0ABD1EA0D40800D9C55C /* DragDropTransitionFirstViewController.swift */,
-				238D0ABE1EA0D40800D9C55C /* DragDropTransitionViewControllers.swift */,
 				238D0ABF1EA0D40800D9C55C /* FadeTransition.h */,
 				238D0AC01EA0D40800D9C55C /* FadeTransition.m */,
 				238D0AC11EA0D40800D9C55C /* MoveTransition.h */,
@@ -164,9 +158,9 @@
 				238D0AD31EA0D40800D9C55C /* AnimatedTransitioning.h in Headers */,
 				238D0ACF1EA0D40800D9C55C /* AnimatedFadeTransitioning.h in Headers */,
 				238D0AD51EA0D40800D9C55C /* DragDropTransition.h in Headers */,
+				238D0AE31EA0D79600D9C55C /* UIViewControllerTransitions.h in Headers */,
 				238D0AC91EA0D40800D9C55C /* AbstractInteractiveTransition.h in Headers */,
 				238D0AD11EA0D40800D9C55C /* AnimatedMoveTransitioning.h in Headers */,
-				238D0AE11EA0D40800D9C55C /* UIViewControllerTransitions.h in Headers */,
 				238D0ACD1EA0D40800D9C55C /* AnimatedDragDropTransitioning.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,9 +268,7 @@
 				238D0ACA1EA0D40800D9C55C /* AbstractInteractiveTransition.m in Sources */,
 				238D0ACC1EA0D40800D9C55C /* AbstractUIViewControllerTransition.m in Sources */,
 				238D0ADC1EA0D40800D9C55C /* MoveTransition.m in Sources */,
-				238D0AD71EA0D40800D9C55C /* DragDropTransitionFirstViewController.swift in Sources */,
 				238D0AD01EA0D40800D9C55C /* AnimatedFadeTransitioning.m in Sources */,
-				238D0AD81EA0D40800D9C55C /* DragDropTransitionViewControllers.swift in Sources */,
 				238D0AD21EA0D40800D9C55C /* AnimatedMoveTransitioning.m in Sources */,
 				238D0AD41EA0D40800D9C55C /* AnimatedTransitioning.m in Sources */,
 				238D0ADE1EA0D40800D9C55C /* PanningInteractiveTransition.m in Sources */,
@@ -409,8 +401,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = UIViewControllerTransitions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.apache.pisces.iOS.UIViewControllerTransitions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -429,8 +423,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = UIViewControllerTransitions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.apache.pisces.iOS.UIViewControllerTransitions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -442,7 +438,6 @@
 		234A7CDE1E4C623100DA1446 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = UIViewControllerTransitionsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.apache.pisces.iOS.UIViewControllerTransitionsTests;
@@ -453,7 +448,6 @@
 		234A7CDF1E4C623100DA1446 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = UIViewControllerTransitionsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.apache.pisces.iOS.UIViewControllerTransitionsTests;

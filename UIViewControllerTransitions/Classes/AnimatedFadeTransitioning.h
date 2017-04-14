@@ -8,7 +8,7 @@
 //
 //
 
-#import <UIViewControllerTransitions/UIViewControllerTransitions.h>
+#import "AnimatedTransitioning.h"
 
 @interface AnimatedFadeTransitioning : AnimatedTransitioning
 
