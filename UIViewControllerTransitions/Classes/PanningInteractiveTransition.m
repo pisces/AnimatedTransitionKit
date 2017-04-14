@@ -45,8 +45,6 @@
     self = [super init];
     
     if (self) {
-        self.completionSpeed = 0.0;
-        self.completionCurve = UIViewAnimationCurveLinear;
         _gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned)];
     }
     
