@@ -8,30 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		234A7CD01E4C623100DA1446 /* UIViewControllerTransitions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 234A7CC61E4C623100DA1446 /* UIViewControllerTransitions.framework */; };
-		238D0AC91EA0D40800D9C55C /* AbstractInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AAF1EA0D40800D9C55C /* AbstractInteractiveTransition.h */; };
+		238D0AC91EA0D40800D9C55C /* AbstractInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AAF1EA0D40800D9C55C /* AbstractInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		238D0ACA1EA0D40800D9C55C /* AbstractInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AB01EA0D40800D9C55C /* AbstractInteractiveTransition.m */; };
-		238D0ACB1EA0D40800D9C55C /* AbstractUIViewControllerTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB11EA0D40800D9C55C /* AbstractUIViewControllerTransition.h */; };
+		238D0ACB1EA0D40800D9C55C /* AbstractUIViewControllerTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB11EA0D40800D9C55C /* AbstractUIViewControllerTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		238D0ACC1EA0D40800D9C55C /* AbstractUIViewControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AB21EA0D40800D9C55C /* AbstractUIViewControllerTransition.m */; };
-		238D0ACD1EA0D40800D9C55C /* AnimatedDragDropTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB31EA0D40800D9C55C /* AnimatedDragDropTransitioning.h */; };
+		238D0ACD1EA0D40800D9C55C /* AnimatedDragDropTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB31EA0D40800D9C55C /* AnimatedDragDropTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		238D0ACE1EA0D40800D9C55C /* AnimatedDragDropTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AB41EA0D40800D9C55C /* AnimatedDragDropTransitioning.m */; };
-		238D0ACF1EA0D40800D9C55C /* AnimatedFadeTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB51EA0D40800D9C55C /* AnimatedFadeTransitioning.h */; };
+		238D0ACF1EA0D40800D9C55C /* AnimatedFadeTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB51EA0D40800D9C55C /* AnimatedFadeTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		238D0AD01EA0D40800D9C55C /* AnimatedFadeTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AB61EA0D40800D9C55C /* AnimatedFadeTransitioning.m */; };
-		238D0AD11EA0D40800D9C55C /* AnimatedMoveTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB71EA0D40800D9C55C /* AnimatedMoveTransitioning.h */; };
+		238D0AD11EA0D40800D9C55C /* AnimatedMoveTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB71EA0D40800D9C55C /* AnimatedMoveTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		238D0AD21EA0D40800D9C55C /* AnimatedMoveTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AB81EA0D40800D9C55C /* AnimatedMoveTransitioning.m */; };
-		238D0AD31EA0D40800D9C55C /* AnimatedTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB91EA0D40800D9C55C /* AnimatedTransitioning.h */; };
+		238D0AD31EA0D40800D9C55C /* AnimatedTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB91EA0D40800D9C55C /* AnimatedTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		238D0AD41EA0D40800D9C55C /* AnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0ABA1EA0D40800D9C55C /* AnimatedTransitioning.m */; };
-		238D0AD51EA0D40800D9C55C /* DragDropTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0ABB1EA0D40800D9C55C /* DragDropTransition.h */; };
+		238D0AD51EA0D40800D9C55C /* DragDropTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0ABB1EA0D40800D9C55C /* DragDropTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		238D0AD61EA0D40800D9C55C /* DragDropTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0ABC1EA0D40800D9C55C /* DragDropTransition.m */; };
-		238D0AD91EA0D40800D9C55C /* FadeTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0ABF1EA0D40800D9C55C /* FadeTransition.h */; };
+		238D0AD91EA0D40800D9C55C /* FadeTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0ABF1EA0D40800D9C55C /* FadeTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		238D0ADA1EA0D40800D9C55C /* FadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AC01EA0D40800D9C55C /* FadeTransition.m */; };
-		238D0ADB1EA0D40800D9C55C /* MoveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC11EA0D40800D9C55C /* MoveTransition.h */; };
+		238D0ADB1EA0D40800D9C55C /* MoveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC11EA0D40800D9C55C /* MoveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		238D0ADC1EA0D40800D9C55C /* MoveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AC21EA0D40800D9C55C /* MoveTransition.m */; };
-		238D0ADD1EA0D40800D9C55C /* PanningInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC31EA0D40800D9C55C /* PanningInteractiveTransition.h */; };
+		238D0ADD1EA0D40800D9C55C /* PanningInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC31EA0D40800D9C55C /* PanningInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		238D0ADE1EA0D40800D9C55C /* PanningInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AC41EA0D40800D9C55C /* PanningInteractiveTransition.m */; };
-		238D0ADF1EA0D40800D9C55C /* UIMaskedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC51EA0D40800D9C55C /* UIMaskedImageView.h */; };
+		238D0ADF1EA0D40800D9C55C /* UIMaskedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC51EA0D40800D9C55C /* UIMaskedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		238D0AE01EA0D40800D9C55C /* UIMaskedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AC61EA0D40800D9C55C /* UIMaskedImageView.m */; };
-		238D0AE21EA0D40800D9C55C /* UIViewControllerTransitionsMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC81EA0D40800D9C55C /* UIViewControllerTransitionsMacro.h */; };
-		238D0AE31EA0D79600D9C55C /* UIViewControllerTransitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC71EA0D40800D9C55C /* UIViewControllerTransitions.h */; };
+		238D0AE21EA0D40800D9C55C /* UIViewControllerTransitionsMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC81EA0D40800D9C55C /* UIViewControllerTransitionsMacro.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0AE31EA0D79600D9C55C /* UIViewControllerTransitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC71EA0D40800D9C55C /* UIViewControllerTransitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
