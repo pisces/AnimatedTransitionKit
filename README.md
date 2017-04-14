@@ -6,7 +6,14 @@
 [![Platform](https://img.shields.io/cocoapods/p/UIViewControllerTransitions.svg?style=flat)](http://cocoapods.org/pods/UIViewControllerTransitions)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-[![Demo Video](Screenshot/video_sh.png)](https://youtu.be/wIY7EJLmQrk)
+- It's the easliy library to apply transitioning to between view controller  and other view controller
+
+## Features
+- Very simple interface and integration
+- Independent to view controllers
+- Expandable
+- Provide transitions three types
+- Support percent driven interactive transtion with pan gesture recognizer
 
 ## Installation
 
@@ -217,8 +224,7 @@ class DragDropTransitionSecondViewController: UIViewController, DragDropInteract
     }
 }
 ```
-<br />
-<br />
+
 #### MoveTransition Example
 ![](Screenshot/ExMoveTransition.gif)
 
@@ -296,8 +302,7 @@ class MoveTransitionSecondViewController: UIViewController {
     }
 }
 ```
-<br />
-<br />
+
 ### Customize UIViewControllerTransition
 
 ```swift
@@ -366,8 +371,7 @@ class AnimatedCustomTransitioning: AnimatedTransitioning {
     }
 }
 ```
-<br />
-<br />
+
 Apply Custom UIViewControllerTransition
 ```swift
 let transition = CustomTransition()
@@ -379,8 +383,7 @@ secondViewController.transition = transition
 
 self.present(secondViewController, animated: true, completion: nil)
 ```
-<br />
-<br />
+
 ## Author
 
 Steve Kim, hh963103@gmail.com
