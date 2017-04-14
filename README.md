@@ -383,7 +383,7 @@ Run `carthage update` to build the framework and drag the built `UIViewControlle
 
 ## Requirements
 
-iOS Deployment Target 7.0 higher
+iOS Deployment Target 8.0 higher
 
 ## Author
 
