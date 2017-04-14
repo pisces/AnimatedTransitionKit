@@ -101,10 +101,14 @@
             fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
         }
     } completion:^(BOOL finished) {
-        if (!transitionContext.isInteractive && !transitionContext.transitionWasCancelled) {
+        if (!transitionContext.isInteractive) {
             fromViewController.view.alpha = 1;
             fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
             fromViewController.view.window.backgroundColor = backgroundColor;
+            
+            if (!transitionContext.transitionWasCancelled) {
+                fromViewController.view.hidden = YES;
+            }
             
             [fromViewController viewDidDisappear:YES];
             [toViewController viewDidAppear:YES];
