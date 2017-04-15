@@ -52,32 +52,21 @@
     
     UIColor *backgroundColor = toViewController.view.window.backgroundColor;
     
-    [fromViewController viewWillDisappear:YES];
-    [toViewController viewWillAppear:YES];
-    
     toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     toViewController.view.hidden = NO;
     toViewController.view.window.backgroundColor = [UIColor blackColor];
     fromViewController.view.frame = self.frameFrom;
     
-    [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 options:7<<16 animations:^{
-        if (!transitionContext.isInteractive) {
+    if (!transitionContext.isInteractive) {
+        [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 options:7<<16 animations:^{
             toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
             toViewController.view.alpha = 1;
             toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
             fromViewController.view.frame = self.frameTo;
-        }
-    } completion:^(BOOL finished) {
-        if (!transitionContext.isInteractive) {
+        } completion:^(BOOL finished) {
             toViewController.view.window.backgroundColor = backgroundColor;
-            
-            [fromViewController viewDidDisappear:YES];
-            [toViewController viewDidAppear:YES];
-        }
-    }];
-    
-    if (!transitionContext.isInteractive) {
-        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+        }];
     }
 }
 
@@ -90,18 +79,14 @@
     toViewController.view.frame = self.frameFrom;
     
     [transitionContext.containerView addSubview:toViewController.view];
-    [fromViewController viewWillDisappear:YES];
-    [toViewController viewWillAppear:YES];
     
-    [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 options:7<<16 animations:^{
-        if (!transitionContext.isInteractive) {
+    if (!transitionContext.isInteractive) {
+        [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 options:7<<16 animations:^{
             toViewController.view.frame = self.frameTo;
             fromViewController.view.alpha = 0.5;
             fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
             fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
-        }
-    } completion:^(BOOL finished) {
-        if (!transitionContext.isInteractive) {
+        } completion:^(BOOL finished) {
             fromViewController.view.alpha = 1;
             fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
             fromViewController.view.window.backgroundColor = backgroundColor;
@@ -110,11 +95,9 @@
                 fromViewController.view.hidden = YES;
             }
             
-            [fromViewController viewDidDisappear:YES];
-            [toViewController viewDidAppear:YES];
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-        }
-    }];
+        }];
+    }
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor {
@@ -131,13 +114,9 @@
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
     } completion:^(BOOL finished) {
-        [toViewController viewDidDisappear:YES];
-        [fromViewController viewDidAppear:YES];
-        
+        [context completeTransition:!context.transitionWasCancelled];
         completion();
     }];
-    
-    [context completeTransition:!context.transitionWasCancelled];
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
@@ -170,13 +149,9 @@
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
     } completion:^(BOOL finished) {
-        [fromViewController viewDidDisappear:YES];
-        [toViewController viewDidAppear:YES];
-        
+        [context completeTransition:!context.transitionWasCancelled];
         completion();
     }];
-    
-    [context completeTransition:!context.transitionWasCancelled];
 }
 
 @end

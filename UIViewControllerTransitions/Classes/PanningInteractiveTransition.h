@@ -12,5 +12,4 @@
 #import "AbstractInteractiveTransition.h"
 
 @interface PanningInteractiveTransition : AbstractInteractiveTransition
-@property (nonatomic, readonly) BOOL shouldBlockInteraction;
 @end

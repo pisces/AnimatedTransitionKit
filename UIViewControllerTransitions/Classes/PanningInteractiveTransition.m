@@ -16,23 +16,14 @@
 @end
 
 @implementation PanningInteractiveTransition
-{
-@private
-    BOOL shouldComplete;
-}
 
 @synthesize gestureRecognizer = _gestureRecognizer;
+@synthesize shouldComplete = _shouldComplete;
 
 #pragma mark - Properties
 
 - (UIPanGestureRecognizer *)panGestureRecognizer {
     return (UIPanGestureRecognizer *) _gestureRecognizer;
-}
-
-- (BOOL)shouldBlockInteraction {
-    const BOOL isDismissing = self.presentViewController == nil;
-    const CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.window];
-    return !self.currentViewController.transition.interactionEnabled && (self.direction == InteractiveTransitionDirectionVertical ? (isDismissing ? velocity.y < 0 : velocity.y > 0) : (isDismissing ? velocity.x < 0 : velocity.x > 0));
 }
 
 #pragma mark - Con(De)structor
@@ -46,6 +37,7 @@
     
     if (self) {
         _gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned)];
+        _gestureRecognizer.delegate = self;
     }
     
     return self;
@@ -72,10 +64,6 @@
     const CGPoint newPoint = [self.panGestureRecognizer locationInView:self.currentViewController.view.window];
     const BOOL isDismissing = self.presentViewController == nil;
     
-    if (self.shouldBlockInteraction) {
-        return;
-    }
-    
     switch (self.panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
             self.beginPoint = newPoint;
@@ -87,7 +75,13 @@
                 [self.viewController presentViewController:self.presentViewController animated:YES completion:nil];
             }
             
-            [transition interactiveTransitionBegan:self];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [transition interactiveTransitionBegan:self];
+                
+                if ([self.delegate respondsToSelector:@selector(didBeginWithInteractor:)]) {
+                    [self.delegate didBeginWithInteractor:self];
+                }
+            });
             break;
         }
         case UIGestureRecognizerStateChanged: {
@@ -99,9 +93,9 @@
             const CGFloat targetSize = self.direction == InteractiveTransitionDirectionVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat point = self.direction == InteractiveTransitionDirectionVertical ? translation.y : translation.x;
             const CGFloat dragAmount = targetSize * (self.presentViewController ? -1 : 1);
-            const CGFloat threshold = 0.3;
+            const CGFloat threshold = transition.bounceHeight / targetSize;
             const CGFloat percent = fmin(fmax(point / dragAmount, 0), 1);
-            shouldComplete = ABS(point / dragAmount) > threshold;
+            _shouldComplete = ABS(point / dragAmount) > threshold;
             self.point = newPoint;
             
             if (CGPointEqualToPoint(self.beginViewPoint, CGPointZero)) {
@@ -110,6 +104,10 @@
             
             [self updateInteractiveTransition:percent];
             [transition interactiveTransitionChanged:self percent:percent];
+            
+            if ([self.delegate respondsToSelector:@selector(didChangeWithInteractor:percent:)]) {
+                [self.delegate didChangeWithInteractor:self percent:percent];
+            }
             break;
         }
         case UIGestureRecognizerStateCancelled:
@@ -119,13 +117,23 @@
             }
             
             void (^completion)(void) = ^void(void) {
+                if (_shouldComplete) {
+                    if ([self.delegate respondsToSelector:@selector(didCompleteWithInteractor:)]) {
+                        [self.delegate didCompleteWithInteractor:self];
+                    }
+                } else {
+                    if ([self.delegate respondsToSelector:@selector(didCancelWithInteractor:)]) {
+                        [self.delegate didCancelWithInteractor:self];
+                    }
+                }
+                
                 transition.interactionEnabled = NO;
                 self.beginPoint = CGPointZero;
                 self.beginViewPoint = CGPointZero;
                 self.point = CGPointZero;
             };
             
-            if (_gestureRecognizer.state == UIGestureRecognizerStateCancelled || !shouldComplete) {
+            if (_gestureRecognizer.state == UIGestureRecognizerStateCancelled || !_shouldComplete) {
                 [self cancelInteractiveTransition];
                 [transition interactiveTransitionCancelled:self completion:completion];
             } else {

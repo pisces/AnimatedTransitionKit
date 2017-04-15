@@ -6,7 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/UIViewControllerTransitions.svg?style=flat)](http://cocoapods.org/pods/UIViewControllerTransitions)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-- It's the easliy library to apply transitioning to between view controller  and other view controller
+- It's the very simple library to apply transitioning to between viewcontroller and other viewcontroller
 
 ## Features
 - Very simple interface and integration
@@ -42,14 +42,6 @@ class DragDropTransitionFirstViewController: UIViewController {
         return UITapGestureRecognizer(target: self, action: #selector(tapped))
     }()
     
-    private lazy var secondNavigationController: UINavigationController = {
-        return UINavigationController(rootViewController: self.secondViewController)
-    }()
-    
-    private lazy var secondViewController: DragDropTransitionSecondViewController = {
-        return DragDropTransitionSecondViewController(nibName: "DragDropTransitionSecondView", bundle: .main)
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,11 +50,12 @@ class DragDropTransitionFirstViewController: UIViewController {
     }
     
     @objc private func tapped() {
+        let secondViewController = DragDropTransitionSecondViewController(nibName: "DragDropTransitionSecondView", bundle: .main)
+        let secondNavigationController = UINavigationController(rootViewController: secondViewController)
+        
         let transition = DragDropTransition()
         transition.isAllowsInteraction = true
-        transition.sourceImage = imageView.image
-        transition.interactionDelegate = secondViewController
-        transition.interactionDataSource = secondViewController
+        transition.dismissionInteractor?.delegate = secondViewController
         
         let w = self.view.frame.size.width
         let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
@@ -70,26 +63,30 @@ class DragDropTransitionFirstViewController: UIViewController {
         let bigRect = CGRect(x: 0, y: statusBarHeight + navigationBarHeight, width: w, height: w)
         let smallRect = imageView.frame
         
-        transition.presentingSource = AnimatedDragDropTransitioningSource().from({
+        transition.presentingSource = AnimatedDragDropTransitioningSource.image({ () -> UIImage? in
+            return self.imageView.image
+        }, from: { () -> CGRect in
             return smallRect
-        }, to: {
+        }, to: { () -> CGRect in
             return bigRect
-        }, rotation: {
+        }, rotation: { () -> CGFloat in
             return 0
-        }, completion: {
-            self.secondViewController.imageView.isHidden = false
+        }) {
             self.imageView.isHidden = true
-        })
+            secondViewController.imageView.isHidden = false
+        }
         
-        transition.dismissionSource = AnimatedDragDropTransitioningSource().from({
+        transition.dismissionSource = AnimatedDragDropTransitioningSource.image({ () -> UIImage? in
+            return secondViewController.imageView.image
+        }, from: { () -> CGRect in
             return bigRect
-        }, to: {
+        }, to: { () -> CGRect in
             return smallRect
-        }, rotation: {
+        }, rotation: { () -> CGFloat in
             return 0
-        }, completion: {
+        }) {
             self.imageView.isHidden = false
-        })
+        }
         
         secondNavigationController.transition = transition
         
@@ -97,7 +94,7 @@ class DragDropTransitionFirstViewController: UIViewController {
     }
 }
 
-class DragDropTransitionSecondViewController: UIViewController, DragDropInteractiveTransitionDataSource, InteractiveTransitionDelegate {
+class DragDropTransitionSecondViewController: UIViewController, InteractiveTransitionDelegate {
     
     @IBOutlet weak var imageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var imageView: UIImageView!
@@ -120,25 +117,27 @@ class DragDropTransitionSecondViewController: UIViewController, DragDropInteract
     
     // MARK: - InteractiveTransition delegate
     
-    func didBeginTransitioning() {
+    func didBegin(withInteractor interactor: AbstractInteractiveTransition) {
         imageView.isHidden = true
     }
     
-    func didChangeTransitioning(_ percent: CGFloat) {
+    func didChange(withInteractor interactor: AbstractInteractiveTransition, percent: CGFloat) {
     }
     
-    func didEndTransitioning() {
+    func didCancel(withInteractor interactor: AbstractInteractiveTransition) {
         imageView.isHidden = false
     }
     
-    // MARK: - DragDropInteractiveTransition data source
-    
-    func sourceImageForInteraction() -> UIImage? {
-        return imageView.image
+    func didComplete(withInteractor interactor: AbstractInteractiveTransition) {
+        imageView.isHidden = false
     }
     
-    func sourceImageRectForInteraction() -> CGRect {
-        return imageView.frame
+    func shouldRecognizeSimultaneously(with otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    func shouldReceiveTouch(with gestureRecognizer: UIGestureRecognizer?, touch: UITouch?) -> Bool {
+        return true
     }
     
     // MARK: - UIBarButtonItem selector

@@ -22,9 +22,6 @@
 - (void)interactiveTransitionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion;
 @end
 
-@protocol InteractiveTransitionDataSource;
-@protocol InteractiveTransitionDelegate;
-
 @interface AbstractUIViewControllerTransition : NSObject <AbstractUIViewControllerTransitionProtected, UIViewControllerTransitioningDelegate>
 @property (nonatomic, getter=isAllowsInteraction) BOOL allowsInteraction;
 @property (nonatomic, getter=isInteractionEnabled) BOOL interactionEnabled;
@@ -35,22 +32,7 @@
 @property (nullable, nonatomic, readonly) AnimatedTransitioning *transitioning;
 @property (nullable, nonatomic, strong) AbstractInteractiveTransition *dismissionInteractor;
 @property (nullable, nonatomic, strong) AbstractInteractiveTransition *presentingInteractor;
-@property (nullable, nonatomic, weak) id<InteractiveTransitionDataSource> interactionDataSource;
-@property (nullable, nonatomic, weak) id<InteractiveTransitionDelegate> interactionDelegate;
 - (id _Nonnull)initWithViewController:(__weak UIViewController * _Nullable)viewController;
-@end
-
-@protocol InteractiveTransitionDataSource <NSObject>
-@optional
-- (BOOL)shouldReceiveTouchWithGestureRecognizer:(UIGestureRecognizer * _Nullable)gestureRecognizer touch:(UITouch * _Nullable)touch;
-- (BOOL)shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer;
-@end
-
-@protocol InteractiveTransitionDelegate <NSObject>
-@optional
-- (void)didBeginTransitioning;
-- (void)didChangeTransitioning:(CGFloat)percent;
-- (void)didEndTransitioning;
 @end
 
 @interface UIViewController (UIViewControllerTransitions)

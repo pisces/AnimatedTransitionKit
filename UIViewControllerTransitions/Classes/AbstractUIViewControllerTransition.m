@@ -34,32 +34,6 @@
     return self;
 }
 
-#pragma mark - Properties
-
-- (void)setDismissionInteractor:(AbstractInteractiveTransition *)dismissionInteractor {
-    if ([dismissionInteractor isEqual:_dismissionInteractor]) {
-        return;
-    }
-    
-    _dismissionInteractor = dismissionInteractor;
-    
-    if ([dismissionInteractor isKindOfClass:[PanningInteractiveTransition class]]) {
-        ((PanningInteractiveTransition *) dismissionInteractor).gestureRecognizer.delegate = self;
-    }
-}
-
-- (void)setPresentingInteractor:(AbstractInteractiveTransition *)presentingInteractor {
-    if ([presentingInteractor isEqual:_presentingInteractor]) {
-        return;
-    }
-    
-    _presentingInteractor = presentingInteractor;
-    
-    if ([presentingInteractor isKindOfClass:[PanningInteractiveTransition class]]) {
-        ((PanningInteractiveTransition *) presentingInteractor).gestureRecognizer.delegate = self;
-    }
-}
-
 #pragma mark - Public methods
 
 - (id)initWithViewController:(UIViewController *)viewController {
@@ -106,54 +80,22 @@
     [_dismissionInteractor attach:_viewController presentViewController:nil];
 }
 
-#pragma mark - UIGestureRecognizer delegate
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if (!_allowsInteraction) {
-        return NO;
-    }
-    
-    if ([_interactionDataSource respondsToSelector:@selector(shouldReceiveTouchWithGestureRecognizer:touch:)]) {
-        return [_interactionDataSource shouldReceiveTouchWithGestureRecognizer:gestureRecognizer touch:touch];
-    }
-    return YES;
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    if (!_allowsInteraction) {
-        return NO;
-    }
-    
-    if ([_interactionDataSource respondsToSelector:@selector(shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
-        return [_interactionDataSource shouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
-    }
-    return NO;
-}
-
 #pragma mark - Public methods
 
 - (void)interactiveTransitionBegan:(AbstractInteractiveTransition * _Nonnull)interactor {
     [_transitioning interactionBegan:interactor];
-    [_interactionDelegate didBeginTransitioning];
 }
 
 - (void)interactiveTransitionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor  completion:(void (^_Nullable)(void))completion {
-    [_transitioning interactionCancelled:interactor completion:^{
-        [_interactionDelegate didEndTransitioning];
-        completion();
-    }];
+    [_transitioning interactionCancelled:interactor completion:completion];
 }
 
 - (void)interactiveTransitionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     [_transitioning interactionChanged:interactor percent:percent];
-    [_interactionDelegate didChangeTransitioning:percent];
 }
 
 - (void)interactiveTransitionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    [_transitioning interactionCompleted:interactor completion:^{
-        [_interactionDelegate didEndTransitioning];
-        completion();
-    }];
+    [_transitioning interactionCompleted:interactor completion:completion];
 }
 
 #pragma mark - Protected methods

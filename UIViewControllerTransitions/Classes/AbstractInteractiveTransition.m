@@ -30,6 +30,22 @@
     return self;
 }
 
+#pragma mark - UIGestureRecognizer delegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([_delegate respondsToSelector:@selector(shouldReceiveTouchWithGestureRecognizer:touch:)]) {
+        return [_delegate shouldReceiveTouchWithGestureRecognizer:gestureRecognizer touch:touch];
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ([_delegate respondsToSelector:@selector(shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
+        return [_delegate shouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
+    }
+    return NO;
+}
+
 #pragma mark - Public methods
 
 - (void)attach:(UIViewController *)viewController presentViewController:(UIViewController *)presentViewController {

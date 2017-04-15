@@ -52,13 +52,13 @@
     return transitionContext.isInteractive ? 0 : [self transitionDuration:transitionContext];
 }
 
-- (void)interactionBegan:(UIPercentDrivenInteractiveTransition * _Nonnull)interactor {
+- (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor {
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
 }
 
-- (void)interactionChanged:(UIPercentDrivenInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
+- (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     bouncePercent = percent * (self.screenSize.height / self.aboveViewController.transition.bounceHeight);
 }
 

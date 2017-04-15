@@ -13,8 +13,6 @@
 
 @implementation DragDropTransition
 
-@synthesize interactionDataSource = _interactionDataSource;
-
 #pragma mark - Overridden: AbstractUIViewControllerTransition
 
 - (void)initProperties {
@@ -25,17 +23,9 @@
 
 - (AnimatedTransitioning *)animatedTransitioningForDismissedController:(UIViewController *)dismissed {
     AnimatedDragDropTransitioning *transitioning = [AnimatedDragDropTransitioning new];
-    transitioning.imageViewContentMode = _imageViewContentMode;
-    transitioning.transitionSource = _dismissionSource;
-    transitioning.dismissionImageView = dismissionImageView;
     transitioning.duration = self.durationForDismission;
-    
-    if ([_interactionDataSource respondsToSelector:@selector(sourceImageForInteraction)]) {
-        transitioning.sourceImage = [_interactionDataSource sourceImageForInteraction];
-    }
-    
-    dismissionImageView = nil;
-    
+    transitioning.imageViewContentMode = _imageViewContentMode;
+    transitioning.source = _dismissionSource;
     return transitioning;
 }
 
@@ -44,8 +34,7 @@
     transitioning.presenting = YES;
     transitioning.duration = self.durationForPresenting;
     transitioning.imageViewContentMode = _imageViewContentMode;
-    transitioning.transitionSource =_presentingSource;
-    transitioning.sourceImage = _sourceImage;
+    transitioning.source =_presentingSource;
     return transitioning;
 }
 
