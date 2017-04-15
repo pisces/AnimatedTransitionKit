@@ -33,17 +33,17 @@
 #pragma mark - UIGestureRecognizer delegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if ([_delegate respondsToSelector:@selector(shouldReceiveTouchWithGestureRecognizer:touch:)]) {
-        return [_delegate shouldReceiveTouchWithGestureRecognizer:gestureRecognizer touch:touch];
+    if ([_delegate respondsToSelector:@selector(interactor:shouldReceiveTouchWithGestureRecognizer:touch:)]) {
+        return [_delegate interactor:self shouldReceiveTouchWithGestureRecognizer:gestureRecognizer touch:touch];
     }
     return YES;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    if ([_delegate respondsToSelector:@selector(shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
-        return [_delegate shouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
+    if ([_delegate respondsToSelector:@selector(interactor:shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
+        return [_delegate interactor:self shouldRecognizeSimultaneouslyWithGestureRecognizer:gestureRecognizer];
     }
-    return NO;
+    return YES;
 }
 
 #pragma mark - Public methods

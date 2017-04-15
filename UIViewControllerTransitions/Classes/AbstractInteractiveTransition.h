@@ -39,6 +39,6 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 - (void)didChangeWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent;
 - (void)didCancelWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
 - (void)didCompleteWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
-- (BOOL)shouldReceiveTouchWithGestureRecognizer:(UIGestureRecognizer * _Nullable)gestureRecognizer touch:(UITouch * _Nullable)touch;
-- (BOOL)shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer;
+- (BOOL)interactor:(AbstractInteractiveTransition * _Nonnull)interactor shouldReceiveTouchWithGestureRecognizer:(UIGestureRecognizer * _Nullable)gestureRecognizer touch:(UITouch * _Nullable)touch;
+- (BOOL)interactor:(AbstractInteractiveTransition * _Nonnull)interactor shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer;
 @end
