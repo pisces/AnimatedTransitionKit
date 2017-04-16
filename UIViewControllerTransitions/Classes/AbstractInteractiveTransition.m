@@ -9,6 +9,7 @@
 //
 
 #import "AbstractInteractiveTransition.h"
+#import "AbstractUIViewControllerTransition.h"
 
 @implementation AbstractInteractiveTransition
 
@@ -16,6 +17,10 @@
 
 - (UIViewController *)currentViewController {
     return _presentViewController ? _presentViewController : _viewController;
+}
+
+- (AbstractUIViewControllerTransition *)transition {
+    return self.currentViewController.transition;
 }
 
 #pragma mark - Con(De)structor
@@ -28,6 +33,44 @@
     }
     
     return self;
+}
+
+#pragma mark - Overridden: UIPercentDrivenInteractiveTransition
+
+- (void)cancelInteractiveTransition {
+    [super cancelInteractiveTransition];
+    
+    [self.transition.transitioning interactionCancelled:self completion:^{
+        [self completion];
+    }];
+}
+
+- (void)finishInteractiveTransition {
+    [super finishInteractiveTransition];
+    
+    [self.transition.transitioning interactionCompleted:self completion:^{
+        [self completion];
+    }];
+}
+
+- (void)startInteractiveTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
+    [super startInteractiveTransition:transitionContext];
+    
+    [self.transition.transitioning interactionBegan:self transitionContext:transitionContext];
+    
+    if ([_delegate respondsToSelector:@selector(didBeginWithInteractor:)]) {
+        [_delegate didBeginWithInteractor:self];
+    }
+}
+
+- (void)updateInteractiveTransition:(CGFloat)percentComplete {
+    [super updateInteractiveTransition:percentComplete];
+    
+    [self.currentViewController.transition.transitioning interactionChanged:self percent:percentComplete];
+    
+    if ([_delegate respondsToSelector:@selector(didChangeWithInteractor:percent:)]) {
+        [_delegate didChangeWithInteractor:self percent:percentComplete];
+    }
 }
 
 #pragma mark - UIGestureRecognizer delegate
@@ -58,6 +101,24 @@
 - (void)detach {
     _viewController = nil;
     _presentViewController = nil;
+}
+
+#pragma mark - Private methods
+
+- (void)completion {
+    if (_shouldComplete) {
+        if ([_delegate respondsToSelector:@selector(didCompleteWithInteractor:)]) {
+            [_delegate didCompleteWithInteractor:self];
+        }
+    } else {
+        if ([_delegate respondsToSelector:@selector(didCancelWithInteractor:)]) {
+            [_delegate didCancelWithInteractor:self];
+        }
+    }
+    
+    _beginPoint = CGPointZero;
+    _beginViewPoint = CGPointZero;
+    _point = CGPointZero;
 }
 
 @end

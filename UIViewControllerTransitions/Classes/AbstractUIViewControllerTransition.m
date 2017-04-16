@@ -34,6 +34,18 @@
     return self;
 }
 
+#pragma mark - Properties
+
+- (void)setAllowsInteraction:(BOOL)allowsInteraction {
+    if (allowsInteraction == _allowsInteraction) {
+        return;
+    }
+    
+    _allowsInteraction = allowsInteraction;
+    _dismissionInteractor.gestureRecognizer.enabled = allowsInteraction;
+    _presentingInteractor.gestureRecognizer.enabled = allowsInteraction;
+}
+
 #pragma mark - Public methods
 
 - (id)initWithViewController:(UIViewController *)viewController {
@@ -80,24 +92,6 @@
     [_dismissionInteractor attach:_viewController presentViewController:nil];
 }
 
-#pragma mark - Public methods
-
-- (void)interactiveTransitionBegan:(AbstractInteractiveTransition * _Nonnull)interactor {
-    [_transitioning interactionBegan:interactor];
-}
-
-- (void)interactiveTransitionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor  completion:(void (^_Nullable)(void))completion {
-    [_transitioning interactionCancelled:interactor completion:completion];
-}
-
-- (void)interactiveTransitionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
-    [_transitioning interactionChanged:interactor percent:percent];
-}
-
-- (void)interactiveTransitionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    [_transitioning interactionCompleted:interactor completion:completion];
-}
-
 #pragma mark - Protected methods
 
 - (AnimatedTransitioning *)animatedTransitioningForDismissedController:(UIViewController *)dismissed {
@@ -111,14 +105,8 @@
 - (void)initProperties {
     _bounceHeight = 100;
     _durationForDismission = _durationForPresenting = 0.6;
-    self.dismissionInteractor = [PanningInteractiveTransition new];
-    self.presentingInteractor = [PanningInteractiveTransition new];
-}
-
-#pragma mark - Private methods
-
-- (void)clear {
-    _transitioning = nil;
+    _dismissionInteractor = [PanningInteractiveTransition new];
+    _presentingInteractor = [PanningInteractiveTransition new];
 }
 
 @end

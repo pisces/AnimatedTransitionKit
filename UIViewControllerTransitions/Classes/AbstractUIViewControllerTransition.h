@@ -16,10 +16,6 @@
 - (AnimatedTransitioning * _Nullable)animatedTransitioningForDismissedController:(UIViewController * _Nullable)dismissed;
 - (AnimatedTransitioning * _Nullable)animatedTransitioningForForPresentedController:(UIViewController * _Nullable)presented presentingController:(UIViewController * _Nullable)presenting sourceController:(UIViewController * _Nullable)source;
 - (void)initProperties;
-- (void)interactiveTransitionBegan:(AbstractInteractiveTransition * _Nonnull)interactor;
-- (void)interactiveTransitionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion;
-- (void)interactiveTransitionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent;
-- (void)interactiveTransitionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion;
 @end
 
 @interface AbstractUIViewControllerTransition : NSObject <AbstractUIViewControllerTransitionProtected, UIViewControllerTransitioningDelegate>

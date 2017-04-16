@@ -20,29 +20,29 @@
     return self.presenting ? self.aboveViewController.transition.presentingInteractor.direction : self.aboveViewController.transition.dismissionInteractor.direction;
 }
 
-- (CGRect)cancelFrameTo {
+- (CGAffineTransform)cancelTransformTo {
     if (self.direction == InteractiveTransitionDirectionVertical) {
-        return CGRectMake(0, self.presenting ? self.screenSize.height : 0, self.screenSize.width, self.screenSize.height);
+        return CGAffineTransformMakeTranslation(0, self.presenting ? self.screenSize.height : 0);
     }
-    return CGRectMake(self.presenting ? self.screenSize.width : 0, 0, self.screenSize.width, self.screenSize.height);
+    return CGAffineTransformMakeTranslation(self.presenting ? self.screenSize.width : 0, 0);
 }
 
-- (CGRect)frameFrom {
+- (CGAffineTransform)transformFrom {
     if (self.direction == InteractiveTransitionDirectionVertical) {
-        return CGRectMake(0, self.presenting ? self.screenSize.height : 0, self.screenSize.width, self.screenSize.height);
+        return CGAffineTransformMakeTranslation(0, self.presenting ? self.screenSize.height : 0);
     }
-    return CGRectMake(self.presenting ? self.screenSize.width : 0, 0, self.screenSize.width, self.screenSize.height);
+    return CGAffineTransformMakeTranslation(self.presenting ? self.screenSize.width : 0, 0);
 }
 
-- (CGRect)frameTo {
+- (CGAffineTransform)transformTo {
     const CGFloat value = self.direction == InteractiveTransitionDirectionVertical ? self.screenSize.height : self.screenSize.width;
     
     if (self.direction == InteractiveTransitionDirectionVertical) {
-        const CGFloat y = self.aboveViewController.view.frame.origin.y;
-        return CGRectMakeY(self.aboveViewController.view.frame, self.presenting ? 0 : y >= 0 ? value : -value);
+        const CGFloat y = self.aboveViewController.view.transform.ty;
+        return CGAffineTransformMakeTranslation(0, self.presenting ? 0 : y >= 0 ? value : -value);
     }
-    const CGFloat x = self.aboveViewController.view.frame.origin.x;
-    return CGRectMakeX(self.aboveViewController.view.frame, self.presenting ? 0 : x >= 0 ? value : -value);
+    const CGFloat x = self.aboveViewController.view.transform.tx;
+    return CGAffineTransformMakeTranslation(self.presenting ? 0 : x >= 0 ? value : -value, 0);
 }
 
 #pragma mark - Overridden: AnimatedTransitioning
@@ -55,16 +55,17 @@
     toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     toViewController.view.hidden = NO;
     toViewController.view.window.backgroundColor = [UIColor blackColor];
-    fromViewController.view.frame = self.frameFrom;
+    fromViewController.view.transform = self.transformFrom;
     
     if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 options:7<<16 animations:^{
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
             toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
             toViewController.view.alpha = 1;
             toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-            fromViewController.view.frame = self.frameTo;
+            fromViewController.view.transform = self.transformTo;
         } completion:^(BOOL finished) {
             toViewController.view.window.backgroundColor = backgroundColor;
+            
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }];
     }
@@ -76,13 +77,13 @@
     UIColor *backgroundColor = fromViewController.view.window.backgroundColor;
     
     fromViewController.view.window.backgroundColor = [UIColor blackColor];
-    toViewController.view.frame = self.frameFrom;
     
     [transitionContext.containerView addSubview:toViewController.view];
+    toViewController.view.transform = self.transformFrom;
     
     if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 options:7<<16 animations:^{
-            toViewController.view.frame = self.frameTo;
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
+            toViewController.view.transform = self.transformTo;
             fromViewController.view.alpha = 0.5;
             fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
             fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
@@ -100,16 +101,18 @@
     }
 }
 
-- (void)interactionBegan:(AbstractInteractiveTransition *)interactor {
-    self.aboveViewController.view.frame = self.frameFrom;
+- (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
+    [super interactionBegan:interactor transitionContext:transitionContext];
+    
+    self.aboveViewController.view.transform = self.transformFrom;
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     const CGFloat alpha = self.presenting ? 1 : 0.5;
     const CGFloat scale = self.presenting ? 1 : 0.94;
     
-    [UIView animateWithDuration:0.2 delay:0 options:7<<16 animations:^{
-        self.aboveViewController.view.frame = self.cancelFrameTo;
+    [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
+        self.aboveViewController.view.transform = self.cancelTransformTo;
         self.belowViewController.view.alpha = alpha;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
@@ -128,11 +131,11 @@
     scale = MAX(0.94, MIN(1, scale));
     
     if (interactor.direction == InteractiveTransitionDirectionVertical) {
-        const CGFloat y = interactor.beginViewPoint.y + (interactor.point.y - interactor.beginPoint.y);
-        self.aboveViewController.view.frame = CGRectMakeY(self.aboveViewController.view.frame, y);
+        const CGFloat y = self.transformFrom.ty + (interactor.point.y - interactor.beginPoint.y);
+        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(0, y);
     } else {
-        const CGFloat x = interactor.beginViewPoint.x + (interactor.point.x - interactor.beginPoint.x);
-        self.aboveViewController.view.frame = CGRectMakeX(self.aboveViewController.view.frame, x);
+        const CGFloat x = self.transformFrom.tx + (interactor.point.x - interactor.beginPoint.x);
+        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(x, 0);
     }
     
     self.belowViewController.view.alpha = alpha;
@@ -143,8 +146,8 @@
     const CGFloat alpha = self.presenting ? 0.5 : 1;
     const CGFloat scale = self.presenting ? 0.94 : 1;
     
-    [UIView animateWithDuration:0.2 delay:0 options:7<<16 animations:^{
-        self.aboveViewController.view.frame = self.frameTo;
+    [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
+        self.aboveViewController.view.transform = self.transformTo;
         self.belowViewController.view.alpha = alpha;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;

@@ -10,6 +10,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class AbstractUIViewControllerTransition;
+
 typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
     InteractiveTransitionDirectionVertical,
     InteractiveTransitionDirectionHorizontal
@@ -21,14 +23,15 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 @interface AbstractInteractiveTransition : UIPercentDrivenInteractiveTransition <UIGestureRecognizerDelegate>
 @property (nonatomic, readonly) BOOL shouldComplete;
 @property (nonatomic) InteractiveTransitionDirection direction;
-@property (nonatomic) CGPoint beginPoint;
-@property (nonatomic) CGPoint beginViewPoint;
-@property (nonatomic) CGPoint point;
-@property (nullable, nonatomic, weak) id<InteractiveTransitionDelegate> delegate;
+@property (nonatomic, readonly) CGPoint beginPoint;
+@property (nonatomic, readonly) CGPoint beginViewPoint;
+@property (nonatomic, readonly) CGPoint point;
 @property (nonnull, nonatomic, readonly) UIGestureRecognizer *gestureRecognizer;
+@property (nullable, nonatomic, weak) id<InteractiveTransitionDelegate> delegate;
 @property (nullable, readonly) UIViewController *presentViewController;
 @property (nonnull, readonly) UIViewController *viewController;
 @property (nonnull, readonly) UIViewController *currentViewController;
+@property (nullable, nonatomic, readonly) AbstractUIViewControllerTransition *transition;
 - (void)attach:(__weak UIViewController * _Nonnull)viewController presentViewController:(__weak UIViewController * _Nullable)presentViewController;
 - (void)detach;
 @end

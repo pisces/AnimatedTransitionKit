@@ -59,7 +59,7 @@
     }
     
     if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 animations:^{
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
             [self dismiss];
         } completion:^(BOOL finished) {
             toViewController.view.window.backgroundColor = backgroundColor;
@@ -76,13 +76,13 @@
     sourceImageView = [self createImageView];
     fromViewController.view.window.backgroundColor = [UIColor blackColor];
     
-    [fromViewController.view.window addSubview:sourceImageView];
     [transitionContext.containerView addSubview:toViewController.view];
+    [transitionContext.containerView addSubview:sourceImageView];
     
     toViewController.view.alpha = 0;
     
     if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 animations:^{
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
             toViewController.view.alpha = 1;
             fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
             fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
@@ -108,7 +108,7 @@
         return;
     }
     
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 animations:^{
+    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.alpha = 1;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
         self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
@@ -148,7 +148,7 @@
         return;
     }
     
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 animations:^{
+    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
         [self dismiss];
     } completion:^(BOOL finished) {
         [self completion];

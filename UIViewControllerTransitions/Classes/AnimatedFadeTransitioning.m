@@ -24,7 +24,7 @@
     toViewController.view.window.backgroundColor = [UIColor blackColor];
     
     if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 options:7<<16 animations:^{
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
             fromViewController.view.alpha = 0;
             toViewController.view.alpha = 1;
             toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
@@ -49,7 +49,7 @@
     [transitionContext.containerView addSubview:toViewController.view];
     
     if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 options:7<<16 animations:^{
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
             toViewController.view.alpha = 1;
             fromViewController.view.alpha = 0;
             fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
