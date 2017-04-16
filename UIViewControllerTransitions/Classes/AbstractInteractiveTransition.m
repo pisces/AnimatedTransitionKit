@@ -106,7 +106,7 @@
 #pragma mark - Private methods
 
 - (void)completion {
-    if (_shouldComplete) {
+    if (self.shouldComplete) {
         if ([_delegate respondsToSelector:@selector(didCompleteWithInteractor:)]) {
             [_delegate didCompleteWithInteractor:self];
         }
@@ -116,9 +116,9 @@
         }
     }
     
-    _beginPoint = CGPointZero;
-    _beginViewPoint = CGPointZero;
-    _point = CGPointZero;
+    self.beginPoint = CGPointZero;
+    self.beginViewPoint = CGPointZero;
+    self.point = CGPointZero;
 }
 
 @end

@@ -17,9 +17,6 @@
 
 @implementation PanningInteractiveTransition
 
-@synthesize beginPoint = _beginPoint;
-@synthesize beginViewPoint = _beginViewPoint;
-@synthesize point = _point;
 @synthesize gestureRecognizer = _gestureRecognizer;
 @synthesize shouldComplete = _shouldComplete;
 
@@ -76,8 +73,8 @@
             }
             
             self.transition.interactionEnabled = YES;
-            _beginPoint = newPoint;
-            _beginViewPoint = self.currentViewController.view.frame.origin;
+            self.beginPoint = newPoint;
+            self.beginViewPoint = self.currentViewController.view.frame.origin;
             
             if (isDismissing) {
                 [self.viewController dismissViewControllerAnimated:YES completion:nil];
@@ -97,8 +94,8 @@
             const CGFloat dragAmount = targetSize * (self.presentViewController ? -1 : 1);
             const CGFloat threshold = self.transition.bounceHeight / targetSize;
             const CGFloat percent = fmin(fmax(point / dragAmount, 0), 1);
+            self.point = newPoint;
             _shouldComplete = ABS(point / dragAmount) > threshold;
-            _point = newPoint;
             
             [self updateInteractiveTransition:percent];
             break;

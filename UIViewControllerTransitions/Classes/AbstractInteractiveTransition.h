@@ -23,9 +23,9 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 @interface AbstractInteractiveTransition : UIPercentDrivenInteractiveTransition <UIGestureRecognizerDelegate>
 @property (nonatomic, readonly) BOOL shouldComplete;
 @property (nonatomic) InteractiveTransitionDirection direction;
-@property (nonatomic, readonly) CGPoint beginPoint;
-@property (nonatomic, readonly) CGPoint beginViewPoint;
-@property (nonatomic, readonly) CGPoint point;
+@property (nonatomic) CGPoint beginPoint;
+@property (nonatomic) CGPoint beginViewPoint;
+@property (nonatomic) CGPoint point;
 @property (nonnull, nonatomic, readonly) UIGestureRecognizer *gestureRecognizer;
 @property (nullable, nonatomic, weak) id<InteractiveTransitionDelegate> delegate;
 @property (nullable, readonly) UIViewController *presentViewController;
