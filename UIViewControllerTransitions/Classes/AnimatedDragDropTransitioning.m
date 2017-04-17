@@ -21,20 +21,27 @@
     _completion = nil;
 }
 
-- (AnimatedDragDropTransitioningSource *)from:(AnimatedDragDropTransitioningSourceBlock)from
-                                        to:(AnimatedDragDropTransitioningSourceBlock)to
-                                  rotation:(AnimatedDragDropTransitioningValueBlock)rotation
-                                completion:(AnimatedDragDropTransitioningCompletionBlock)completion {
-    _from = from;
-    _to = to;
-    _rotation = rotation;
-    _completion = completion;
-    return self;
++ (AnimatedDragDropTransitioningSource *)image:(AnimatedDragDropTransitioningImageBlock)image
+                                          from:(AnimatedDragDropTransitioningSourceBlock)from
+                                            to:(AnimatedDragDropTransitioningSourceBlock)to
+                                      rotation:(AnimatedDragDropTransitioningValueBlock)rotation
+                                    completion:(AnimatedDragDropTransitioningCompletionBlock)completion {
+    AnimatedDragDropTransitioningSource *source = [AnimatedDragDropTransitioningSource new];
+    source.image = image;
+    source.from = from;
+    source.to = to;
+    source.rotation = rotation;
+    source.completion = completion;
+    return source;
 }
 
 @end
 
 @implementation AnimatedDragDropTransitioning
+{
+@private
+    UIImageView *sourceImageView;
+}
 
 #pragma mark - Overridden: AnimatedTransitioning
 
@@ -42,79 +49,59 @@
     [super animateTransitionForDismission:transitionContext];
     
     UIColor *backgroundColor = toViewController.view.window.backgroundColor;
-    UIImageView *imageView = _dismissionImageView ? _dismissionImageView : [self createImageView];
-    
-    if (!_dismissionImageView) {
-        [toViewController.view.window addSubview:imageView];
-        _dismissionImageView = imageView;
-    }
-    
-    [fromViewController viewWillDisappear:YES];
-    [toViewController viewWillAppear:YES];
     
     toViewController.view.hidden = NO;
     toViewController.view.window.backgroundColor = [UIColor blackColor];
     
-    [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 animations:^{
-        if (!transitionContext.isInteractive) {
-            [self dismissWithImageView:imageView fromViewController:fromViewController toViewController:toViewController];
-        }
-    } completion:^(BOOL finished) {
-        if (!transitionContext.isInteractive) {
+    if (!sourceImageView) {
+        sourceImageView = [self createImageView];
+        [transitionContext.containerView addSubview:sourceImageView];
+    }
+    
+    [toViewController viewWillAppear:YES];
+    
+    if (!transitionContext.isInteractive) {
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
+            [self dismiss];
+        } completion:^(BOOL finished) {
             toViewController.view.window.backgroundColor = backgroundColor;
             
-            [self endWithImageView:imageView fromViewController:fromViewController toViewController:toViewController];
-        }
-    }];
+            [self completion];
+        }];
+    }
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
     [super animateTransitionForPresenting:transitionContext];
     
     UIColor *backgroundColor = fromViewController.view.window.backgroundColor;
-    UIImageView *imageView = [self createImageView];
-    
+    sourceImageView = [self createImageView];
     fromViewController.view.window.backgroundColor = [UIColor blackColor];
     
-    [fromViewController.view.window addSubview:imageView];
-    [fromViewController viewWillDisappear:YES];
-    [toViewController viewWillAppear:YES];
     [transitionContext.containerView addSubview:toViewController.view];
+    [transitionContext.containerView addSubview:sourceImageView];
+    [fromViewController viewWillDisappear:YES];
     
     toViewController.view.alpha = 0;
-    [self setNavigationBarAlpha:toViewController];
     
-    [UIView animateWithDuration:[self currentDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 animations:^{
-        if (!transitionContext.isInteractive) {
+    if (!transitionContext.isInteractive) {
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
             toViewController.view.alpha = 1;
-            fromViewController.view.alpha = 0.5;
             fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
             fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
             
-            imageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
-            imageView.frame = _transitionSource.to();
-            
-            [self setNavigationBarAlpha:toViewController];
-        }
-    } completion:^(BOOL finished) {
-        if (!transitionContext.isInteractive) {
+            sourceImageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
+            sourceImageView.frame = _source.to();
+        } completion:^(BOOL finished) {
             fromViewController.view.window.backgroundColor = backgroundColor;
             
             if (!transitionContext.transitionWasCancelled) {
                 fromViewController.view.hidden = YES;
             }
             
-            [fromViewController viewDidDisappear:YES];
-            [toViewController viewDidAppear:YES];
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-            _transitionSource.completion();
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [imageView removeFromSuperview];
-                [self clear];
-            });
-        }
-    }];
+            [self completion];
+        }];
+    }
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
@@ -124,26 +111,17 @@
         return;
     }
     
-    [UIView animateWithDuration:0.2 delay:0 options:7<<16 animations:^{
+    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.alpha = 1;
-        self.belowViewController.view.alpha = 0;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
         self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
         
-        _dismissionImageView.transform = CGAffineTransformMakeScale(1, 1);
-        _dismissionImageView.frame = _transitionSource.from();
-        
-        [self setNavigationBarAlpha:self.aboveViewController];
+        sourceImageView.transform = CGAffineTransformMakeScale(1, 1);
+        sourceImageView.frame = _source.from();
     } completion:^(BOOL finished) {
-        [self.aboveViewController viewDidAppear:YES];
-        [self.belowViewController viewDidDisappear:YES];
-        [_dismissionImageView removeFromSuperview];
-        _dismissionImageView = nil;
-        
+        [self cancel];
         completion();
     }];
-    
-    [context completeTransition:!context.transitionWasCancelled];
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
@@ -156,17 +134,14 @@
     const CGFloat bounceHeight = self.aboveViewController.transition.bounceHeight;
     const CGFloat y = interactor.beginViewPoint.y + (interactor.point.y - interactor.beginPoint.y);
     const CGFloat progress = ABS(y) / bounceHeight;
-    const CGFloat alpha = MIN(0.5, 0.5 * progress);
+    const CGFloat alpha = 1 - progress;
     const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * progress));
     const CGFloat imageScale = MIN(1, (MAX(0.5, 1 - ABS(y) / self.screenSize.height)));
     
-    _dismissionImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(imageScale, imageScale), (interactor.point.x - interactor.beginPoint.x), (interactor.point.y - interactor.beginPoint.y));
+    sourceImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(imageScale, imageScale), (interactor.point.x - interactor.beginPoint.x), (interactor.point.y - interactor.beginPoint.y));
     
-    self.belowViewController.view.alpha = alpha;
     self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
-    self.aboveViewController.view.alpha = 1 - (1 * progress);
-    
-    [self setNavigationBarAlpha:self.aboveViewController];
+    self.aboveViewController.view.alpha = alpha;
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^)(void))completion {
@@ -176,27 +151,27 @@
         return;
     }
     
-    [UIView animateWithDuration:0.2 delay:0 options:7<<16 animations:^{
-        [self dismissWithImageView:_dismissionImageView fromViewController:self.aboveViewController toViewController:self.belowViewController];
+    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
+        [self dismiss];
     } completion:^(BOOL finished) {
-        [self endWithImageView:_dismissionImageView fromViewController:self.aboveViewController toViewController:self.belowViewController];
-        _dismissionImageView = nil;
+        [self completion];
     }];
 }
 
 #pragma mark - Protected methods
 
 - (void)clear {
-    [_transitionSource clear];
-    _transitionSource = nil;
+    [_source clear];
+    _source = nil;
+    sourceImageView = nil;
 }
 
 - (UIMaskedImageView *)createImageView {
-    UIMaskedImageView *imageView = [[UIMaskedImageView alloc] initWithFrame:_transitionSource.from()];
+    UIMaskedImageView *imageView = [[UIMaskedImageView alloc] initWithFrame:_source.from()];
     imageView.backgroundColor = [UIColor clearColor];
     imageView.clipsToBounds = YES;
     imageView.contentMode = _imageViewContentMode;
-    imageView.image = _sourceImage;
+    imageView.image = _source.image();
     imageView.layer.anchorPoint = CGPointMake(0.5, 0.5);
     return imageView;
 }
@@ -204,39 +179,46 @@
 #pragma mark - Private methods
 
 - (CGFloat)angle {
-    if (![_transitionSource respondsToSelector:@selector(rotation)] || !_transitionSource.rotation) {
+    if (![_source respondsToSelector:@selector(rotation)] || !_source.rotation) {
         return 0;
     }
-    CGFloat rotation = _transitionSource.rotation();
+    CGFloat rotation = _source.rotation();
     return rotation != 0 ? rotation * M_PI / 180 : 0;
 }
 
-- (void)dismissWithImageView:(UIImageView *)imageView fromViewController:(UIViewController *)_fromViewController toViewController:(UIViewController *)_toViewController {
-    _fromViewController.view.alpha = 0;
-    _toViewController.view.alpha = 1;
-    _toViewController.view.transform = CGAffineTransformMakeScale(1, 1);
-    _toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    
-    imageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
-    imageView.frame = _transitionSource.to();
-    
-    [self setNavigationBarAlpha:_fromViewController];
-}
-
-- (void)endWithImageView:(UIImageView *)imageView fromViewController:(UIViewController *)_fromViewController toViewController:(UIViewController *)_toViewController {
-    [_fromViewController viewDidDisappear:YES];
-    [_toViewController viewDidAppear:YES];
-    [context completeTransition:!context.transitionWasCancelled];
-    _transitionSource.completion();
-    
-    [imageView removeFromSuperview];
-    [self clear];
-}
-
-- (void)setNavigationBarAlpha:(UIViewController *)viewController {
-    if ([viewController isKindOfClass:[UINavigationController class]]) {
-        ((UINavigationController *) viewController).navigationBar.alpha = viewController.view.alpha;
+- (void)cancel {
+    if (self.presenting) {
+        [self.aboveViewController.view removeFromSuperview];
     }
+    
+    [context completeTransition:!context.transitionWasCancelled];
+    [sourceImageView removeFromSuperview];
+    sourceImageView = nil;
+}
+
+- (void)completion {
+    if (self.presenting) {
+        [self.belowViewController viewDidDisappear:YES];
+    } else {
+        [self.belowViewController viewDidAppear:YES];
+    }
+    
+    [context completeTransition:!context.transitionWasCancelled];
+    _source.completion();
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [sourceImageView removeFromSuperview];
+        [self clear];
+    });
+}
+
+- (void)dismiss {
+    self.aboveViewController.view.alpha = 0;
+    self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
+    self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+    
+    sourceImageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
+    sourceImageView.frame = _source.to();
 }
 
 @end

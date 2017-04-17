@@ -12,6 +12,11 @@
 
 @implementation AnimatedTransitioning
 
+#pragma mark - Con(De)structor
+
+- (void)dealloc {
+}
+
 #pragma mark - Properties
 
 - (UIViewController *)aboveViewController {
@@ -32,7 +37,11 @@
     return _duration;
 }
 
+- (void)animationEnded:(BOOL) transitionCompleted {
+}
+
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
+    context = transitionContext;
     fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     fromViewController.modalPresentationCapturesStatusBarAppearance = YES;
     
@@ -48,18 +57,15 @@
 
 #pragma mark - Public methods
 
-- (NSTimeInterval)currentDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return transitionContext.isInteractive ? 0 : [self transitionDuration:transitionContext];
-}
-
-- (void)interactionBegan:(UIPercentDrivenInteractiveTransition * _Nonnull)interactor {
+- (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
+    context = transitionContext;
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
 }
 
-- (void)interactionChanged:(UIPercentDrivenInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
-    bouncePercent = percent * (self.screenSize.height / self.aboveViewController.transition.bounceHeight);
+- (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
+    _bouncePercent = percent * (self.screenSize.height / self.aboveViewController.transition.bounceHeight);
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
@@ -68,11 +74,9 @@
 #pragma mark - Protected methods
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
-    context = transitionContext;
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
-    context = transitionContext;
 }
 
 @end

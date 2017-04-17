@@ -8,26 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		234A7CD01E4C623100DA1446 /* UIViewControllerTransitions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 234A7CC61E4C623100DA1446 /* UIViewControllerTransitions.framework */; };
-		234A7CF81E4C62E400DA1446 /* AbstractUIViewControllerTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 234A7CE41E4C62E400DA1446 /* AbstractUIViewControllerTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		234A7CF91E4C62E400DA1446 /* AbstractUIViewControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 234A7CE51E4C62E400DA1446 /* AbstractUIViewControllerTransition.m */; };
-		234A7CFA1E4C62E400DA1446 /* AnimatedDragDropTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 234A7CE61E4C62E400DA1446 /* AnimatedDragDropTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		234A7CFB1E4C62E400DA1446 /* AnimatedDragDropTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 234A7CE71E4C62E400DA1446 /* AnimatedDragDropTransition.m */; };
-		234A7CFC1E4C62E400DA1446 /* AnimatedFadeTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 234A7CE81E4C62E400DA1446 /* AnimatedFadeTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		234A7CFD1E4C62E400DA1446 /* AnimatedFadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 234A7CE91E4C62E400DA1446 /* AnimatedFadeTransition.m */; };
-		234A7CFE1E4C62E400DA1446 /* AnimatedMoveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 234A7CEA1E4C62E400DA1446 /* AnimatedMoveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		234A7CFF1E4C62E400DA1446 /* AnimatedMoveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 234A7CEB1E4C62E400DA1446 /* AnimatedMoveTransition.m */; };
-		234A7D001E4C62E400DA1446 /* AnimatedTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 234A7CEC1E4C62E400DA1446 /* AnimatedTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		234A7D011E4C62E400DA1446 /* AnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 234A7CED1E4C62E400DA1446 /* AnimatedTransition.m */; };
-		234A7D021E4C62E400DA1446 /* UIMaskedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 234A7CEE1E4C62E400DA1446 /* UIMaskedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		234A7D031E4C62E400DA1446 /* UIMaskedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 234A7CEF1E4C62E400DA1446 /* UIMaskedImageView.m */; };
-		234A7D041E4C62E400DA1446 /* UIViewControllerDragDropTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 234A7CF01E4C62E400DA1446 /* UIViewControllerDragDropTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		234A7D051E4C62E400DA1446 /* UIViewControllerDragDropTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 234A7CF11E4C62E400DA1446 /* UIViewControllerDragDropTransition.m */; };
-		234A7D061E4C62E400DA1446 /* UIViewControllerFadeTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 234A7CF21E4C62E400DA1446 /* UIViewControllerFadeTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		234A7D071E4C62E400DA1446 /* UIViewControllerFadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 234A7CF31E4C62E400DA1446 /* UIViewControllerFadeTransition.m */; };
-		234A7D081E4C62E400DA1446 /* UIViewControllerMoveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 234A7CF41E4C62E400DA1446 /* UIViewControllerMoveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		234A7D091E4C62E400DA1446 /* UIViewControllerMoveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 234A7CF51E4C62E400DA1446 /* UIViewControllerMoveTransition.m */; };
-		234A7D0A1E4C62E400DA1446 /* UIViewControllerTransitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 234A7CF61E4C62E400DA1446 /* UIViewControllerTransitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		234A7D0B1E4C62E400DA1446 /* UIViewControllerTransitionsMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 234A7CF71E4C62E400DA1446 /* UIViewControllerTransitionsMacro.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0AC91EA0D40800D9C55C /* AbstractInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AAF1EA0D40800D9C55C /* AbstractInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0ACA1EA0D40800D9C55C /* AbstractInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AB01EA0D40800D9C55C /* AbstractInteractiveTransition.m */; };
+		238D0ACB1EA0D40800D9C55C /* AbstractUIViewControllerTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB11EA0D40800D9C55C /* AbstractUIViewControllerTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0ACC1EA0D40800D9C55C /* AbstractUIViewControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AB21EA0D40800D9C55C /* AbstractUIViewControllerTransition.m */; };
+		238D0ACD1EA0D40800D9C55C /* AnimatedDragDropTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB31EA0D40800D9C55C /* AnimatedDragDropTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0ACE1EA0D40800D9C55C /* AnimatedDragDropTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AB41EA0D40800D9C55C /* AnimatedDragDropTransitioning.m */; };
+		238D0ACF1EA0D40800D9C55C /* AnimatedFadeTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB51EA0D40800D9C55C /* AnimatedFadeTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0AD01EA0D40800D9C55C /* AnimatedFadeTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AB61EA0D40800D9C55C /* AnimatedFadeTransitioning.m */; };
+		238D0AD11EA0D40800D9C55C /* AnimatedMoveTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB71EA0D40800D9C55C /* AnimatedMoveTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0AD21EA0D40800D9C55C /* AnimatedMoveTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AB81EA0D40800D9C55C /* AnimatedMoveTransitioning.m */; };
+		238D0AD31EA0D40800D9C55C /* AnimatedTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AB91EA0D40800D9C55C /* AnimatedTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0AD41EA0D40800D9C55C /* AnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0ABA1EA0D40800D9C55C /* AnimatedTransitioning.m */; };
+		238D0AD51EA0D40800D9C55C /* DragDropTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0ABB1EA0D40800D9C55C /* DragDropTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0AD61EA0D40800D9C55C /* DragDropTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0ABC1EA0D40800D9C55C /* DragDropTransition.m */; };
+		238D0AD91EA0D40800D9C55C /* FadeTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0ABF1EA0D40800D9C55C /* FadeTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0ADA1EA0D40800D9C55C /* FadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AC01EA0D40800D9C55C /* FadeTransition.m */; };
+		238D0ADB1EA0D40800D9C55C /* MoveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC11EA0D40800D9C55C /* MoveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0ADC1EA0D40800D9C55C /* MoveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AC21EA0D40800D9C55C /* MoveTransition.m */; };
+		238D0ADD1EA0D40800D9C55C /* PanningInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC31EA0D40800D9C55C /* PanningInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0ADE1EA0D40800D9C55C /* PanningInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AC41EA0D40800D9C55C /* PanningInteractiveTransition.m */; };
+		238D0ADF1EA0D40800D9C55C /* UIMaskedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC51EA0D40800D9C55C /* UIMaskedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0AE01EA0D40800D9C55C /* UIMaskedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AC61EA0D40800D9C55C /* UIMaskedImageView.m */; };
+		238D0AE21EA0D40800D9C55C /* UIViewControllerTransitionsMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC81EA0D40800D9C55C /* UIViewControllerTransitionsMacro.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		238D0AE31EA0D79600D9C55C /* UIViewControllerTransitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 238D0AC71EA0D40800D9C55C /* UIViewControllerTransitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,26 +47,30 @@
 /* Begin PBXFileReference section */
 		234A7CC61E4C623100DA1446 /* UIViewControllerTransitions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIViewControllerTransitions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		234A7CCF1E4C623100DA1446 /* UIViewControllerTransitionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIViewControllerTransitionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		234A7CE41E4C62E400DA1446 /* AbstractUIViewControllerTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractUIViewControllerTransition.h; path = Classes/AbstractUIViewControllerTransition.h; sourceTree = "<group>"; };
-		234A7CE51E4C62E400DA1446 /* AbstractUIViewControllerTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbstractUIViewControllerTransition.m; path = Classes/AbstractUIViewControllerTransition.m; sourceTree = "<group>"; };
-		234A7CE61E4C62E400DA1446 /* AnimatedDragDropTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimatedDragDropTransition.h; path = Classes/AnimatedDragDropTransition.h; sourceTree = "<group>"; };
-		234A7CE71E4C62E400DA1446 /* AnimatedDragDropTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimatedDragDropTransition.m; path = Classes/AnimatedDragDropTransition.m; sourceTree = "<group>"; };
-		234A7CE81E4C62E400DA1446 /* AnimatedFadeTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimatedFadeTransition.h; path = Classes/AnimatedFadeTransition.h; sourceTree = "<group>"; };
-		234A7CE91E4C62E400DA1446 /* AnimatedFadeTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimatedFadeTransition.m; path = Classes/AnimatedFadeTransition.m; sourceTree = "<group>"; };
-		234A7CEA1E4C62E400DA1446 /* AnimatedMoveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimatedMoveTransition.h; path = Classes/AnimatedMoveTransition.h; sourceTree = "<group>"; };
-		234A7CEB1E4C62E400DA1446 /* AnimatedMoveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimatedMoveTransition.m; path = Classes/AnimatedMoveTransition.m; sourceTree = "<group>"; };
-		234A7CEC1E4C62E400DA1446 /* AnimatedTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimatedTransition.h; path = Classes/AnimatedTransition.h; sourceTree = "<group>"; };
-		234A7CED1E4C62E400DA1446 /* AnimatedTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimatedTransition.m; path = Classes/AnimatedTransition.m; sourceTree = "<group>"; };
-		234A7CEE1E4C62E400DA1446 /* UIMaskedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIMaskedImageView.h; path = Classes/UIMaskedImageView.h; sourceTree = "<group>"; };
-		234A7CEF1E4C62E400DA1446 /* UIMaskedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIMaskedImageView.m; path = Classes/UIMaskedImageView.m; sourceTree = "<group>"; };
-		234A7CF01E4C62E400DA1446 /* UIViewControllerDragDropTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewControllerDragDropTransition.h; path = Classes/UIViewControllerDragDropTransition.h; sourceTree = "<group>"; };
-		234A7CF11E4C62E400DA1446 /* UIViewControllerDragDropTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIViewControllerDragDropTransition.m; path = Classes/UIViewControllerDragDropTransition.m; sourceTree = "<group>"; };
-		234A7CF21E4C62E400DA1446 /* UIViewControllerFadeTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewControllerFadeTransition.h; path = Classes/UIViewControllerFadeTransition.h; sourceTree = "<group>"; };
-		234A7CF31E4C62E400DA1446 /* UIViewControllerFadeTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIViewControllerFadeTransition.m; path = Classes/UIViewControllerFadeTransition.m; sourceTree = "<group>"; };
-		234A7CF41E4C62E400DA1446 /* UIViewControllerMoveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewControllerMoveTransition.h; path = Classes/UIViewControllerMoveTransition.h; sourceTree = "<group>"; };
-		234A7CF51E4C62E400DA1446 /* UIViewControllerMoveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIViewControllerMoveTransition.m; path = Classes/UIViewControllerMoveTransition.m; sourceTree = "<group>"; };
-		234A7CF61E4C62E400DA1446 /* UIViewControllerTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewControllerTransitions.h; path = Classes/UIViewControllerTransitions.h; sourceTree = "<group>"; };
-		234A7CF71E4C62E400DA1446 /* UIViewControllerTransitionsMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewControllerTransitionsMacro.h; path = Classes/UIViewControllerTransitionsMacro.h; sourceTree = "<group>"; };
+		238D0AAF1EA0D40800D9C55C /* AbstractInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractInteractiveTransition.h; path = Classes/AbstractInteractiveTransition.h; sourceTree = "<group>"; };
+		238D0AB01EA0D40800D9C55C /* AbstractInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbstractInteractiveTransition.m; path = Classes/AbstractInteractiveTransition.m; sourceTree = "<group>"; };
+		238D0AB11EA0D40800D9C55C /* AbstractUIViewControllerTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractUIViewControllerTransition.h; path = Classes/AbstractUIViewControllerTransition.h; sourceTree = "<group>"; };
+		238D0AB21EA0D40800D9C55C /* AbstractUIViewControllerTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbstractUIViewControllerTransition.m; path = Classes/AbstractUIViewControllerTransition.m; sourceTree = "<group>"; };
+		238D0AB31EA0D40800D9C55C /* AnimatedDragDropTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimatedDragDropTransitioning.h; path = Classes/AnimatedDragDropTransitioning.h; sourceTree = "<group>"; };
+		238D0AB41EA0D40800D9C55C /* AnimatedDragDropTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimatedDragDropTransitioning.m; path = Classes/AnimatedDragDropTransitioning.m; sourceTree = "<group>"; };
+		238D0AB51EA0D40800D9C55C /* AnimatedFadeTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimatedFadeTransitioning.h; path = Classes/AnimatedFadeTransitioning.h; sourceTree = "<group>"; };
+		238D0AB61EA0D40800D9C55C /* AnimatedFadeTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimatedFadeTransitioning.m; path = Classes/AnimatedFadeTransitioning.m; sourceTree = "<group>"; };
+		238D0AB71EA0D40800D9C55C /* AnimatedMoveTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimatedMoveTransitioning.h; path = Classes/AnimatedMoveTransitioning.h; sourceTree = "<group>"; };
+		238D0AB81EA0D40800D9C55C /* AnimatedMoveTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimatedMoveTransitioning.m; path = Classes/AnimatedMoveTransitioning.m; sourceTree = "<group>"; };
+		238D0AB91EA0D40800D9C55C /* AnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnimatedTransitioning.h; path = Classes/AnimatedTransitioning.h; sourceTree = "<group>"; };
+		238D0ABA1EA0D40800D9C55C /* AnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnimatedTransitioning.m; path = Classes/AnimatedTransitioning.m; sourceTree = "<group>"; };
+		238D0ABB1EA0D40800D9C55C /* DragDropTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DragDropTransition.h; path = Classes/DragDropTransition.h; sourceTree = "<group>"; };
+		238D0ABC1EA0D40800D9C55C /* DragDropTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DragDropTransition.m; path = Classes/DragDropTransition.m; sourceTree = "<group>"; };
+		238D0ABF1EA0D40800D9C55C /* FadeTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FadeTransition.h; path = Classes/FadeTransition.h; sourceTree = "<group>"; };
+		238D0AC01EA0D40800D9C55C /* FadeTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FadeTransition.m; path = Classes/FadeTransition.m; sourceTree = "<group>"; };
+		238D0AC11EA0D40800D9C55C /* MoveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoveTransition.h; path = Classes/MoveTransition.h; sourceTree = "<group>"; };
+		238D0AC21EA0D40800D9C55C /* MoveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoveTransition.m; path = Classes/MoveTransition.m; sourceTree = "<group>"; };
+		238D0AC31EA0D40800D9C55C /* PanningInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PanningInteractiveTransition.h; path = Classes/PanningInteractiveTransition.h; sourceTree = "<group>"; };
+		238D0AC41EA0D40800D9C55C /* PanningInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PanningInteractiveTransition.m; path = Classes/PanningInteractiveTransition.m; sourceTree = "<group>"; };
+		238D0AC51EA0D40800D9C55C /* UIMaskedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIMaskedImageView.h; path = Classes/UIMaskedImageView.h; sourceTree = "<group>"; };
+		238D0AC61EA0D40800D9C55C /* UIMaskedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIMaskedImageView.m; path = Classes/UIMaskedImageView.m; sourceTree = "<group>"; };
+		238D0AC71EA0D40800D9C55C /* UIViewControllerTransitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewControllerTransitions.h; path = Classes/UIViewControllerTransitions.h; sourceTree = "<group>"; };
+		238D0AC81EA0D40800D9C55C /* UIViewControllerTransitionsMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewControllerTransitionsMacro.h; path = Classes/UIViewControllerTransitionsMacro.h; sourceTree = "<group>"; };
 		23B336031E4C7A86008AA055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,26 +113,30 @@
 		234A7CC81E4C623100DA1446 /* UIViewControllerTransitions */ = {
 			isa = PBXGroup;
 			children = (
-				234A7CE41E4C62E400DA1446 /* AbstractUIViewControllerTransition.h */,
-				234A7CE51E4C62E400DA1446 /* AbstractUIViewControllerTransition.m */,
-				234A7CE61E4C62E400DA1446 /* AnimatedDragDropTransition.h */,
-				234A7CE71E4C62E400DA1446 /* AnimatedDragDropTransition.m */,
-				234A7CE81E4C62E400DA1446 /* AnimatedFadeTransition.h */,
-				234A7CE91E4C62E400DA1446 /* AnimatedFadeTransition.m */,
-				234A7CEA1E4C62E400DA1446 /* AnimatedMoveTransition.h */,
-				234A7CEB1E4C62E400DA1446 /* AnimatedMoveTransition.m */,
-				234A7CEC1E4C62E400DA1446 /* AnimatedTransition.h */,
-				234A7CED1E4C62E400DA1446 /* AnimatedTransition.m */,
-				234A7CEE1E4C62E400DA1446 /* UIMaskedImageView.h */,
-				234A7CEF1E4C62E400DA1446 /* UIMaskedImageView.m */,
-				234A7CF01E4C62E400DA1446 /* UIViewControllerDragDropTransition.h */,
-				234A7CF11E4C62E400DA1446 /* UIViewControllerDragDropTransition.m */,
-				234A7CF21E4C62E400DA1446 /* UIViewControllerFadeTransition.h */,
-				234A7CF31E4C62E400DA1446 /* UIViewControllerFadeTransition.m */,
-				234A7CF41E4C62E400DA1446 /* UIViewControllerMoveTransition.h */,
-				234A7CF51E4C62E400DA1446 /* UIViewControllerMoveTransition.m */,
-				234A7CF61E4C62E400DA1446 /* UIViewControllerTransitions.h */,
-				234A7CF71E4C62E400DA1446 /* UIViewControllerTransitionsMacro.h */,
+				238D0AAF1EA0D40800D9C55C /* AbstractInteractiveTransition.h */,
+				238D0AB01EA0D40800D9C55C /* AbstractInteractiveTransition.m */,
+				238D0AB11EA0D40800D9C55C /* AbstractUIViewControllerTransition.h */,
+				238D0AB21EA0D40800D9C55C /* AbstractUIViewControllerTransition.m */,
+				238D0AB31EA0D40800D9C55C /* AnimatedDragDropTransitioning.h */,
+				238D0AB41EA0D40800D9C55C /* AnimatedDragDropTransitioning.m */,
+				238D0AB51EA0D40800D9C55C /* AnimatedFadeTransitioning.h */,
+				238D0AB61EA0D40800D9C55C /* AnimatedFadeTransitioning.m */,
+				238D0AB71EA0D40800D9C55C /* AnimatedMoveTransitioning.h */,
+				238D0AB81EA0D40800D9C55C /* AnimatedMoveTransitioning.m */,
+				238D0AB91EA0D40800D9C55C /* AnimatedTransitioning.h */,
+				238D0ABA1EA0D40800D9C55C /* AnimatedTransitioning.m */,
+				238D0ABB1EA0D40800D9C55C /* DragDropTransition.h */,
+				238D0ABC1EA0D40800D9C55C /* DragDropTransition.m */,
+				238D0ABF1EA0D40800D9C55C /* FadeTransition.h */,
+				238D0AC01EA0D40800D9C55C /* FadeTransition.m */,
+				238D0AC11EA0D40800D9C55C /* MoveTransition.h */,
+				238D0AC21EA0D40800D9C55C /* MoveTransition.m */,
+				238D0AC31EA0D40800D9C55C /* PanningInteractiveTransition.h */,
+				238D0AC41EA0D40800D9C55C /* PanningInteractiveTransition.m */,
+				238D0AC51EA0D40800D9C55C /* UIMaskedImageView.h */,
+				238D0AC61EA0D40800D9C55C /* UIMaskedImageView.m */,
+				238D0AC71EA0D40800D9C55C /* UIViewControllerTransitions.h */,
+				238D0AC81EA0D40800D9C55C /* UIViewControllerTransitionsMacro.h */,
 				23B336031E4C7A86008AA055 /* Info.plist */,
 			);
 			path = UIViewControllerTransitions;
@@ -137,17 +149,19 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				234A7D021E4C62E400DA1446 /* UIMaskedImageView.h in Headers */,
-				234A7CF81E4C62E400DA1446 /* AbstractUIViewControllerTransition.h in Headers */,
-				234A7CFA1E4C62E400DA1446 /* AnimatedDragDropTransition.h in Headers */,
-				234A7D041E4C62E400DA1446 /* UIViewControllerDragDropTransition.h in Headers */,
-				234A7D061E4C62E400DA1446 /* UIViewControllerFadeTransition.h in Headers */,
-				234A7D0B1E4C62E400DA1446 /* UIViewControllerTransitionsMacro.h in Headers */,
-				234A7D001E4C62E400DA1446 /* AnimatedTransition.h in Headers */,
-				234A7CFC1E4C62E400DA1446 /* AnimatedFadeTransition.h in Headers */,
-				234A7CFE1E4C62E400DA1446 /* AnimatedMoveTransition.h in Headers */,
-				234A7D0A1E4C62E400DA1446 /* UIViewControllerTransitions.h in Headers */,
-				234A7D081E4C62E400DA1446 /* UIViewControllerMoveTransition.h in Headers */,
+				238D0ACB1EA0D40800D9C55C /* AbstractUIViewControllerTransition.h in Headers */,
+				238D0ADB1EA0D40800D9C55C /* MoveTransition.h in Headers */,
+				238D0ADD1EA0D40800D9C55C /* PanningInteractiveTransition.h in Headers */,
+				238D0AD91EA0D40800D9C55C /* FadeTransition.h in Headers */,
+				238D0AE21EA0D40800D9C55C /* UIViewControllerTransitionsMacro.h in Headers */,
+				238D0ADF1EA0D40800D9C55C /* UIMaskedImageView.h in Headers */,
+				238D0AD31EA0D40800D9C55C /* AnimatedTransitioning.h in Headers */,
+				238D0ACF1EA0D40800D9C55C /* AnimatedFadeTransitioning.h in Headers */,
+				238D0AD51EA0D40800D9C55C /* DragDropTransition.h in Headers */,
+				238D0AE31EA0D79600D9C55C /* UIViewControllerTransitions.h in Headers */,
+				238D0AC91EA0D40800D9C55C /* AbstractInteractiveTransition.h in Headers */,
+				238D0AD11EA0D40800D9C55C /* AnimatedMoveTransitioning.h in Headers */,
+				238D0ACD1EA0D40800D9C55C /* AnimatedDragDropTransitioning.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +215,7 @@
 				TargetAttributes = {
 					234A7CC51E4C623100DA1446 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					234A7CCE1E4C623100DA1446 = {
@@ -249,15 +264,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				234A7D091E4C62E400DA1446 /* UIViewControllerMoveTransition.m in Sources */,
-				234A7CFF1E4C62E400DA1446 /* AnimatedMoveTransition.m in Sources */,
-				234A7CFD1E4C62E400DA1446 /* AnimatedFadeTransition.m in Sources */,
-				234A7D011E4C62E400DA1446 /* AnimatedTransition.m in Sources */,
-				234A7D031E4C62E400DA1446 /* UIMaskedImageView.m in Sources */,
-				234A7D051E4C62E400DA1446 /* UIViewControllerDragDropTransition.m in Sources */,
-				234A7CFB1E4C62E400DA1446 /* AnimatedDragDropTransition.m in Sources */,
-				234A7D071E4C62E400DA1446 /* UIViewControllerFadeTransition.m in Sources */,
-				234A7CF91E4C62E400DA1446 /* AbstractUIViewControllerTransition.m in Sources */,
+				238D0AD61EA0D40800D9C55C /* DragDropTransition.m in Sources */,
+				238D0ACA1EA0D40800D9C55C /* AbstractInteractiveTransition.m in Sources */,
+				238D0ACC1EA0D40800D9C55C /* AbstractUIViewControllerTransition.m in Sources */,
+				238D0ADC1EA0D40800D9C55C /* MoveTransition.m in Sources */,
+				238D0AD01EA0D40800D9C55C /* AnimatedFadeTransitioning.m in Sources */,
+				238D0AD21EA0D40800D9C55C /* AnimatedMoveTransitioning.m in Sources */,
+				238D0AD41EA0D40800D9C55C /* AnimatedTransitioning.m in Sources */,
+				238D0ADE1EA0D40800D9C55C /* PanningInteractiveTransition.m in Sources */,
+				238D0AE01EA0D40800D9C55C /* UIMaskedImageView.m in Sources */,
+				238D0ADA1EA0D40800D9C55C /* FadeTransition.m in Sources */,
+				238D0ACE1EA0D40800D9C55C /* AnimatedDragDropTransitioning.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,34 +395,43 @@
 		234A7CDB1E4C623100DA1446 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = UIViewControllerTransitions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.apache.pisces.iOS.UIViewControllerTransitions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		234A7CDC1E4C623100DA1446 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = UIViewControllerTransitions/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.apache.pisces.iOS.UIViewControllerTransitions;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

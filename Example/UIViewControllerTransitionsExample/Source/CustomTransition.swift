@@ -19,7 +19,7 @@ class CustomTransition: AbstractUIViewControllerTransition {
     override func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let transitioning = AnimatedCustomTransitioning()
         transitioning.duration = 0.4
-        transitioning.presenting = true
+        transitioning.isPresenting = true
         return transitioning
     }
 }
@@ -35,8 +35,8 @@ class AnimatedCustomTransitioning: AnimatedTransitioning {
     }
     
     // Write interative transition began code here for dismission or presenting
-    override func interactionBegan(_ interactor: AbstractInteractiveTransition) {
-        if self.presenting {
+    override func interactionBegan(_ interactor: AbstractInteractiveTransition, transitionContext: UIViewControllerContextTransitioning) {
+        if self.isPresenting {
             // for presenting
         } else {
             // for dismission
@@ -45,7 +45,7 @@ class AnimatedCustomTransitioning: AnimatedTransitioning {
     
     // Write interative transition changed code here for dismission or presenting
     override func interactionChanged(_ interactor: AbstractInteractiveTransition, percent: CGFloat) {
-        if self.presenting {
+        if self.isPresenting {
             // for presenting
         } else {
             // for dismission
@@ -54,7 +54,7 @@ class AnimatedCustomTransitioning: AnimatedTransitioning {
     
     // Write interative transition cacelled code here for dismission or presenting and call completion after animation finished
     override func interactionCancelled(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
-        if self.presenting {
+        if self.isPresenting {
             // for presenting
         } else {
             // for dismission
@@ -63,7 +63,7 @@ class AnimatedCustomTransitioning: AnimatedTransitioning {
     
     // Write interative transition completed code here for dismission or presenting and call completion after animation finished
     override func interactionCompleted(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
-        if self.presenting {
+        if self.isPresenting {
             // for presenting
         } else {
             // for dismission

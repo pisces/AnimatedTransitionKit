@@ -12,24 +12,10 @@
 #import "AnimatedDragDropTransitioning.h"
 #import "UIMaskedImageView.h"
 
-@protocol DragDropInteractiveTransitionDataSource;
+@protocol DragDropTransitionDataSource;
 
 @interface DragDropTransition : AbstractUIViewControllerTransition
-{
-@protected
-    CGPoint originDismissionImageViewPoint;
-    UIMaskedImageView *dismissionImageView;
-}
-
 @property (nonatomic) UIViewContentMode imageViewContentMode;
 @property (nullable, nonatomic, strong) AnimatedDragDropTransitioningSource *dismissionSource;
 @property (nullable, nonatomic, strong) AnimatedDragDropTransitioningSource *presentingSource;
-@property (nullable, nonatomic, strong) UIImage *sourceImage;
-@property (nullable, nonatomic, weak) id<DragDropInteractiveTransitionDataSource, InteractiveTransitionDataSource> interactionDataSource;
-@end
-
-@protocol DragDropInteractiveTransitionDataSource <InteractiveTransitionDataSource>
-@optional
-- (UIImage * _Nullable)sourceImageForInteraction;
-- (CGRect)sourceImageRectForInteraction;
 @end
