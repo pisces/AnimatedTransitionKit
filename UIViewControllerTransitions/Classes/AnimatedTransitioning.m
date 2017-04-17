@@ -37,6 +37,9 @@
     return _duration;
 }
 
+- (void)animationEnded:(BOOL) transitionCompleted {
+}
+
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     context = transitionContext;
     fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];

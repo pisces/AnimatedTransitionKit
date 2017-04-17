@@ -106,10 +106,14 @@
                 return;
             }
             
-            if (_gestureRecognizer.state == UIGestureRecognizerStateCancelled || !_shouldComplete) {
-                [self cancelInteractiveTransition];
-            } else {
+            CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
+            CGFloat vy = -1 * velocity.x / (self.beginPoint.x - self.point.x);
+            
+            if (vy >= 5 ||
+                (_gestureRecognizer.state == UIGestureRecognizerStateEnded && _shouldComplete)) {
                 [self finishInteractiveTransition];
+            } else {
+                [self cancelInteractiveTransition];
             }
             
             self.transition.interactionEnabled = NO;
@@ -118,6 +122,24 @@
         default:
             break;
     }
+}
+
+@end
+
+@implementation UIPanGestureRecognizer (pisces_UIViewControllerTransitions)
+- (PanningDirection)panningDirection {
+    CGPoint velocity = [self velocityInView:self.view];
+    BOOL vertical = fabs(velocity.y) > fabs(velocity.x * 3);
+    
+    if (vertical) {
+        if (velocity.y < 0) return PanningDirectionUp;
+        if (velocity.y > 0) return PanningDirectionDown;
+    }
+    
+    if (velocity.x > 0) return PanningDirectionRight;
+    if (velocity.x < 0) return PanningDirectionLeft;
+    
+    return PanningDirectionNone;
 }
 
 @end

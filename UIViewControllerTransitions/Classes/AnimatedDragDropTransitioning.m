@@ -55,8 +55,10 @@
     
     if (!sourceImageView) {
         sourceImageView = [self createImageView];
-        [toViewController.view.window addSubview:sourceImageView];
+        [transitionContext.containerView addSubview:sourceImageView];
     }
+    
+    [toViewController viewWillAppear:YES];
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -78,6 +80,7 @@
     
     [transitionContext.containerView addSubview:toViewController.view];
     [transitionContext.containerView addSubview:sourceImageView];
+    [fromViewController viewWillDisappear:YES];
     
     toViewController.view.alpha = 0;
     
@@ -108,7 +111,7 @@
         return;
     }
     
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
+    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.alpha = 1;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
         self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
@@ -148,7 +151,7 @@
         return;
     }
     
-    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
+    [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
         [self dismiss];
     } completion:^(BOOL finished) {
         [self completion];
@@ -184,17 +187,27 @@
 }
 
 - (void)cancel {
+    if (self.presenting) {
+        [self.aboveViewController.view removeFromSuperview];
+    }
+    
     [context completeTransition:!context.transitionWasCancelled];
     [sourceImageView removeFromSuperview];
     sourceImageView = nil;
 }
 
 - (void)completion {
+    if (self.presenting) {
+        [self.belowViewController viewDidDisappear:YES];
+    } else {
+        [self.belowViewController viewDidAppear:YES];
+    }
+    
     [context completeTransition:!context.transitionWasCancelled];
+    _source.completion();
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [sourceImageView removeFromSuperview];
-        _source.completion();
         [self clear];
     });
 }

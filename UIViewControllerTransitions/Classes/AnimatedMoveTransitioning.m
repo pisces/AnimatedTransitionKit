@@ -10,9 +10,13 @@
 
 #import "AnimatedMoveTransitioning.h"
 #import "AbstractUIViewControllerTransition.h"
+#import "PanningInteractiveTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
 
 @implementation AnimatedMoveTransitioning
+{
+    PanningDirection panningDirection;
+}
 
 #pragma mark - Properties
 
@@ -20,18 +24,11 @@
     return self.presenting ? self.aboveViewController.transition.presentingInteractor.direction : self.aboveViewController.transition.dismissionInteractor.direction;
 }
 
-- (CGAffineTransform)cancelTransformTo {
-    if (self.direction == InteractiveTransitionDirectionVertical) {
-        return CGAffineTransformMakeTranslation(0, self.presenting ? self.screenSize.height : 0);
-    }
-    return CGAffineTransformMakeTranslation(self.presenting ? self.screenSize.width : 0, 0);
-}
-
 - (CGAffineTransform)transformFrom {
     if (self.direction == InteractiveTransitionDirectionVertical) {
-        return CGAffineTransformMakeTranslation(0, self.presenting ? self.screenSize.height : 0);
+        return CGAffineTransformMakeTranslation(0, self.presenting ? self.screenSize.height * (panningDirection == PanningDirectionDown ? -1 : 1) : 0);
     }
-    return CGAffineTransformMakeTranslation(self.presenting ? self.screenSize.width : 0, 0);
+    return CGAffineTransformMakeTranslation(self.presenting ? self.screenSize.height * (panningDirection == PanningDirectionRight ? -1 : 1) : 0, 0);
 }
 
 - (CGAffineTransform)transformTo {
@@ -57,6 +54,8 @@
     toViewController.view.window.backgroundColor = [UIColor blackColor];
     fromViewController.view.transform = self.transformFrom;
     
+    [toViewController viewWillAppear:YES];
+    
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
             toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
@@ -65,7 +64,8 @@
             fromViewController.view.transform = self.transformTo;
         } completion:^(BOOL finished) {
             toViewController.view.window.backgroundColor = backgroundColor;
-            
+            [fromViewController.view removeFromSuperview];
+            [toViewController viewDidAppear:YES];
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }];
     }
@@ -77,11 +77,14 @@
     UIColor *backgroundColor = fromViewController.view.window.backgroundColor;
     
     fromViewController.view.window.backgroundColor = [UIColor blackColor];
-    
-    [transitionContext.containerView addSubview:toViewController.view];
     toViewController.view.transform = self.transformFrom;
     
+    [transitionContext.containerView addSubview:toViewController.view];
+    [fromViewController viewWillDisappear:YES];
+    
     if (!transitionContext.isInteractive) {
+        toViewController.view.hidden = NO;
+        
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
             toViewController.view.transform = self.transformTo;
             fromViewController.view.alpha = 0.5;
@@ -96,6 +99,7 @@
                 fromViewController.view.hidden = YES;
             }
             
+            [fromViewController viewDidDisappear:YES];
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }];
     }
@@ -104,19 +108,24 @@
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
     [super interactionBegan:interactor transitionContext:transitionContext];
     
+    panningDirection = ((UIPanGestureRecognizer *) interactor.gestureRecognizer).panningDirection;
     self.aboveViewController.view.transform = self.transformFrom;
+    self.aboveViewController.view.hidden = NO;
 }
 
-- (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    const CGFloat alpha = self.presenting ? 1 : 0.5;
+- (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {const CGFloat alpha = self.presenting ? 1 : 0.5;
     const CGFloat scale = self.presenting ? 1 : 0.94;
     
     [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
-        self.aboveViewController.view.transform = self.cancelTransformTo;
+        self.aboveViewController.view.transform = self.transformFrom;
         self.belowViewController.view.alpha = alpha;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
     } completion:^(BOOL finished) {
+        if (self.presenting) {
+            [self.aboveViewController.view removeFromSuperview];
+        }
+        
         [context completeTransition:!context.transitionWasCancelled];
         completion();
     }];
@@ -152,9 +161,16 @@
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
     } completion:^(BOOL finished) {
-        [context completeTransition:!context.transitionWasCancelled];
+        if (self.presenting) {
+            [self.belowViewController viewDidDisappear:YES];
+        } else {
+            [self.aboveViewController.view removeFromSuperview];
+            [self.belowViewController viewDidAppear:YES];
+        }
+        
         completion();
     }];
+    [context completeTransition:!context.transitionWasCancelled];
 }
 
 @end

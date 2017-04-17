@@ -37,9 +37,29 @@ class MoveTransitionFirstViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        print("viewWillAppear")
+        
         UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        print("viewDidAppear")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        print("viewWillDisappear")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        print("viewDidDisappear")
     }
     
     @IBAction func clicked() {
@@ -68,9 +88,29 @@ class MoveTransitionSecondViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        print("viewWillAppear MoveTransitionSecondViewController")
+        
         UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        print("viewDidAppear MoveTransitionSecondViewController")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        print("viewWillDisappear MoveTransitionSecondViewController")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        print("viewDidDisappear MoveTransitionSecondViewController")
     }
     
     @objc private func close() {

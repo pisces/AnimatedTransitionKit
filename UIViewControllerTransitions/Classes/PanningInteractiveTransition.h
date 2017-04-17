@@ -13,3 +13,15 @@
 
 @interface PanningInteractiveTransition : AbstractInteractiveTransition
 @end
+
+typedef NS_ENUM(NSUInteger, PanningDirection) {
+    PanningDirectionNone,
+    PanningDirectionUp,
+    PanningDirectionDown,
+    PanningDirectionLeft,
+    PanningDirectionRight
+};
+
+@interface UIPanGestureRecognizer (pisces_UIViewControllerTransitions)
+@property (nonatomic, readonly) PanningDirection panningDirection;
+@end

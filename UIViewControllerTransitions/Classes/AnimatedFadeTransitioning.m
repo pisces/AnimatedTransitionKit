@@ -23,6 +23,8 @@
     toViewController.view.hidden = NO;
     toViewController.view.window.backgroundColor = [UIColor blackColor];
     
+    [toViewController viewWillAppear:YES];
+    
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
             fromViewController.view.alpha = 0;
@@ -31,7 +33,7 @@
         } completion:^(BOOL finished) {
             toViewController.view.window.backgroundColor = backgroundColor;
             
-            [fromViewController viewDidDisappear:YES];
+            [fromViewController.view removeFromSuperview];
             [toViewController viewDidAppear:YES];
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }];
@@ -47,6 +49,7 @@
     toViewController.view.frame = fromViewController.view.bounds;
     
     [transitionContext.containerView addSubview:toViewController.view];
+    [fromViewController viewWillDisappear:YES];
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
@@ -60,6 +63,7 @@
                 fromViewController.view.hidden = YES;
             }
             
+            [fromViewController viewDidDisappear:YES];
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }];
     }
@@ -76,6 +80,10 @@
         self.belowViewController.view.alpha = belowViewAlpha;
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
     } completion:^(BOOL finished) {
+        if (self.presenting) {
+            [self.aboveViewController.view removeFromSuperview];
+        }
+        
         [context completeTransition:!context.transitionWasCancelled];
         completion();
     }];
@@ -99,6 +107,13 @@
         self.belowViewController.view.alpha = belowViewAlpha;
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
     } completion:^(BOOL finished) {
+        if (self.presenting) {
+            [self.belowViewController viewDidDisappear:YES];
+        } else {
+            [self.aboveViewController.view removeFromSuperview];
+            [self.belowViewController viewDidAppear:YES];
+        }
+        
         [context completeTransition:!context.transitionWasCancelled];
         completion();
     }];
