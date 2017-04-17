@@ -40,6 +40,10 @@
 - (void)cancelInteractiveTransition {
     [super cancelInteractiveTransition];
     
+    if ([_delegate respondsToSelector:@selector(willCancelWithInteractor:)]) {
+        [_delegate willCancelWithInteractor:self];
+    }
+    
     [self.transition.transitioning interactionCancelled:self completion:^{
         [self completion];
     }];
@@ -47,6 +51,10 @@
 
 - (void)finishInteractiveTransition {
     [super finishInteractiveTransition];
+    
+    if ([_delegate respondsToSelector:@selector(willCompleteWithInteractor:)]) {
+        [_delegate willCompleteWithInteractor:self];
+    }
     
     [self.transition.transitioning interactionCompleted:self completion:^{
         [self completion];
