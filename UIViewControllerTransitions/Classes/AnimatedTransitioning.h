@@ -18,13 +18,13 @@
 @interface AnimatedTransitioning : NSObject <AnimatedTransitioningProtected, UIViewControllerAnimatedTransitioning>
 {
 @protected
-    CGFloat bouncePercent;
     id <UIViewControllerContextTransitioning> context;
     UIViewController *fromViewController;
     UIViewController *toViewController;
 }
 @property (nonatomic, getter=isPresenting) BOOL presenting;
 @property (nonatomic) NSTimeInterval duration;
+@property (nonatomic, readonly) CGFloat bouncePercent;
 @property (nonatomic, readonly) CGSize screenSize;
 @property (nullable, nonatomic, readonly) UIViewController *belowViewController;
 @property (nullable, nonatomic, readonly) UIViewController *aboveViewController;

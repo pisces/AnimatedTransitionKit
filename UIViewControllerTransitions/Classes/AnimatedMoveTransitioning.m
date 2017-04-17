@@ -125,8 +125,8 @@
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     [super interactionChanged:interactor percent:percent];
     
-    CGFloat alpha = self.presenting ? 1 - ((1 - 0.5) * bouncePercent) : 0.5 + ((1 - 0.5) * bouncePercent);
-    CGFloat scale = self.presenting ? 1 - ((1 - 0.94) * bouncePercent) : 0.94 + ((1 - 0.94) * bouncePercent);
+    CGFloat alpha = self.presenting ? 1 - ((1 - 0.5) * self.bouncePercent) : 0.5 + ((1 - 0.5) * self.bouncePercent);
+    CGFloat scale = self.presenting ? 1 - ((1 - 0.94) * self.bouncePercent) : 0.94 + ((1 - 0.94) * self.bouncePercent);
     alpha = MAX(0.5, MIN(1, alpha));
     scale = MAX(0.94, MIN(1, scale));
     

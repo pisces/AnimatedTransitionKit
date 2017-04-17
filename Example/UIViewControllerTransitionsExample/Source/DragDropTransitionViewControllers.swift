@@ -106,11 +106,11 @@ class DragDropTransitionSecondViewController: UIViewController, InteractiveTrans
         imageView.isHidden = false
     }
     
-    func interactor(_ interactor: AbstractInteractiveTransition, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func interactor(_ interactor: AbstractInteractiveTransition, gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch?) -> Bool {
         return true
     }
     
-    func interactor(_ interactor: AbstractInteractiveTransition, shouldReceiveTouchWith gestureRecognizer: UIGestureRecognizer?, touch: UITouch?) -> Bool {
+    func interactor(_ interactor: AbstractInteractiveTransition, shouldInteractionWith gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     

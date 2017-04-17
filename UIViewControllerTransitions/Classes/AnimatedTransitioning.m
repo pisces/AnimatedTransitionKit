@@ -62,7 +62,7 @@
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
-    bouncePercent = percent * (self.screenSize.height / self.aboveViewController.transition.bounceHeight);
+    _bouncePercent = percent * (self.screenSize.height / self.aboveViewController.transition.bounceHeight);
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
