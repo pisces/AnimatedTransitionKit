@@ -67,8 +67,8 @@
     
     switch (self.panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
-            if ([self.delegate respondsToSelector:@selector(interactor:shouldRecognizeSimultaneouslyWithGestureRecognizer:)] &&
-                ![self.delegate interactor:self shouldRecognizeSimultaneouslyWithGestureRecognizer:_gestureRecognizer]) {
+            if ([self.delegate respondsToSelector:@selector(interactor:shouldInteractionWithGestureRecognizer:)] &&
+                ![self.delegate interactor:self shouldInteractionWithGestureRecognizer:_gestureRecognizer]) {
                 return;
             }
             

@@ -75,18 +75,39 @@
 
 #pragma mark - UIGestureRecognizer delegate
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if ([_delegate respondsToSelector:@selector(interactor:shouldReceiveTouchWithGestureRecognizer:touch:)]) {
-        return [_delegate interactor:self shouldReceiveTouchWithGestureRecognizer:gestureRecognizer touch:touch];
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if ([_delegate respondsToSelector:@selector(interactor:gestureRecognizerShouldBegin:)]) {
+        return [_delegate interactor:self gestureRecognizerShouldBegin:gestureRecognizer];
     }
     return YES;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    if ([_delegate respondsToSelector:@selector(interactor:shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
-        return [_delegate interactor:self shouldRecognizeSimultaneouslyWithGestureRecognizer:gestureRecognizer];
+    if ([_delegate respondsToSelector:@selector(interactor:gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
+        return [_delegate interactor:self gestureRecognizer:gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
     }
     return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([_delegate respondsToSelector:@selector(interactor:gestureRecognizer:shouldReceiveTouch:)]) {
+        return [_delegate interactor:self gestureRecognizer:gestureRecognizer shouldReceiveTouch:touch];
+    }
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ([_delegate respondsToSelector:@selector(interactor:gestureRecognizer:shouldRequireFailureOfGestureRecognizer:)]) {
+        return [_delegate interactor:self gestureRecognizer:gestureRecognizer shouldRequireFailureOfGestureRecognizer:otherGestureRecognizer];
+    }
+    return NO;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    if ([_delegate respondsToSelector:@selector(interactor:gestureRecognizer:shouldBeRequiredToFailByGestureRecognizer:)]) {
+        return [_delegate interactor:self gestureRecognizer:gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:otherGestureRecognizer];
+    }
+    return NO;
 }
 
 #pragma mark - Public methods
