@@ -71,6 +71,14 @@
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
 }
 
+- (void)endAnimating {
+    _animating = NO;
+}
+
+- (void)startAnimating {
+    _animating = YES;
+}
+
 #pragma mark - Protected methods
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {

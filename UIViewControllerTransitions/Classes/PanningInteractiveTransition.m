@@ -16,6 +16,9 @@
 @end
 
 @implementation PanningInteractiveTransition
+{
+    PanningDirection panningDirection;
+}
 
 @synthesize gestureRecognizer = _gestureRecognizer;
 @synthesize shouldComplete = _shouldComplete;
@@ -59,6 +62,28 @@
     [super detach];
 }
 
+#pragma mark - Private methods
+
+- (BOOL)isCompletionDirection {
+    BOOL isVertical = self.direction == InteractiveTransitionDirectionVertical;
+    CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
+    CGFloat value = isVertical ? velocity.y : velocity.x;
+    
+    if (panningDirection == PanningDirectionUp) {return value < 0;}
+    if (panningDirection == PanningDirectionDown) {return value > 0;}
+    if (panningDirection == PanningDirectionLeft) {return value > 0;}
+    if (panningDirection == PanningDirectionRight) {return value < 0;}
+    return NO;
+}
+
+- (BOOL)isCompletionSpeed {
+    BOOL isVertical = self.direction == InteractiveTransitionDirectionVertical;
+    CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
+    CGFloat value = isVertical ? velocity.y : velocity.x;
+    CGFloat speed = -1 * value / (isVertical ? (self.beginPoint.y - self.point.y) : (self.beginPoint.x - self.point.x));
+    return self.isCompletionDirection && speed > 10;
+}
+
 #pragma mark - Private selector
 
 - (void)panned {
@@ -67,14 +92,17 @@
     
     switch (self.panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
-            if ([self.delegate respondsToSelector:@selector(interactor:shouldInteractionWithGestureRecognizer:)] &&
-                ![self.delegate interactor:self shouldInteractionWithGestureRecognizer:_gestureRecognizer]) {
+            if (self.transition.transitioning.isAnimating ||
+                self.transition.interactionEnabled ||
+                ([self.delegate respondsToSelector:@selector(interactor:shouldInteractionWithGestureRecognizer:)] &&
+                ![self.delegate interactor:self shouldInteractionWithGestureRecognizer:_gestureRecognizer])) {
                 return;
             }
             
             self.transition.interactionEnabled = YES;
             self.beginPoint = newPoint;
             self.beginViewPoint = self.currentViewController.view.frame.origin;
+            panningDirection = self.panGestureRecognizer.panningDirection;
             
             if (isDismissing) {
                 [self.viewController dismissViewControllerAnimated:YES completion:nil];
@@ -95,6 +123,7 @@
             const CGFloat threshold = self.transition.bounceHeight / targetSize;
             const CGFloat rawPercent = point / dragAmount;
             const CGFloat percent = fmin(fmax(rawPercent, 0), 1);
+            
             self.point = newPoint;
             _shouldComplete = ABS(rawPercent) > threshold;
             
@@ -107,11 +136,7 @@
                 return;
             }
             
-            BOOL isVertical = self.direction == InteractiveTransitionDirectionVertical;
-            CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
-            CGFloat speed = isVertical ? -1 * velocity.y / (self.beginPoint.y - self.point.y) : -1 * velocity.x / (self.beginPoint.x - self.point.x);
-            
-            if (speed >= 5 || (_gestureRecognizer.state == UIGestureRecognizerStateEnded && _shouldComplete)) {
+            if (self.isCompletionSpeed || (_gestureRecognizer.state == UIGestureRecognizerStateEnded && _shouldComplete && self.isCompletionDirection)) {
                 [self finishInteractiveTransition];
             } else {
                 [self cancelInteractiveTransition];
@@ -130,7 +155,8 @@
 @implementation UIPanGestureRecognizer (pisces_UIViewControllerTransitions)
 - (PanningDirection)panningDirection {
     CGPoint velocity = [self velocityInView:self.view];
-    BOOL vertical = fabs(velocity.y) > fabs(velocity.x * 3);
+    CGFloat ratio = UIScreen.mainScreen.bounds.size.height / UIScreen.mainScreen.bounds.size.width;
+    BOOL vertical = fabs(velocity.y) > fabs(velocity.x * ratio);
     
     if (vertical) {
         if (velocity.y < 0) return PanningDirectionUp;

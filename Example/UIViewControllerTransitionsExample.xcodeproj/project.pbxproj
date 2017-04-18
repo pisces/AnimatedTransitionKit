@@ -296,10 +296,12 @@
 				ORGANIZATIONNAME = "Steve Kim";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
+						DevelopmentTeam = S9DLPPENQG;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					6003F5AD195388D20070C39A = {
+						DevelopmentTeam = S9DLPPENQG;
 						TestTargetID = 6003F589195388D20070C39A;
 					};
 				};
@@ -581,7 +583,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = S9DLPPENQG;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Prefix.pch";
 				INFOPLIST_FILE = "${PROJECT_NAME}/${PRODUCT_NAME}-Info.plist";
@@ -607,7 +609,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = S9DLPPENQG;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Prefix.pch";
 				INFOPLIST_FILE = "${PROJECT_NAME}/${PRODUCT_NAME}-Info.plist";
@@ -628,6 +630,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = S9DLPPENQG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -653,6 +656,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = S9DLPPENQG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
