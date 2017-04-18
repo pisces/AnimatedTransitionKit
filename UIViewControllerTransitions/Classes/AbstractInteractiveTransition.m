@@ -64,6 +64,7 @@
 - (void)startInteractiveTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     [super startInteractiveTransition:transitionContext];
     
+    [self.transition.transitioning startAnimating];
     [self.transition.transitioning interactionBegan:self transitionContext:transitionContext];
     
     if ([_delegate respondsToSelector:@selector(didBeginWithInteractor:)]) {
@@ -135,6 +136,8 @@
 #pragma mark - Private methods
 
 - (void)completion {
+    [self.transition.transitioning endAnimating];
+    
     if (self.shouldComplete) {
         if ([_delegate respondsToSelector:@selector(didCompleteWithInteractor:)]) {
             [_delegate didCompleteWithInteractor:self];

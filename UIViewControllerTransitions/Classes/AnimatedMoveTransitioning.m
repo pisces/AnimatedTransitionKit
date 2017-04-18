@@ -168,9 +168,9 @@
             [self.belowViewController viewDidAppear:YES];
         }
         
+        [context completeTransition:!context.transitionWasCancelled];
         completion();
     }];
-    [context completeTransition:!context.transitionWasCancelled];
 }
 
 @end

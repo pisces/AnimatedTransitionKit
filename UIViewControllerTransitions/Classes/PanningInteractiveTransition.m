@@ -92,8 +92,10 @@
     
     switch (self.panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
-            if ([self.delegate respondsToSelector:@selector(interactor:shouldInteractionWithGestureRecognizer:)] &&
-                ![self.delegate interactor:self shouldInteractionWithGestureRecognizer:_gestureRecognizer]) {
+            if (self.transition.transitioning.isAnimating ||
+                self.transition.interactionEnabled ||
+                ([self.delegate respondsToSelector:@selector(interactor:shouldInteractionWithGestureRecognizer:)] &&
+                ![self.delegate interactor:self shouldInteractionWithGestureRecognizer:_gestureRecognizer])) {
                 return;
             }
             
@@ -134,13 +136,13 @@
                 return;
             }
             
-            self.transition.interactionEnabled = NO;
-            
             if (self.isCompletionSpeed || (_gestureRecognizer.state == UIGestureRecognizerStateEnded && _shouldComplete && self.isCompletionDirection)) {
                 [self finishInteractiveTransition];
             } else {
                 [self cancelInteractiveTransition];
             }
+            
+            self.transition.interactionEnabled = NO;
             break;
         }
         default:
@@ -153,7 +155,8 @@
 @implementation UIPanGestureRecognizer (pisces_UIViewControllerTransitions)
 - (PanningDirection)panningDirection {
     CGPoint velocity = [self velocityInView:self.view];
-    BOOL vertical = fabs(velocity.y) > fabs(velocity.x * 3);
+    CGFloat ratio = UIScreen.mainScreen.bounds.size.height / UIScreen.mainScreen.bounds.size.width;
+    BOOL vertical = fabs(velocity.y) > fabs(velocity.x * ratio);
     
     if (vertical) {
         if (velocity.y < 0) return PanningDirectionUp;
