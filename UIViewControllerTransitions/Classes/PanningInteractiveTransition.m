@@ -93,9 +93,10 @@
             const CGFloat point = self.direction == InteractiveTransitionDirectionVertical ? translation.y : translation.x;
             const CGFloat dragAmount = targetSize * (self.presentViewController ? -1 : 1);
             const CGFloat threshold = self.transition.bounceHeight / targetSize;
-            const CGFloat percent = fmin(fmax(point / dragAmount, 0), 1);
+            const CGFloat rawPercent = point / dragAmount;
+            const CGFloat percent = fmin(fmax(rawPercent, 0), 1);
             self.point = newPoint;
-            _shouldComplete = ABS(point / dragAmount) > threshold;
+            _shouldComplete = ABS(rawPercent) > threshold;
             
             [self updateInteractiveTransition:percent];
             break;
@@ -106,11 +107,11 @@
                 return;
             }
             
+            BOOL isVertical = self.direction == InteractiveTransitionDirectionVertical;
             CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
-            CGFloat vy = -1 * velocity.x / (self.beginPoint.x - self.point.x);
+            CGFloat speed = isVertical ? -1 * velocity.y / (self.beginPoint.y - self.point.y) : -1 * velocity.x / (self.beginPoint.x - self.point.x);
             
-            if (vy >= 5 ||
-                (_gestureRecognizer.state == UIGestureRecognizerStateEnded && _shouldComplete)) {
+            if (speed >= 5 || (_gestureRecognizer.state == UIGestureRecognizerStateEnded && _shouldComplete)) {
                 [self finishInteractiveTransition];
             } else {
                 [self cancelInteractiveTransition];
