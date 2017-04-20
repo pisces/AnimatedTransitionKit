@@ -25,14 +25,17 @@
 }
 
 - (CGAffineTransform)transformFrom {
+    CGSize size = self.presenting ? fromViewController.view.frame.size : toViewController.view.frame.size;
+    
     if (self.direction == InteractiveTransitionDirectionVertical) {
-        return CGAffineTransformMakeTranslation(0, self.presenting ? self.screenSize.height * (panningDirection == PanningDirectionDown ? -1 : 1) : 0);
+        return CGAffineTransformMakeTranslation(0, self.presenting ? size.height * (panningDirection == PanningDirectionDown ? -1 : 1) : 0);
     }
-    return CGAffineTransformMakeTranslation(self.presenting ? self.screenSize.height * (panningDirection == PanningDirectionRight ? -1 : 1) : 0, 0);
+    return CGAffineTransformMakeTranslation(self.presenting ? size.height * (panningDirection == PanningDirectionRight ? -1 : 1) : 0, 0);
 }
 
 - (CGAffineTransform)transformTo {
-    const CGFloat value = self.direction == InteractiveTransitionDirectionVertical ? self.screenSize.height : self.screenSize.width;
+    CGSize size = self.presenting ? fromViewController.view.frame.size : toViewController.view.frame.size;
+    const CGFloat value = self.direction == InteractiveTransitionDirectionVertical ? size.height : size.width;
     
     if (self.direction == InteractiveTransitionDirectionVertical) {
         const CGFloat y = self.aboveViewController.view.transform.ty;

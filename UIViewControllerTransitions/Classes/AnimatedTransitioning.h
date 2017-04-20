@@ -26,13 +26,13 @@
 @property (nonatomic, getter=isAnimating, readonly) BOOL animating;
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic, readonly) CGFloat bouncePercent;
-@property (nonatomic, readonly) CGSize screenSize;
 @property (nullable, nonatomic, readonly) UIViewController *belowViewController;
 @property (nullable, nonatomic, readonly) UIViewController *aboveViewController;
+- (void)dismiss;
+- (void)endAnimating;
 - (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext;
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion;
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent;
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion;
-- (void)endAnimating;
 - (void)startAnimating;
 @end

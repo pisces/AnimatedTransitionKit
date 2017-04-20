@@ -27,10 +27,6 @@
     return _presenting ? fromViewController : toViewController;
 }
 
-- (CGSize)screenSize {
-    return [UIScreen mainScreen].bounds.size;
-}
-
 #pragma mark - UIViewControllerAnimatedTransitioning
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -57,6 +53,20 @@
 
 #pragma mark - Public methods
 
+- (void)dismiss {
+    fromViewController.view.alpha = 1;
+    fromViewController.view.transform = CGAffineTransformTranslate(fromViewController.view.transform, 0, 0);
+    fromViewController.view.hidden = NO;
+    
+    [fromViewController viewWillAppear:NO];
+    [toViewController.view removeFromSuperview];
+    [fromViewController viewDidAppear:NO];
+}
+
+- (void)endAnimating {
+    _animating = NO;
+}
+
 - (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
     context = transitionContext;
 }
@@ -65,14 +75,10 @@
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
-    _bouncePercent = percent * (self.screenSize.height / self.aboveViewController.transition.bounceHeight);
+    _bouncePercent = percent * (self.aboveViewController.view.bounds.size.height / self.aboveViewController.transition.bounceHeight);
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-}
-
-- (void)endAnimating {
-    _animating = NO;
 }
 
 - (void)startAnimating {

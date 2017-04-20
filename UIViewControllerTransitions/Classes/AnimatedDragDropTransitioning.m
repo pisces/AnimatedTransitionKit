@@ -136,7 +136,7 @@
     const CGFloat progress = ABS(y) / bounceHeight;
     const CGFloat alpha = 1 - progress;
     const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * progress));
-    const CGFloat imageScale = MIN(1, (MAX(0.5, 1 - ABS(y) / self.screenSize.height)));
+    const CGFloat imageScale = MIN(1, (MAX(0.5, 1 - ABS(y) / self.aboveViewController.view.bounds.size.height)));
     
     sourceImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(imageScale, imageScale), (interactor.point.x - interactor.beginPoint.x), (interactor.point.y - interactor.beginPoint.y));
     
