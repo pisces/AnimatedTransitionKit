@@ -28,6 +28,7 @@
 @property (nullable, nonatomic, readonly) AnimatedTransitioning *transitioning;
 @property (nullable, nonatomic, strong) AbstractInteractiveTransition *dismissionInteractor;
 @property (nullable, nonatomic, strong) AbstractInteractiveTransition *presentingInteractor;
+- (void)dismiss;
 - (id _Nonnull)initWithViewController:(__weak UIViewController * _Nullable)viewController;
 @end
 

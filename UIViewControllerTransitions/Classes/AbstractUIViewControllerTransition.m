@@ -19,7 +19,7 @@
 
 @implementation AbstractUIViewControllerTransition
 
-#pragma mark - Overridden: NSObject
+#pragma mark - Con(De)structor
 
 - (void)dealloc {
 }
@@ -29,6 +29,18 @@
     
     if (self) {
         [self initProperties];
+    }
+    
+    return self;
+}
+
+- (id)initWithViewController:(UIViewController *)viewController {
+    self = [super init];
+    
+    if (self) {
+        [self initProperties];
+        
+        _viewController = viewController;
     }
     
     return self;
@@ -48,16 +60,8 @@
 
 #pragma mark - Public methods
 
-- (id)initWithViewController:(UIViewController *)viewController {
-    self = [super init];
-    
-    if (self) {
-        [self initProperties];
-        
-        _viewController = viewController;
-    }
-    
-    return self;
+- (void)dismiss {
+    [_transitioning dismiss];
 }
 
 #pragma mark - UIViewControllerTransitioning delegate
