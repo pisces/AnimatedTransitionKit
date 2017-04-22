@@ -90,10 +90,12 @@
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
-    [super interactionChanged:interactor percent:percent];
+    [super interactionChanged:interactor percent:fmin(1, fmax(0, percent))];
     
-    self.aboveViewController.view.alpha = MAX(0, MIN(1, self.presenting ? self.bouncePercent : 1 - self.bouncePercent));
-    self.belowViewController.view.alpha = MAX(0, MIN(1, self.presenting ? 1 - self.bouncePercent : self.bouncePercent));
+    CGFloat _percent = fmin(1, fmax(0, percent));
+    
+    self.aboveViewController.view.alpha = MAX(0, MIN(1, self.presenting ? _percent : 1 - _percent));
+    self.belowViewController.view.alpha = MAX(0, MIN(1, self.presenting ? 1 - _percent : _percent));
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {

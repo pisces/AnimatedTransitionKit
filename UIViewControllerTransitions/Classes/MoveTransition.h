@@ -10,7 +10,8 @@
 //
 
 #import <UIViewControllerTransitions/UIViewControllerTransitions.h>
+#import "AnimatedMoveTransitioning.h"
 
 @interface MoveTransition : AbstractUIViewControllerTransition
-
+@property (nonatomic) MoveTransitioningDirection direction;
 @end

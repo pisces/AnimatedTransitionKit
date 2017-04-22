@@ -64,24 +64,12 @@
 
 #pragma mark - Private methods
 
-- (BOOL)isCompletionDirection {
-    BOOL isVertical = self.direction == InteractiveTransitionDirectionVertical;
-    CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
-    CGFloat value = isVertical ? velocity.y : velocity.x;
-    
-    if (panningDirection == PanningDirectionUp) {return value < 0;}
-    if (panningDirection == PanningDirectionDown) {return value > 0;}
-    if (panningDirection == PanningDirectionLeft) {return value > 0;}
-    if (panningDirection == PanningDirectionRight) {return value < 0;}
-    return NO;
-}
-
 - (BOOL)isCompletionSpeed {
     BOOL isVertical = self.direction == InteractiveTransitionDirectionVertical;
     CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
     CGFloat value = isVertical ? velocity.y : velocity.x;
     CGFloat speed = -1 * value / (isVertical ? (self.beginPoint.y - self.point.y) : (self.beginPoint.x - self.point.x));
-    return self.isCompletionDirection && speed > 10;
+    return speed > 10;
 }
 
 #pragma mark - Private selector
@@ -112,7 +100,7 @@
             break;
         }
         case UIGestureRecognizerStateChanged: {
-            if (!self.transition.interactionEnabled) {
+            if (!self.transition.interactionEnabled || ![self.transition.currentInteractor isEqual:self]) {
                 return;
             }
             
@@ -122,7 +110,7 @@
             const CGFloat dragAmount = targetSize * (self.presentViewController ? -1 : 1);
             const CGFloat threshold = self.transition.bounceHeight / targetSize;
             const CGFloat rawPercent = point / dragAmount;
-            const CGFloat percent = fmin(fmax(rawPercent, 0), 1);
+            const CGFloat percent = fmin(fmax(-1, rawPercent), 1);
             
             self.point = newPoint;
             _shouldComplete = ABS(rawPercent) > threshold;
@@ -132,17 +120,16 @@
         }
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
-            if (!self.transition.interactionEnabled) {
+            if (!self.transition.interactionEnabled || ![self.transition.currentInteractor isEqual:self]) {
                 return;
             }
             
-            if (self.isCompletionSpeed || (_gestureRecognizer.state == UIGestureRecognizerStateEnded && _shouldComplete && self.isCompletionDirection)) {
+            if ([self.transition.transitioning shouldComplete:self] &&
+                (self.isCompletionSpeed || (_gestureRecognizer.state == UIGestureRecognizerStateEnded && _shouldComplete))) {
                 [self finishInteractiveTransition];
             } else {
                 [self cancelInteractiveTransition];
             }
-            
-            self.transition.interactionEnabled = NO;
             break;
         }
         default:

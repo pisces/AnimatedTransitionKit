@@ -67,11 +67,13 @@
 #pragma mark - UIViewControllerTransitioning delegate
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    _currentInteractor = _dismissionInteractor;
     _transitioning = [self animatedTransitioningForDismissedController:dismissed];
     return _transitioning;
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    _currentInteractor = _presentingInteractor;
     _transitioning = [self animatedTransitioningForForPresentedController:presented presentingController:presenting sourceController:source];
     return _transitioning;
 }

@@ -46,6 +46,7 @@
     
     [self.transition.transitioning interactionCancelled:self completion:^{
         [self completion];
+        self.transition.interactionEnabled = NO;
     }];
 }
 
@@ -58,6 +59,7 @@
     
     [self.transition.transitioning interactionCompleted:self completion:^{
         [self completion];
+        self.transition.interactionEnabled = NO;
     }];
 }
 
