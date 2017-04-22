@@ -18,12 +18,13 @@
 @interface AnimatedTransitioning : NSObject <AnimatedTransitioningProtected, UIViewControllerAnimatedTransitioning>
 {
 @protected
-    id <UIViewControllerContextTransitioning> context;
-    UIViewController *fromViewController;
-    UIViewController *toViewController;
+    __weak id <UIViewControllerContextTransitioning> context;
+    __weak UIViewController *fromViewController;
+    __weak UIViewController *toViewController;
 }
-@property (nonatomic, getter=isPresenting) BOOL presenting;
+
 @property (nonatomic, getter=isAnimating, readonly) BOOL animating;
+@property (nonatomic, getter=isPresenting) BOOL presenting;
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic, readonly) CGFloat bouncePercent;
 @property (nullable, nonatomic, readonly) UIViewController *belowViewController;
@@ -34,5 +35,6 @@
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion;
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent;
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion;
+- (BOOL)shouldComplete:(AbstractInteractiveTransition * _Nonnull)interactor;
 - (void)startAnimating;
 @end

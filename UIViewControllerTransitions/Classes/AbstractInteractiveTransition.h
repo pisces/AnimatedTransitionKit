@@ -28,8 +28,8 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 @property (nonatomic) CGPoint point;
 @property (nonnull, nonatomic, readonly) UIGestureRecognizer *gestureRecognizer;
 @property (nullable, nonatomic, weak) id<InteractiveTransitionDelegate> delegate;
-@property (nullable, readonly) UIViewController *presentViewController;
-@property (nonnull, readonly) UIViewController *viewController;
+@property (nullable, weak, readonly) UIViewController *presentViewController;
+@property (nullable, weak, readonly) UIViewController *viewController;
 @property (nonnull, readonly) UIViewController *currentViewController;
 @property (nullable, nonatomic, readonly) AbstractUIViewControllerTransition *transition;
 - (void)attach:(__weak UIViewController * _Nonnull)viewController presentViewController:(__weak UIViewController * _Nullable)presentViewController;

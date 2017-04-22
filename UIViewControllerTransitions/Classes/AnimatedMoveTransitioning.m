@@ -20,29 +20,42 @@
 
 #pragma mark - Properties
 
-- (InteractiveTransitionDirection)direction {
-    return self.presenting ? self.aboveViewController.transition.presentingInteractor.direction : self.aboveViewController.transition.dismissionInteractor.direction;
+- (BOOL)isVertical {
+    return _direction == MoveTransitioningDirectionUp || _direction == MoveTransitioningDirectionDown;
 }
 
 - (CGAffineTransform)transformFrom {
-    CGSize size = self.presenting ? fromViewController.view.frame.size : toViewController.view.frame.size;
     
-    if (self.direction == InteractiveTransitionDirectionVertical) {
-        return CGAffineTransformMakeTranslation(0, self.presenting ? size.height * (panningDirection == PanningDirectionDown ? -1 : 1) : 0);
+//    CGSize size = self.presenting ? fromViewController.view.frame.size : toViewController.view.frame.size;
+    
+    CGSize size = UIScreen.mainScreen.bounds.size;
+    
+    if (_direction == MoveTransitioningDirectionUp) {
+        return CGAffineTransformMakeTranslation(0, self.presenting ? size.height : 0);
     }
-    return CGAffineTransformMakeTranslation(self.presenting ? size.height * (panningDirection == PanningDirectionRight ? -1 : 1) : 0, 0);
+    if (_direction == MoveTransitioningDirectionDown) {
+        return CGAffineTransformMakeTranslation(0, self.presenting ? -size.height : 0);
+    }
+    if (_direction == MoveTransitioningDirectionLeft) {
+        return CGAffineTransformMakeTranslation(self.presenting ? size.width : 0, 0);
+    }
+    return CGAffineTransformMakeTranslation(self.presenting ? -size.width : 0, 0);
 }
 
 - (CGAffineTransform)transformTo {
-    CGSize size = self.presenting ? fromViewController.view.frame.size : toViewController.view.frame.size;
-    const CGFloat value = self.direction == InteractiveTransitionDirectionVertical ? size.height : size.width;
+//    CGSize size = self.presenting ? fromViewController.view.frame.size : toViewController.view.frame.size;
+    CGSize size = UIScreen.mainScreen.bounds.size;
     
-    if (self.direction == InteractiveTransitionDirectionVertical) {
-        const CGFloat y = self.aboveViewController.view.transform.ty;
-        return CGAffineTransformMakeTranslation(0, self.presenting ? 0 : y >= 0 ? value : -value);
+    if (_direction == MoveTransitioningDirectionUp) {
+        return CGAffineTransformMakeTranslation(0, self.presenting ? 0 : size.height);
     }
-    const CGFloat x = self.aboveViewController.view.transform.tx;
-    return CGAffineTransformMakeTranslation(self.presenting ? 0 : x >= 0 ? value : -value, 0);
+    if (_direction == MoveTransitioningDirectionDown) {
+        return CGAffineTransformMakeTranslation(0, self.presenting ? 0 : -size.height);
+    }
+    if (_direction == MoveTransitioningDirectionLeft) {
+        return CGAffineTransformMakeTranslation(self.presenting ? 0 : size.width, 0);
+    }
+    return CGAffineTransformMakeTranslation(self.presenting ? 0 : -size.width, 0);
 }
 
 #pragma mark - Overridden: AnimatedTransitioning
@@ -135,7 +148,9 @@
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
-    [super interactionChanged:interactor percent:percent];
+    CGFloat multiply = _direction == MoveTransitioningDirectionUp || _direction == MoveTransitioningDirectionLeft ? 1 : -1;
+    
+    [super interactionChanged:interactor percent:percent * multiply];
     
     CGFloat alpha = self.presenting ? 1 - ((1 - 0.5) * self.bouncePercent) : 0.5 + ((1 - 0.5) * self.bouncePercent);
     CGFloat scale = self.presenting ? 1 - ((1 - 0.94) * self.bouncePercent) : 0.94 + ((1 - 0.94) * self.bouncePercent);
@@ -143,11 +158,11 @@
     scale = MAX(0.94, MIN(1, scale));
     
     if (interactor.direction == InteractiveTransitionDirectionVertical) {
-        const CGFloat y = self.transformFrom.ty + (interactor.point.y - interactor.beginPoint.y);
-        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(0, y);
+        CGFloat y = self.transformFrom.ty + ((interactor.point.y - interactor.beginPoint.y) * 1.5);
+        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(0, [self calculatedValue:y]);
     } else {
-        const CGFloat x = self.transformFrom.tx + (interactor.point.x - interactor.beginPoint.x);
-        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(x, 0);
+        const CGFloat x = self.transformFrom.tx + ((interactor.point.x - interactor.beginPoint.x) * 1.5);
+        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation([self calculatedValue:x], 0);
     }
     
     self.belowViewController.view.alpha = alpha;
@@ -174,6 +189,37 @@
         [context completeTransition:!context.transitionWasCancelled];
         completion();
     }];
+}
+
+- (BOOL)shouldComplete:(AbstractInteractiveTransition * _Nonnull)interactor {
+    UIPanGestureRecognizer *gestureRecognizer = (UIPanGestureRecognizer *) interactor.gestureRecognizer;
+    const CGPoint translation = [gestureRecognizer translationInView:self.aboveViewController.view.superview];
+    
+    if (_direction == MoveTransitioningDirectionUp) {
+        return self.presenting ? translation.y < 0 : translation.y > 0;
+    }
+    if (_direction == MoveTransitioningDirectionDown) {
+        return self.presenting ? translation.y > 0 : translation.y < 0;
+    }
+    if (_direction == MoveTransitioningDirectionLeft) {
+        return self.presenting ? translation.x < 0 : translation.x > 0;
+    }
+    return self.presenting ? translation.x > 0 : translation.x < 0;
+}
+
+#pragma mark - Private methods
+
+- (CGFloat)calculatedValue:(CGFloat)value {
+    if (_direction == MoveTransitioningDirectionUp) {
+        return MAX(0, value);
+    }
+    if (_direction == MoveTransitioningDirectionDown) {
+        return MIN(0, value);
+    }
+    if (_direction == MoveTransitioningDirectionLeft) {
+        return MAX(0, value);
+    }
+    return MIN(0, value);
 }
 
 @end

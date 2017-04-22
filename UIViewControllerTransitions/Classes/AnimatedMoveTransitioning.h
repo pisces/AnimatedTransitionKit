@@ -9,6 +9,13 @@
 
 #import "AnimatedTransitioning.h"
 
-@interface AnimatedMoveTransitioning : AnimatedTransitioning
+typedef NS_ENUM(NSUInteger, MoveTransitioningDirection) {
+    MoveTransitioningDirectionLeft = 1,
+    MoveTransitioningDirectionUp,
+    MoveTransitioningDirectionRight,
+    MoveTransitioningDirectionDown
+};
 
+@interface AnimatedMoveTransitioning : AnimatedTransitioning
+@property (nonatomic) MoveTransitioningDirection direction;
 @end

@@ -33,7 +33,8 @@
     return _duration;
 }
 
-- (void)animationEnded:(BOOL) transitionCompleted {
+- (void)animationEnded:(BOOL)transitionCompleted {
+    NSLog(@"animationEnded -> %d", transitionCompleted);
 }
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
@@ -79,6 +80,10 @@
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
+}
+
+- (BOOL)shouldComplete:(AbstractInteractiveTransition * _Nonnull)interactor {
+    return YES;
 }
 
 - (void)startAnimating {
