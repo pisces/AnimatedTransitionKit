@@ -34,7 +34,6 @@
 }
 
 - (void)animationEnded:(BOOL)transitionCompleted {
-    NSLog(@"animationEnded -> %d", transitionCompleted);
 }
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
