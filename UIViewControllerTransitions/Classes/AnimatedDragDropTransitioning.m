@@ -199,11 +199,14 @@
 - (void)completion {
     if (self.presenting) {
         [self.belowViewController viewDidDisappear:YES];
-    } else {
-        [self.belowViewController viewDidAppear:YES];
     }
     
     [context completeTransition:!context.transitionWasCancelled];
+    
+    if (!self.presenting) {
+        [self.belowViewController viewDidAppear:YES];
+    }
+    
     _source.completion();
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

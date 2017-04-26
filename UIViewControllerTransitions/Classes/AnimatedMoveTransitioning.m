@@ -81,8 +81,8 @@
         } completion:^(BOOL finished) {
             toViewController.view.window.backgroundColor = backgroundColor;
             [fromViewController.view removeFromSuperview];
-            [toViewController viewDidAppear:YES];
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            [toViewController viewDidAppear:YES];
         }];
     }
 }
@@ -181,12 +181,15 @@
     } completion:^(BOOL finished) {
         if (self.presenting) {
             [self.belowViewController viewDidDisappear:YES];
-        } else {
+        }
+        
+        [context completeTransition:!context.transitionWasCancelled];
+        
+        if (!self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
             [self.belowViewController viewDidAppear:YES];
         }
         
-        [context completeTransition:!context.transitionWasCancelled];
         completion();
     }];
 }
