@@ -141,6 +141,7 @@
     sourceImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(imageScale, imageScale), (interactor.point.x - interactor.beginPoint.x), (interactor.point.y - interactor.beginPoint.y));
     
     self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
+    self.belowViewController.view.alpha = 1 - alpha;
     self.aboveViewController.view.alpha = alpha;
 }
 
@@ -199,15 +200,15 @@
 - (void)completion {
     if (self.presenting) {
         [self.belowViewController viewDidDisappear:YES];
-    }
-    
-    [context completeTransition:!context.transitionWasCancelled];
-    
-    if (!self.presenting) {
+    } else {
         [self.belowViewController viewDidAppear:YES];
     }
     
-    _source.completion();
+    if (_source.completion) {
+        _source.completion();
+    }
+    
+    [context completeTransition:!context.transitionWasCancelled];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [sourceImageView removeFromSuperview];
