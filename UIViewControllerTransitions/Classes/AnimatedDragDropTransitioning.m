@@ -139,9 +139,7 @@
     const CGFloat imageScale = MIN(1, (MAX(0.5, 1 - ABS(y) / self.aboveViewController.view.bounds.size.height)));
     
     sourceImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(imageScale, imageScale), (interactor.point.x - interactor.beginPoint.x), (interactor.point.y - interactor.beginPoint.y));
-    
     self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
-    self.belowViewController.view.alpha = 1 - alpha;
     self.aboveViewController.view.alpha = alpha;
 }
 
