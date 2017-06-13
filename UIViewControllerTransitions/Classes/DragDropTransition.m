@@ -18,6 +18,7 @@
 - (void)initProperties {
     [super initProperties];
     
+    self.animationOptionsForDismission = self.animationOptionsForPresenting = 7;
     _imageViewContentMode = UIViewContentModeScaleAspectFill;
 }
 

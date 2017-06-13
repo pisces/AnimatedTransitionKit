@@ -25,6 +25,7 @@
 
 @property (nonatomic, getter=isAnimating, readonly) BOOL animating;
 @property (nonatomic, getter=isPresenting) BOOL presenting;
+@property (nonatomic) UIViewAnimationOptions animationOptions;
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic, readonly) CGFloat bouncePercent;
 @property (nullable, nonatomic, readonly) UIViewController *belowViewController;
