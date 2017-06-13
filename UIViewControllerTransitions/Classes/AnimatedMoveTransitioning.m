@@ -101,7 +101,7 @@
     if (!transitionContext.isInteractive) {
         toViewController.view.hidden = NO;
         
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
             toViewController.view.transform = self.transformTo;
             fromViewController.view.alpha = 0.5;
             fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;

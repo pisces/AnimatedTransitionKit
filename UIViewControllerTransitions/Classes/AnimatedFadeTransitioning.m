@@ -26,7 +26,7 @@
     [toViewController viewWillAppear:YES];
     
     if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
             fromViewController.view.alpha = 0;
             toViewController.view.alpha = 1;
             toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
@@ -52,7 +52,7 @@
     [fromViewController viewWillDisappear:YES];
     
     if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 animations:^{
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
             toViewController.view.alpha = 1;
             fromViewController.view.alpha = 0;
             fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
@@ -104,7 +104,7 @@
     const CGFloat aboveViewAlpha = self.presenting ? 1 : 0;
     const CGFloat belowViewAlpha = self.presenting ? 0 : 1;
     
-    [UIView animateWithDuration:0.2 delay:0 options:7<<16 animations:^{
+    [UIView animateWithDuration:0.2 delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.alpha = aboveViewAlpha;
         self.belowViewController.view.alpha = belowViewAlpha;
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;

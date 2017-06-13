@@ -22,6 +22,8 @@
 @property (nonatomic, getter=isAllowsInteraction) BOOL allowsInteraction;
 @property (nonatomic, getter=isInteractionEnabled) BOOL interactionEnabled;
 @property (nonatomic) CGFloat bounceHeight;
+@property (nonatomic) UIViewAnimationOptions animationOptionsForDismission;
+@property (nonatomic) UIViewAnimationOptions animationOptionsForPresenting;
 @property (nonatomic) NSTimeInterval durationForDismission;
 @property (nonatomic) NSTimeInterval durationForPresenting;
 @property (nullable, nonatomic, weak) UIViewController *viewController;

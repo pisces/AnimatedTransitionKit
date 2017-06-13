@@ -69,12 +69,14 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     _currentInteractor = _dismissionInteractor;
     _transitioning = [self animatedTransitioningForDismissedController:dismissed];
+    _transitioning.animationOptions = _animationOptionsForDismission;
     return _transitioning;
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     _currentInteractor = _presentingInteractor;
     _transitioning = [self animatedTransitioningForForPresentedController:presented presentingController:presenting sourceController:source];
+    _transitioning.animationOptions = _animationOptionsForPresenting;
     return _transitioning;
 }
 
@@ -109,6 +111,7 @@
 }
 
 - (void)initProperties {
+    _animationOptionsForDismission = _animationOptionsForPresenting = 7<<16;
     _bounceHeight = 100;
     _durationForDismission = _durationForPresenting = 0.6;
     _dismissionInteractor = [PanningInteractiveTransition new];
