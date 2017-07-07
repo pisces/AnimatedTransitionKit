@@ -70,7 +70,7 @@
     toViewController.view.window.backgroundColor = [UIColor blackColor];
     fromViewController.view.transform = self.transformFrom;
     
-    [toViewController viewWillAppear:YES];
+    [toViewController beginAppearanceTransition:YES animated:YES];
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -81,7 +81,7 @@
         } completion:^(BOOL finished) {
             toViewController.view.window.backgroundColor = backgroundColor;
             [fromViewController.view removeFromSuperview];
-            [toViewController viewDidAppear:YES];
+            [toViewController endAppearanceTransition];
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }];
     }
@@ -96,7 +96,7 @@
     toViewController.view.transform = self.transformFrom;
     
     [transitionContext.containerView addSubview:toViewController.view];
-    [fromViewController viewWillDisappear:YES];
+    [fromViewController beginAppearanceTransition:NO animated:YES];
     
     if (!transitionContext.isInteractive) {
         toViewController.view.hidden = NO;
@@ -115,7 +115,7 @@
                 fromViewController.view.hidden = YES;
             }
             
-            [fromViewController viewDidDisappear:YES];
+            [fromViewController endAppearanceTransition];
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }];
     }
