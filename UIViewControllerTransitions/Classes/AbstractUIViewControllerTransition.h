@@ -36,5 +36,5 @@
 @end
 
 @interface UIViewController (UIViewControllerTransitions)
-@property (nullable, nonatomic, weak) AbstractUIViewControllerTransition *transition;
+@property (nullable, nonatomic) AbstractUIViewControllerTransition *transition;
 @end

@@ -128,9 +128,9 @@ static void *AssociatedKeyTransition = @"transition";
     if ([transition isEqual:[self transition]])
         return;
     
-    __weak AbstractUIViewControllerTransition *weakTransition = transition;
-    weakTransition.viewController = self;
-    objc_setAssociatedObject(self, &AssociatedKeyTransition, weakTransition, OBJC_ASSOCIATION_ASSIGN);
+    transition.viewController = self;
+    
+    objc_setAssociatedObject(self, &AssociatedKeyTransition, transition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (AbstractUIViewControllerTransition *)transition {
