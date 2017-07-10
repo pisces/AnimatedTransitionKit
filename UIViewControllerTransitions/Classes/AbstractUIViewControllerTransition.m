@@ -120,6 +120,8 @@
 
 @end
 
+static void *AssociatedKeyTransition = @"transition";
+
 @implementation UIViewController (UIViewControllerTransitions)
 
 - (void)setTransition:(AbstractUIViewControllerTransition *)transition {
@@ -128,11 +130,11 @@
     
     transition.viewController = self;
     
-    objc_setAssociatedObject(self, @"transition", transition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &AssociatedKeyTransition, transition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (AbstractUIViewControllerTransition *)transition {
-    return objc_getAssociatedObject(self, @"transition");
+    return objc_getAssociatedObject(self, &AssociatedKeyTransition);
 }
 
 @end
