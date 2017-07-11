@@ -8,10 +8,22 @@
 
 import UIViewControllerTransitions
 
-class MoveTransitionFirstViewController: UIViewController {
+class MoveTransitionFirstViewController: UIViewController, InteractiveTransitionDelegate {
     
-    private lazy var secondViewController: UINavigationController = {
-        return UINavigationController(rootViewController: MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main))
+    private var interactor: AbstractInteractiveTransition? {
+        return self.secondViewController.transition?.presentingInteractor
+    }
+    private lazy var secondViewController: MoveTransitionSecondViewController = {
+        let viewController = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
+        let transition = MoveTransition()
+        transition.durationForPresenting = 0.25
+        transition.durationForDismission = 0.35
+        transition.dismissionInteractor?.delegate = viewController
+        transition.presentingInteractor?.delegate = self
+        transition.isAllowsInteraction = true
+        viewController.interactionDelegate = self
+        viewController.transition = transition
+        return viewController
     }()
     
     override var prefersStatusBarHidden: Bool {
@@ -27,11 +39,7 @@ class MoveTransitionFirstViewController: UIViewController {
         
         self.title = "First View"
         
-        let transition = MoveTransition()
-        transition.isAllowsInteraction = true
-        transition.presentingInteractor?.attach(self, present: secondViewController)
-        
-        secondViewController.transition = transition
+        interactor?.attach(self, present: secondViewController)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,7 +75,9 @@ class MoveTransitionFirstViewController: UIViewController {
     }
 }
 
-class MoveTransitionSecondViewController: UIViewController {
+class MoveTransitionSecondViewController: UIViewController, InteractiveTransitionDelegate {
+    
+    weak var interactionDelegate: InteractiveTransitionDelegate?
     
     override var prefersStatusBarHidden: Bool {
         return false
