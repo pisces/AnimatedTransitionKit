@@ -49,7 +49,7 @@
     toViewController.view.frame = fromViewController.view.bounds;
     
     [transitionContext.containerView addSubview:toViewController.view];
-    [fromViewController viewWillDisappear:YES];
+    [fromViewController beginAppearanceTransition:NO animated:YES];
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -63,7 +63,7 @@
                 fromViewController.view.hidden = YES;
             }
             
-            [fromViewController viewDidDisappear:YES];
+            [fromViewController endAppearanceTransition];
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }];
     }
@@ -103,8 +103,6 @@
     
     const CGFloat aboveViewAlpha = self.presenting ? 1 : 0;
     const CGFloat belowViewAlpha = self.presenting ? 0 : 1;
-    
-    [self.belowViewController beginAppearanceTransition:!self.presenting animated:YES];
     
     [UIView animateWithDuration:0.2 delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.alpha = aboveViewAlpha;
