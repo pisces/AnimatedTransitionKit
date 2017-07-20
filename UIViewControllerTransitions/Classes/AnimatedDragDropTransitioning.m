@@ -196,11 +196,7 @@
 }
 
 - (void)completion {
-    if (self.presenting) {
-        [self.belowViewController viewDidDisappear:YES];
-    } else {
-        [self.belowViewController viewDidAppear:YES];
-    }
+    [self.belowViewController beginAppearanceTransition:!self.presenting animated:YES];
     
     if (_source.completion) {
         _source.completion();
