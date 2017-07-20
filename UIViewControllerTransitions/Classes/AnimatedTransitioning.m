@@ -58,9 +58,9 @@
     fromViewController.view.transform = CGAffineTransformTranslate(fromViewController.view.transform, 0, 0);
     fromViewController.view.hidden = NO;
     
-    [fromViewController viewWillAppear:NO];
+    [fromViewController beginAppearanceTransition:YES animated:NO];
     [toViewController.view removeFromSuperview];
-    [fromViewController viewDidAppear:NO];
+    [fromViewController endAppearanceTransition];
 }
 
 - (void)endAnimating {

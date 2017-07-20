@@ -173,19 +173,19 @@
     const CGFloat alpha = self.presenting ? 0.5 : 1;
     const CGFloat scale = self.presenting ? 0.94 : 1;
     
+    [self.belowViewController beginAppearanceTransition:!self.presenting animated:YES];
+    
     [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.transform = self.transformTo;
         self.belowViewController.view.alpha = alpha;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
     } completion:^(BOOL finished) {
-        if (self.presenting) {
-            [self.belowViewController viewDidDisappear:YES];
-        } else {
+        if (!self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
-            [self.belowViewController viewDidAppear:YES];
         }
         
+        [self.belowViewController endAppearanceTransition];
         [context completeTransition:!context.transitionWasCancelled];
         
         completion();
