@@ -58,7 +58,7 @@
         [transitionContext.containerView addSubview:sourceImageView];
     }
     
-    [toViewController viewWillAppear:YES];
+    [toViewController beginAppearanceTransition:YES animated:YES];
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -66,6 +66,7 @@
         } completion:^(BOOL finished) {
             toViewController.view.window.backgroundColor = backgroundColor;
             
+            [toViewController endAppearanceTransition];
             [self completion];
         }];
     }
@@ -80,7 +81,7 @@
     
     [transitionContext.containerView addSubview:toViewController.view];
     [transitionContext.containerView addSubview:sourceImageView];
-    [fromViewController viewWillDisappear:YES];
+    [fromViewController beginAppearanceTransition:NO animated:YES];
     
     toViewController.view.alpha = 0;
     
@@ -99,6 +100,7 @@
                 fromViewController.view.hidden = YES;
             }
             
+            [fromViewController endAppearanceTransition];
             [self completion];
         }];
     }
@@ -153,6 +155,7 @@
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
         [self dismiss];
     } completion:^(BOOL finished) {
+        [self.belowViewController endAppearanceTransition];
         [self completion];
     }];
 }
@@ -196,8 +199,6 @@
 }
 
 - (void)completion {
-    [self.belowViewController beginAppearanceTransition:!self.presenting animated:YES];
-    
     if (_source.completion) {
         _source.completion();
     }

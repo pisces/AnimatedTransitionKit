@@ -25,11 +25,7 @@
 }
 
 - (CGAffineTransform)transformFrom {
-    
-//    CGSize size = self.presenting ? fromViewController.view.frame.size : toViewController.view.frame.size;
-    
     CGSize size = UIScreen.mainScreen.bounds.size;
-    
     if (_direction == MoveTransitioningDirectionUp) {
         return CGAffineTransformMakeTranslation(0, self.presenting ? size.height : 0);
     }
@@ -43,9 +39,7 @@
 }
 
 - (CGAffineTransform)transformTo {
-//    CGSize size = self.presenting ? fromViewController.view.frame.size : toViewController.view.frame.size;
     CGSize size = UIScreen.mainScreen.bounds.size;
-    
     if (_direction == MoveTransitioningDirectionUp) {
         return CGAffineTransformMakeTranslation(0, self.presenting ? 0 : size.height);
     }
@@ -172,8 +166,6 @@
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     const CGFloat alpha = self.presenting ? 0.5 : 1;
     const CGFloat scale = self.presenting ? 0.94 : 1;
-    
-    [self.belowViewController beginAppearanceTransition:!self.presenting animated:YES];
     
     [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.transform = self.transformTo;
