@@ -10,17 +10,24 @@
 #endif
 #endif
 
+#import "AbstractAnimatedTransitioning.h"
 #import "AbstractInteractiveTransition.h"
-#import "AbstractUIViewControllerTransition.h"
-#import "AnimatedDragDropTransitioning.h"
-#import "AnimatedFadeTransitioning.h"
-#import "AnimatedMoveTransitioning.h"
+#import "AnimatedNavigationTransitioning.h"
 #import "AnimatedTransitioning.h"
 #import "DragDropTransition.h"
+#import "DragDropTransitioning.h"
 #import "FadeTransition.h"
+#import "FadeTransitioning.h"
 #import "MoveTransition.h"
+#import "MoveTransitioning.h"
+#import "NavigationMoveTransition.h"
+#import "NavigationMoveTransitioning.h"
 #import "PanningInteractiveTransition.h"
 #import "UIMaskedImageView.h"
+#import "UINavigationControllerTransition.h"
+#import "UIViewController+UIViewControllerTransitions.h"
+#import "UIViewControllerAnimatedTransition.h"
+#import "UIViewControllerTransition.h"
 #import "UIViewControllerTransitions.h"
 #import "UIViewControllerTransitionsMacro.h"
 

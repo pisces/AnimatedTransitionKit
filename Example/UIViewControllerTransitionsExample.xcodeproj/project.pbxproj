@@ -25,6 +25,9 @@
 		238D0AA61EA0959E00D9C55C /* MoveTransitionViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D0A911EA0959E00D9C55C /* MoveTransitionViewControllers.swift */; };
 		238D0AAC1EA09F0300D9C55C /* FadeTransitionViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AAB1EA09F0300D9C55C /* FadeTransitionViewControllers.swift */; };
 		238D0AAE1EA0A1ED00D9C55C /* CustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D0AAD1EA0A1ED00D9C55C /* CustomTransition.swift */; };
+		23FDEA121F40712800DF3825 /* NavigationMoveTransitionFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23FDEA111F40712800DF3825 /* NavigationMoveTransitionFirstView.xib */; };
+		23FDEA141F40714300DF3825 /* NavigationMoveTransitionSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23FDEA131F40714300DF3825 /* NavigationMoveTransitionSecondView.xib */; };
+		23FDEA161F40719300DF3825 /* NavigationMoveTransitionViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FDEA151F40719300DF3825 /* NavigationMoveTransitionViewControllers.swift */; };
 		57246E27B51970FB1C442B1E /* Pods_UIViewControllerTransitions_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73CA04607B807B38338EFCA /* Pods_UIViewControllerTransitions_Tests.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -70,6 +73,9 @@
 		238D0AAB1EA09F0300D9C55C /* FadeTransitionViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeTransitionViewControllers.swift; sourceTree = "<group>"; };
 		238D0AAD1EA0A1ED00D9C55C /* CustomTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTransition.swift; sourceTree = "<group>"; };
 		23D3853C1E9CE54E00AD48D0 /* UIViewControllerTransitions_Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIViewControllerTransitions_Example-Bridging-Header.h"; path = "UIViewControllerTransitionsExample/UIViewControllerTransitions_Example-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		23FDEA111F40712800DF3825 /* NavigationMoveTransitionFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationMoveTransitionFirstView.xib; sourceTree = "<group>"; };
+		23FDEA131F40714300DF3825 /* NavigationMoveTransitionSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationMoveTransitionSecondView.xib; sourceTree = "<group>"; };
+		23FDEA151F40719300DF3825 /* NavigationMoveTransitionViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMoveTransitionViewControllers.swift; sourceTree = "<group>"; };
 		53C0476F04B756FBA6350C2A /* UIViewControllerTransitions.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = UIViewControllerTransitions.podspec; path = ../UIViewControllerTransitions.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* UIViewControllerTransitions_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIViewControllerTransitions_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -134,6 +140,8 @@
 				238D0A821EA0959E00D9C55C /* FadeTransitionSecondView.xib */,
 				238D0A831EA0959E00D9C55C /* MoveTransitionFirstView.xib */,
 				238D0A841EA0959E00D9C55C /* MoveTransitionSecondView.xib */,
+				23FDEA111F40712800DF3825 /* NavigationMoveTransitionFirstView.xib */,
+				23FDEA131F40714300DF3825 /* NavigationMoveTransitionSecondView.xib */,
 				238D0A851EA0959E00D9C55C /* Images.xcassets */,
 				238D0A861EA0959E00D9C55C /* LaunchScreen.storyboard */,
 				238D0A871EA0959E00D9C55C /* Main.storyboard */,
@@ -150,6 +158,7 @@
 				238D0A8C1EA0959E00D9C55C /* DragDropTransitionViewControllers.swift */,
 				238D0AAB1EA09F0300D9C55C /* FadeTransitionViewControllers.swift */,
 				238D0A911EA0959E00D9C55C /* MoveTransitionViewControllers.swift */,
+				23FDEA151F40719300DF3825 /* NavigationMoveTransitionViewControllers.swift */,
 			);
 			name = Source;
 			path = UIViewControllerTransitionsExample/Source;
@@ -333,6 +342,7 @@
 				238D0A9D1EA0959E00D9C55C /* Images.xcassets in Resources */,
 				23857C7C1E4C67FB00F21787 /* InfoPlist.strings in Resources */,
 				238D0A971EA0959E00D9C55C /* DragDropTransitionSecondView.xib in Resources */,
+				23FDEA121F40712800DF3825 /* NavigationMoveTransitionFirstView.xib in Resources */,
 				238D0A9E1EA0959E00D9C55C /* LaunchScreen.storyboard in Resources */,
 				238D0A981EA0959E00D9C55C /* ex.png in Resources */,
 				238D0A9F1EA0959E00D9C55C /* Main.storyboard in Resources */,
@@ -340,6 +350,7 @@
 				238D0A991EA0959E00D9C55C /* FadeTransitionFirstView.xib in Resources */,
 				238D0A9C1EA0959E00D9C55C /* MoveTransitionSecondView.xib in Resources */,
 				238D0A9B1EA0959E00D9C55C /* MoveTransitionFirstView.xib in Resources */,
+				23FDEA141F40714300DF3825 /* NavigationMoveTransitionSecondView.xib in Resources */,
 				238D0A9A1EA0959E00D9C55C /* FadeTransitionSecondView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +467,7 @@
 				238D0AAE1EA0A1ED00D9C55C /* CustomTransition.swift in Sources */,
 				238D0AA21EA0959E00D9C55C /* DemoViewController.swift in Sources */,
 				238D0AAC1EA09F0300D9C55C /* FadeTransitionViewControllers.swift in Sources */,
+				23FDEA161F40719300DF3825 /* NavigationMoveTransitionViewControllers.swift in Sources */,
 				234A7D0D1E4C646300DA1446 /* main.m in Sources */,
 				238D0AA31EA0959E00D9C55C /* DragDropTransitionViewControllers.swift in Sources */,
 				238D0A7C1EA0915100D9C55C /* AppDelegate.swift in Sources */,

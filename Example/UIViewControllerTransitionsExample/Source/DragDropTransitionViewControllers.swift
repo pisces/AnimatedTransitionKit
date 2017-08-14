@@ -37,7 +37,7 @@ class DragDropTransitionFirstViewController: UIViewController {
         let bigRect = CGRect(x: 0, y: statusBarHeight + navigationBarHeight, width: w, height: w)
         let smallRect = imageView.frame
         
-        transition.presentingSource = AnimatedDragDropTransitioningSource.image({ () -> UIImage? in
+        transition.presentingSource = DragDropTransitioningSource.image({ () -> UIImage? in
             return self.imageView.image
         }, from: { () -> CGRect in
             return smallRect
@@ -50,7 +50,7 @@ class DragDropTransitionFirstViewController: UIViewController {
             secondViewController.imageView.isHidden = false
         }
         
-        transition.dismissionSource = AnimatedDragDropTransitioningSource.image({ () -> UIImage? in
+        transition.dismissionSource = DragDropTransitioningSource.image({ () -> UIImage? in
             return secondViewController.imageView.image
         }, from: { () -> CGRect in
             return bigRect

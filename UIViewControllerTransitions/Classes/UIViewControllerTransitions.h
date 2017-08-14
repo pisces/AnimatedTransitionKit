@@ -11,11 +11,13 @@
 #ifndef UIViewControllerTransitions_h
 #define UIViewControllerTransitions_h
 
-#import "AnimatedDragDropTransitioning.h"
+#import "DragDropTransitioning.h"
 #import "DragDropTransition.h"
 #import "FadeTransition.h"
 #import "MoveTransition.h"
+#import "NavigationMoveTransition.h"
 #import "PanningInteractiveTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
+#import "UIViewController+UIViewControllerTransitions.h"
 
 #endif /* UIViewControllerTransitions_h */

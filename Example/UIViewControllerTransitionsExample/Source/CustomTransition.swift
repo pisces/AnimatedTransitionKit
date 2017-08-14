@@ -8,7 +8,7 @@
 
 import UIViewControllerTransitions
 
-class CustomTransition: AbstractUIViewControllerTransition {
+class CustomTransition: UIViewControllerTransition {
     
     override func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let transitioning = AnimatedCustomTransitioning()

@@ -9,7 +9,7 @@
 //
 
 #import "PanningInteractiveTransition.h"
-#import "AbstractUIViewControllerTransition.h"
+#import "UIViewControllerAnimatedTransition.h"
 
 @interface PanningInteractiveTransition ()
 @property (nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
@@ -48,20 +48,6 @@
     return self;
 }
 
-#pragma mark - Overridden: AbstractInteractiveTransition
-
-- (void)attach:(UIViewController *)viewController presentViewController:(UIViewController *)presentViewController {
-    [super attach:viewController presentViewController:presentViewController];
-    
-    [self.viewController.view addGestureRecognizer:_gestureRecognizer];
-}
-
-- (void)detach {
-    [_gestureRecognizer.view removeGestureRecognizer:_gestureRecognizer];
-    
-    [super detach];
-}
-
 #pragma mark - Private methods
 
 - (BOOL)isCompletionSpeed {
@@ -76,7 +62,6 @@
 
 - (void)panned {
     const CGPoint newPoint = [self.panGestureRecognizer locationInView:self.currentViewController.view.superview];
-    const BOOL isDismissing = self.presentViewController == nil;
     
     switch (self.panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
@@ -92,10 +77,14 @@
             self.beginViewPoint = self.currentViewController.view.frame.origin;
             panningDirection = self.panGestureRecognizer.panningDirection;
             
-            if (isDismissing) {
-                [self.viewController dismissViewControllerAnimated:YES completion:nil];
+            if (self.navigationController) {
+                [self.navigationController popViewControllerAnimated:YES];
             } else {
-                [self.viewController presentViewController:self.presentViewController animated:YES completion:nil];
+                if (self.presentViewController == nil) {
+                    [self.viewController dismissViewControllerAnimated:YES completion:nil];
+                } else {
+                    [self.viewController presentViewController:self.presentViewController animated:YES completion:nil];
+                }
             }
             break;
         }
@@ -108,7 +97,7 @@
             const CGFloat targetSize = self.direction == InteractiveTransitionDirectionVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat point = self.direction == InteractiveTransitionDirectionVertical ? translation.y : translation.x;
             const CGFloat dragAmount = targetSize * (self.presentViewController ? -1 : 1);
-            const CGFloat threshold = self.transition.bounceHeight / targetSize;
+            const CGFloat threshold = self.transition.transitioning.completionBounds / targetSize;
             const CGFloat rawPercent = point / dragAmount;
             const CGFloat percent = fmin(fmax(-1, rawPercent), 1);
             

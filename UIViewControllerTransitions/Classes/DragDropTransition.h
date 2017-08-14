@@ -6,16 +6,18 @@
 //  Modified by Steve Kim on 4/14/17.
 //      - Renew design and add new feature interactive transition
 //      - Rename UIViewControllerDragDropTransition to DragDropTransition
+//  Modified by Steve Kim on 8/14/17.
+//      - Refactoring extract methods
 //
 
-#import "AbstractUIViewControllerTransition.h"
-#import "AnimatedDragDropTransitioning.h"
+#import "UIViewControllerTransition.h"
+#import "DragDropTransitioning.h"
 #import "UIMaskedImageView.h"
 
 @protocol DragDropTransitionDataSource;
 
-@interface DragDropTransition : AbstractUIViewControllerTransition
+@interface DragDropTransition : UIViewControllerTransition
 @property (nonatomic) UIViewContentMode imageViewContentMode;
-@property (nullable, nonatomic, strong) AnimatedDragDropTransitioningSource *dismissionSource;
-@property (nullable, nonatomic, strong) AnimatedDragDropTransitioningSource *presentingSource;
+@property (nullable, nonatomic, strong) DragDropTransitioningSource *dismissionSource;
+@property (nullable, nonatomic, strong) DragDropTransitioningSource *presentingSource;
 @end

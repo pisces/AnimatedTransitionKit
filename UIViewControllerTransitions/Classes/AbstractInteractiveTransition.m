@@ -9,7 +9,7 @@
 //
 
 #import "AbstractInteractiveTransition.h"
-#import "AbstractUIViewControllerTransition.h"
+#import "UIViewControllerTransitions.h"
 
 @implementation AbstractInteractiveTransition
 
@@ -19,7 +19,10 @@
     return _presentViewController ? _presentViewController : _viewController;
 }
 
-- (AbstractUIViewControllerTransition *)transition {
+- (UIViewControllerAnimatedTransition *)transition {
+    if (_navigationController) {
+        return _navigationController.navigationTransition;
+    }
     return self.currentViewController.transition;
 }
 
@@ -27,11 +30,9 @@
 
 - (id)init {
     self = [super init];
-    
     if (self) {
         _direction = InteractiveTransitionDirectionVertical;
     }
-    
     return self;
 }
 
@@ -77,7 +78,7 @@
 - (void)updateInteractiveTransition:(CGFloat)percentComplete {
     [super updateInteractiveTransition:percentComplete];
     
-    [self.currentViewController.transition.transitioning interactionChanged:self percent:percentComplete];
+    [self.transition.transitioning interactionChanged:self percent:percentComplete];
     
     if ([_delegate respondsToSelector:@selector(didChangeWithInteractor:percent:)]) {
         [_delegate didChangeWithInteractor:self percent:percentComplete];
@@ -128,11 +129,24 @@
     
     _viewController = viewController;
     _presentViewController = presentViewController;
+    
+    [_viewController.view addGestureRecognizer:self.gestureRecognizer];
+}
+
+- (void)attach:(UINavigationController *__weak)navigationController {
+    [self detach];
+    
+    _navigationController = navigationController;
+    
+    [_navigationController.view addGestureRecognizer:self.gestureRecognizer];
 }
 
 - (void)detach {
+    [self.gestureRecognizer.view removeGestureRecognizer:self.gestureRecognizer];
+    
     _viewController = nil;
     _presentViewController = nil;
+    _navigationController = nil;
 }
 
 #pragma mark - Private methods

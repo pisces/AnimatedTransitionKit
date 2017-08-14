@@ -10,12 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class AbstractUIViewControllerTransition;
-
 typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
     InteractiveTransitionDirectionVertical,
     InteractiveTransitionDirectionHorizontal
 };
+
+@class UIViewControllerAnimatedTransition;
 
 @protocol InteractiveTransitionDataSource;
 @protocol InteractiveTransitionDelegate;
@@ -31,8 +31,10 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 @property (nullable, weak, readonly) UIViewController *presentViewController;
 @property (nullable, weak, readonly) UIViewController *viewController;
 @property (nonnull, readonly) UIViewController *currentViewController;
-@property (nullable, nonatomic, readonly) AbstractUIViewControllerTransition *transition;
+@property (nullable, weak, readonly) UINavigationController *navigationController;
+@property (nullable, nonatomic, readonly) UIViewControllerAnimatedTransition *transition;
 - (void)attach:(__weak UIViewController * _Nonnull)viewController presentViewController:(__weak UIViewController * _Nullable)presentViewController;
+- (void)attach:(__weak UINavigationController * _Nonnull)navigationController;
 - (void)detach;
 @end
 
