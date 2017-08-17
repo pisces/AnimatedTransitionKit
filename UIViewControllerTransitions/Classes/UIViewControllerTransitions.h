@@ -18,6 +18,5 @@
 #import "NavigationMoveTransition.h"
 #import "PanningInteractiveTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
-#import "UIViewController+UIViewControllerTransitions.h"
 
 #endif /* UIViewControllerTransitions_h */

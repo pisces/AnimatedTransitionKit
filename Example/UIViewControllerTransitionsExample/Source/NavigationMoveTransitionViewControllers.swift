@@ -20,6 +20,23 @@ class NavigationMoveTransitionFirstViewController: UIViewController {
         
         title = "First View"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self, action: #selector(close))
+        
+        let transition = NavigationMoveTransition()
+        navigationController?.navigationTransition = transition
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("viewWillAppear -> \(type(of: self))")
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        print("viewDidAppear -> \(type(of: self))")
+        
+        if let navigationController = navigationController {
+            navigationController.navigationTransition?.interactor.attach(navigationController, present: secondViewController)
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -33,7 +50,6 @@ class NavigationMoveTransitionFirstViewController: UIViewController {
     }
     
     @IBAction func clicked() {
-        navigationController?.navigationTransition = NavigationMoveTransition()
         navigationController?.pushViewController(secondViewController, animated: true)
     }
     @objc private func close() {
@@ -57,5 +73,15 @@ class NavigationMoveTransitionSecondViewController: UIViewController {
         super.viewDidAppear(animated)
         
         print("viewDidAppear -> \(type(of: self))")
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        print("viewWillDisappear -> \(type(of: self))")
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        print("viewDidDisappear -> \(type(of: self))")
     }
 }

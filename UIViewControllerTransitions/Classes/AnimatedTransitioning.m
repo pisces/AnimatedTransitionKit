@@ -11,7 +11,6 @@
 
 #import "AnimatedTransitioning.h"
 #import "UIViewControllerTransition.h"
-#import "UIViewController+UIViewControllerTransitions.h"
 
 @implementation AnimatedTransitioning
 

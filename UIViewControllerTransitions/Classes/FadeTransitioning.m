@@ -11,6 +11,7 @@
 //
 
 #import "FadeTransitioning.h"
+#import "UIViewControllerTransitionsMacro.h"
 
 @implementation FadeTransitioning
 
@@ -37,7 +38,10 @@
             
             [self.fromViewController.view removeFromSuperview];
             [self.toViewController endAppearanceTransition];
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            
+            dispatch_after_sec(0.01, ^{
+                [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            });
         }];
     }
 }
@@ -66,7 +70,10 @@
             }
             
             [self.fromViewController endAppearanceTransition];
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            
+            dispatch_after_sec(0.01, ^{
+                [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            });
         }];
     }
 }
@@ -86,8 +93,10 @@
             [self.aboveViewController.view removeFromSuperview];
         }
         
-        [self.context completeTransition:!self.context.transitionWasCancelled];
-        completion();
+        dispatch_after_sec(0.01, ^{
+            [self.context completeTransition:!self.context.transitionWasCancelled];
+            completion();
+        });
     }];
 }
 
@@ -116,9 +125,11 @@
         }
         
         [self.belowViewController endAppearanceTransition];
-        [self.context completeTransition:!self.context.transitionWasCancelled];
         
-        completion();
+        dispatch_after_sec(0.01, ^{
+            [self.context completeTransition:!self.context.transitionWasCancelled];
+            completion();
+        });
     }];
 }
 

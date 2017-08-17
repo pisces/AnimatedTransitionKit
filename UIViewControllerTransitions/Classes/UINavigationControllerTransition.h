@@ -20,6 +20,7 @@
 @property (nonatomic) NSTimeInterval durationForPush;
 @property (nonatomic) UIViewAnimationOptions animationOptionsForPop;
 @property (nonatomic) UIViewAnimationOptions animationOptionsForPush;
+@property (nonnull, nonatomic, strong) AbstractInteractiveTransition *interactor;
 @property (nullable, nonatomic, weak) UINavigationController *navigationController;
 @end
 

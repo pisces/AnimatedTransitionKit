@@ -11,7 +11,11 @@
 #import <UIKit/UIKit.h>
 #import "AbstractInteractiveTransition.h"
 
-@interface PanningInteractiveTransition : AbstractInteractiveTransition
+@protocol PanningInteractiveTransitionProtected <NSObject>
+- (BOOL)beginInteractiveTransition;
+@end
+
+@interface PanningInteractiveTransition : AbstractInteractiveTransition <PanningInteractiveTransitionProtected>
 @end
 
 typedef NS_ENUM(NSUInteger, PanningDirection) {
@@ -22,6 +26,6 @@ typedef NS_ENUM(NSUInteger, PanningDirection) {
     PanningDirectionRight
 };
 
-@interface UIPanGestureRecognizer (pisces_UIViewControllerTransitions)
+@interface UIPanGestureRecognizer (UIViewControllerTransitions)
 @property (nonatomic, readonly) PanningDirection panningDirection;
 @end

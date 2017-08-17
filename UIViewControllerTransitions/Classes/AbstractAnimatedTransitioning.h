@@ -14,6 +14,7 @@
 @property (nonatomic, getter=isAnimating, readonly) BOOL animating;
 @property (nonatomic) CGFloat completionBounds;
 @property (nonatomic, readonly) CGFloat percentOfBounds;
+@property (nonatomic, readonly) CGFloat percentOfInteraction;
 @property (nonatomic, readonly) CGFloat heightRatio;
 @property (nonatomic, readonly) CGFloat widthRatio;
 @property (nonatomic) UIViewAnimationOptions animationOptions;
@@ -31,4 +32,5 @@
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion;
 - (BOOL)shouldComplete:(AbstractInteractiveTransition * _Nonnull)interactor;
 - (void)startAnimating;
+- (void)updatePercentOfBounds;
 @end

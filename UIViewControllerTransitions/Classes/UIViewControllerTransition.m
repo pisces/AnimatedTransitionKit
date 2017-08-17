@@ -12,6 +12,7 @@
 
 #import "UIViewControllerTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
+#import "PanningInteractiveTransition.h"
 #import <objc/runtime.h>
 
 @interface UIViewControllerTransition () <UIGestureRecognizerDelegate>
@@ -22,6 +23,13 @@
 @synthesize transitioning = _transitioning;
 
 #pragma mark - Overridden: UIViewControllerAnimatedTransition
+
+- (void)setAllowsInteraction:(BOOL)allowsInteraction {
+    [super setAllowsInteraction:allowsInteraction];
+    
+    _dismissionInteractor.gestureRecognizer.enabled = allowsInteraction;
+    _presentingInteractor.gestureRecognizer.enabled = allowsInteraction;
+}
 
 - (void)setViewController:(UIViewController *)viewController {
     if ([viewController isEqual:_viewController]) {
@@ -40,6 +48,8 @@
     
     _animationOptionsForDismission = _animationOptionsForPresenting = 7<<16;
     _durationForDismission = _durationForPresenting = 0.6;
+    _dismissionInteractor = [PanningInteractiveTransition new];
+    _presentingInteractor = [PanningInteractiveTransition new];
 }
 
 #pragma mark - UIViewControllerTransitioning delegate

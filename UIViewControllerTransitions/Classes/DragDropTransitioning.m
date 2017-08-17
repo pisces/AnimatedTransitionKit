@@ -12,7 +12,6 @@
 #import "DragDropTransitioning.h"
 #import "UIViewControllerTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
-#import "UIViewController+UIViewControllerTransitions.h"
 
 @implementation DragDropTransitioningSource
 
@@ -70,7 +69,7 @@
             self.toViewController.view.window.backgroundColor = backgroundColor;
             
             [self.toViewController endAppearanceTransition];
-            [self completion];
+            [self completion:nil];
         }];
     }
 }
@@ -104,7 +103,7 @@
             }
             
             [self.fromViewController endAppearanceTransition];
-            [self completion];
+            [self completion:nil];
         }];
     }
 }
@@ -124,8 +123,7 @@
         sourceImageView.transform = CGAffineTransformMakeScale(1, 1);
         sourceImageView.frame = _source.from();
     } completion:^(BOOL finished) {
-        [self cancel];
-        completion();
+        [self cancel:completion];
     }];
 }
 
@@ -158,7 +156,7 @@
         [self dismiss];
     } completion:^(BOOL finished) {
         [self.belowViewController endAppearanceTransition];
-        [self completion];
+        [self completion:completion];
     }];
 }
 
@@ -190,26 +188,35 @@
     return rotation != 0 ? rotation * M_PI / 180 : 0;
 }
 
-- (void)cancel {
+- (void)cancel:(void(^)(void))block {
     if (self.presenting) {
         [self.aboveViewController.view removeFromSuperview];
     }
     
-    [self.context completeTransition:!self.context.transitionWasCancelled];
-    [sourceImageView removeFromSuperview];
-    sourceImageView = nil;
+    dispatch_after_sec(0.01, ^{
+        [self.context completeTransition:!self.context.transitionWasCancelled];
+        [sourceImageView removeFromSuperview];
+        sourceImageView = nil;
+        
+        if (block) {
+            block();
+        }
+    });
 }
 
-- (void)completion {
+- (void)completion:(void(^)(void))block {
     if (_source.completion) {
         _source.completion();
     }
     
-    [self.context completeTransition:!self.context.transitionWasCancelled];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after_sec(0.01, ^{
+        [self.context completeTransition:!self.context.transitionWasCancelled];
         [sourceImageView removeFromSuperview];
         [self clear];
+        
+        if (block) {
+            block();
+        }
     });
 }
 

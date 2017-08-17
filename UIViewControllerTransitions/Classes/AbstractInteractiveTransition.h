@@ -21,20 +21,19 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 @protocol InteractiveTransitionDelegate;
 
 @interface AbstractInteractiveTransition : UIPercentDrivenInteractiveTransition <UIGestureRecognizerDelegate>
+@property (nonatomic, readonly, getter=isAppearing) BOOL appearing;
 @property (nonatomic, readonly) BOOL shouldComplete;
 @property (nonatomic) InteractiveTransitionDirection direction;
-@property (nonatomic) CGPoint beginPoint;
-@property (nonatomic) CGPoint beginViewPoint;
-@property (nonatomic) CGPoint point;
+@property (nonatomic, readonly) CGPoint beginPoint;
+@property (nonatomic, readonly) CGPoint beginViewPoint;
+@property (nonatomic, readonly) CGPoint point;
 @property (nonnull, nonatomic, readonly) UIGestureRecognizer *gestureRecognizer;
 @property (nullable, nonatomic, weak) id<InteractiveTransitionDelegate> delegate;
 @property (nullable, weak, readonly) UIViewController *presentViewController;
 @property (nullable, weak, readonly) UIViewController *viewController;
 @property (nonnull, readonly) UIViewController *currentViewController;
-@property (nullable, weak, readonly) UINavigationController *navigationController;
 @property (nullable, nonatomic, readonly) UIViewControllerAnimatedTransition *transition;
 - (void)attach:(__weak UIViewController * _Nonnull)viewController presentViewController:(__weak UIViewController * _Nullable)presentViewController;
-- (void)attach:(__weak UINavigationController * _Nonnull)navigationController;
 - (void)detach;
 @end
 

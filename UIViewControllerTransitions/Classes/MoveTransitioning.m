@@ -83,7 +83,10 @@
             self.toViewController.view.window.backgroundColor = backgroundColor;
             [self.fromViewController.view removeFromSuperview];
             [self.toViewController endAppearanceTransition];
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            
+            dispatch_after_sec(0.01, ^{
+                [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            });
         }];
     }
 }
@@ -117,7 +120,10 @@
             }
             
             [self.fromViewController endAppearanceTransition];
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            
+            dispatch_after_sec(0.01, ^{
+                [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            });
         }];
     }
 }
@@ -143,15 +149,15 @@
             [self.aboveViewController.view removeFromSuperview];
         }
         
-        [self.context completeTransition:!self.context.transitionWasCancelled];
-        completion();
+        dispatch_after_sec(0.01, ^{
+            [self.context completeTransition:!self.context.transitionWasCancelled];
+            completion();
+        });
     }];
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
-    CGFloat multiply = _direction == MoveTransitioningDirectionUp || _direction == MoveTransitioningDirectionLeft ? 1 : -1;
-    CGFloat bounds = self.isVertical ? UIScreen.mainScreen.bounds.size.height : UIScreen.mainScreen.bounds.size.width;
-    _percentOfBounds = (percent * multiply) * (bounds / self.completionBounds);
+    [super interactionChanged:interactor percent:percent];
     
     CGFloat alpha = self.presenting ? 1 - ((1 - 0.5) * self.percentOfBounds) : 0.5 + ((1 - 0.5) * self.percentOfBounds);
     CGFloat scale = self.presenting ? 1 - ((1 - 0.94) * self.percentOfBounds) : 0.94 + ((1 - 0.94) * self.percentOfBounds);
@@ -185,10 +191,18 @@
         }
         
         [self.belowViewController endAppearanceTransition];
-        [self.context completeTransition:!self.context.transitionWasCancelled];
         
-        completion();
+        dispatch_after_sec(0.01, ^{
+            [self.context completeTransition:!self.context.transitionWasCancelled];
+            completion();
+        });
     }];
+}
+
+- (void)updatePercentOfBounds {
+    CGFloat multiply = _direction == MoveTransitioningDirectionUp || _direction == MoveTransitioningDirectionLeft ? 1 : -1;
+    CGFloat bounds = self.isVertical ? UIScreen.mainScreen.bounds.size.height : UIScreen.mainScreen.bounds.size.width;
+    _percentOfBounds = (self.percentOfInteraction * multiply) * (bounds / self.completionBounds);
 }
 
 #pragma mark - Private methods

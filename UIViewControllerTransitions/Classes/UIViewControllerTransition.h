@@ -24,6 +24,8 @@
 @property (nonatomic) UIViewAnimationOptions animationOptionsForPresenting;
 @property (nonatomic) NSTimeInterval durationForDismission;
 @property (nonatomic) NSTimeInterval durationForPresenting;
+@property (nonnull, nonatomic, strong) AbstractInteractiveTransition *dismissionInteractor;
+@property (nonnull, nonatomic, strong) AbstractInteractiveTransition *presentingInteractor;
 @property (nullable, nonatomic, weak) UIViewController *viewController;
 @end
 

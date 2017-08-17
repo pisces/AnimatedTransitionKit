@@ -1,5 +1,5 @@
 //
-//  AbstractUINavigationControllerTransition.m
+//  UINavigationControllerTransition.m
 //  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 8/13/17.
@@ -7,8 +7,12 @@
 //
 
 #import "UINavigationControllerTransition.h"
-#import "PanningInteractiveTransition.h"
+#import "NavigationPanningInteractiveTransition.h"
 #import <objc/runtime.h>
+
+@interface UINavigationControllerTransition ()
+@property (nullable, nonatomic, readonly) AnimatedNavigationTransitioning *navigationTransitioning;
+@end
 
 @implementation UINavigationControllerTransition
 @synthesize transitioning = _transitioning;
@@ -16,10 +20,16 @@
 #pragma mark - Overridden: UIViewControllerAnimatedTransition
 
 - (AbstractInteractiveTransition *)currentInteractor {
-    if (!self.allowsInteraction || !self.interactionEnabled) {
-        return nil;
+    if (self.isAllowsInteraction && self.interactionEnabled) {
+        return _interactor;
     }
-    return ((AnimatedNavigationTransitioning *) self.transitioning).isPush ? nil : self.dismissionInteractor;
+    return nil;
+}
+
+- (void)setAllowsInteraction:(BOOL)allowsInteraction {
+    [super setAllowsInteraction:allowsInteraction];
+    
+    _interactor.gestureRecognizer.enabled = allowsInteraction;
 }
 
 - (void)setNavigationController:(UINavigationController *)navigationController {
@@ -30,16 +40,17 @@
     _navigationController = navigationController;
     _navigationController.delegate = self;
     
-    [self.dismissionInteractor attach:_navigationController];
+    [_interactor attach:_navigationController presentViewController:nil];
 }
 
 - (void)initProperties {
     [super initProperties];
     
-    self.allowsInteraction = true;
-    self.dismissionInteractor.direction = InteractiveTransitionDirectionHorizontal;
     _durationForPop = _durationForPush = 0.25;
     _animationOptionsForPop = _animationOptionsForPush = 7<<16;
+    _interactor = [NavigationPanningInteractiveTransition new];
+    _interactor.direction = InteractiveTransitionDirectionHorizontal;
+    self.allowsInteraction = true;
 }
 
 #pragma mark - UINavigationController delegate
@@ -56,7 +67,7 @@
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
                       interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
-    return self.currentInteractor;
+    return self.currentInteractor ? (id<UIViewControllerAnimatedTransitioning>) self.currentInteractor : nil;
 }
 
 #pragma mark - Protected methods
@@ -67,6 +78,12 @@
 
 - (AnimatedNavigationTransitioning *)transitioningForPush {
     return nil;
+}
+
+#pragma mark - Private methods
+
+- (AnimatedNavigationTransitioning *)navigationTransitioning {
+    return (AnimatedNavigationTransitioning *) _transitioning;
 }
 
 @end

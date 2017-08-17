@@ -18,8 +18,8 @@ class MoveTransitionFirstViewController: UIViewController, InteractiveTransition
         let transition = MoveTransition()
         transition.durationForPresenting = 0.25
         transition.durationForDismission = 0.35
-        transition.dismissionInteractor?.delegate = viewController
-        transition.presentingInteractor?.delegate = self
+        transition.dismissionInteractor.delegate = viewController
+        transition.presentingInteractor.delegate = self
         transition.isAllowsInteraction = true
         viewController.interactionDelegate = self
         viewController.transition = transition

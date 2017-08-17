@@ -7,7 +7,6 @@
 //
 
 #import "UIViewControllerAnimatedTransition.h"
-#import "PanningInteractiveTransition.h"
 
 @implementation UIViewControllerAnimatedTransition
 
@@ -29,8 +28,6 @@
     }
     
     _allowsInteraction = allowsInteraction;
-    _dismissionInteractor.gestureRecognizer.enabled = _allowsInteraction;
-    _presentingInteractor.gestureRecognizer.enabled = _allowsInteraction;
 }
 
 - (void)clear {
@@ -40,8 +37,6 @@
 #pragma mark - Protected methods
 
 - (void)initProperties {
-    _dismissionInteractor = [PanningInteractiveTransition new];
-    _presentingInteractor = [PanningInteractiveTransition new];
 }
 
 @end

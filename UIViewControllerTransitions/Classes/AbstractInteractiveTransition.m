@@ -15,14 +15,15 @@
 
 #pragma mark - Properties
 
+- (BOOL)isAppearing {
+    return _presentViewController != nil;
+}
+
 - (UIViewController *)currentViewController {
-    return _presentViewController ? _presentViewController : _viewController;
+    return self.isAppearing ? _presentViewController : _viewController;
 }
 
 - (UIViewControllerAnimatedTransition *)transition {
-    if (_navigationController) {
-        return _navigationController.navigationTransition;
-    }
     return self.currentViewController.transition;
 }
 
@@ -47,7 +48,6 @@
     
     [self.transition.transitioning interactionCancelled:self completion:^{
         [self completion];
-        self.transition.interactionEnabled = NO;
     }];
 }
 
@@ -60,7 +60,6 @@
     
     [self.transition.transitioning interactionCompleted:self completion:^{
         [self completion];
-        self.transition.interactionEnabled = NO;
     }];
 }
 
@@ -133,20 +132,11 @@
     [_viewController.view addGestureRecognizer:self.gestureRecognizer];
 }
 
-- (void)attach:(UINavigationController *__weak)navigationController {
-    [self detach];
-    
-    _navigationController = navigationController;
-    
-    [_navigationController.view addGestureRecognizer:self.gestureRecognizer];
-}
-
 - (void)detach {
     [self.gestureRecognizer.view removeGestureRecognizer:self.gestureRecognizer];
     
     _viewController = nil;
     _presentViewController = nil;
-    _navigationController = nil;
 }
 
 #pragma mark - Private methods
@@ -164,9 +154,9 @@
         }
     }
     
-    self.beginPoint = CGPointZero;
-    self.beginViewPoint = CGPointZero;
-    self.point = CGPointZero;
+    _beginPoint = CGPointZero;
+    _beginViewPoint = CGPointZero;
+    _point = CGPointZero;
 }
 
 @end

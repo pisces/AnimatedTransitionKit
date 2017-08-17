@@ -7,7 +7,6 @@
 //
 
 #import "AbstractAnimatedTransitioning.h"
-#import "UIViewController+UIViewControllerTransitions.h"
 
 @implementation AbstractAnimatedTransitioning
 
@@ -58,6 +57,8 @@
 
 - (void)endAnimating {
     _animating = NO;
+    _percentOfInteraction = 0;
+    _percentOfBounds = 0;
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
@@ -68,7 +69,9 @@
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
-    _percentOfBounds = percent * (UIScreen.mainScreen.bounds.size.height / _completionBounds);
+    _percentOfInteraction = percent;
+    
+    [self updatePercentOfBounds];
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
@@ -80,6 +83,10 @@
 
 - (void)startAnimating {
     _animating = YES;
+}
+
+- (void)updatePercentOfBounds {
+    _percentOfBounds = _percentOfInteraction * (UIScreen.mainScreen.bounds.size.height / _completionBounds);
 }
 
 @end
