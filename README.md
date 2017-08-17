@@ -26,12 +26,10 @@ Swift
 import UIViewControllerTransitions
 ```
 
-## Example
-![](Screenshot/ExDragDropTransition.gif) ![](Screenshot/ExMoveTransition.gif) ![](Screenshot/ExNavigationMoveTransition.gif)
-
 ## 🔥Using UIViewControllerTransition
 
 #### DragDropTransition Example
+![](Screenshot/ExDragDropTransition.gif)
 
 ```swift
 import UIViewControllerTransitions
@@ -142,6 +140,7 @@ class DragDropTransitionSecondViewController: UIViewController, InteractiveTrans
 ```
 
 ### MoveTransition Example
+![](Screenshot/ExMoveTransition.gif)
 
 ```swift
 import UIViewControllerTransitions
@@ -289,6 +288,7 @@ present(secondViewController, animated: true, completion: nil)
 ## 🔥Using UINavigationControllerTransition
 
 ### NavigationMoveTransition Example
+![](Screenshot/ExNavigationMoveTransition.gif)
 
 ```swift
 import UIViewControllerTransitions
