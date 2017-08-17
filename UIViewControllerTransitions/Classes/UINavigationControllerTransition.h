@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "AnimatedNavigationTransitioning.h"
-#import "UIViewControllerAnimatedTransition.h"
+#import "AbstractTransition.h"
 
 @protocol UINavigationControllerTransitionProtected <NSObject>
 - (AnimatedNavigationTransitioning * _Nullable)transitioningForPop;
 - (AnimatedNavigationTransitioning * _Nullable)transitioningForPush;
 @end
 
-@interface UINavigationControllerTransition : UIViewControllerAnimatedTransition <UINavigationControllerDelegate, UINavigationControllerTransitionProtected>
+@interface UINavigationControllerTransition : AbstractTransition <UINavigationControllerDelegate, UINavigationControllerTransitionProtected>
 @property (nonatomic) NSTimeInterval durationForPop;
 @property (nonatomic) NSTimeInterval durationForPush;
 @property (nonatomic) UIViewAnimationOptions animationOptionsForPop;

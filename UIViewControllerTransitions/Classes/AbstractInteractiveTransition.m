@@ -23,7 +23,7 @@
     return self.isAppearing ? _presentViewController : _viewController;
 }
 
-- (UIViewControllerAnimatedTransition *)transition {
+- (AbstractTransition *)transition {
     return self.currentViewController.transition;
 }
 

@@ -12,6 +12,7 @@
 
 #import "AbstractAnimatedTransitioning.h"
 #import "AbstractInteractiveTransition.h"
+#import "AbstractTransition.h"
 #import "AnimatedNavigationTransitioning.h"
 #import "AnimatedTransitioning.h"
 #import "DragDropTransition.h"
@@ -26,7 +27,6 @@
 #import "PanningInteractiveTransition.h"
 #import "UIMaskedImageView.h"
 #import "UINavigationControllerTransition.h"
-#import "UIViewControllerAnimatedTransition.h"
 #import "UIViewControllerTransition.h"
 #import "UIViewControllerTransitions.h"
 #import "UIViewControllerTransitionsMacro.h"

@@ -1,5 +1,5 @@
 //
-//  UIViewControllerAnimatedTransition.h
+//  AbstractTransition.h
 //  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 8/14/17.
@@ -9,11 +9,11 @@
 #import "AbstractAnimatedTransitioning.h"
 #import "AbstractInteractiveTransition.h"
 
-@protocol UIViewControllerAnimatedTransitionProtected <NSObject>
+@protocol AbstractTransitionProtected <NSObject>
 - (void)initProperties;
 @end
 
-@interface UIViewControllerAnimatedTransition: NSObject <UIViewControllerAnimatedTransitionProtected>
+@interface AbstractTransition: NSObject <AbstractTransitionProtected>
 @property (nonatomic, getter=isAllowsInteraction) BOOL allowsInteraction;
 @property (nonatomic, getter=isInteractionEnabled) BOOL interactionEnabled;
 @property (nullable, nonatomic, readonly) AbstractInteractiveTransition *currentInteractor;

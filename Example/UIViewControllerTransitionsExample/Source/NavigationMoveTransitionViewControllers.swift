@@ -11,8 +11,7 @@ import UIViewControllerTransitions
 class NavigationMoveTransitionFirstViewController: UIViewController {
     
     private lazy var secondViewController: NavigationMoveTransitionSecondViewController = {
-        let viewController = NavigationMoveTransitionSecondViewController(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
-        return viewController
+        return NavigationMoveTransitionSecondViewController(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
     }()
     
     override func viewDidLoad() {

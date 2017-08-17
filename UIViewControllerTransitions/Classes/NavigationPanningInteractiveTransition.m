@@ -17,7 +17,7 @@
 
 #pragma mark - Overridden: PanningInteractiveTransition
 
-- (UIViewControllerAnimatedTransition *)transition {
+- (AbstractTransition *)transition {
     return self.navigationController.navigationTransition;
 }
 

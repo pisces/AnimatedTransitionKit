@@ -17,7 +17,7 @@
 @implementation UINavigationControllerTransition
 @synthesize transitioning = _transitioning;
 
-#pragma mark - Overridden: UIViewControllerAnimatedTransition
+#pragma mark - Overridden: AbstractTransition
 
 - (AbstractInteractiveTransition *)currentInteractor {
     if (self.isAllowsInteraction && self.interactionEnabled) {

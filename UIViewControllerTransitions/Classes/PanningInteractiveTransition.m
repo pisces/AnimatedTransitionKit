@@ -9,7 +9,7 @@
 //
 
 #import "PanningInteractiveTransition.h"
-#import "UIViewControllerAnimatedTransition.h"
+#import "AbstractTransition.h"
 
 @interface PanningInteractiveTransition ()
 @property (nonatomic, readonly, getter=isAppearing) BOOL appearing;

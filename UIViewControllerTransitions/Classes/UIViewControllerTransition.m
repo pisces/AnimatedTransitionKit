@@ -22,7 +22,7 @@
 @synthesize currentInteractor = _currentInteractor;
 @synthesize transitioning = _transitioning;
 
-#pragma mark - Overridden: UIViewControllerAnimatedTransition
+#pragma mark - Overridden: AbstractTransition
 
 - (void)setAllowsInteraction:(BOOL)allowsInteraction {
     [super setAllowsInteraction:allowsInteraction];

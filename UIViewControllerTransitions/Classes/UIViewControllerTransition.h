@@ -11,7 +11,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIViewControllerAnimatedTransition.h"
+#import "AbstractTransition.h"
 #import "AnimatedTransitioning.h"
 
 @protocol UIViewControllerTransitionProtected <NSObject>
@@ -19,7 +19,7 @@
 - (AnimatedTransitioning * _Nullable)transitioningForForPresentedController:(UIViewController * _Nullable)presented presentingController:(UIViewController * _Nullable)presenting sourceController:(UIViewController * _Nullable)source;
 @end
 
-@interface UIViewControllerTransition : UIViewControllerAnimatedTransition <UIViewControllerTransitioningDelegate, UIViewControllerTransitionProtected>
+@interface UIViewControllerTransition : AbstractTransition <UIViewControllerTransitioningDelegate, UIViewControllerTransitionProtected>
 @property (nonatomic) UIViewAnimationOptions animationOptionsForDismission;
 @property (nonatomic) UIViewAnimationOptions animationOptionsForPresenting;
 @property (nonatomic) NSTimeInterval durationForDismission;

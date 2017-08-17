@@ -11,7 +11,7 @@ import UIViewControllerTransitions
 class MoveTransitionFirstViewController: UIViewController, InteractiveTransitionDelegate {
     
     private var interactor: AbstractInteractiveTransition? {
-        return self.secondViewController.transition?.presentingInteractor
+        return secondViewController.transition?.presentingInteractor
     }
     private lazy var secondViewController: MoveTransitionSecondViewController = {
         let viewController = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
@@ -29,7 +29,6 @@ class MoveTransitionFirstViewController: UIViewController, InteractiveTransition
     override var prefersStatusBarHidden: Bool {
         return false
     }
-    
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .fade
     }
@@ -37,11 +36,9 @@ class MoveTransitionFirstViewController: UIViewController, InteractiveTransition
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "First View"
-        
+        title = "First View"
         interactor?.attach(self, present: secondViewController)
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -51,19 +48,16 @@ class MoveTransitionFirstViewController: UIViewController, InteractiveTransition
             self.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         print("viewDidAppear")
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         print("viewWillDisappear")
     }
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
@@ -71,7 +65,7 @@ class MoveTransitionFirstViewController: UIViewController, InteractiveTransition
     }
     
     @IBAction func clicked() {
-        self.present(secondViewController, animated: true, completion: nil)
+        present(secondViewController, animated: true, completion: nil)
     }
 }
 
@@ -82,7 +76,6 @@ class MoveTransitionSecondViewController: UIViewController, InteractiveTransitio
     override var prefersStatusBarHidden: Bool {
         return false
     }
-    
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .fade
     }
@@ -90,11 +83,9 @@ class MoveTransitionSecondViewController: UIViewController, InteractiveTransitio
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Second View"
-        
-        self.navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
+        title = "Second View"
+        navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -104,19 +95,16 @@ class MoveTransitionSecondViewController: UIViewController, InteractiveTransitio
             self.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         print("viewDidAppear MoveTransitionSecondViewController")
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         print("viewWillDisappear MoveTransitionSecondViewController")
     }
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
@@ -124,6 +112,6 @@ class MoveTransitionSecondViewController: UIViewController, InteractiveTransitio
     }
     
     @objc private func close() {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

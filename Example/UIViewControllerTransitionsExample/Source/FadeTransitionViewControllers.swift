@@ -17,7 +17,6 @@ class FadeTransitionFirstViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return false
     }
-    
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .fade
     }
@@ -25,7 +24,7 @@ class FadeTransitionFirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "First View"
+        title = "First View"
         
         let transition = FadeTransition()
         transition.isAllowsInteraction = true
@@ -35,7 +34,6 @@ class FadeTransitionFirstViewController: UIViewController {
         
         secondViewController.transition = transition
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -45,7 +43,7 @@ class FadeTransitionFirstViewController: UIViewController {
     }
     
     @IBAction func clicked() {
-        self.present(secondViewController, animated: true, completion: nil)
+        present(secondViewController, animated: true, completion: nil)
     }
 }
 
@@ -54,7 +52,6 @@ class FadeTransitionSecondViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return false
     }
-    
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .fade
     }
@@ -62,11 +59,9 @@ class FadeTransitionSecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Second View"
-        
-        self.navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
+        title = "Second View"
+        navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -76,6 +71,6 @@ class FadeTransitionSecondViewController: UIViewController {
     }
     
     @objc private func close() {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }
