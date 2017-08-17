@@ -29,7 +29,7 @@ class DragDropTransitionFirstViewController: UIViewController {
         
         let transition = DragDropTransition()
         transition.isAllowsInteraction = true
-        transition.dismissionInteractor.delegate = secondViewController
+        transition.dismissionInteractor?.delegate = secondViewController
         
         let w = self.view.frame.size.width
         let statusBarHeight = UIApplication.shared.statusBarFrame.size.height

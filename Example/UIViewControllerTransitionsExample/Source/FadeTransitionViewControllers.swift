@@ -29,9 +29,9 @@ class FadeTransitionFirstViewController: UIViewController {
         
         let transition = FadeTransition()
         transition.isAllowsInteraction = true
-        transition.dismissionInteractor.direction = .horizontal
-        transition.presentingInteractor.direction = .horizontal
-        transition.presentingInteractor.attach(self, present: secondViewController)
+        transition.dismissionInteractor?.direction = .horizontal
+        transition.presentingInteractor?.direction = .horizontal
+        transition.presentingInteractor?.attach(self, present: secondViewController)
         
         secondViewController.transition = transition
     }
