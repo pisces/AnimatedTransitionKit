@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		234561431F45AF73001C512C /* CustomNavigationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234561421F45AF73001C512C /* CustomNavigationTransition.swift */; };
 		234A7D0D1E4C646300DA1446 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 234A7D0C1E4C646300DA1446 /* main.m */; };
 		23857C7C1E4C67FB00F21787 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23857C7A1E4C67FB00F21787 /* InfoPlist.strings */; };
 		238D0A7C1EA0915100D9C55C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D0A7B1EA0915100D9C55C /* AppDelegate.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		04582A65F794DF91D8743740 /* Pods-UIViewControllerTransitions_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example.release.xcconfig"; sourceTree = "<group>"; };
 		1EAE91E06958D6BE144D1C6C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		234561421F45AF73001C512C /* CustomNavigationTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationTransition.swift; sourceTree = "<group>"; };
 		234A7D0C1E4C646300DA1446 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = UIViewControllerTransitionsExample/main.m; sourceTree = SOURCE_ROOT; };
 		234A7D0E1E4C647900DA1446 /* UIViewControllerTransitions_Example-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewControllerTransitions_Example-Prefix.pch"; path = "UIViewControllerTransitionsExample/UIViewControllerTransitions_Example-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		234A7D0F1E4C648A00DA1446 /* UIViewControllerTransitions_Example-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "UIViewControllerTransitions_Example-Info.plist"; path = "UIViewControllerTransitionsExample/UIViewControllerTransitions_Example-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				238D0AAD1EA0A1ED00D9C55C /* CustomTransition.swift */,
+				234561421F45AF73001C512C /* CustomNavigationTransition.swift */,
 				238D0A8B1EA0959E00D9C55C /* DemoViewController.swift */,
 				238D0A8C1EA0959E00D9C55C /* DragDropTransitionViewControllers.swift */,
 				238D0AAB1EA09F0300D9C55C /* FadeTransitionViewControllers.swift */,
@@ -466,6 +469,7 @@
 				238D0AA61EA0959E00D9C55C /* MoveTransitionViewControllers.swift in Sources */,
 				238D0AAE1EA0A1ED00D9C55C /* CustomTransition.swift in Sources */,
 				238D0AA21EA0959E00D9C55C /* DemoViewController.swift in Sources */,
+				234561431F45AF73001C512C /* CustomNavigationTransition.swift in Sources */,
 				238D0AAC1EA09F0300D9C55C /* FadeTransitionViewControllers.swift in Sources */,
 				23FDEA161F40719300DF3825 /* NavigationMoveTransitionViewControllers.swift in Sources */,
 				234A7D0D1E4C646300DA1446 /* main.m in Sources */,
