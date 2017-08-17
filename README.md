@@ -303,9 +303,7 @@ class NavigationMoveTransitionFirstViewController: UIViewController {
         
         title = "First View"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self, action: #selector(close))
-        
-        let transition = NavigationMoveTransition()
-        navigationController?.navigationTransition = transition
+        navigationController?.navigationTransition = NavigationMoveTransition()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -409,7 +407,6 @@ class CustomNavigationTransitioning: AnimatedNavigationTransitioning {
         }
     }
 }
-```
 ```
 
 #### Using CustomNavigationTransition
