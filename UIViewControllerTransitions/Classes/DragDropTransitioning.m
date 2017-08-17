@@ -211,12 +211,14 @@
     
     dispatch_after_sec(0.01, ^{
         [self.context completeTransition:!self.context.transitionWasCancelled];
-        [sourceImageView removeFromSuperview];
-        [self clear];
         
         if (block) {
             block();
         }
+    });
+    dispatch_after_sec(0.2, ^{
+        [sourceImageView removeFromSuperview];
+        [self clear];
     });
 }
 

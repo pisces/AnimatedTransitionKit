@@ -28,7 +28,7 @@
 #pragma mark - Properties
 
 - (CGFloat)completionBounds {
-    return 100 * self.heightRatio;
+    return 60 * self.heightRatio;
 }
 
 - (CGFloat)heightRatio {
