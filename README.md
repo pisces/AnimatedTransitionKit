@@ -27,7 +27,7 @@ import UIViewControllerTransitions
 ```
 
 ## Example
-![](Screenshot/ExDragDropTransition.gif) ![](Screenshot/ExMoveTransition.gif)
+![](Screenshot/ExDragDropTransition.gif) ![](Screenshot/ExMoveTransition.gif) ![](Screenshot/ExNavigationMoveTransition.gif)
 
 ## 🔥Using UIViewControllerTransition
 
