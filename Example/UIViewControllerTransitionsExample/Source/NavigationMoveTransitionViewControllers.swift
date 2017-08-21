@@ -14,19 +14,31 @@ class NavigationMoveTransitionFirstViewController: UIViewController {
         return NavigationMoveTransitionSecondViewController(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
     }()
     
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .fade
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "First View"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self, action: #selector(close))
-        
-        let transition = NavigationMoveTransition()
-        navigationController?.navigationTransition = transition
+        navigationController?.navigationTransition = NavigationMoveTransition()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         print("viewWillAppear -> \(type(of: self))")
+        
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }, completion: nil)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -58,6 +70,16 @@ class NavigationMoveTransitionFirstViewController: UIViewController {
 
 class NavigationMoveTransitionSecondViewController: UIViewController {
     
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .fade
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,6 +89,10 @@ class NavigationMoveTransitionSecondViewController: UIViewController {
         super.viewWillAppear(animated)
         
         print("viewWillAppear -> \(type(of: self))")
+        
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }, completion: nil)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
