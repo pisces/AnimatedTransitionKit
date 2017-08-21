@@ -24,6 +24,25 @@
 
 #pragma mark - Overridden: AbstractTransition
 
+- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
+    return interactor.isVertical ? direction == PanningDirectionUp : direction == PanningDirectionLeft;
+}
+
+- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
+    if (interactor.isVertical) {
+        return interactor.isAppearing ? direction == PanningDirectionUp : direction == PanningDirectionDown;
+    }
+    return interactor.isAppearing ? direction == PanningDirectionLeft : direction == PanningDirectionRight;
+}
+
 - (void)setAllowsInteraction:(BOOL)allowsInteraction {
     [super setAllowsInteraction:allowsInteraction];
     

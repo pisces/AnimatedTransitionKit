@@ -11,15 +11,15 @@
 #import "PanningInteractiveTransition.h"
 #import "AbstractTransition.h"
 
+BOOL PanningDirectionIsVertical(PanningDirection direction) {
+    return direction == PanningDirectionUp || direction == PanningDirectionDown;
+}
+
 @interface PanningInteractiveTransition ()
-@property (nonatomic, readonly, getter=isAppearing) BOOL appearing;
 @property (nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
 @end
 
 @implementation PanningInteractiveTransition
-{
-    PanningDirection panningDirection;
-}
 @synthesize gestureRecognizer = _gestureRecognizer;
 @synthesize shouldComplete = _shouldComplete;
 @synthesize beginPoint = _beginPoint;
@@ -49,22 +49,12 @@
     return self;
 }
 
-#pragma mark - Overridden: AbstractInteractiveTransition
-
-- (BOOL)isAppearing {
-    if (self.direction == InteractiveTransitionDirectionVertical) {
-        return panningDirection == PanningDirectionUp;
-    }
-    return panningDirection == PanningDirectionLeft;
-}
-
 #pragma mark - Private methods
 
 - (BOOL)isCompletionSpeed {
-    BOOL isVertical = self.direction == InteractiveTransitionDirectionVertical;
     CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
-    CGFloat value = isVertical ? velocity.y : velocity.x;
-    CGFloat speed = -1 * value / (isVertical ? (self.beginPoint.y - self.point.y) : (self.beginPoint.x - self.point.x));
+    CGFloat value = self.isVertical ? velocity.y : velocity.x;
+    CGFloat speed = -1 * value / (self.isVertical ? (self.beginPoint.y - self.point.y) : (self.beginPoint.x - self.point.x));
     return speed > 10;
 }
 
@@ -75,8 +65,11 @@
     
     switch (self.panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
+            _panningDirection = self.panGestureRecognizer.panningDirection;
+            
             if (self.transition.transitioning.isAnimating ||
-                self.transition.interactionEnabled ||
+                self.transition.isInteractionEnabled ||
+                ![self.transition isValidWithInteractor:self] ||
                 ([self.delegate respondsToSelector:@selector(interactor:shouldInteractionWithGestureRecognizer:)] &&
                 ![self.delegate interactor:self shouldInteractionWithGestureRecognizer:_gestureRecognizer])) {
                 return;
@@ -85,7 +78,6 @@
             self.transition.interactionEnabled = YES;
             _beginPoint = newPoint;
             _beginViewPoint = self.currentViewController.view.frame.origin;
-            panningDirection = self.panGestureRecognizer.panningDirection;
             
             if (![self beginInteractiveTransition]) {
                 self.transition.interactionEnabled = NO;
@@ -93,14 +85,15 @@
             break;
         }
         case UIGestureRecognizerStateChanged: {
-            if (!self.transition.interactionEnabled || ![self.transition.currentInteractor isEqual:self]) {
+            if (!self.transition.isInteractionEnabled || ![self.transition.currentInteractor isEqual:self]) {
                 return;
             }
             
+            const BOOL isAppearing = [self.transition isAppearingWithInteractor:self];
             const CGPoint translation = [self.panGestureRecognizer translationInView:self.currentViewController.view.superview];
             const CGFloat targetSize = self.direction == InteractiveTransitionDirectionVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat point = self.direction == InteractiveTransitionDirectionVertical ? translation.y : translation.x;
-            const CGFloat dragAmount = targetSize * (self.isAppearing ? -1 : 1);
+            const CGFloat dragAmount = targetSize * (isAppearing ? -1 : 1);
             const CGFloat threshold = self.transition.transitioning.completionBounds / targetSize;
             const CGFloat rawPercent = point / dragAmount;
             const CGFloat percent = fmin(fmax(-1, rawPercent), 1);
@@ -113,7 +106,7 @@
         }
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
-            if (!self.transition.interactionEnabled || ![self.transition.currentInteractor isEqual:self]) {
+            if (!self.transition.isInteractionEnabled || ![self.transition.currentInteractor isEqual:self]) {
                 return;
             }
             
@@ -135,7 +128,7 @@
 #pragma mark - Protected methods
 
 - (BOOL)beginInteractiveTransition {
-    if (self.isAppearing) {
+    if ([self.transition isAppearingWithInteractor:self]) {
         if (!self.presentViewController) {
             return NO;
         }

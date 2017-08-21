@@ -19,6 +19,10 @@
     return _presentViewController != nil;
 }
 
+- (BOOL)isVertical {
+    return _direction == InteractiveTransitionDirectionVertical;
+}
+
 - (UIViewController *)currentViewController {
     return self.isAppearing ? _presentViewController : _viewController;
 }

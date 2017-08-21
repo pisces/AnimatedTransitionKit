@@ -15,10 +15,15 @@
 #import "MoveTransition.h"
 #import "MoveTransitioning.h"
 #import "UIViewControllerTransitionsMacro.h"
+#import "PanningInteractiveTransition.h"
 
 @implementation MoveTransition
 
 #pragma mark - Properties
+
+- (BOOL)interactiveTransitionDirection {
+    return (_direction == MoveTransitioningDirectionLeft || _direction == MoveTransitioningDirectionRight) ? InteractiveTransitionDirectionHorizontal : InteractiveTransitionDirectionVertical;
+}
 
 - (void)setDirection:(MoveTransitioningDirection)direction {
     if (direction == _direction) {
@@ -26,10 +31,46 @@
     }
     
     _direction = direction;
-    self.dismissionInteractor.direction = self.presentingInteractor.direction = (direction == MoveTransitioningDirectionLeft || direction == MoveTransitioningDirectionRight) ? InteractiveTransitionDirectionHorizontal : InteractiveTransitionDirectionVertical;
+    self.dismissionInteractor.direction = self.presentingInteractor.direction = self.interactiveTransitionDirection;
 }
 
-#pragma mark - Overridden: AbstractUIViewControllerTransition
+#pragma mark - Overridden: UIViewControllerTransition
+
+- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
+    if (_direction == MoveTransitioningDirectionUp) {
+        return direction == PanningDirectionUp;
+    }
+    if (_direction == MoveTransitioningDirectionDown) {
+        return direction == PanningDirectionDown;
+    }
+    if (_direction == MoveTransitioningDirectionLeft) {
+        return direction == PanningDirectionLeft;
+    }
+    return direction == PanningDirectionRight;
+}
+
+- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
+    if (_direction == MoveTransitioningDirectionUp) {
+        return interactor.isAppearing ? direction == PanningDirectionUp : direction == PanningDirectionDown;
+    }
+    if (_direction == MoveTransitioningDirectionDown) {
+        return interactor.isAppearing ? direction == PanningDirectionDown : direction == PanningDirectionUp;
+    }
+    if (_direction == MoveTransitioningDirectionLeft) {
+        return interactor.isAppearing ? direction == PanningDirectionLeft : direction == PanningDirectionRight;
+    }
+    return interactor.isAppearing ? direction == PanningDirectionRight : direction == PanningDirectionLeft;
+}
 
 - (id)init {
     self = [super init];

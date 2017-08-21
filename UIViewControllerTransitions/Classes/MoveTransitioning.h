@@ -10,6 +10,7 @@
 //
 
 #import "AnimatedTransitioning.h"
+#import "PanningInteractiveTransition.h"
 
 typedef NS_ENUM(NSUInteger, MoveTransitioningDirection) {
     MoveTransitioningDirectionLeft = 1,

@@ -26,6 +26,14 @@
     [_transitioning clear];
 }
 
+- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
+    return NO;
+}
+
+- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor {
+    return NO;
+}
+
 #pragma mark - Protected methods
 
 - (void)initProperties {

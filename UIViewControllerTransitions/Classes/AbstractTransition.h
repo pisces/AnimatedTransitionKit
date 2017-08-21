@@ -19,4 +19,6 @@
 @property (nullable, nonatomic, readonly) AbstractInteractiveTransition *currentInteractor;
 @property (nullable, nonatomic, readonly) AbstractAnimatedTransitioning *transitioning;
 - (void)clear;
+- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
+- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
 @end

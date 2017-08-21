@@ -22,7 +22,7 @@
 }
 
 - (BOOL)beginInteractiveTransition {
-    if (self.isAppearing) {
+    if ([self.transition isAppearingWithInteractor:self]) {
         if (!self.presentViewController || [self.navigationController.viewControllers containsObject:self.presentViewController]) {
             return NO;
         }

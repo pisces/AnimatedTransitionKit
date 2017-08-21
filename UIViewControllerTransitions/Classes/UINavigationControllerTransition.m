@@ -26,6 +26,22 @@
     return nil;
 }
 
+- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
+    return direction == PanningDirectionLeft;
+}
+
+- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
+    return [self isAppearingWithInteractor:interactor] ? direction == PanningDirectionLeft : direction == PanningDirectionRight;
+}
+
 - (void)setAllowsInteraction:(BOOL)allowsInteraction {
     [super setAllowsInteraction:allowsInteraction];
     

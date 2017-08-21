@@ -76,7 +76,6 @@
         self.aboveViewController.view.transform = self.transformFrom;
     } completion:^(BOOL finished) {
         self.belowViewController.view.hidden = !self.isPush;
-        self.aboveViewController.view.hidden = self.isPush;
         
         dispatch_after_sec(0.01, ^{
             [self.context completeTransition:!self.context.transitionWasCancelled];
@@ -97,7 +96,6 @@
         self.aboveViewController.view.transform = self.transformTo;
     } completion:^(BOOL finished) {
         self.belowViewController.view.hidden = self.isPush;
-        self.aboveViewController.view.hidden = !self.isPush;
         
         dispatch_after_sec(0.01, ^{
             [self.context completeTransition:!self.context.transitionWasCancelled];

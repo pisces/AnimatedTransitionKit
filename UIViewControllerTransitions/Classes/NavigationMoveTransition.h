@@ -9,5 +9,4 @@
 #import "UINavigationControllerTransition.h"
 
 @interface NavigationMoveTransition : UINavigationControllerTransition
-
 @end

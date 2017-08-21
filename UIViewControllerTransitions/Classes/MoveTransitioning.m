@@ -16,9 +16,6 @@
 #import "UIViewControllerTransitionsMacro.h"
 
 @implementation MoveTransitioning
-{
-    PanningDirection panningDirection;
-}
 @synthesize percentOfBounds = _percentOfBounds;
 
 #pragma mark - Properties
@@ -131,12 +128,12 @@
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
     [super interactionBegan:interactor transitionContext:transitionContext];
     
-    panningDirection = ((UIPanGestureRecognizer *) interactor.gestureRecognizer).panningDirection;
     self.aboveViewController.view.transform = self.transformFrom;
     self.aboveViewController.view.hidden = NO;
 }
 
-- (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {const CGFloat alpha = self.presenting ? 1 : 0.5;
+- (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
+    const CGFloat alpha = self.presenting ? 1 : 0.5;
     const CGFloat scale = self.presenting ? 1 : 0.94;
     
     [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -164,7 +161,7 @@
     alpha = MAX(0.5, MIN(1, alpha));
     scale = MAX(0.94, MIN(1, scale));
     
-    if (interactor.direction == InteractiveTransitionDirectionVertical) {
+    if (interactor.isVertical) {
         CGFloat y = self.transformFrom.ty + ((interactor.point.y - interactor.beginPoint.y) * 1.5);
         self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(0, [self calculatedValue:y]);
     } else {
