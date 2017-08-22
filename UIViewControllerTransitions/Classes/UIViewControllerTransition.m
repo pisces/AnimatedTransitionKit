@@ -65,8 +65,8 @@
 - (void)initProperties {
     [super initProperties];
     
+    _durationForDismission = _durationForPresenting = 0.15;
     _animationOptionsForDismission = _animationOptionsForPresenting = 7<<16;
-    _durationForDismission = _durationForPresenting = 0.6;
     _dismissionInteractor = [PanningInteractiveTransition new];
     _presentingInteractor = [PanningInteractiveTransition new];
 }

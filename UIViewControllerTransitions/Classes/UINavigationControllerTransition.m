@@ -62,7 +62,7 @@
 - (void)initProperties {
     [super initProperties];
     
-    _durationForPop = _durationForPush = 0.25;
+    _durationForPop = _durationForPush = 0.15;
     _animationOptionsForPop = _animationOptionsForPush = 7<<16;
     _interactor = [NavigationPanningInteractiveTransition new];
     _interactor.direction = InteractiveTransitionDirectionHorizontal;

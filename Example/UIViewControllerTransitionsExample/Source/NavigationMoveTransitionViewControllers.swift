@@ -11,9 +11,7 @@ import UIViewControllerTransitions
 class NavigationMoveTransitionFirstViewController: UIViewController {
     
     private lazy var secondViewController: NavigationMoveTransitionSecondViewController = {
-        let viewController = NavigationMoveTransitionSecondViewController(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
-        viewController.view.frame = self.view.bounds
-        return viewController
+        return NavigationMoveTransitionSecondViewController(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
     }()
     
     override var prefersStatusBarHidden: Bool {
