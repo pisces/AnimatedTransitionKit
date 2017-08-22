@@ -193,7 +193,7 @@
         [self.aboveViewController.view removeFromSuperview];
     }
     
-    dispatch_after_sec(0.01, ^{
+    dispatch_after_sec(0.05, ^{
         [self.context completeTransition:!self.context.transitionWasCancelled];
         [sourceImageView removeFromSuperview];
         sourceImageView = nil;
@@ -209,7 +209,7 @@
         _source.completion();
     }
     
-    dispatch_after_sec(0.01, ^{
+    dispatch_after_sec(0.05, ^{
         [self.context completeTransition:!self.context.transitionWasCancelled];
         
         if (block) {

@@ -81,7 +81,7 @@
             [self.fromViewController.view removeFromSuperview];
             [self.toViewController endAppearanceTransition];
             
-            dispatch_after_sec(0.01, ^{
+            dispatch_after_sec(0.05, ^{
                 [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
             });
         }];
@@ -118,7 +118,7 @@
             
             [self.fromViewController endAppearanceTransition];
             
-            dispatch_after_sec(0.01, ^{
+            dispatch_after_sec(0.05, ^{
                 [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
             });
         }];
@@ -146,7 +146,7 @@
             [self.aboveViewController.view removeFromSuperview];
         }
         
-        dispatch_after_sec(0.01, ^{
+        dispatch_after_sec(0.05, ^{
             [self.context completeTransition:!self.context.transitionWasCancelled];
             completion();
         });
@@ -189,7 +189,7 @@
         
         [self.belowViewController endAppearanceTransition];
         
-        dispatch_after_sec(0.01, ^{
+        dispatch_after_sec(0.05, ^{
             [self.context completeTransition:!self.context.transitionWasCancelled];
             completion();
         });

@@ -45,6 +45,7 @@ BOOL PanningDirectionIsVertical(PanningDirection direction) {
         _gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned)];
         _gestureRecognizer.delegate = self;
         _gestureRecognizer.enabled = NO;
+        self.panGestureRecognizer.maximumNumberOfTouches = 1;
     }
     return self;
 }
