@@ -1,41 +1,47 @@
 //
-//  AnimatedFadeTransitioning.m
+//  FadeTransitioning.m
 //  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 6/18/16.
 //  Modified by Steve Kim on 4/14/17.
 //      - Renew design and add new feature interactive transition
+//  Modified by Steve Kim on 8/13/17.
+//      - Rename AnimatedFadeTransitioning to FadeTransitioning
 //
 //
 
-#import "AnimatedFadeTransitioning.h"
+#import "FadeTransitioning.h"
+#import "UIViewControllerTransitionsMacro.h"
 
-@implementation AnimatedFadeTransitioning
+@implementation FadeTransitioning
 
 #pragma mark - Overridden: AnimatedTransitioning
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
     [super animateTransitionForDismission:transitionContext];
     
-    UIColor *backgroundColor = toViewController.view.window.backgroundColor;
+    UIColor *backgroundColor = self.toViewController.view.window.backgroundColor;
     
-    toViewController.view.alpha = 0;
-    toViewController.view.hidden = NO;
-    toViewController.view.window.backgroundColor = [UIColor blackColor];
+    self.toViewController.view.alpha = 0;
+    self.toViewController.view.hidden = NO;
+    self.toViewController.view.window.backgroundColor = [UIColor blackColor];
     
-    [toViewController beginAppearanceTransition:YES animated:YES];
+    [self.toViewController beginAppearanceTransition:YES animated:YES];
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
-            fromViewController.view.alpha = 0;
-            toViewController.view.alpha = 1;
-            toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+            self.fromViewController.view.alpha = 0;
+            self.toViewController.view.alpha = 1;
+            self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
         } completion:^(BOOL finished) {
-            toViewController.view.window.backgroundColor = backgroundColor;
+            self.toViewController.view.window.backgroundColor = backgroundColor;
             
-            [fromViewController.view removeFromSuperview];
-            [toViewController endAppearanceTransition];
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            [self.fromViewController.view removeFromSuperview];
+            [self.toViewController endAppearanceTransition];
+            
+            dispatch_after_sec(0.05, ^{
+                [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            });
         }];
     }
 }
@@ -43,28 +49,31 @@
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
     [super animateTransitionForPresenting:transitionContext];
     
-    UIColor *backgroundColor = toViewController.view.window.backgroundColor;
+    UIColor *backgroundColor = self.toViewController.view.window.backgroundColor;
     
-    toViewController.view.alpha = 0;
-    toViewController.view.frame = fromViewController.view.bounds;
+    self.toViewController.view.alpha = 0;
+    self.toViewController.view.frame = self.fromViewController.view.bounds;
     
-    [transitionContext.containerView addSubview:toViewController.view];
-    [fromViewController beginAppearanceTransition:NO animated:YES];
+    [transitionContext.containerView addSubview:self.toViewController.view];
+    [self.fromViewController beginAppearanceTransition:NO animated:YES];
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
-            toViewController.view.alpha = 1;
-            fromViewController.view.alpha = 0;
-            fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+            self.toViewController.view.alpha = 1;
+            self.fromViewController.view.alpha = 0;
+            self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
         } completion:^(BOOL finished) {
-            fromViewController.view.window.backgroundColor = backgroundColor;
+            self.fromViewController.view.window.backgroundColor = backgroundColor;
             
             if (![transitionContext transitionWasCancelled]) {
-                fromViewController.view.hidden = YES;
+                self.fromViewController.view.hidden = YES;
             }
             
-            [fromViewController endAppearanceTransition];
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            [self.fromViewController endAppearanceTransition];
+            
+            dispatch_after_sec(0.05, ^{
+                [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            });
         }];
     }
 }
@@ -84,8 +93,10 @@
             [self.aboveViewController.view removeFromSuperview];
         }
         
-        [context completeTransition:!context.transitionWasCancelled];
-        completion();
+        dispatch_after_sec(0.05, ^{
+            [self.context completeTransition:!self.context.transitionWasCancelled];
+            completion();
+        });
     }];
 }
 
@@ -114,9 +125,11 @@
         }
         
         [self.belowViewController endAppearanceTransition];
-        [context completeTransition:!context.transitionWasCancelled];
         
-        completion();
+        dispatch_after_sec(0.05, ^{
+            [self.context completeTransition:!self.context.transitionWasCancelled];
+            completion();
+        });
     }];
 }
 

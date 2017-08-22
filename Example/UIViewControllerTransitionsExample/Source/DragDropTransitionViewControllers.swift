@@ -19,8 +19,8 @@ class DragDropTransitionFirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "First View"
-        self.view.addGestureRecognizer(gestureRecognizer)
+        title = "First View"
+        view.addGestureRecognizer(gestureRecognizer)
     }
     
     @objc private func tapped() {
@@ -31,13 +31,13 @@ class DragDropTransitionFirstViewController: UIViewController {
         transition.isAllowsInteraction = true
         transition.dismissionInteractor?.delegate = secondViewController
         
-        let w = self.view.frame.size.width
+        let w = view.frame.size.width
         let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
-        let navigationBarHeight = self.navigationController!.navigationBar.frame.size.height
+        let navigationBarHeight = navigationController!.navigationBar.frame.size.height
         let bigRect = CGRect(x: 0, y: statusBarHeight + navigationBarHeight, width: w, height: w)
         let smallRect = imageView.frame
         
-        transition.presentingSource = AnimatedDragDropTransitioningSource.image({ () -> UIImage? in
+        transition.presentingSource = DragDropTransitioningSource.image({ () -> UIImage? in
             return self.imageView.image
         }, from: { () -> CGRect in
             return smallRect
@@ -50,7 +50,7 @@ class DragDropTransitionFirstViewController: UIViewController {
             secondViewController.imageView.isHidden = false
         }
         
-        transition.dismissionSource = AnimatedDragDropTransitioningSource.image({ () -> UIImage? in
+        transition.dismissionSource = DragDropTransitioningSource.image({ () -> UIImage? in
             return secondViewController.imageView.image
         }, from: { () -> CGRect in
             return bigRect
@@ -64,7 +64,7 @@ class DragDropTransitionFirstViewController: UIViewController {
         
         secondNavigationController.transition = transition
         
-        self.navigationController?.present(secondNavigationController, animated: true, completion: nil)
+        navigationController?.present(secondNavigationController, animated: true, completion: nil)
     }
 }
 
@@ -76,17 +76,16 @@ class DragDropTransitionSecondViewController: UIViewController, InteractiveTrans
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Second View"
-        self.edgesForExtendedLayout = .bottom
+        title = "Second View"
+        edgesForExtendedLayout = .bottom
         imageView.isHidden = true
         
-        self.navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
+        navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
     }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        imageViewHeight.constant = self.view.frame.size.width
+        imageViewHeight.constant = view.frame.size.width
     }
     
     // MARK: - InteractiveTransition delegate
@@ -94,22 +93,17 @@ class DragDropTransitionSecondViewController: UIViewController, InteractiveTrans
     func didBegin(withInteractor interactor: AbstractInteractiveTransition) {
         imageView.isHidden = true
     }
-    
     func didChange(withInteractor interactor: AbstractInteractiveTransition, percent: CGFloat) {
     }
-    
     func didCancel(withInteractor interactor: AbstractInteractiveTransition) {
         imageView.isHidden = false
     }
-    
     func didComplete(withInteractor interactor: AbstractInteractiveTransition) {
         imageView.isHidden = false
     }
-    
     func interactor(_ interactor: AbstractInteractiveTransition, gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch?) -> Bool {
         return true
     }
-    
     func interactor(_ interactor: AbstractInteractiveTransition, shouldInteractionWith gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
@@ -117,6 +111,6 @@ class DragDropTransitionSecondViewController: UIViewController, InteractiveTrans
     // MARK: - UIBarButtonItem selector
     
     @objc private func close() {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

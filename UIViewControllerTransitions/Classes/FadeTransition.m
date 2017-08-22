@@ -6,28 +6,25 @@
 //  Modified by Steve Kim on 4/14/17.
 //      - Renew design and add new feature interactive transition
 //      - Rename UIViewControllerFadeTransition to FadeTransition
+//  Modified by Steve Kim on 8/14/17.
+//      - Refactoring extract methods
 //
 //
 
 #import "FadeTransition.h"
-#import "AnimatedFadeTransitioning.h"
+#import "FadeTransitioning.h"
 #import "UIViewControllerTransitionsMacro.h"
 
 @implementation FadeTransition
 
 #pragma mark - Overridden: AbstractUIViewControllerTransition
 
-- (AnimatedTransitioning *)animatedTransitioningForDismissedController:(UIViewController *)dismissed {
-    AnimatedFadeTransitioning *transitioning = [AnimatedFadeTransitioning new];
-    transitioning.duration = self.durationForDismission;
-    return transitioning;
+- (AnimatedTransitioning *)transitioningForDismissedController:(UIViewController *)dismissed {
+    return [FadeTransitioning new];
 }
 
-- (AnimatedTransitioning *)animatedTransitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    AnimatedFadeTransitioning *transitioning = [AnimatedFadeTransitioning new];
-    transitioning.presenting = YES;
-    transitioning.duration = self.durationForPresenting;
-    return transitioning;
+- (AnimatedTransitioning *)transitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    return [FadeTransitioning new];
 }
 
 @end

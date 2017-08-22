@@ -6,6 +6,8 @@
 //  Modified by Steve Kim on 4/14/17.
 //      - Renew design and add new feature interactive transition
 //      - Rename UIViewControllerDragDropTransition to DragDropTransition
+//  Modified by Steve Kim on 8/14/17.
+//      - Refactoring extract methods
 //
 
 #import "DragDropTransition.h"
@@ -22,18 +24,15 @@
     _imageViewContentMode = UIViewContentModeScaleAspectFill;
 }
 
-- (AnimatedTransitioning *)animatedTransitioningForDismissedController:(UIViewController *)dismissed {
-    AnimatedDragDropTransitioning *transitioning = [AnimatedDragDropTransitioning new];
-    transitioning.duration = self.durationForDismission;
+- (AnimatedTransitioning *)transitioningForDismissedController:(UIViewController *)dismissed {
+    DragDropTransitioning *transitioning = [DragDropTransitioning new];
     transitioning.imageViewContentMode = _imageViewContentMode;
     transitioning.source = _dismissionSource;
     return transitioning;
 }
 
-- (AnimatedTransitioning *)animatedTransitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    AnimatedDragDropTransitioning *transitioning = [AnimatedDragDropTransitioning new];
-    transitioning.presenting = YES;
-    transitioning.duration = self.durationForPresenting;
+- (AnimatedTransitioning *)transitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    DragDropTransitioning *transitioning = [DragDropTransitioning new];
     transitioning.imageViewContentMode = _imageViewContentMode;
     transitioning.source =_presentingSource;
     return transitioning;

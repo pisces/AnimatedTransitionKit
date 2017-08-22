@@ -1,17 +1,19 @@
 //
-//  AnimatedDragDropTransitioning.m
+//  DragDropTransitioning.m
 //  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 5/12/16.
 //  Modified by Steve Kim on 4/14/17.
 //      - Renew design and add new feature interactive transition
+//  Modified by Steve Kim on 8/13/17.
+//      - Rename AnimatedDragDropTransitioning to DragDropTransitioning
 //
 
-#import "AnimatedDragDropTransitioning.h"
-#import "AbstractUIViewControllerTransition.h"
+#import "DragDropTransitioning.h"
+#import "UIViewControllerTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
 
-@implementation AnimatedDragDropTransitioningSource
+@implementation DragDropTransitioningSource
 
 #pragma mark - Public methods
 
@@ -21,12 +23,12 @@
     _completion = nil;
 }
 
-+ (AnimatedDragDropTransitioningSource *)image:(AnimatedDragDropTransitioningImageBlock)image
-                                          from:(AnimatedDragDropTransitioningSourceBlock)from
-                                            to:(AnimatedDragDropTransitioningSourceBlock)to
-                                      rotation:(AnimatedDragDropTransitioningValueBlock)rotation
-                                    completion:(AnimatedDragDropTransitioningCompletionBlock)completion {
-    AnimatedDragDropTransitioningSource *source = [AnimatedDragDropTransitioningSource new];
++ (DragDropTransitioningSource *)image:(DragDropTransitioningImageBlock)image
+                                          from:(DragDropTransitioningSourceBlock)from
+                                            to:(DragDropTransitioningSourceBlock)to
+                                      rotation:(DragDropTransitioningValueBlock)rotation
+                                    completion:(DragDropTransitioningCompletionBlock)completion {
+    DragDropTransitioningSource *source = [DragDropTransitioningSource new];
     source.image = image;
     source.from = from;
     source.to = to;
@@ -37,7 +39,7 @@
 
 @end
 
-@implementation AnimatedDragDropTransitioning
+@implementation DragDropTransitioning
 {
 @private
     UIImageView *sourceImageView;
@@ -48,26 +50,26 @@
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
     [super animateTransitionForDismission:transitionContext];
     
-    UIColor *backgroundColor = toViewController.view.window.backgroundColor;
+    UIColor *backgroundColor = self.toViewController.view.window.backgroundColor;
     
-    toViewController.view.hidden = NO;
-    toViewController.view.window.backgroundColor = [UIColor blackColor];
+    self.toViewController.view.hidden = NO;
+    self.toViewController.view.window.backgroundColor = [UIColor blackColor];
     
     if (!sourceImageView) {
         sourceImageView = [self createImageView];
         [transitionContext.containerView addSubview:sourceImageView];
     }
     
-    [toViewController beginAppearanceTransition:YES animated:YES];
+    [self.toViewController beginAppearanceTransition:YES animated:YES];
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
             [self dismiss];
         } completion:^(BOOL finished) {
-            toViewController.view.window.backgroundColor = backgroundColor;
+            self.toViewController.view.window.backgroundColor = backgroundColor;
             
-            [toViewController endAppearanceTransition];
-            [self completion];
+            [self.toViewController endAppearanceTransition];
+            [self completion:nil];
         }];
     }
 }
@@ -75,33 +77,33 @@
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
     [super animateTransitionForPresenting:transitionContext];
     
-    UIColor *backgroundColor = fromViewController.view.window.backgroundColor;
+    UIColor *backgroundColor = self.fromViewController.view.window.backgroundColor;
     sourceImageView = [self createImageView];
-    fromViewController.view.window.backgroundColor = [UIColor blackColor];
+    self.fromViewController.view.window.backgroundColor = [UIColor blackColor];
     
-    [transitionContext.containerView addSubview:toViewController.view];
+    [transitionContext.containerView addSubview:self.toViewController.view];
     [transitionContext.containerView addSubview:sourceImageView];
-    [fromViewController beginAppearanceTransition:NO animated:YES];
+    [self.fromViewController beginAppearanceTransition:NO animated:YES];
     
-    toViewController.view.alpha = 0;
+    self.toViewController.view.alpha = 0;
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
-            toViewController.view.alpha = 1;
-            fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-            fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
+            self.toViewController.view.alpha = 1;
+            self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+            self.fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
             
             sourceImageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
             sourceImageView.frame = _source.to();
         } completion:^(BOOL finished) {
-            fromViewController.view.window.backgroundColor = backgroundColor;
+            self.fromViewController.view.window.backgroundColor = backgroundColor;
             
             if (!transitionContext.transitionWasCancelled) {
-                fromViewController.view.hidden = YES;
+                self.fromViewController.view.hidden = YES;
             }
             
-            [fromViewController endAppearanceTransition];
-            [self completion];
+            [self.fromViewController endAppearanceTransition];
+            [self completion:nil];
         }];
     }
 }
@@ -121,8 +123,7 @@
         sourceImageView.transform = CGAffineTransformMakeScale(1, 1);
         sourceImageView.frame = _source.from();
     } completion:^(BOOL finished) {
-        [self cancel];
-        completion();
+        [self cancel:completion];
     }];
 }
 
@@ -133,9 +134,8 @@
         return;
     }
     
-    const CGFloat bounceHeight = self.aboveViewController.transition.bounceHeight;
     const CGFloat y = interactor.beginViewPoint.y + (interactor.point.y - interactor.beginPoint.y);
-    const CGFloat progress = ABS(y) / bounceHeight;
+    const CGFloat progress = ABS(y) / self.completionBounds;
     const CGFloat alpha = 1 - progress;
     const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * progress));
     const CGFloat imageScale = MIN(1, (MAX(0.5, 1 - ABS(y) / self.aboveViewController.view.bounds.size.height)));
@@ -156,7 +156,7 @@
         [self dismiss];
     } completion:^(BOOL finished) {
         [self.belowViewController endAppearanceTransition];
-        [self completion];
+        [self completion:completion];
     }];
 }
 
@@ -188,24 +188,35 @@
     return rotation != 0 ? rotation * M_PI / 180 : 0;
 }
 
-- (void)cancel {
+- (void)cancel:(void(^)(void))block {
     if (self.presenting) {
         [self.aboveViewController.view removeFromSuperview];
     }
     
-    [context completeTransition:!context.transitionWasCancelled];
-    [sourceImageView removeFromSuperview];
-    sourceImageView = nil;
+    dispatch_after_sec(0.05, ^{
+        [self.context completeTransition:!self.context.transitionWasCancelled];
+        [sourceImageView removeFromSuperview];
+        sourceImageView = nil;
+        
+        if (block) {
+            block();
+        }
+    });
 }
 
-- (void)completion {
+- (void)completion:(void(^)(void))block {
     if (_source.completion) {
         _source.completion();
     }
     
-    [context completeTransition:!context.transitionWasCancelled];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after_sec(0.05, ^{
+        [self.context completeTransition:!self.context.transitionWasCancelled];
+        
+        if (block) {
+            block();
+        }
+    });
+    dispatch_after_sec(0.2, ^{
         [sourceImageView removeFromSuperview];
         [self clear];
     });

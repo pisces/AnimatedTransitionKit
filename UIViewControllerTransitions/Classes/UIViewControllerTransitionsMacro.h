@@ -11,6 +11,7 @@
 #ifndef UIViewControllerTransitionsMacro_h
 #define UIViewControllerTransitionsMacro_h
 
+#define dispatch_after_sec(sec, completion) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(sec * NSEC_PER_SEC)), dispatch_get_main_queue(), completion)
 #define CGRectMakeX(rect, x) CGRectMake(x, rect.origin.y, rect.size.width, rect.size.height)
 #define CGRectMakeXY(rect, x, y) CGRectMake(x, y, rect.size.width, rect.size.height)
 #define CGRectMakeY(rect, y) CGRectMake(rect.origin.x, y, rect.size.width, rect.size.height)

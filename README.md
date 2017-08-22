@@ -26,16 +26,15 @@ Swift
 import UIViewControllerTransitions
 ```
 
-## Example
-![](Screenshot/ExDragDropTransition.gif) ![](Screenshot/ExMoveTransition.gif)
+## 🔥Using UIViewControllerTransition
 
-### DragDropTransition Example
+#### DragDropTransition Example
+![](Screenshot/ExDragDropTransition.gif)
 
 ```swift
 import UIViewControllerTransitions
 
 class DragDropTransitionFirstViewController: UIViewController {
-    
     @IBOutlet private weak var imageView: UIImageView!
     
     private lazy var gestureRecognizer: UITapGestureRecognizer = {
@@ -45,8 +44,8 @@ class DragDropTransitionFirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "First View"
-        self.view.addGestureRecognizer(gestureRecognizer)
+        title = "First View"
+        view.addGestureRecognizer(gestureRecognizer)
     }
     
     @objc private func tapped() {
@@ -57,13 +56,13 @@ class DragDropTransitionFirstViewController: UIViewController {
         transition.isAllowsInteraction = true
         transition.dismissionInteractor?.delegate = secondViewController
         
-        let w = self.view.frame.size.width
+        let w = view.frame.size.width
         let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
-        let navigationBarHeight = self.navigationController!.navigationBar.frame.size.height
+        let navigationBarHeight = navigationController!.navigationBar.frame.size.height
         let bigRect = CGRect(x: 0, y: statusBarHeight + navigationBarHeight, width: w, height: w)
         let smallRect = imageView.frame
         
-        transition.presentingSource = AnimatedDragDropTransitioningSource.image({ () -> UIImage? in
+        transition.presentingSource = DragDropTransitioningSource.image({ () -> UIImage? in
             return self.imageView.image
         }, from: { () -> CGRect in
             return smallRect
@@ -76,7 +75,7 @@ class DragDropTransitionFirstViewController: UIViewController {
             secondViewController.imageView.isHidden = false
         }
         
-        transition.dismissionSource = AnimatedDragDropTransitioningSource.image({ () -> UIImage? in
+        transition.dismissionSource = DragDropTransitioningSource.image({ () -> UIImage? in
             return secondViewController.imageView.image
         }, from: { () -> CGRect in
             return bigRect
@@ -89,30 +88,27 @@ class DragDropTransitionFirstViewController: UIViewController {
         }
         
         secondNavigationController.transition = transition
-        
-        self.navigationController?.present(secondNavigationController, animated: true, completion: nil)
+        navigationController?.present(secondNavigationController, animated: true, completion: nil)
     }
 }
 
 class DragDropTransitionSecondViewController: UIViewController, InteractiveTransitionDelegate {
-    
     @IBOutlet weak var imageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Second View"
-        self.edgesForExtendedLayout = .bottom
+        title = "Second View"
+        edgesForExtendedLayout = .bottom
         imageView.isHidden = true
         
-        self.navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
+        navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
     }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        imageViewHeight.constant = self.view.frame.size.width
+        imageViewHeight.constant = view.frame.size.width
     }
     
     // MARK: - InteractiveTransition delegate
@@ -120,22 +116,17 @@ class DragDropTransitionSecondViewController: UIViewController, InteractiveTrans
     func didBegin(withInteractor interactor: AbstractInteractiveTransition) {
         imageView.isHidden = true
     }
-    
     func didChange(withInteractor interactor: AbstractInteractiveTransition, percent: CGFloat) {
     }
-    
     func didCancel(withInteractor interactor: AbstractInteractiveTransition) {
         imageView.isHidden = false
     }
-    
     func didComplete(withInteractor interactor: AbstractInteractiveTransition) {
         imageView.isHidden = false
     }
-    
     func interactor(_ interactor: AbstractInteractiveTransition, gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch?) -> Bool {
         return true
     }
-    
     func interactor(_ interactor: AbstractInteractiveTransition, shouldInteractionWith gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
@@ -149,28 +140,20 @@ class DragDropTransitionSecondViewController: UIViewController, InteractiveTrans
 ```
 
 ### MoveTransition Example
+![](Screenshot/ExMoveTransition.gif)
 
 ```swift
 import UIViewControllerTransitions
 
 class MoveTransitionFirstViewController: UIViewController {
-    
     private lazy var secondViewController: UINavigationController = {
         return UINavigationController(rootViewController: MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main))
     }()
     
-    override var prefersStatusBarHidden: Bool {
-        return false
-    }
-    
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "First View"
+        title = "First View"
         
         let transition = MoveTransition()
         transition.isAllowsInteraction = true
@@ -178,7 +161,6 @@ class MoveTransitionFirstViewController: UIViewController {
         
         secondViewController.transition = transition
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -188,28 +170,17 @@ class MoveTransitionFirstViewController: UIViewController {
     }
     
     @IBAction func clicked() {
-        self.present(secondViewController, animated: true, completion: nil)
+        present(secondViewController, animated: true, completion: nil)
     }
 }
 
 class MoveTransitionSecondViewController: UIViewController {
-    
-    override var prefersStatusBarHidden: Bool {
-        return false
-    }
-    
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Second View"
-        
-        self.navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
+        title = "Second View"
+        navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
     }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -219,19 +190,20 @@ class MoveTransitionSecondViewController: UIViewController {
     }
     
     @objc private func close() {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }
 ```
 
-### Using percent driven interactive transition
+### Using percent driven interactive transition for UIViewControllerTransition
 
 ```swift
+private lazy var secondNavigationController: UINavigationController = {
+    UINavigationController(rootViewController: SecondViewController())
+}()
+
 override func viewDidLoad() {
     super.viewDidLoad()
-    
-    let secondViewController = SecondViewController(nibName: "SecondView", bundle: .main)
-    let secondNavigationController = UINavigationController(rootViewController: secondViewController)
 
     let transition = MoveTransition()
     transition.isAllowsInteraction = true
@@ -243,37 +215,30 @@ override func viewDidLoad() {
 }
 ```
 
-### Customize UIViewControllerTransition
+### Customizing
 
 ```swift
 import UIViewControllerTransitions
 
-class CustomTransition: AbstractUIViewControllerTransition {
+class CustomTransition: UIViewControllerTransition {
     
     override func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let transitioning = AnimatedCustomTransitioning()
-        transitioning.duration = 0.4
-        return transitioning
+        return CustomTransitioning()
     }
     
     override func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        let transitioning = AnimatedCustomTransitioning()
-        transitioning.duration = 0.4
-        transitioning.presenting = true
-        return transitioning
+        return CustomTransitioning()
     }
 }
 
-class AnimatedCustomTransitioning: AnimatedTransitioning {
+class CustomTransitioning: AnimatedTransitioning {
     
     // Write code here for dismission
     override func animateTransition(forDismission transitionContext: UIViewControllerContextTransitioning) {
     }
-    
     // Write code here for presenting
     override func animateTransition(forPresenting transitionContext: UIViewControllerContextTransitioning) {
     }
-    
     // Write interative transition began code here for dismission or presenting
     override func interactionBegan(_ interactor: AbstractInteractiveTransition) {
         if self.presenting {
@@ -282,7 +247,6 @@ class AnimatedCustomTransitioning: AnimatedTransitioning {
             // for dismission
         }
     }
-    
     // Write interative transition changed code here for dismission or presenting
     override func interactionChanged(_ interactor: AbstractInteractiveTransition, percent: CGFloat) {
         if self.presenting {
@@ -291,7 +255,6 @@ class AnimatedCustomTransitioning: AnimatedTransitioning {
             // for dismission
         }
     }
-    
     // Write interative transition cacelled code here for dismission or presenting and call completion after animation finished
     override func interactionCancelled(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
         if self.presenting {
@@ -300,7 +263,6 @@ class AnimatedCustomTransitioning: AnimatedTransitioning {
             // for dismission
         }
     }
-    
     // Write interative transition completed code here for dismission or presenting and call completion after animation finished
     override func interactionCompleted(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
         if self.presenting {
@@ -312,7 +274,7 @@ class AnimatedCustomTransitioning: AnimatedTransitioning {
 }
 ```
 
-### Apply Custom UIViewControllerTransition
+#### Using CustomTransition
 
 ```swift
 let transition = CustomTransition()
@@ -320,8 +282,144 @@ transition.isAllowsInteraction = true
 transition.presentingInteractor?.attach(self, present: secondViewController)
 
 secondViewController.transition = transition
+present(secondViewController, animated: true, completion: nil)
+```
 
-self.present(secondViewController, animated: true, completion: nil)
+## 🔥Using UINavigationControllerTransition
+
+### NavigationMoveTransition Example
+![](Screenshot/ExNavigationMoveTransition.gif)
+
+```swift
+import UIViewControllerTransitions
+
+class NavigationMoveTransitionFirstViewController: UIViewController {
+    private lazy var secondViewController: NavigationMoveTransitionSecondViewController = {
+        return NavigationMoveTransitionSecondViewController(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "First View"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self, action: #selector(close))
+        navigationController?.navigationTransition = NavigationMoveTransition()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Attach view controller to interactive transition for pushing
+        if let navigationController = navigationController {
+            navigationController.navigationTransition?.interactor.attach(navigationController, present: secondViewController)
+        }
+    }
+    
+    @IBAction func clicked() {
+        navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    @objc private func close() {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+class NavigationMoveTransitionSecondViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "Second View"
+    }
+}
+
+```
+
+### Using percent driven interactive transition for UINavigationControllerTransition
+
+```swift
+private lazy var secondViewController: UIViewController = {
+    return SecondViewController()
+}()
+
+override func viewDidLoad() {
+    super.viewDidLoad()
+
+    navigationController?.navigationTransition = NavigationMoveTransition()
+}
+override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+        
+    // Attach view controller to interactive transition for pushing
+    if let navigationController = navigationController {
+        navigationController.navigationTransition?.interactor.attach(navigationController, present: secondViewController)
+    }
+}
+```
+
+### Customizing
+```swift
+import UIViewControllerTransitions
+
+class CustomNavigationTransition: UINavigationControllerTransition {
+    override func transitioningForPop() -> AnimatedNavigationTransitioning? {
+        return CustomNavigationTransitioning()
+    }
+    override func transitioningForPush() -> AnimatedNavigationTransitioning? {
+        return CustomNavigationTransitioning()
+    }
+}
+
+class CustomNavigationTransitioning: AnimatedNavigationTransitioning {
+    // Write code here for pop without interaction
+    override func animateTransition(forPop transitionContext: UIViewControllerContextTransitioning) {
+    }
+    // Write code here for push without interaction
+    override func animateTransition(forPush transitionContext: UIViewControllerContextTransitioning) {
+    }
+    // Write interative transition began code here for push or pop
+    override func interactionBegan(_ interactor: AbstractInteractiveTransition, transitionContext: UIViewControllerContextTransitioning) {
+        if isPush {
+            // for push
+        } else {
+            // for pop
+        }
+    }
+    // Write interative transition changed code here for push or pop
+    override func interactionChanged(_ interactor: AbstractInteractiveTransition, percent: CGFloat) {
+        if isPush {
+            // for push
+        } else {
+            // for pop
+        }
+    }
+    // Write interative transition cacelled code here for push or pop and call completion after animation finished
+    override func interactionCancelled(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
+        if isPush {
+            // for push
+        } else {
+            // for pop
+        }
+    }
+    // Write interative transition completed code here for push or pop and call completion after animation finished
+    override func interactionCompleted(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
+        if isPush {
+            // for push
+        } else {
+            // for pop
+        }
+    }
+}
+```
+
+#### Using CustomNavigationTransition
+
+```swift
+guard let navigationController = navigationController else {return}
+
+let transition = CustomNavigationTransition()
+
+navigationController.navigationTransition = transition
+transition.interactor?.attach(navigationController, present: secondViewController)
+
+navigationController.push(secondViewController, animated: true, completion: nil)
 ```
 
 ## Installation
@@ -334,7 +432,7 @@ self.present(secondViewController, animated: true, completion: nil)
 $ gem install cocoapods
 ```
 
-> CocoaPods 1.1.0+ is required to build UIViewControllerTransitions 2.0.0+.
+> CocoaPods 1.1.0+ is required to build UIViewControllerTransitions 3.0.0+.
 
 To integrate UIViewControllerTransitions into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -343,7 +441,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '7.0'
 
 target '<Your Target Name>' do
-    pod 'UIViewControllerTransitions', '~> 2.0.0'
+    pod 'UIViewControllerTransitions', '~> 3.0.0'
 end
 ```
 
@@ -367,14 +465,14 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/UIViewControllerTransitions" ~> 2.0.0
+github "pisces/UIViewControllerTransitions" ~> 3.0.0
 ```
 
 Run `carthage update` to build the framework and drag the built `UIViewControllerTransitions.framework` into your Xcode project.
 
 ## Requirements
 
-iOS Deployment Target 7.0 higher
+iOS Deployment Target 8.0 higher
 
 ## Author
 

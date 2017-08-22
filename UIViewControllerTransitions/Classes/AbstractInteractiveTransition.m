@@ -9,17 +9,25 @@
 //
 
 #import "AbstractInteractiveTransition.h"
-#import "AbstractUIViewControllerTransition.h"
+#import "UIViewControllerTransitions.h"
 
 @implementation AbstractInteractiveTransition
 
 #pragma mark - Properties
 
-- (UIViewController *)currentViewController {
-    return _presentViewController ? _presentViewController : _viewController;
+- (BOOL)isAppearing {
+    return _presentViewController != nil;
 }
 
-- (AbstractUIViewControllerTransition *)transition {
+- (BOOL)isVertical {
+    return _direction == InteractiveTransitionDirectionVertical;
+}
+
+- (UIViewController *)currentViewController {
+    return self.isAppearing ? _presentViewController : _viewController;
+}
+
+- (AbstractTransition *)transition {
     return self.currentViewController.transition;
 }
 
@@ -27,11 +35,9 @@
 
 - (id)init {
     self = [super init];
-    
     if (self) {
         _direction = InteractiveTransitionDirectionVertical;
     }
-    
     return self;
 }
 
@@ -46,7 +52,6 @@
     
     [self.transition.transitioning interactionCancelled:self completion:^{
         [self completion];
-        self.transition.interactionEnabled = NO;
     }];
 }
 
@@ -59,7 +64,6 @@
     
     [self.transition.transitioning interactionCompleted:self completion:^{
         [self completion];
-        self.transition.interactionEnabled = NO;
     }];
 }
 
@@ -77,7 +81,7 @@
 - (void)updateInteractiveTransition:(CGFloat)percentComplete {
     [super updateInteractiveTransition:percentComplete];
     
-    [self.currentViewController.transition.transitioning interactionChanged:self percent:percentComplete];
+    [self.transition.transitioning interactionChanged:self percent:percentComplete];
     
     if ([_delegate respondsToSelector:@selector(didChangeWithInteractor:percent:)]) {
         [_delegate didChangeWithInteractor:self percent:percentComplete];
@@ -128,9 +132,13 @@
     
     _viewController = viewController;
     _presentViewController = presentViewController;
+    
+    [_viewController.view addGestureRecognizer:self.gestureRecognizer];
 }
 
 - (void)detach {
+    [self.gestureRecognizer.view removeGestureRecognizer:self.gestureRecognizer];
+    
     _viewController = nil;
     _presentViewController = nil;
 }
@@ -150,9 +158,9 @@
         }
     }
     
-    self.beginPoint = CGPointZero;
-    self.beginViewPoint = CGPointZero;
-    self.point = CGPointZero;
+    _beginPoint = CGPointZero;
+    _beginViewPoint = CGPointZero;
+    _point = CGPointZero;
 }
 
 @end

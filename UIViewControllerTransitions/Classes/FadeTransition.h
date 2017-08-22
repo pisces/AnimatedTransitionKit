@@ -6,11 +6,13 @@
 //  Modified by Steve Kim on 4/14/17.
 //      - Renew design and add new feature interactive transition
 //      - Rename UIViewControllerFadeTransition to FadeTransition
+//  Modified by Steve Kim on 8/14/17.
+//      - Refactoring extract methods
 //
 //
 
-#import <UIViewControllerTransitions/UIViewControllerTransitions.h>
+#import "UIViewControllerTransition.h"
 
-@interface FadeTransition : AbstractUIViewControllerTransition
+@interface FadeTransition : UIViewControllerTransition
 
 @end
