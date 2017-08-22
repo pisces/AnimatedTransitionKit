@@ -54,10 +54,6 @@
 
 #pragma mark - Overridden: AnimatedTransitioning
 
-- (CGFloat)completionBounds {
-    return 60 * (self.isVertical ? self.heightRatio : self.widthRatio);
-}
-
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
     [super animateTransitionForDismission:transitionContext];
     

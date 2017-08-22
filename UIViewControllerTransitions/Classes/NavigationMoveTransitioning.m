@@ -17,10 +17,6 @@ const CGFloat unfocusedCompletionBounds = 50;
 
 #pragma mark - Overridden: AnimatedNavigationTransitioning
 
-- (CGFloat)completionBounds {
-    return 60 * self.widthRatio;
-}
-
 - (void)animateTransitionForPop:(id<UIViewControllerContextTransitioning>)transitionContext {
     self.fromViewController.view.transform = self.focusedTransformFrom;
     self.toViewController.view.transform = self.unfocusedTransformFrom;

@@ -11,7 +11,9 @@ import UIViewControllerTransitions
 class NavigationMoveTransitionFirstViewController: UIViewController {
     
     private lazy var secondViewController: NavigationMoveTransitionSecondViewController = {
-        return NavigationMoveTransitionSecondViewController(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
+        let viewController = NavigationMoveTransitionSecondViewController(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
+        viewController.view.frame = self.view.bounds
+        return viewController
     }()
     
     override var prefersStatusBarHidden: Bool {
@@ -68,7 +70,7 @@ class NavigationMoveTransitionFirstViewController: UIViewController {
     }
 }
 
-class NavigationMoveTransitionSecondViewController: UIViewController {
+class NavigationMoveTransitionSecondViewController: UITableViewController, InteractiveTransitionDelegate {
     
     override var prefersStatusBarHidden: Bool {
         return false
@@ -97,6 +99,7 @@ class NavigationMoveTransitionSecondViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        navigationController?.navigationTransition?.interactor.delegate = self
         print("viewDidAppear -> \(type(of: self))")
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -108,5 +111,41 @@ class NavigationMoveTransitionSecondViewController: UIViewController {
         super.viewDidDisappear(animated)
         
         print("viewDidDisappear -> \(type(of: self))")
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 50
+    }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let identifier = "UITableViewCell"
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
+        if cell == nil {
+            cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
+        }
+        return cell!
+    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.textLabel?.text = "\(indexPath.row + 1)"
+    }
+    
+    func didBegin(withInteractor interactor: AbstractInteractiveTransition) {
+        tableView.panGestureRecognizer.isEnabled = false
+    }
+    func didChange(withInteractor interactor: AbstractInteractiveTransition, percent: CGFloat) {
+    }
+    func didCancel(withInteractor interactor: AbstractInteractiveTransition) {
+        tableView.panGestureRecognizer.isEnabled = true
+    }
+    func didComplete(withInteractor interactor: AbstractInteractiveTransition) {
+        tableView.panGestureRecognizer.isEnabled = true
+    }
+    func interactor(_ interactor: AbstractInteractiveTransition, shouldInteractionWith gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

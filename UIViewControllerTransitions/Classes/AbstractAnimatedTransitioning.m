@@ -28,7 +28,7 @@
 #pragma mark - Properties
 
 - (CGFloat)completionBounds {
-    return 60 * self.heightRatio;
+    return UIScreen.mainScreen.bounds.size.width/4;
 }
 
 - (CGFloat)heightRatio {
@@ -78,6 +78,7 @@
 }
 
 - (BOOL)shouldComplete:(AbstractInteractiveTransition * _Nonnull)interactor {
+    NSLog(@"self.percentOfBounds -> %f", self.percentOfBounds);
     return self.percentOfBounds >= 1;
 }
 
