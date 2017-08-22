@@ -71,7 +71,7 @@ const CGFloat unfocusedCompletionBounds = 50;
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
+    [UIView animateWithDuration:0.15 delay:0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.transform = self.focusedTransformFrom;
         self.belowViewController.view.transform = self.unfocusedTransformFrom;
     } completion:^(BOOL finished) {
@@ -93,7 +93,7 @@ const CGFloat unfocusedCompletionBounds = 50;
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
+    [UIView animateWithDuration:0.15 delay:0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.transform = self.focusedTransformTo;
         self.belowViewController.view.transform = self.unfocusedTransformTo;
     } completion:^(BOOL finished) {

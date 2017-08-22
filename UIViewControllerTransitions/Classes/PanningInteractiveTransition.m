@@ -68,7 +68,8 @@ BOOL PanningDirectionIsVertical(PanningDirection direction) {
         case UIGestureRecognizerStateBegan: {
             _panningDirection = self.panGestureRecognizer.panningDirection;
             
-            if (self.transition.transitioning.isAnimating ||
+            if (!self.isInteractionEnabled ||
+                self.transition.transitioning.isAnimating ||
                 self.transition.isInteractionEnabled ||
                 ![self.transition isValidWithInteractor:self] ||
                 ([self.delegate respondsToSelector:@selector(interactor:shouldInteractionWithGestureRecognizer:)] &&
@@ -124,6 +125,15 @@ BOOL PanningDirectionIsVertical(PanningDirection direction) {
         default:
             break;
     }
+}
+
+#pragma mark - Properties
+
+- (BOOL)isInteractionEnabled {
+    if ([self.transition isAppearingWithInteractor:self]) {
+        return self.presentViewController != nil;
+    }
+    return self.viewController != nil;
 }
 
 #pragma mark - Protected methods

@@ -35,6 +35,13 @@
 
 #pragma mark - Properties
 
+- (BOOL)isInteractionEnabled {
+    if ([self.transition isAppearingWithInteractor:self]) {
+        return self.presentViewController && ![self.navigationController.viewControllers containsObject:self.presentViewController];
+    }
+    return self.navigationController.viewControllers.count > 1;
+}
+
 - (UINavigationController *)navigationController {
     if ([self.viewController isKindOfClass:[UINavigationController class]]) {
         return (UINavigationController *) self.viewController;

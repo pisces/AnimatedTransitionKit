@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 
 @interface AbstractInteractiveTransition : UIPercentDrivenInteractiveTransition <UIGestureRecognizerDelegate>
 @property (nonatomic, readonly, getter=isAppearing) BOOL appearing;
+@property (nonatomic, readonly, getter=isInteractionEnabled) BOOL interactionEnabled;
 @property (nonatomic, readonly, getter=isVertical) BOOL vertical;
 @property (nonatomic, readonly) BOOL shouldComplete;
 @property (nonatomic) InteractiveTransitionDirection direction;
