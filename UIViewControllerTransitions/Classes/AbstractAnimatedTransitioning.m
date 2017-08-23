@@ -78,7 +78,6 @@
 }
 
 - (BOOL)shouldComplete:(AbstractInteractiveTransition * _Nonnull)interactor {
-    NSLog(@"self.percentOfBounds -> %f", self.percentOfBounds);
     return self.percentOfBounds >= 1;
 }
 
