@@ -23,7 +23,7 @@
 #pragma mark - Public methods
 
 - (void)clear {
-    [_transitioning clear];
+    [self.transitioning clear];
 }
 
 - (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
