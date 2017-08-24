@@ -138,6 +138,8 @@
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
     } completion:^(BOOL finished) {
+        self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
+        
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
         }
@@ -179,7 +181,9 @@
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
     } completion:^(BOOL finished) {
-        if (!self.presenting) {
+        if (self.presenting) {
+            self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
+        } else {
             [self.aboveViewController.view removeFromSuperview];
         }
         
