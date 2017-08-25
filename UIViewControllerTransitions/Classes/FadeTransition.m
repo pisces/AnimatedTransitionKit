@@ -17,7 +17,7 @@
 
 @implementation FadeTransition
 
-#pragma mark - Overridden: AbstractUIViewControllerTransition
+#pragma mark - Overridden: UIViewControllerTransition
 
 - (AnimatedTransitioning *)transitioningForDismissedController:(UIViewController *)dismissed {
     return [FadeTransitioning new];

@@ -24,10 +24,10 @@
 }
 
 + (DragDropTransitioningSource *)image:(DragDropTransitioningImageBlock)image
-                                          from:(DragDropTransitioningSourceBlock)from
-                                            to:(DragDropTransitioningSourceBlock)to
-                                      rotation:(DragDropTransitioningValueBlock)rotation
-                                    completion:(DragDropTransitioningCompletionBlock)completion {
+                                  from:(DragDropTransitioningSourceBlock)from
+                                    to:(DragDropTransitioningSourceBlock)to
+                              rotation:(DragDropTransitioningValueBlock)rotation
+                            completion:(DragDropTransitioningCompletionBlock)completion {
     DragDropTransitioningSource *source = [DragDropTransitioningSource new];
     source.image = image;
     source.from = from;
@@ -96,6 +96,8 @@
             sourceImageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
             sourceImageView.frame = _source.to();
         } completion:^(BOOL finished) {
+            self.fromViewController.view.alpha = 1;
+            self.fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
             self.fromViewController.view.window.backgroundColor = backgroundColor;
             
             if (!transitionContext.transitionWasCancelled) {
