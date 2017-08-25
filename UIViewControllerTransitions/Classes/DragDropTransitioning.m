@@ -157,7 +157,7 @@
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
         [self dismiss];
     } completion:^(BOOL finished) {
-        [self.belowViewController endAppearanceTransition];
+        [self.toViewController endAppearanceTransition];
         [self completion:completion];
     }];
 }
@@ -196,6 +196,8 @@
     } else {
         self.belowViewController.view.hidden = YES;
     }
+    
+    [self.toViewController endAppearanceTransition];
     
     dispatch_after_sec(0.05, ^{
         [self.context completeTransition:!self.context.transitionWasCancelled];

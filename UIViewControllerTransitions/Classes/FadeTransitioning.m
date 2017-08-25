@@ -93,6 +93,8 @@
             [self.aboveViewController.view removeFromSuperview];
         }
         
+        [self.toViewController endAppearanceTransition];
+        
         dispatch_after_sec(0.05, ^{
             [self.context completeTransition:!self.context.transitionWasCancelled];
             completion();
@@ -124,7 +126,7 @@
             [self.aboveViewController.view removeFromSuperview];
         }
         
-        [self.belowViewController endAppearanceTransition];
+        [self.toViewController endAppearanceTransition];
         
         dispatch_after_sec(0.05, ^{
             [self.context completeTransition:!self.context.transitionWasCancelled];
