@@ -64,8 +64,7 @@
         } completion:^(BOOL finished) {
             self.toViewController.view.window.backgroundColor = backgroundColor;
             
-            [self.fromViewController endAppearanceTransition];
-            [self.toViewController endAppearanceTransition];
+            [self.belowViewController endAppearanceTransition];
             [self completion:nil];
         }];
     }
@@ -98,8 +97,7 @@
                 self.fromViewController.view.hidden = YES;
             }
             
-            [self.fromViewController endAppearanceTransition];
-            [self.toViewController endAppearanceTransition];
+            [self.belowViewController endAppearanceTransition];
             [self completion:nil];
         }];
     }
@@ -112,8 +110,7 @@
         return;
     }
     
-    [self.belowViewController beginAppearanceTransition:NO animated:self.context.isAnimated];
-    [self.aboveViewController beginAppearanceTransition:YES animated:self.context.isAnimated];
+    [self.belowViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:self.animationOptions |  UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.alpha = 1;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
@@ -151,13 +148,11 @@
         return;
     }
     
-    [self.belowViewController beginAppearanceTransition:YES animated:self.context.isAnimated];
-    [self.aboveViewController beginAppearanceTransition:NO animated:self.context.isAnimated];
+    [self.belowViewController beginAppearanceTransition:!self.presenting animated:self.context.isAnimated];
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
         [self dismiss];
     } completion:^(BOOL finished) {
-        [self.fromViewController endAppearanceTransition];
-        [self.toViewController endAppearanceTransition];
+        [self.belowViewController endAppearanceTransition];
         [self completion:completion];
     }];
 }
@@ -197,8 +192,7 @@
         self.belowViewController.view.hidden = YES;
     }
     
-    [self.fromViewController endAppearanceTransition];
-    [self.toViewController endAppearanceTransition];
+    [self.belowViewController endAppearanceTransition];
     
     dispatch_after_sec(0.05, ^{
         [self.context completeTransition:!self.context.transitionWasCancelled];

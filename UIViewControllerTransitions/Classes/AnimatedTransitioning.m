@@ -31,8 +31,7 @@
     self.toViewController.modalPresentationCapturesStatusBarAppearance = YES;
     
     if (!transitionContext.isInteractive) {
-        [self.fromViewController beginAppearanceTransition:NO animated:transitionContext.isAnimated];
-        [self.toViewController beginAppearanceTransition:YES animated:transitionContext.isAnimated];
+        [self.belowViewController beginAppearanceTransition:!_presenting animated:transitionContext.isAnimated];
     }
     
     if (_presenting) {
