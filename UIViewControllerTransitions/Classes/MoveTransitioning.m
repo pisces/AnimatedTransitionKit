@@ -104,7 +104,6 @@
             self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
             self.fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
         } completion:^(BOOL finished) {
-            self.fromViewController.view.alpha = 1;
             self.fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
             self.fromViewController.view.window.backgroundColor = backgroundColor;
             
@@ -142,6 +141,8 @@
         
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
+        } else {
+            self.belowViewController.view.hidden = YES;
         }
         
         dispatch_after_sec(0.05, ^{
@@ -182,6 +183,7 @@
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
     } completion:^(BOOL finished) {
         if (self.presenting) {
+            self.belowViewController.view.hidden = YES;
             self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
         } else {
             [self.aboveViewController.view removeFromSuperview];
