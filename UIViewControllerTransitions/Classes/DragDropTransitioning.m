@@ -193,6 +193,8 @@
 - (void)cancel:(void(^)(void))block {
     if (self.presenting) {
         [self.aboveViewController.view removeFromSuperview];
+    } else {
+        self.belowViewController.view.hidden = YES;
     }
     
     dispatch_after_sec(0.05, ^{
