@@ -30,6 +30,11 @@
     self.fromViewController.modalPresentationCapturesStatusBarAppearance = YES;
     self.toViewController.modalPresentationCapturesStatusBarAppearance = YES;
     
+    if (!transitionContext.isInteractive) {
+        [self.fromViewController beginAppearanceTransition:NO animated:transitionContext.isAnimated];
+        [self.toViewController beginAppearanceTransition:YES animated:transitionContext.isAnimated];
+    }
+    
     if (_presenting) {
         [self animateTransitionForPresenting:transitionContext];
     } else {
@@ -41,8 +46,10 @@
     [super clear];
     
     [self.fromViewController beginAppearanceTransition:YES animated:NO];
+    [self.toViewController beginAppearanceTransition:NO animated:NO];
     [self.toViewController.view removeFromSuperview];
     [self.fromViewController endAppearanceTransition];
+    [self.toViewController endAppearanceTransition];
 }
 
 #pragma mark - Protected methods

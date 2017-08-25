@@ -55,16 +55,12 @@
 #pragma mark - Overridden: AnimatedTransitioning
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
-    [super animateTransitionForDismission:transitionContext];
-    
     UIColor *backgroundColor = self.toViewController.view.window.backgroundColor;
     
     self.toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     self.toViewController.view.hidden = NO;
     self.toViewController.view.window.backgroundColor = [UIColor blackColor];
     self.fromViewController.view.transform = self.transformFrom;
-    
-    [self.toViewController beginAppearanceTransition:YES animated:YES];
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -75,6 +71,7 @@
         } completion:^(BOOL finished) {
             self.toViewController.view.window.backgroundColor = backgroundColor;
             [self.fromViewController.view removeFromSuperview];
+            [self.fromViewController endAppearanceTransition];
             [self.toViewController endAppearanceTransition];
             
             dispatch_after_sec(0.05, ^{
@@ -85,15 +82,12 @@
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
-    [super animateTransitionForPresenting:transitionContext];
-    
     UIColor *backgroundColor = self.fromViewController.view.window.backgroundColor;
     
     self.fromViewController.view.window.backgroundColor = [UIColor blackColor];
     self.toViewController.view.transform = self.transformFrom;
     
     [transitionContext.containerView addSubview:self.toViewController.view];
-    [self.fromViewController beginAppearanceTransition:NO animated:YES];
     
     if (!transitionContext.isInteractive) {
         self.toViewController.view.hidden = NO;
@@ -112,6 +106,7 @@
             }
             
             [self.fromViewController endAppearanceTransition];
+            [self.toViewController endAppearanceTransition];
             
             dispatch_after_sec(0.05, ^{
                 [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
@@ -131,6 +126,8 @@
     const CGFloat alpha = self.presenting ? 1 : 0.5;
     const CGFloat scale = self.presenting ? 1 : 0.94;
     
+    [self.belowViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
+    [self.aboveViewController beginAppearanceTransition:!self.presenting animated:self.context.isAnimated];
     [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.transform = self.transformFrom;
         self.belowViewController.view.alpha = alpha;
@@ -145,6 +142,7 @@
             self.belowViewController.view.hidden = YES;
         }
         
+        [self.fromViewController endAppearanceTransition];
         [self.toViewController endAppearanceTransition];
         
         dispatch_after_sec(0.05, ^{
@@ -178,6 +176,8 @@
     const CGFloat alpha = self.presenting ? 0.5 : 1;
     const CGFloat scale = self.presenting ? 0.94 : 1;
     
+    [self.belowViewController beginAppearanceTransition:!self.presenting animated:self.context.isAnimated];
+    [self.aboveViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
     [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.transform = self.transformTo;
         self.belowViewController.view.alpha = alpha;
@@ -191,6 +191,7 @@
             [self.aboveViewController.view removeFromSuperview];
         }
         
+        [self.fromViewController endAppearanceTransition];
         [self.toViewController endAppearanceTransition];
         
         dispatch_after_sec(0.05, ^{

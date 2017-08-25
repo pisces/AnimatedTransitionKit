@@ -48,8 +48,6 @@
 #pragma mark - Overridden: AnimatedTransitioning
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
-    [super animateTransitionForDismission:transitionContext];
-    
     UIColor *backgroundColor = self.toViewController.view.window.backgroundColor;
     
     self.toViewController.view.hidden = NO;
@@ -60,14 +58,13 @@
         [transitionContext.containerView addSubview:sourceImageView];
     }
     
-    [self.toViewController beginAppearanceTransition:YES animated:YES];
-    
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
             [self dismiss];
         } completion:^(BOOL finished) {
             self.toViewController.view.window.backgroundColor = backgroundColor;
             
+            [self.fromViewController endAppearanceTransition];
             [self.toViewController endAppearanceTransition];
             [self completion:nil];
         }];
@@ -75,15 +72,12 @@
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
-    [super animateTransitionForPresenting:transitionContext];
-    
     UIColor *backgroundColor = self.fromViewController.view.window.backgroundColor;
     sourceImageView = [self createImageView];
     self.fromViewController.view.window.backgroundColor = [UIColor blackColor];
     
     [transitionContext.containerView addSubview:self.toViewController.view];
     [transitionContext.containerView addSubview:sourceImageView];
-    [self.fromViewController beginAppearanceTransition:NO animated:YES];
     
     self.toViewController.view.alpha = 0;
     
@@ -105,6 +99,7 @@
             }
             
             [self.fromViewController endAppearanceTransition];
+            [self.toViewController endAppearanceTransition];
             [self completion:nil];
         }];
     }
@@ -117,6 +112,8 @@
         return;
     }
     
+    [self.belowViewController beginAppearanceTransition:NO animated:self.context.isAnimated];
+    [self.aboveViewController beginAppearanceTransition:YES animated:self.context.isAnimated];
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:self.animationOptions |  UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.alpha = 1;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
@@ -154,9 +151,12 @@
         return;
     }
     
+    [self.belowViewController beginAppearanceTransition:YES animated:self.context.isAnimated];
+    [self.aboveViewController beginAppearanceTransition:NO animated:self.context.isAnimated];
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
         [self dismiss];
     } completion:^(BOOL finished) {
+        [self.fromViewController endAppearanceTransition];
         [self.toViewController endAppearanceTransition];
         [self completion:completion];
     }];
@@ -197,6 +197,7 @@
         self.belowViewController.view.hidden = YES;
     }
     
+    [self.fromViewController endAppearanceTransition];
     [self.toViewController endAppearanceTransition];
     
     dispatch_after_sec(0.05, ^{
