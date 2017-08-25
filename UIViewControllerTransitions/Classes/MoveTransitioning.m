@@ -71,8 +71,7 @@
         } completion:^(BOOL finished) {
             self.toViewController.view.window.backgroundColor = backgroundColor;
             [self.fromViewController.view removeFromSuperview];
-            [self.fromViewController endAppearanceTransition];
-            [self.toViewController endAppearanceTransition];
+            [self.belowViewController endAppearanceTransition];
             
             dispatch_after_sec(0.05, ^{
                 [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
@@ -104,9 +103,7 @@
             if (!transitionContext.transitionWasCancelled) {
                 self.fromViewController.view.hidden = YES;
             }
-            
-            [self.fromViewController endAppearanceTransition];
-            [self.toViewController endAppearanceTransition];
+            [self.belowViewController endAppearanceTransition];
             
             dispatch_after_sec(0.05, ^{
                 [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
@@ -127,7 +124,6 @@
     const CGFloat scale = self.presenting ? 1 : 0.94;
     
     [self.belowViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
-    [self.aboveViewController beginAppearanceTransition:!self.presenting animated:self.context.isAnimated];
     [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.transform = self.transformFrom;
         self.belowViewController.view.alpha = alpha;
@@ -142,8 +138,7 @@
             self.belowViewController.view.hidden = YES;
         }
         
-        [self.fromViewController endAppearanceTransition];
-        [self.toViewController endAppearanceTransition];
+        [self.belowViewController endAppearanceTransition];
         
         dispatch_after_sec(0.05, ^{
             [self.context completeTransition:!self.context.transitionWasCancelled];
@@ -177,7 +172,6 @@
     const CGFloat scale = self.presenting ? 0.94 : 1;
     
     [self.belowViewController beginAppearanceTransition:!self.presenting animated:self.context.isAnimated];
-    [self.aboveViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
     [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.transform = self.transformTo;
         self.belowViewController.view.alpha = alpha;
@@ -191,8 +185,7 @@
             [self.aboveViewController.view removeFromSuperview];
         }
         
-        [self.fromViewController endAppearanceTransition];
-        [self.toViewController endAppearanceTransition];
+        [self.belowViewController endAppearanceTransition];
         
         dispatch_after_sec(0.05, ^{
             [self.context completeTransition:!self.context.transitionWasCancelled];
