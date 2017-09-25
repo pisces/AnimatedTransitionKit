@@ -22,6 +22,7 @@ const CGFloat unfocusedCompletionBounds = 50;
     self.toViewController.view.transform = self.unfocusedTransformFrom;
     self.toViewController.view.hidden = NO;
     
+    [self applyDropShadow:self.fromViewController.view.layer];
     [transitionContext.containerView insertSubview:self.toViewController.view belowSubview:self.fromViewController.view];
     
     if (!transitionContext.isInteractive) {
@@ -30,6 +31,7 @@ const CGFloat unfocusedCompletionBounds = 50;
             self.toViewController.view.transform = self.unfocusedTransformTo;
         } completion:^(BOOL finished) {
             self.fromViewController.view.hidden = YES;
+            [self clearDropShadow:self.fromViewController.view.layer];
             
             dispatch_after_sec(0.05, ^{
                 [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
@@ -43,6 +45,7 @@ const CGFloat unfocusedCompletionBounds = 50;
     self.toViewController.view.transform = self.focusedTransformFrom;
     self.toViewController.view.hidden = NO;
     
+    [self applyDropShadow:self.toViewController.view.layer];
     [transitionContext.containerView addSubview:self.toViewController.view];
     
     if (!transitionContext.isInteractive) {
@@ -51,6 +54,7 @@ const CGFloat unfocusedCompletionBounds = 50;
             self.toViewController.view.transform = self.focusedTransformTo;
         } completion:^(BOOL finished) {
             self.fromViewController.view.hidden = YES;
+            [self clearDropShadow:self.toViewController.view.layer];
             
             dispatch_after_sec(0.05, ^{
                 [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
@@ -127,6 +131,26 @@ const CGFloat unfocusedCompletionBounds = 50;
 
 - (CGAffineTransform)unfocusedTransformTo {
     return CGAffineTransformMakeTranslation(self.isPush ? -unfocusedCompletionBounds : 0, 0);
+}
+
+#pragma mark - Private methods
+
+- (void)applyDropShadow:(CALayer *)layer {
+    layer.shouldRasterize = YES;
+    layer.masksToBounds = NO;
+    layer.shadowOffset = CGSizeMake(-1, -1);
+    layer.shadowColor = [UIColor blackColor].CGColor;
+    layer.shadowRadius = 3;
+    layer.shadowOpacity = 0.3;
+    layer.rasterizationScale = [UIScreen mainScreen].scale;
+}
+
+- (void)clearDropShadow:(CALayer *)layer {
+    layer.masksToBounds = YES;
+    layer.shouldRasterize = NO;
+    layer.shadowOffset = CGSizeZero;
+    layer.shadowRadius = 0;
+    layer.shadowOpacity = 0;
 }
 
 @end
