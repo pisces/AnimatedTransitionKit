@@ -1,6 +1,6 @@
 //
 //  NavigationMoveTransitioning.h
-//  Pods
+//  UIViewControllerTransitions
 //
 //  Created by pisces on 13/08/2017.
 //
