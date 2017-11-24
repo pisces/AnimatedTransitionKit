@@ -1,6 +1,6 @@
 //
 //  NavigationMoveTransitioning.m
-//  Pods
+//  UIViewControllerTransitions
 //
 //  Created by pisces on 13/08/2017.
 //
@@ -18,8 +18,8 @@ const CGFloat unfocusedCompletionBounds = 50;
 #pragma mark - Overridden: AnimatedNavigationTransitioning
 
 - (void)animateTransitionForPop:(id<UIViewControllerContextTransitioning>)transitionContext {
-    self.fromViewController.view.transform = self.focusedTransformFrom;
-    self.toViewController.view.transform = self.unfocusedTransformFrom;
+    self.fromViewController.view.layer.transform = self.focusedTransformFrom;
+    self.toViewController.view.layer.transform = self.unfocusedTransformFrom;
     self.toViewController.view.hidden = NO;
     
     [self applyDropShadow:self.fromViewController.view.layer];
@@ -27,8 +27,8 @@ const CGFloat unfocusedCompletionBounds = 50;
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.fromViewController.view.transform = self.focusedTransformTo;
-            self.toViewController.view.transform = self.unfocusedTransformTo;
+            self.fromViewController.view.layer.transform = self.focusedTransformTo;
+            self.toViewController.view.layer.transform = self.unfocusedTransformTo;
         } completion:^(BOOL finished) {
             self.fromViewController.view.hidden = YES;
             [self clearDropShadow:self.fromViewController.view.layer];
@@ -41,8 +41,8 @@ const CGFloat unfocusedCompletionBounds = 50;
 }
 
 - (void)animateTransitionForPush:(id<UIViewControllerContextTransitioning>)transitionContext {
-    self.fromViewController.view.transform = self.unfocusedTransformFrom;
-    self.toViewController.view.transform = self.focusedTransformFrom;
+    self.fromViewController.view.layer.transform = self.unfocusedTransformFrom;
+    self.toViewController.view.layer.transform = self.focusedTransformFrom;
     self.toViewController.view.hidden = NO;
     
     [self applyDropShadow:self.toViewController.view.layer];
@@ -50,8 +50,8 @@ const CGFloat unfocusedCompletionBounds = 50;
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.fromViewController.view.transform = self.unfocusedTransformTo;
-            self.toViewController.view.transform = self.focusedTransformTo;
+            self.fromViewController.view.layer.transform = self.unfocusedTransformTo;
+            self.toViewController.view.layer.transform = self.focusedTransformTo;
         } completion:^(BOOL finished) {
             self.fromViewController.view.hidden = YES;
             [self clearDropShadow:self.toViewController.view.layer];
@@ -66,14 +66,14 @@ const CGFloat unfocusedCompletionBounds = 50;
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
     [super interactionBegan:interactor transitionContext:transitionContext];
     
-    self.aboveViewController.view.transform = self.focusedTransformFrom;
-    self.belowViewController.view.transform = self.unfocusedTransformFrom;
+    self.aboveViewController.view.layer.transform = self.focusedTransformFrom;
+    self.belowViewController.view.layer.transform = self.unfocusedTransformFrom;
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     [UIView animateWithDuration:0.15 delay:0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
-        self.aboveViewController.view.transform = self.focusedTransformFrom;
-        self.belowViewController.view.transform = self.unfocusedTransformFrom;
+        self.aboveViewController.view.layer.transform = self.focusedTransformFrom;
+        self.belowViewController.view.layer.transform = self.unfocusedTransformFrom;
     } completion:^(BOOL finished) {
         self.belowViewController.view.hidden = !self.isPush;
         
@@ -87,15 +87,15 @@ const CGFloat unfocusedCompletionBounds = 50;
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     [super interactionChanged:interactor percent:percent];
     
-    const CGFloat x = self.focusedTransformFrom.tx + ((interactor.point.x - interactor.beginPoint.x) * 1.2);
-    self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(MAX(0, x), 0);
-    self.belowViewController.view.transform = self.unfocusedTransform;
+    const CGFloat x = CATransform3DGetAffineTransform(self.focusedTransformFrom).tx + ((interactor.point.x - interactor.beginPoint.x) * 1.2);
+    self.aboveViewController.view.layer.transform = CATransform3DMakeTranslation(MAX(0, x), 0, 1);
+    self.belowViewController.view.layer.transform = self.unfocusedTransform;
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     [UIView animateWithDuration:0.15 delay:0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
-        self.aboveViewController.view.transform = self.focusedTransformTo;
-        self.belowViewController.view.transform = self.unfocusedTransformTo;
+        self.aboveViewController.view.layer.transform = self.focusedTransformTo;
+        self.belowViewController.view.layer.transform = self.unfocusedTransformTo;
     } completion:^(BOOL finished) {
         self.belowViewController.view.hidden = self.isPush;
         
@@ -112,25 +112,25 @@ const CGFloat unfocusedCompletionBounds = 50;
     _percentOfBounds = self.percentOfInteraction * (UIScreen.mainScreen.bounds.size.width / self.completionBounds);
 }
 
-- (CGAffineTransform)focusedTransformFrom {
-    return CGAffineTransformMakeTranslation(self.isPush ? UIScreen.mainScreen.bounds.size.width : 0, 0);
+- (CATransform3D)focusedTransformFrom {
+    return CATransform3DMakeTranslation(self.isPush ? UIScreen.mainScreen.bounds.size.width : 0, 0, 1);
 }
 
-- (CGAffineTransform)focusedTransformTo {
-    return CGAffineTransformMakeTranslation(self.isPush ? 0 : UIScreen.mainScreen.bounds.size.width, 0);
+- (CATransform3D)focusedTransformTo {
+    return CATransform3DMakeTranslation(self.isPush ? 0 : UIScreen.mainScreen.bounds.size.width, 0, 1);
 }
 
-- (CGAffineTransform)unfocusedTransform {
+- (CATransform3D)unfocusedTransform {
     CGFloat x = self.isPush ? -unfocusedCompletionBounds * self.percentOfInteraction : -(unfocusedCompletionBounds - (unfocusedCompletionBounds * self.percentOfInteraction));
-    return CGAffineTransformMakeTranslation(MIN(0, MAX(-unfocusedCompletionBounds, x)), 0);
+    return CATransform3DMakeTranslation(MIN(0, MAX(-unfocusedCompletionBounds, x)), 0, 1);
 }
 
-- (CGAffineTransform)unfocusedTransformFrom {
-    return CGAffineTransformMakeTranslation(self.isPush ? 0 : -unfocusedCompletionBounds, 0);
+- (CATransform3D)unfocusedTransformFrom {
+    return CATransform3DMakeTranslation(self.isPush ? 0 : -unfocusedCompletionBounds, 0, 1);
 }
 
-- (CGAffineTransform)unfocusedTransformTo {
-    return CGAffineTransformMakeTranslation(self.isPush ? -unfocusedCompletionBounds : 0, 0);
+- (CATransform3D)unfocusedTransformTo {
+    return CATransform3DMakeTranslation(self.isPush ? -unfocusedCompletionBounds : 0, 0, 1);
 }
 
 #pragma mark - Private methods
@@ -154,3 +154,4 @@ const CGFloat unfocusedCompletionBounds = 50;
 }
 
 @end
+
