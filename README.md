@@ -29,6 +29,102 @@ import UIViewControllerTransitions
 
 ## 🔥Using UIViewControllerTransition
 
+### MoveTransition Example 1
+#### Using transition for dismission with swipe gesture.
+
+```swift
+import UIViewControllerTransitions
+
+class ViewController: UIViewController {
+    @IBAction func clicked() {
+        let transition = MoveTransition()
+        transition.isAllowsInteraction = true
+        
+        let next = UINavigationController(rootViewController: MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main))
+        next.transition = transition
+    
+        present(next, animated: true)
+    }
+}
+```
+
+### MoveTransition Example 2
+#### Using transition for presenting and dismission both with swipe gesture.
+![](Screenshot/ExMoveTransition.gif)
+
+```swift
+import UIViewControllerTransitions
+
+class MoveTransitionFirstViewController: UIViewController {
+    private lazy var secondViewController: UINavigationController = {
+        return UINavigationController(rootViewController: MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main))
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "First View"
+        
+        let transition = MoveTransition()
+        transition.isAllowsInteraction = true
+        transition.presentingInteractor?.attach(self, present: secondViewController)
+        
+        secondViewController.transition = transition
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }, completion: nil)
+    }
+    
+    @IBAction func clicked() {
+        present(secondViewController, animated: true, completion: nil)
+    }
+}
+
+class MoveTransitionSecondViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "Second View"
+        navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }, completion: nil)
+    }
+    
+    @objc private func close() {
+        dismiss(animated: true, completion: nil)
+    }
+}
+```
+
+### Using percent driven interactive transition for UIViewControllerTransition
+
+```swift
+private lazy var secondNavigationController: UINavigationController = {
+    UINavigationController(rootViewController: SecondViewController())
+}()
+
+override func viewDidLoad() {
+    super.viewDidLoad()
+
+    let transition = MoveTransition()
+    transition.isAllowsInteraction = true
+
+    // Attach view controller to interactive transition for presenting
+    transition.presentingInteractor?.attach(self, present: secondNavigationController)
+
+    secondNavigationController.transition = transition
+}
+```
+
 #### DragDropTransition Example
 ![](Screenshot/ExDragDropTransition.gif)
 
@@ -137,82 +233,6 @@ class DragDropTransitionSecondViewController: UIViewController, InteractiveTrans
     @objc private func close() {
         self.dismiss(animated: true, completion: nil)
     }
-}
-```
-
-### MoveTransition Example
-![](Screenshot/ExMoveTransition.gif)
-
-```swift
-import UIViewControllerTransitions
-
-class MoveTransitionFirstViewController: UIViewController {
-    private lazy var secondViewController: UINavigationController = {
-        return UINavigationController(rootViewController: MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main))
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        title = "First View"
-        
-        let transition = MoveTransition()
-        transition.isAllowsInteraction = true
-        transition.presentingInteractor?.attach(self, present: secondViewController)
-        
-        secondViewController.transition = transition
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
-    
-    @IBAction func clicked() {
-        present(secondViewController, animated: true, completion: nil)
-    }
-}
-
-class MoveTransitionSecondViewController: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        title = "Second View"
-        navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
-    
-    @objc private func close() {
-        dismiss(animated: true, completion: nil)
-    }
-}
-```
-
-### Using percent driven interactive transition for UIViewControllerTransition
-
-```swift
-private lazy var secondNavigationController: UINavigationController = {
-    UINavigationController(rootViewController: SecondViewController())
-}()
-
-override func viewDidLoad() {
-    super.viewDidLoad()
-
-    let transition = MoveTransition()
-    transition.isAllowsInteraction = true
-
-    // Attach view controller to interactive transition for presenting
-    transition.presentingInteractor?.attach(self, present: secondNavigationController)
-
-    secondNavigationController.transition = transition
 }
 ```
 
