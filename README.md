@@ -36,14 +36,13 @@ import UIViewControllerTransitions
 import UIViewControllerTransitions
 
 class ViewController: UIViewController {
-    @IBAction func clicked() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         let transition = MoveTransition()
         transition.isAllowsInteraction = true
         
-        let next = UINavigationController(rootViewController: MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main))
-        next.transition = transition
-    
-        present(next, animated: true)
+        navigationController?.transition = transition
     }
 }
 ```
