@@ -6,11 +6,11 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   UIViewControllerTransitions:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   UIViewControllerTransitions: e32339f2a324f35d4273eed256d722b4eff198f7
 
 PODFILE CHECKSUM: 95ed24ff60f6256aab943e76af4fb1cac0d7065c
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.9.3

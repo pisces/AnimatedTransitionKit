@@ -1,3 +1,28 @@
+//  BSD 2-Clause License
+//
+//  Copyright (c) 2016 ~ 2020, Steve Kim
+//  All rights reserved.
+//
+//  Redistribution and use in source and binary forms, with or without
+//  modification, are permitted provided that the following conditions are met:
+//
+//  * Redistributions of source code must retain the above copyright notice, this
+//  list of conditions and the following disclaimer.
+//
+//  * Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation
+//  and/or other materials provided with the distribution.
+//
+//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+//  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+//  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+//  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+//  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+//  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+//  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+//  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //  DragDropTransitionViewControllers.swift
 //  UIViewControllerTransitionsExample
@@ -8,12 +33,43 @@
 
 import UIViewControllerTransitions
 
-class DragDropTransitionFirstViewController: UIViewController {
+final class DragDropTransitionFirstViewController: UIViewController {
     
     @IBOutlet private weak var imageView: UIImageView!
     
     private lazy var gestureRecognizer: UITapGestureRecognizer = {
         return UITapGestureRecognizer(target: self, action: #selector(tapped))
+    }()
+    private lazy var secondViewController: UINavigationController = {
+        let viewController = DragDropTransitionSecondViewController(nibName: "DragDropTransitionSecondView", bundle: .main)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        let yOffset = UIApplication.shared.statusBarFrame.size.height + navigationController.navigationBar.frame.size.height
+        
+        let transition = DragDropTransition()
+        transition.isAllowsInteraction = true
+        
+        transition.presentingSource = .image(
+            { [weak imageView] in imageView?.image },
+            from: { [weak imageView] in imageView?.frame ?? .zero },
+            to: { [unowned self] in .init(x: 0, y: yOffset, width: self.view.bounds.width, height: self.view.bounds.width) },
+            rotation: { 0 },
+            completion: {
+                self.imageView.isHidden = true
+                viewController.imageView.isHidden = false
+            })
+        
+        transition.dismissionSource = .image(
+            { [weak viewController] in viewController?.imageView.image },
+            from: { [unowned self] in .init(x: 0, y: yOffset, width: self.view.bounds.width, height: self.view.bounds.width) },
+            to: { [weak imageView] in imageView?.frame ?? .zero },
+            rotation: { 0 },
+            completion: {
+                self.imageView.isHidden = false
+            })
+        
+        navigationController.transition = transition
+        
+        return navigationController
     }()
     
     override func viewDidLoad() {
@@ -24,53 +80,12 @@ class DragDropTransitionFirstViewController: UIViewController {
     }
     
     @objc private func tapped() {
-        let secondViewController = DragDropTransitionSecondViewController(nibName: "DragDropTransitionSecondView", bundle: .main)
-        let secondNavigationController = UINavigationController(rootViewController: secondViewController)
-        
-        let transition = DragDropTransition()
-        transition.isAllowsInteraction = true
-        transition.dismissionInteractor?.delegate = secondViewController
-        
-        let w = view.frame.size.width
-        let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
-        let navigationBarHeight = navigationController!.navigationBar.frame.size.height
-        let bigRect = CGRect(x: 0, y: statusBarHeight + navigationBarHeight, width: w, height: w)
-        let smallRect = imageView.frame
-        
-        transition.presentingSource = DragDropTransitioningSource.image({ () -> UIImage? in
-            return self.imageView.image
-        }, from: { () -> CGRect in
-            return smallRect
-        }, to: { () -> CGRect in
-            return bigRect
-        }, rotation: { () -> CGFloat in
-            return 0
-        }) {
-            self.imageView.isHidden = true
-            secondViewController.imageView.isHidden = false
-        }
-        
-        transition.dismissionSource = DragDropTransitioningSource.image({ () -> UIImage? in
-            return secondViewController.imageView.image
-        }, from: { () -> CGRect in
-            return bigRect
-        }, to: { () -> CGRect in
-            return smallRect
-        }, rotation: { () -> CGFloat in
-            return 0
-        }) {
-            self.imageView.isHidden = false
-        }
-        
-        secondNavigationController.transition = transition
-        
-        navigationController?.present(secondNavigationController, animated: true, completion: nil)
+        navigationController?.present(secondViewController, animated: true, completion: nil)
     }
 }
 
-class DragDropTransitionSecondViewController: UIViewController, InteractiveTransitionDelegate {
+final class DragDropTransitionSecondViewController: UIViewController, InteractiveTransitionDelegate {
     
-    @IBOutlet weak var imageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
@@ -79,13 +94,8 @@ class DragDropTransitionSecondViewController: UIViewController, InteractiveTrans
         title = "Second View"
         edgesForExtendedLayout = .bottom
         imageView.isHidden = true
-        
+        navigationController?.transition?.dismissionInteractor?.delegate = self
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
-    }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        imageViewHeight.constant = view.frame.size.width
     }
     
     // MARK: - InteractiveTransition delegate

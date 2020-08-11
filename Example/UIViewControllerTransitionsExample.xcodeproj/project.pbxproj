@@ -13,7 +13,6 @@
 		238D0A7C1EA0915100D9C55C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D0A7B1EA0915100D9C55C /* AppDelegate.swift */; };
 		238D0A961EA0959E00D9C55C /* DragDropTransitionFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 238D0A7E1EA0959E00D9C55C /* DragDropTransitionFirstView.xib */; };
 		238D0A971EA0959E00D9C55C /* DragDropTransitionSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 238D0A7F1EA0959E00D9C55C /* DragDropTransitionSecondView.xib */; };
-		238D0A981EA0959E00D9C55C /* ex.png in Resources */ = {isa = PBXBuildFile; fileRef = 238D0A801EA0959E00D9C55C /* ex.png */; };
 		238D0A991EA0959E00D9C55C /* FadeTransitionFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 238D0A811EA0959E00D9C55C /* FadeTransitionFirstView.xib */; };
 		238D0A9A1EA0959E00D9C55C /* FadeTransitionSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 238D0A821EA0959E00D9C55C /* FadeTransitionSecondView.xib */; };
 		238D0A9B1EA0959E00D9C55C /* MoveTransitionFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 238D0A831EA0959E00D9C55C /* MoveTransitionFirstView.xib */; };
@@ -61,7 +60,6 @@
 		238D0A7B1EA0915100D9C55C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = UIViewControllerTransitionsExample/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		238D0A7E1EA0959E00D9C55C /* DragDropTransitionFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DragDropTransitionFirstView.xib; sourceTree = "<group>"; };
 		238D0A7F1EA0959E00D9C55C /* DragDropTransitionSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DragDropTransitionSecondView.xib; sourceTree = "<group>"; };
-		238D0A801EA0959E00D9C55C /* ex.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ex.png; sourceTree = "<group>"; };
 		238D0A811EA0959E00D9C55C /* FadeTransitionFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FadeTransitionFirstView.xib; sourceTree = "<group>"; };
 		238D0A821EA0959E00D9C55C /* FadeTransitionSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FadeTransitionSecondView.xib; sourceTree = "<group>"; };
 		238D0A831EA0959E00D9C55C /* MoveTransitionFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoveTransitionFirstView.xib; sourceTree = "<group>"; };
@@ -78,7 +76,7 @@
 		23FDEA111F40712800DF3825 /* NavigationMoveTransitionFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationMoveTransitionFirstView.xib; sourceTree = "<group>"; };
 		23FDEA131F40714300DF3825 /* NavigationMoveTransitionSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationMoveTransitionSecondView.xib; sourceTree = "<group>"; };
 		23FDEA151F40719300DF3825 /* NavigationMoveTransitionViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMoveTransitionViewControllers.swift; sourceTree = "<group>"; };
-		53C0476F04B756FBA6350C2A /* UIViewControllerTransitions.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = UIViewControllerTransitions.podspec; path = ../UIViewControllerTransitions.podspec; sourceTree = "<group>"; };
+		53C0476F04B756FBA6350C2A /* UIViewControllerTransitions.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = UIViewControllerTransitions.podspec; path = ../UIViewControllerTransitions.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6003F58A195388D20070C39A /* UIViewControllerTransitions_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIViewControllerTransitions_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -137,7 +135,6 @@
 			children = (
 				238D0A7E1EA0959E00D9C55C /* DragDropTransitionFirstView.xib */,
 				238D0A7F1EA0959E00D9C55C /* DragDropTransitionSecondView.xib */,
-				238D0A801EA0959E00D9C55C /* ex.png */,
 				238D0A811EA0959E00D9C55C /* FadeTransitionFirstView.xib */,
 				238D0A821EA0959E00D9C55C /* FadeTransitionSecondView.xib */,
 				238D0A831EA0959E00D9C55C /* MoveTransitionFirstView.xib */,
@@ -265,7 +262,6 @@
 				6003F587195388D20070C39A /* Frameworks */,
 				6003F588195388D20070C39A /* Resources */,
 				C6135A49126055887583AF53 /* [CP] Embed Pods Frameworks */,
-				149CCD64264D09D5A2368FA3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -284,8 +280,6 @@
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
-				90372784FA951171F377635C /* [CP] Embed Pods Frameworks */,
-				688F100F5EC207DFC0A2F3D8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -304,23 +298,23 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Demo;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = "Steve Kim";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = S9DLPPENQG;
+						DevelopmentTeam = ND82QVGC3R;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					6003F5AD195388D20070C39A = {
-						DevelopmentTeam = S9DLPPENQG;
+						DevelopmentTeam = ND82QVGC3R;
 						TestTargetID = 6003F589195388D20070C39A;
 					};
 				};
 			};
 			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "UIViewControllerTransitionsExample" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -347,7 +341,6 @@
 				238D0A971EA0959E00D9C55C /* DragDropTransitionSecondView.xib in Resources */,
 				23FDEA121F40712800DF3825 /* NavigationMoveTransitionFirstView.xib in Resources */,
 				238D0A9E1EA0959E00D9C55C /* LaunchScreen.storyboard in Resources */,
-				238D0A981EA0959E00D9C55C /* ex.png in Resources */,
 				238D0A9F1EA0959E00D9C55C /* Main.storyboard in Resources */,
 				238D0A961EA0959E00D9C55C /* DragDropTransitionFirstView.xib in Resources */,
 				238D0A991EA0959E00D9C55C /* FadeTransitionFirstView.xib in Resources */,
@@ -369,34 +362,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		149CCD64264D09D5A2368FA3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3DD2DCF882D845A125400428 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UIViewControllerTransitions_Tests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5659ADA48CDB68A98224C393 /* [CP] Check Pods Manifest.lock */ = {
@@ -405,43 +386,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UIViewControllerTransitions_Example-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		688F100F5EC207DFC0A2F3D8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		90372784FA951171F377635C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C6135A49126055887583AF53 /* [CP] Embed Pods Frameworks */ = {
@@ -450,13 +404,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/UIViewControllerTransitions/UIViewControllerTransitions.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIViewControllerTransitions.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -524,14 +481,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -569,14 +534,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -610,7 +583,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = S9DLPPENQG;
+				DEVELOPMENT_TEAM = ND82QVGC3R;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Prefix.pch";
 				INFOPLIST_FILE = "${PROJECT_NAME}/${PRODUCT_NAME}-Info.plist";
@@ -622,7 +595,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -638,7 +611,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = S9DLPPENQG;
+				DEVELOPMENT_TEAM = ND82QVGC3R;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Prefix.pch";
 				INFOPLIST_FILE = "${PROJECT_NAME}/${PRODUCT_NAME}-Info.plist";
@@ -649,7 +622,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -661,7 +634,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = S9DLPPENQG;
+				DEVELOPMENT_TEAM = ND82QVGC3R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -687,7 +660,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = S9DLPPENQG;
+				DEVELOPMENT_TEAM = ND82QVGC3R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

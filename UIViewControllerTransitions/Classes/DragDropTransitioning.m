@@ -1,3 +1,28 @@
+//  BSD 2-Clause License
+//
+//  Copyright (c) 2016 ~ 2020, Steve Kim
+//  All rights reserved.
+//
+//  Redistribution and use in source and binary forms, with or without
+//  modification, are permitted provided that the following conditions are met:
+//
+//  * Redistributions of source code must retain the above copyright notice, this
+//  list of conditions and the following disclaimer.
+//
+//  * Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation
+//  and/or other materials provided with the distribution.
+//
+//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+//  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+//  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+//  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+//  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+//  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+//  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+//  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //  DragDropTransitioning.m
 //  UIViewControllerTransitions
@@ -60,12 +85,13 @@
     
     if (!transitionContext.isInteractive) {
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:1.0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
-            [self dismiss];
+            [self animateDismission];
         } completion:^(BOOL finished) {
+            [self completeSource];
             self.toViewController.view.window.backgroundColor = backgroundColor;
-            
+            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            [self.fromViewController.view removeFromSuperview];
             [self.belowViewController endAppearanceTransition];
-            [self completion:nil];
         }];
     }
 }
@@ -85,9 +111,8 @@
             self.toViewController.view.alpha = 1;
             self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
             self.fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
-            
-            sourceImageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
-            sourceImageView.frame = _source.to();
+            self->sourceImageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
+            self->sourceImageView.frame = self->_source.to();
         } completion:^(BOOL finished) {
             self.fromViewController.view.alpha = 1;
             self.fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
@@ -98,9 +123,22 @@
             }
             
             [self.belowViewController endAppearanceTransition];
-            [self completion:nil];
+            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+            [self completeSource];
         }];
     }
+}
+
+- (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
+    [super interactionBegan:interactor transitionContext:transitionContext];
+    
+    if (self.presenting) {
+        return;
+    }
+    
+    [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
+    
+    self.aboveViewController.view.hidden = NO;
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
@@ -110,16 +148,23 @@
         return;
     }
     
-    [self.belowViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:self.animationOptions |  UIViewAnimationOptionAllowUserInteraction animations:^{
         self.aboveViewController.view.alpha = 1;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
         self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
         
-        sourceImageView.transform = CGAffineTransformMakeScale(1, 1);
-        sourceImageView.frame = _source.from();
+        self->sourceImageView.transform = CGAffineTransformMakeScale(1, 1);
+        self->sourceImageView.frame = self->_source.from();
     } completion:^(BOOL finished) {
-        [self cancel:completion];
+        if (self.presenting) {
+            [self.aboveViewController.view removeFromSuperview];
+        } else {
+            self.belowViewController.view.hidden = YES;
+        }
+        
+        [self.context completeTransition:NO];
+        completion();
+        [self clearSourceImageView];
     }];
 }
 
@@ -148,21 +193,28 @@
         return;
     }
     
-    [self.belowViewController beginAppearanceTransition:!self.presenting animated:self.context.isAnimated];
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:1.0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
-        [self dismiss];
+        [self animateDismission];
     } completion:^(BOOL finished) {
+        [self.context completeTransition:!self.context.transitionWasCancelled];
+        completion();
+        [self completeSource];
+        [self.aboveViewController.view removeFromSuperview];
         [self.belowViewController endAppearanceTransition];
-        [self completion:completion];
     }];
 }
 
-#pragma mark - Protected methods
+#pragma mark - Protected Methods
 
-- (void)clear {
-    [_source clear];
-    _source = nil;
+- (void)clearSourceImageView {
+    [sourceImageView removeFromSuperview];
     sourceImageView = nil;
+}
+- (void)completeSource {
+    if (_source.completion) {
+        _source.completion();
+    }
+    [self clearSourceImageView];
 }
 
 - (UIMaskedImageView *)createImageView {
@@ -175,7 +227,7 @@
     return imageView;
 }
 
-#pragma mark - Private methods
+#pragma mark - Private Methods
 
 - (CGFloat)angle {
     if (![_source respondsToSelector:@selector(rotation)] || !_source.rotation) {
@@ -183,6 +235,15 @@
     }
     CGFloat rotation = _source.rotation();
     return rotation != 0 ? rotation * M_PI / 180 : 0;
+}
+
+- (void)animateDismission {
+    self.aboveViewController.view.alpha = 0;
+    self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
+    self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+    
+    sourceImageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
+    sourceImageView.frame = _source.to();
 }
 
 - (void)cancel:(void(^)(void))block {
@@ -196,8 +257,8 @@
     
     dispatch_after_sec(0.05, ^{
         [self.context completeTransition:!self.context.transitionWasCancelled];
-        [sourceImageView removeFromSuperview];
-        sourceImageView = nil;
+        [self->sourceImageView removeFromSuperview];
+        self->sourceImageView = nil;
         
         if (block) {
             block();
@@ -210,26 +271,17 @@
         _source.completion();
     }
     
-    dispatch_after_sec(0.05, ^{
+//    dispatch_after_sec(0.05, ^{
         [self.context completeTransition:!self.context.transitionWasCancelled];
         
         if (block) {
             block();
         }
-    });
-    dispatch_after_sec(0.2, ^{
-        [sourceImageView removeFromSuperview];
+//    });
+//    dispatch_after_sec(0.2, ^{
+        [self->sourceImageView removeFromSuperview];
         [self clear];
-    });
-}
-
-- (void)dismiss {
-    self.aboveViewController.view.alpha = 0;
-    self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
-    self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-    
-    sourceImageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
-    sourceImageView.frame = _source.to();
+//    });
 }
 
 @end

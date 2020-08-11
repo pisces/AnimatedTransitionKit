@@ -7,408 +7,410 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08D6B6BF4371783991D341355473A842 /* FadeTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B2D2B88591E23CCDC80F8D20C5D7C2 /* FadeTransitioning.m */; };
-		0BD7170B248440BBF1F2CD635438EBC1 /* AnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E555B506EF026CFA610D88B27893F4 /* AnimatedTransitioning.m */; };
-		139FCF0FBAFBA6A56B3B236078A37350 /* AbstractTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A9A2EB58894E36DF88190FAFFDBB8 /* AbstractTransition.m */; };
-		18274A1EED3301D7231532638BD3B7EB /* AbstractInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 814E64B99D89D87E3911F87F568EF0B4 /* AbstractInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		209BDEADCDFF860C5E2C07B565EE2BEA /* UIViewControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB6666AE83735DC3B4D039A370E3B26 /* UIViewControllerTransition.m */; };
-		26B9B5F739395AAC3FAC6048A00B037D /* AbstractAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 53536AD3FB39394F73910B6C9DE57369 /* AbstractAnimatedTransitioning.m */; };
-		283308452510FCCA46FBEDCEA226D5CF /* UIViewControllerTransitionsMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 974CC3BA1DC04BE3E674A7EADD56F64A /* UIViewControllerTransitionsMacro.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2B8954F367D89A8BA25AE327A736EF37 /* PanningInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 888771EBE1E8AAA8288AD20EDDC47A89 /* PanningInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2BDDBF738533C9BF418D395F393414D2 /* NavigationMoveTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D2EE5985E128F1A45E2ACED242FE976 /* NavigationMoveTransitioning.m */; };
-		2EDDD290A00A510946B01EC0EFD4D587 /* MoveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 531E149ADE3FDE8FCF2D63622CF5B8FD /* MoveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		363D082C3C6BA6BB72C6F13826CD5839 /* UIViewControllerTransitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 1466547EFF45C253E0BAC94F592C1F8E /* UIViewControllerTransitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		364AAE89FE5B66E1078B0ACE8048A31F /* AbstractInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C70A00591DC714B513D1058983447B1 /* AbstractInteractiveTransition.m */; };
-		3EF1D187E3B7D73B2C058799DEAB648C /* NavigationMoveTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 47CB6D86538FF621E2A164E3B81F0547 /* NavigationMoveTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4348FA2A1EA46734D4F9F95C527B359F /* FadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 483C672FBB22A64E6E295FD0121A0C02 /* FadeTransition.m */; };
-		48DB02E56124B207B81D48142718C13F /* NavigationPanningInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 7217D42CA54542CFCE213F0D2CA6B369 /* NavigationPanningInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4B4A9088BBDE624A0E695286808865AD /* AbstractTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F746B5A68B2EEF3486A13DDAADE0206 /* AbstractTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4DDE9D44E3F14B276FC34A05478078AE /* Pods-UIViewControllerTransitions_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F2BE69A173DBE895D394D40E9E0A28 /* Pods-UIViewControllerTransitions_Example-dummy.m */; };
-		4FBF44C2C5C4E06BE171B00D9B4671E5 /* UIViewControllerTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = D0152261F24090F3B0C120A76C870CF4 /* UIViewControllerTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5108CA99DD8645EFFBC320BEF1FCFC9A /* NavigationMoveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = D2FE067645F7FF7F6B31FCD88D2881E8 /* NavigationMoveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5B85F21F547682736E7B234711DAF868 /* NavigationPanningInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E24BC60E9B4302BEBB35C19F642714 /* NavigationPanningInteractiveTransition.m */; };
-		5C3D4B288CEC2DFB2ADFA19F7B37BAF0 /* Pods-UIViewControllerTransitions_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BB5CA3373B5EAA9D3837EB32EC20920 /* Pods-UIViewControllerTransitions_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5D2F189EAFBB0089684A787BF579520E /* MoveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B50D7838808015D78693F5F4AAF7CE /* MoveTransition.m */; };
-		640464BB5999A5B6CF0CF8E8CBF1D0AA /* UIViewControllerTransitions-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F594B29EB97BA6607BF2F03F2E7BE3AE /* UIViewControllerTransitions-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7112E83DE61891B5260FCA870EA3E211 /* Pods-UIViewControllerTransitions_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 93ACC3D887B0691F58D8B352A7CD70E3 /* Pods-UIViewControllerTransitions_Tests-dummy.m */; };
-		7857C70A419A34D16EA7EDB054177616 /* DragDropTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF6A477529611EB978A23D03BC4627E /* DragDropTransition.m */; };
-		7C18E3956BA72B6984B1F2F8C41D8710 /* UINavigationControllerTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 01BAA7B2A1CC4A0E392ED8768B225319 /* UINavigationControllerTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7FFE10366EC50577A908723941E92A8E /* UINavigationControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3DD03ED522DE3B697837FA372F214A /* UINavigationControllerTransition.m */; };
-		86ACA52173E62954AB85FFFF31D8BE42 /* NavigationMoveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 989FB0928FC0791CDA05B305969AC6B5 /* NavigationMoveTransition.m */; };
-		8998EE1EA6B58287EADD0315779F9BD0 /* MoveTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = AFAE4D377D6641486F0B0EF5B41C23AA /* MoveTransitioning.m */; };
-		8A26853E21AEA79D5245EFA49B2316EC /* Pods-UIViewControllerTransitions_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AF0C4A9720B3DCE80546937A7EA8B4D1 /* Pods-UIViewControllerTransitions_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		914667F7D160A861F0E0D908A31BF8CB /* AnimatedNavigationTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 493A8EFCF1B9E72CE22812425C1DDF98 /* AnimatedNavigationTransitioning.m */; };
-		A64DC4FE342BAA416C02075E69E81AE6 /* UIMaskedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D916E218E5F7534882ADA5400AF8D079 /* UIMaskedImageView.m */; };
-		AE302346DE4B492A3682646FC4F29585 /* DragDropTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = F7B9AE8CFE027ED8ED3EFF09D65E4BB2 /* DragDropTransitioning.m */; };
-		AE3AB078DCD705B10D77BE6006260C5B /* PanningInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = E49996EB186B5CC0426BCE8FCFCED47B /* PanningInteractiveTransition.m */; };
-		B5782101329EB3FD7A6C706B8C088429 /* FadeTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 417DBAC5BC0D18823964D38E797A78CF /* FadeTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B8B30BC03C053290DF301EABD9AD5E20 /* AbstractAnimatedTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 1218A8D26520D4124BA594ED473FFBA0 /* AbstractAnimatedTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BFA634281741627EEF121D9ADE26BAC1 /* DragDropTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 3ED804CC427BFAA452403970839E0375 /* DragDropTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C04A5EEDF5AB9310F640C4CDCC55D16A /* AnimatedNavigationTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 63BB3FEF9F86AF2C7FEBEB0887F81A65 /* AnimatedNavigationTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C114A566C983610189D967EDFCF56857 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		C4464F6941B368FA19D561BFDB541879 /* FadeTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 26EA75965DB6710FCF2055FF3A0444AA /* FadeTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CC9E58B7BCD6A5A92B9D8BA6E2E9E310 /* UIViewControllerTransitions-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5AF98DF218CE3A10FBD73E63E122F1 /* UIViewControllerTransitions-dummy.m */; };
-		D82C6610185F12A51B9320DECEADE4B8 /* AnimatedTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 131213FA8643D028E803449A68DB78D9 /* AnimatedTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E2428DBF1724F43A7829072E3D1AB5BC /* MoveTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 688BA022C60304EFDF6FA6733A3D5F78 /* MoveTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E39C51061FD0253989B18B69CF8A45A1 /* DragDropTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 74F46860F111BB22A4C4A0432B70C086 /* DragDropTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E95D6B81193DCDADA9B0A0F0D808C94F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		F64354A216235F4F5FF8F868FB2857BA /* UIMaskedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A8168328B589354F8AF10C35D6B4FCB /* UIMaskedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F741FBE6DC804BC980C2ABCF71C27B52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		12B9631CD4AEE1A65C6A584AFAEAC369 /* AbstractInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D86809C51397B02B081D70AC2A6A1AB /* AbstractInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1ABA7C88FB48325E18569512006F9AEE /* DragDropTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = EF0ABD66CB7F45D00D84DBDD01989D3F /* DragDropTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C89763DF2B5AAE7BE4E5230371D9C96 /* UIViewControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3949594B31EC44D831BF11BC52511D /* UIViewControllerTransition.m */; };
+		20F9205993A3F6613789B6F9E9878A8A /* UIViewControllerTransitions-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6589B3AF81B6825284E6C54A2E98FB14 /* UIViewControllerTransitions-dummy.m */; };
+		214917AD98ED5ABA235C59D4C0FDC542 /* UINavigationControllerTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 32EEC4088A86DF9286C61B4A5A8759A2 /* UINavigationControllerTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		275C5CCE5EAFC47508E5A8EDF394FC21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		284DB57BB8C4F0505F27C12226290B9C /* AbstractTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = F06DDB9D66B85DDC985B96BC613410C5 /* AbstractTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		31CF949577B8C3408FCE3F994E3F8590 /* UIViewControllerTransitions-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9875BB2AD40B6ABE52B2455B02565910 /* UIViewControllerTransitions-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		32EE905A456125D6C5EDA7003383E805 /* AnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 471B17EB11967BF7BEEAFE88B040A05D /* AnimatedTransitioning.m */; };
+		359C6B48C982DF3503DE2DD59964CB77 /* AbstractAnimatedTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = AB7693CF746E2249AFA2674B70BB6AC2 /* AbstractAnimatedTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		387430535F8B7463A654EE9D089F47F1 /* MoveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = CB709599108166B7C7B6D3D0D848D68C /* MoveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4474AF895F75E8B30F8216D091EEAF48 /* NavigationPanningInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = C31F1CED7A16128D4E1B81FC38DCBEC8 /* NavigationPanningInteractiveTransition.m */; };
+		47DDDBFABDB2ED992305B9A1A2C4CA10 /* UINavigationControllerTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = CBC4C73D71A96D32674915DE9E44AD03 /* UINavigationControllerTransition.m */; };
+		494DD643B9936A0B2A4DC24C88BCD835 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		4E8BAFD7097F87FCDBC34FA8863E9660 /* NavigationPanningInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = FE70FBFC6362D8B56B137074793871D5 /* NavigationPanningInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		51D32B015E0E5FA9E1B190AA09ABBFC8 /* MoveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E7CD5E6CD5BB20E655042352A471E3 /* MoveTransition.m */; };
+		54EB0D4CB4967837DE671ED6AD012A7A /* NavigationMoveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 062F7794FB6E52FF8055E4B2B7F93A6D /* NavigationMoveTransition.m */; };
+		5B5F5D0BD2AA998ADB521AF6B46BD184 /* UIViewControllerTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EA5E31162127518B7EACEC078DE6E3E /* UIViewControllerTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D44D03DE85BA73FCB3A99137BE0CB5B /* FadeTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = BBF4DFD7141B495BFC79F56FC11D482D /* FadeTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		61DD0A7721C983409F1039A6BF3078BF /* AbstractInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A3A6F933289873FDB8878033B270FB /* AbstractInteractiveTransition.m */; };
+		62D28AED2BAE9BE9772449AE202A3147 /* AnimatedTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 452DB8628AFDBBA5F02E258D02470488 /* AnimatedTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		718E477A05417DFE03C53780B9FB546E /* Pods-UIViewControllerTransitions_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A5AAA015A65F4A93727A4B9DB0F7675 /* Pods-UIViewControllerTransitions_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		784023D2C20D24F2A036CB752A8D414D /* NavigationMoveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 5144F4E2557D7F7B73D99222EF3F19B3 /* NavigationMoveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		78FFDDC4B599F1BB8DEB2777E4297C59 /* DragDropTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 914A90F9B62894AD9FE410BE0C610EAB /* DragDropTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		81841E6AB0F0FF8146578F755F9C9BCB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		823CA65F5BF23651F4E8DD4143796392 /* AnimatedNavigationTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FED475CE20560197B874BF8187E7ADF /* AnimatedNavigationTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		861DB072EA471F04099D36D827CC5B37 /* PanningInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D39C0B4430C4E066E496846208C959 /* PanningInteractiveTransition.m */; };
+		9085ABFA8CEC5C4FE808B31E19C30C23 /* UIMaskedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 038BDB053D5200DE311F2885E00E63C5 /* UIMaskedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9873B2BCD1761CE8B237B9DCD4AA3B65 /* NavigationMoveTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EF2ED61901154A8BF9BBF33D7A48E77 /* NavigationMoveTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A0D42176435EC444ADA3C970A1FE0D75 /* AbstractAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1C7FFACB8E5C3F048180B11F73791D /* AbstractAnimatedTransitioning.m */; };
+		A824E06B601A73895B4F89133652C7B1 /* UIMaskedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BB2456F7093FA0F9E24590B38146330 /* UIMaskedImageView.m */; };
+		A85CD5D5BE54F2BF0EB0759D03E1F1DB /* AnimatedNavigationTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA5A0D1C4415F537390F67D41551BC0 /* AnimatedNavigationTransitioning.m */; };
+		A8DAA1134E2B4D80AC1E80C71419817A /* FadeTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = DE298D19699DB1E436A87E69A83C1730 /* FadeTransition.m */; };
+		AC76C62CCF86A47F482D292982C3FC5F /* FadeTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 767018A97D32D197CF7DCE360D9AEDA4 /* FadeTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B434549894274F44E341883118885700 /* Pods-UIViewControllerTransitions_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FB56839CA3C866BE8EDB9328CF1EE6F9 /* Pods-UIViewControllerTransitions_Example-dummy.m */; };
+		C9A4DFB6B5E3CF848EE90969421ED399 /* UIViewControllerTransitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 907FC5DD2BB8D430FDEC3D884D3C3731 /* UIViewControllerTransitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CAFEA40DB28D29EA21120D683824B558 /* FadeTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = DFA3E028E29F854648244B11215FD467 /* FadeTransitioning.m */; };
+		D3CCD7BAAD0423EEC74232CBC4715A47 /* Pods-UIViewControllerTransitions_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 688D38146D8EF8F22629C2EA75BDA2BC /* Pods-UIViewControllerTransitions_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE0A0B0314BF905ECFA69A41D5976B70 /* Pods-UIViewControllerTransitions_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 86388E7CEFE92B411BB03910C6746C3D /* Pods-UIViewControllerTransitions_Tests-dummy.m */; };
+		E18E143C6DF3E6C04CEC7B501B32A269 /* UIViewControllerTransitionsMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 84E0A55FA1E05DBBBB36884970F30FC7 /* UIViewControllerTransitionsMacro.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E6A609396B1BC95E7E74F05DC1C3EB02 /* NavigationMoveTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A4EF65D5D35B16419E994260FAF685 /* NavigationMoveTransitioning.m */; };
+		E6B5B7D5A2E78EC7D5CD61F7F82C3E5A /* MoveTransitioning.h in Headers */ = {isa = PBXBuildFile; fileRef = 45272C9EAE558F010EB836BE51A0B381 /* MoveTransitioning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC1133E29EE0CE8B0968AC3030779DFF /* DragDropTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = EB18F323B26BE9AE5B85FF1E649C3D66 /* DragDropTransition.m */; };
+		F028E450FA7A0FAE6037788C1A6CDFEE /* MoveTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDDFF53593A6CD9E69C3B9575ACEC5D /* MoveTransitioning.m */; };
+		F4B46D1BAB0F8CE236215A772F02FD96 /* AbstractTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 7892B46551F7C4DF3AF54E450B5AE7F4 /* AbstractTransition.m */; };
+		F6D7A1B2115396C6850460C899F142D5 /* DragDropTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = E706A1DAC86D6B0D7D6D1D883F5B5971 /* DragDropTransitioning.m */; };
+		FFD3B542089EF852E8FEAFFBED000322 /* PanningInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 29E021D08C4EA4FCFFE58088E552C898 /* PanningInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C070641BC9F6EDEC0EC09ED7F1D94A81 /* PBXContainerItemProxy */ = {
+		75429BAA7802437A8452E7BBC622CE76 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4CA13597E8884D50750DBA20F7844C11;
+			remoteGlobalIDString = 383D2860F5AECB09375C9B0AD0A180B4;
 			remoteInfo = UIViewControllerTransitions;
+		};
+		79E8604B8C7111CB633776B291E75298 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B018673D13BB8AA6D7AB7E44323DA05B;
+			remoteInfo = "Pods-UIViewControllerTransitions_Example";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01BAA7B2A1CC4A0E392ED8768B225319 /* UINavigationControllerTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = UINavigationControllerTransition.h; sourceTree = "<group>"; };
-		04E24BC60E9B4302BEBB35C19F642714 /* NavigationPanningInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NavigationPanningInteractiveTransition.m; sourceTree = "<group>"; };
-		0CBCC82F1597CB873FA3E84C77E5B39D /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UIViewControllerTransitions_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		0D2EE5985E128F1A45E2ACED242FE976 /* NavigationMoveTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NavigationMoveTransitioning.m; sourceTree = "<group>"; };
-		0EF6A477529611EB978A23D03BC4627E /* DragDropTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DragDropTransition.m; sourceTree = "<group>"; };
-		11B50D7838808015D78693F5F4AAF7CE /* MoveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MoveTransition.m; sourceTree = "<group>"; };
-		1218A8D26520D4124BA594ED473FFBA0 /* AbstractAnimatedTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AbstractAnimatedTransitioning.h; sourceTree = "<group>"; };
-		131213FA8643D028E803449A68DB78D9 /* AnimatedTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AnimatedTransitioning.h; sourceTree = "<group>"; };
-		1466547EFF45C253E0BAC94F592C1F8E /* UIViewControllerTransitions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = UIViewControllerTransitions.h; sourceTree = "<group>"; };
-		1C70A00591DC714B513D1058983447B1 /* AbstractInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AbstractInteractiveTransition.m; sourceTree = "<group>"; };
-		26EA75965DB6710FCF2055FF3A0444AA /* FadeTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = FadeTransition.h; sourceTree = "<group>"; };
-		27666268AAFCC9A20439211BBB6FAEEE /* Pods-UIViewControllerTransitions_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UIViewControllerTransitions_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2ABA93158EA265661B9C430F835526AF /* UIViewControllerTransitions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = UIViewControllerTransitions.framework; path = UIViewControllerTransitions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EE17DF1D38D8053579CF34AC7DAC754 /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UIViewControllerTransitions_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		2F746B5A68B2EEF3486A13DDAADE0206 /* AbstractTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AbstractTransition.h; sourceTree = "<group>"; };
-		3063BA8C7AFB7C2DF2168086F4DE2DDF /* UIViewControllerTransitions-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIViewControllerTransitions-prefix.pch"; sourceTree = "<group>"; };
-		31CDC44BBCEA4FF4EC614A7F3A2CDE75 /* UIViewControllerTransitions.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UIViewControllerTransitions.xcconfig; sourceTree = "<group>"; };
-		39942C314BCD635ACC93077FE6FFBAF7 /* Pods-UIViewControllerTransitions_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UIViewControllerTransitions_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		39DF3FA1D1CCB1B74CFDC9A6CB1E60F6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3D0E5CD1850F0F26F8810E35BE66E426 /* Pods-UIViewControllerTransitions_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-UIViewControllerTransitions_Example.modulemap"; sourceTree = "<group>"; };
-		3D2F5651A3C3A31CDF3CB80CDE147834 /* Pods-UIViewControllerTransitions_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UIViewControllerTransitions_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		3ED804CC427BFAA452403970839E0375 /* DragDropTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DragDropTransition.h; sourceTree = "<group>"; };
-		417DBAC5BC0D18823964D38E797A78CF /* FadeTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = FadeTransitioning.h; sourceTree = "<group>"; };
-		47CB6D86538FF621E2A164E3B81F0547 /* NavigationMoveTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NavigationMoveTransitioning.h; sourceTree = "<group>"; };
-		483C672FBB22A64E6E295FD0121A0C02 /* FadeTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = FadeTransition.m; sourceTree = "<group>"; };
-		493A8EFCF1B9E72CE22812425C1DDF98 /* AnimatedNavigationTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AnimatedNavigationTransitioning.m; sourceTree = "<group>"; };
-		4BB5CA3373B5EAA9D3837EB32EC20920 /* Pods-UIViewControllerTransitions_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UIViewControllerTransitions_Tests-umbrella.h"; sourceTree = "<group>"; };
-		531E149ADE3FDE8FCF2D63622CF5B8FD /* MoveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MoveTransition.h; sourceTree = "<group>"; };
-		53536AD3FB39394F73910B6C9DE57369 /* AbstractAnimatedTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AbstractAnimatedTransitioning.m; sourceTree = "<group>"; };
-		5A8A9A2EB58894E36DF88190FAFFDBB8 /* AbstractTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AbstractTransition.m; sourceTree = "<group>"; };
-		5AB6666AE83735DC3B4D039A370E3B26 /* UIViewControllerTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = UIViewControllerTransition.m; sourceTree = "<group>"; };
-		63BB3FEF9F86AF2C7FEBEB0887F81A65 /* AnimatedNavigationTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AnimatedNavigationTransitioning.h; sourceTree = "<group>"; };
-		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		688BA022C60304EFDF6FA6733A3D5F78 /* MoveTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MoveTransitioning.h; sourceTree = "<group>"; };
-		707D21FF1AC8318046FE69C073755E43 /* Pods-UIViewControllerTransitions_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UIViewControllerTransitions_Example-frameworks.sh"; sourceTree = "<group>"; };
-		7217D42CA54542CFCE213F0D2CA6B369 /* NavigationPanningInteractiveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NavigationPanningInteractiveTransition.h; sourceTree = "<group>"; };
-		74F46860F111BB22A4C4A0432B70C086 /* DragDropTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DragDropTransitioning.h; sourceTree = "<group>"; };
-		7A3DD03ED522DE3B697837FA372F214A /* UINavigationControllerTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = UINavigationControllerTransition.m; sourceTree = "<group>"; };
-		814E64B99D89D87E3911F87F568EF0B4 /* AbstractInteractiveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AbstractInteractiveTransition.h; sourceTree = "<group>"; };
-		81953A6FED90A06CB6772AF086AA6A4E /* Pods-UIViewControllerTransitions_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UIViewControllerTransitions_Example.release.xcconfig"; sourceTree = "<group>"; };
-		888771EBE1E8AAA8288AD20EDDC47A89 /* PanningInteractiveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PanningInteractiveTransition.h; sourceTree = "<group>"; };
-		8D95B855AAB19021F31DB7D52566D3DD /* Pods-UIViewControllerTransitions_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UIViewControllerTransitions_Tests-resources.sh"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		93ACC3D887B0691F58D8B352A7CD70E3 /* Pods-UIViewControllerTransitions_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UIViewControllerTransitions_Tests-dummy.m"; sourceTree = "<group>"; };
-		974CC3BA1DC04BE3E674A7EADD56F64A /* UIViewControllerTransitionsMacro.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = UIViewControllerTransitionsMacro.h; sourceTree = "<group>"; };
-		989FB0928FC0791CDA05B305969AC6B5 /* NavigationMoveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NavigationMoveTransition.m; sourceTree = "<group>"; };
-		9A8168328B589354F8AF10C35D6B4FCB /* UIMaskedImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = UIMaskedImageView.h; sourceTree = "<group>"; };
-		A26998F279C5E1B221508995119A8292 /* Pods-UIViewControllerTransitions_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UIViewControllerTransitions_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		AF0C4A9720B3DCE80546937A7EA8B4D1 /* Pods-UIViewControllerTransitions_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UIViewControllerTransitions_Example-umbrella.h"; sourceTree = "<group>"; };
-		AFAE4D377D6641486F0B0EF5B41C23AA /* MoveTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MoveTransitioning.m; sourceTree = "<group>"; };
-		C145E1D8C7DB22B7020111BD214646E2 /* Pods-UIViewControllerTransitions_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UIViewControllerTransitions_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		C18365A663A7A0A24F396B85C3BBA276 /* Pods-UIViewControllerTransitions_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UIViewControllerTransitions_Example-resources.sh"; sourceTree = "<group>"; };
-		C4B2D2B88591E23CCDC80F8D20C5D7C2 /* FadeTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = FadeTransitioning.m; sourceTree = "<group>"; };
-		C6F2BE69A173DBE895D394D40E9E0A28 /* Pods-UIViewControllerTransitions_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UIViewControllerTransitions_Example-dummy.m"; sourceTree = "<group>"; };
-		CD6351BC7B8A08350E44014611578A2A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CD9A55F6911F69EEDDC58264F5C6902C /* Pods-UIViewControllerTransitions_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-UIViewControllerTransitions_Tests.modulemap"; sourceTree = "<group>"; };
-		CF5AF98DF218CE3A10FBD73E63E122F1 /* UIViewControllerTransitions-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIViewControllerTransitions-dummy.m"; sourceTree = "<group>"; };
-		D0045B2BB26D37CB98894B8BE3FB7C4E /* Pods_UIViewControllerTransitions_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UIViewControllerTransitions_Tests.framework; path = "Pods-UIViewControllerTransitions_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0152261F24090F3B0C120A76C870CF4 /* UIViewControllerTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = UIViewControllerTransition.h; sourceTree = "<group>"; };
-		D2FE067645F7FF7F6B31FCD88D2881E8 /* NavigationMoveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NavigationMoveTransition.h; sourceTree = "<group>"; };
-		D916E218E5F7534882ADA5400AF8D079 /* UIMaskedImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = UIMaskedImageView.m; sourceTree = "<group>"; };
-		DB86D80C3952C1A234FA7D7107C2E97C /* Pods_UIViewControllerTransitions_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UIViewControllerTransitions_Example.framework; path = "Pods-UIViewControllerTransitions_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E49996EB186B5CC0426BCE8FCFCED47B /* PanningInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PanningInteractiveTransition.m; sourceTree = "<group>"; };
-		E6E555B506EF026CFA610D88B27893F4 /* AnimatedTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AnimatedTransitioning.m; sourceTree = "<group>"; };
-		ED9F8EA42D9BCD496781CD9D3E0D3AC2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F29A3CABC627F303423F522966F6FF5F /* Pods-UIViewControllerTransitions_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UIViewControllerTransitions_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		F3A2AF191B3EE7D70D4AFE09000D566B /* UIViewControllerTransitions.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = UIViewControllerTransitions.modulemap; sourceTree = "<group>"; };
-		F594B29EB97BA6607BF2F03F2E7BE3AE /* UIViewControllerTransitions-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIViewControllerTransitions-umbrella.h"; sourceTree = "<group>"; };
-		F7B9AE8CFE027ED8ED3EFF09D65E4BB2 /* DragDropTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DragDropTransitioning.m; sourceTree = "<group>"; };
+		038BDB053D5200DE311F2885E00E63C5 /* UIMaskedImageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UIMaskedImageView.h; path = UIViewControllerTransitions/Classes/UIMaskedImageView.h; sourceTree = "<group>"; };
+		062F7794FB6E52FF8055E4B2B7F93A6D /* NavigationMoveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NavigationMoveTransition.m; path = UIViewControllerTransitions/Classes/NavigationMoveTransition.m; sourceTree = "<group>"; };
+		0EA5E31162127518B7EACEC078DE6E3E /* UIViewControllerTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UIViewControllerTransition.h; path = UIViewControllerTransitions/Classes/UIViewControllerTransition.h; sourceTree = "<group>"; };
+		11E7CD5E6CD5BB20E655042352A471E3 /* MoveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MoveTransition.m; path = UIViewControllerTransitions/Classes/MoveTransition.m; sourceTree = "<group>"; };
+		13EF936A0BE0B4879198D33B49415D04 /* UIViewControllerTransitions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UIViewControllerTransitions.release.xcconfig; sourceTree = "<group>"; };
+		14D2A37F70C0CB6C08157C485C82FFD7 /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UIViewControllerTransitions_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		161362413233956626AA091883758908 /* Pods-UIViewControllerTransitions_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UIViewControllerTransitions_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		16AC55B37770F35F6D718EDC2D2D0BD8 /* Pods-UIViewControllerTransitions_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UIViewControllerTransitions_Example-frameworks.sh"; sourceTree = "<group>"; };
+		1EF2ED61901154A8BF9BBF33D7A48E77 /* NavigationMoveTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NavigationMoveTransitioning.h; path = UIViewControllerTransitions/Classes/NavigationMoveTransitioning.h; sourceTree = "<group>"; };
+		29E021D08C4EA4FCFFE58088E552C898 /* PanningInteractiveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PanningInteractiveTransition.h; path = UIViewControllerTransitions/Classes/PanningInteractiveTransition.h; sourceTree = "<group>"; };
+		29F400348FD7EECF2A512909622490A0 /* UIViewControllerTransitions-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UIViewControllerTransitions-Info.plist"; sourceTree = "<group>"; };
+		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		32EEC4088A86DF9286C61B4A5A8759A2 /* UINavigationControllerTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UINavigationControllerTransition.h; path = UIViewControllerTransitions/Classes/UINavigationControllerTransition.h; sourceTree = "<group>"; };
+		3D86809C51397B02B081D70AC2A6A1AB /* AbstractInteractiveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AbstractInteractiveTransition.h; path = UIViewControllerTransitions/Classes/AbstractInteractiveTransition.h; sourceTree = "<group>"; };
+		45272C9EAE558F010EB836BE51A0B381 /* MoveTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MoveTransitioning.h; path = UIViewControllerTransitions/Classes/MoveTransitioning.h; sourceTree = "<group>"; };
+		452DB8628AFDBBA5F02E258D02470488 /* AnimatedTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AnimatedTransitioning.h; path = UIViewControllerTransitions/Classes/AnimatedTransitioning.h; sourceTree = "<group>"; };
+		471B17EB11967BF7BEEAFE88B040A05D /* AnimatedTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AnimatedTransitioning.m; path = UIViewControllerTransitions/Classes/AnimatedTransitioning.m; sourceTree = "<group>"; };
+		4BB2456F7093FA0F9E24590B38146330 /* UIMaskedImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = UIMaskedImageView.m; path = UIViewControllerTransitions/Classes/UIMaskedImageView.m; sourceTree = "<group>"; };
+		5144F4E2557D7F7B73D99222EF3F19B3 /* NavigationMoveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NavigationMoveTransition.h; path = UIViewControllerTransitions/Classes/NavigationMoveTransition.h; sourceTree = "<group>"; };
+		5290C0619444F7F9207984728E1DA518 /* UIViewControllerTransitions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UIViewControllerTransitions.debug.xcconfig; sourceTree = "<group>"; };
+		5B7ACE33FA12B88F50863D2F801B4E5E /* Pods-UIViewControllerTransitions_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UIViewControllerTransitions_Tests-Info.plist"; sourceTree = "<group>"; };
+		6589B3AF81B6825284E6C54A2E98FB14 /* UIViewControllerTransitions-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIViewControllerTransitions-dummy.m"; sourceTree = "<group>"; };
+		688D38146D8EF8F22629C2EA75BDA2BC /* Pods-UIViewControllerTransitions_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UIViewControllerTransitions_Example-umbrella.h"; sourceTree = "<group>"; };
+		6A5AAA015A65F4A93727A4B9DB0F7675 /* Pods-UIViewControllerTransitions_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-UIViewControllerTransitions_Tests-umbrella.h"; sourceTree = "<group>"; };
+		6BE1CADDF369F30D5889BD9DBA8364A8 /* Pods-UIViewControllerTransitions_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UIViewControllerTransitions_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		767018A97D32D197CF7DCE360D9AEDA4 /* FadeTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FadeTransitioning.h; path = UIViewControllerTransitions/Classes/FadeTransitioning.h; sourceTree = "<group>"; };
+		7892B46551F7C4DF3AF54E450B5AE7F4 /* AbstractTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AbstractTransition.m; path = UIViewControllerTransitions/Classes/AbstractTransition.m; sourceTree = "<group>"; };
+		78A3A6F933289873FDB8878033B270FB /* AbstractInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AbstractInteractiveTransition.m; path = UIViewControllerTransitions/Classes/AbstractInteractiveTransition.m; sourceTree = "<group>"; };
+		79711FD77238B237FA5952DCA2354616 /* Pods-UIViewControllerTransitions_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UIViewControllerTransitions_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		81B526DCA9E0FF80F39E6A7C70E07D3F /* UIViewControllerTransitions.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = UIViewControllerTransitions.modulemap; sourceTree = "<group>"; };
+		84E0A55FA1E05DBBBB36884970F30FC7 /* UIViewControllerTransitionsMacro.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UIViewControllerTransitionsMacro.h; path = UIViewControllerTransitions/Classes/UIViewControllerTransitionsMacro.h; sourceTree = "<group>"; };
+		86388E7CEFE92B411BB03910C6746C3D /* Pods-UIViewControllerTransitions_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UIViewControllerTransitions_Tests-dummy.m"; sourceTree = "<group>"; };
+		8DDDFF53593A6CD9E69C3B9575ACEC5D /* MoveTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MoveTransitioning.m; path = UIViewControllerTransitions/Classes/MoveTransitioning.m; sourceTree = "<group>"; };
+		8E26913ACE11A0940CD960CAEAE91C68 /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UIViewControllerTransitions_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		8FED475CE20560197B874BF8187E7ADF /* AnimatedNavigationTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AnimatedNavigationTransitioning.h; path = UIViewControllerTransitions/Classes/AnimatedNavigationTransitioning.h; sourceTree = "<group>"; };
+		907FC5DD2BB8D430FDEC3D884D3C3731 /* UIViewControllerTransitions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UIViewControllerTransitions.h; path = UIViewControllerTransitions/Classes/UIViewControllerTransitions.h; sourceTree = "<group>"; };
+		9081E5D46F3B599306D7C41368891D32 /* Pods-UIViewControllerTransitions_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-UIViewControllerTransitions_Example.release.xcconfig"; sourceTree = "<group>"; };
+		914A90F9B62894AD9FE410BE0C610EAB /* DragDropTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DragDropTransitioning.h; path = UIViewControllerTransitions/Classes/DragDropTransitioning.h; sourceTree = "<group>"; };
+		96A4EF65D5D35B16419E994260FAF685 /* NavigationMoveTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NavigationMoveTransitioning.m; path = UIViewControllerTransitions/Classes/NavigationMoveTransitioning.m; sourceTree = "<group>"; };
+		9875BB2AD40B6ABE52B2455B02565910 /* UIViewControllerTransitions-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIViewControllerTransitions-umbrella.h"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9E4FF58130007E671B84461716B1887F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		A2D39C0B4430C4E066E496846208C959 /* PanningInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PanningInteractiveTransition.m; path = UIViewControllerTransitions/Classes/PanningInteractiveTransition.m; sourceTree = "<group>"; };
+		AB7693CF746E2249AFA2674B70BB6AC2 /* AbstractAnimatedTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AbstractAnimatedTransitioning.h; path = UIViewControllerTransitions/Classes/AbstractAnimatedTransitioning.h; sourceTree = "<group>"; };
+		B1FC96EC2BCA2E6840274549BF3F0DF8 /* Pods-UIViewControllerTransitions_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UIViewControllerTransitions_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		BBF4DFD7141B495BFC79F56FC11D482D /* FadeTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FadeTransition.h; path = UIViewControllerTransitions/Classes/FadeTransition.h; sourceTree = "<group>"; };
+		BD619FE04BE54C622CD47E4451AEE16B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		C31F1CED7A16128D4E1B81FC38DCBEC8 /* NavigationPanningInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NavigationPanningInteractiveTransition.m; path = UIViewControllerTransitions/Classes/NavigationPanningInteractiveTransition.m; sourceTree = "<group>"; };
+		C742492FC3761B3E1A138ED612D682E8 /* Pods_UIViewControllerTransitions_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UIViewControllerTransitions_Tests.framework; path = "Pods-UIViewControllerTransitions_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB709599108166B7C7B6D3D0D848D68C /* MoveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MoveTransition.h; path = UIViewControllerTransitions/Classes/MoveTransition.h; sourceTree = "<group>"; };
+		CBC4C73D71A96D32674915DE9E44AD03 /* UINavigationControllerTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = UINavigationControllerTransition.m; path = UIViewControllerTransitions/Classes/UINavigationControllerTransition.m; sourceTree = "<group>"; };
+		CE54D924D7081B8F0680E4B79496B822 /* Pods-UIViewControllerTransitions_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UIViewControllerTransitions_Example-Info.plist"; sourceTree = "<group>"; };
+		D7DBAD3B65736BBC5E83034F14829C08 /* Pods-UIViewControllerTransitions_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-UIViewControllerTransitions_Tests.modulemap"; sourceTree = "<group>"; };
+		DA3585490C4551FF6623543C3A72F363 /* UIViewControllerTransitions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = UIViewControllerTransitions.framework; path = UIViewControllerTransitions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD3949594B31EC44D831BF11BC52511D /* UIViewControllerTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = UIViewControllerTransition.m; path = UIViewControllerTransitions/Classes/UIViewControllerTransition.m; sourceTree = "<group>"; };
+		DE298D19699DB1E436A87E69A83C1730 /* FadeTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FadeTransition.m; path = UIViewControllerTransitions/Classes/FadeTransition.m; sourceTree = "<group>"; };
+		DFA3E028E29F854648244B11215FD467 /* FadeTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FadeTransitioning.m; path = UIViewControllerTransitions/Classes/FadeTransitioning.m; sourceTree = "<group>"; };
+		E706A1DAC86D6B0D7D6D1D883F5B5971 /* DragDropTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DragDropTransitioning.m; path = UIViewControllerTransitions/Classes/DragDropTransitioning.m; sourceTree = "<group>"; };
+		EB18F323B26BE9AE5B85FF1E649C3D66 /* DragDropTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DragDropTransition.m; path = UIViewControllerTransitions/Classes/DragDropTransition.m; sourceTree = "<group>"; };
+		EEAFC528F2DA6150544E581FB5874828 /* UIViewControllerTransitions-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIViewControllerTransitions-prefix.pch"; sourceTree = "<group>"; };
+		EF0ABD66CB7F45D00D84DBDD01989D3F /* DragDropTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DragDropTransition.h; path = UIViewControllerTransitions/Classes/DragDropTransition.h; sourceTree = "<group>"; };
+		EFE1B670E2058F6F91C1ECADBECD5DE9 /* Pods-UIViewControllerTransitions_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-UIViewControllerTransitions_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		F06DDB9D66B85DDC985B96BC613410C5 /* AbstractTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AbstractTransition.h; path = UIViewControllerTransitions/Classes/AbstractTransition.h; sourceTree = "<group>"; };
+		F3416D10EC8E8D21842C767B76ACC5E6 /* Pods-UIViewControllerTransitions_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-UIViewControllerTransitions_Example.modulemap"; sourceTree = "<group>"; };
+		F68A702C75C8E8D9E6D9326758A2BF59 /* UIViewControllerTransitions.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = UIViewControllerTransitions.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		FB56839CA3C866BE8EDB9328CF1EE6F9 /* Pods-UIViewControllerTransitions_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UIViewControllerTransitions_Example-dummy.m"; sourceTree = "<group>"; };
+		FBA5A0D1C4415F537390F67D41551BC0 /* AnimatedNavigationTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AnimatedNavigationTransitioning.m; path = UIViewControllerTransitions/Classes/AnimatedNavigationTransitioning.m; sourceTree = "<group>"; };
+		FE1008E82D4B9CA79D9FFDA61622F2F8 /* Pods_UIViewControllerTransitions_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UIViewControllerTransitions_Example.framework; path = "Pods-UIViewControllerTransitions_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE1C7FFACB8E5C3F048180B11F73791D /* AbstractAnimatedTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AbstractAnimatedTransitioning.m; path = UIViewControllerTransitions/Classes/AbstractAnimatedTransitioning.m; sourceTree = "<group>"; };
+		FE70FBFC6362D8B56B137074793871D5 /* NavigationPanningInteractiveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NavigationPanningInteractiveTransition.h; path = UIViewControllerTransitions/Classes/NavigationPanningInteractiveTransition.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		22517937A26D81B892154D23BE5BAFC0 /* Frameworks */ = {
+		AB9A6342775A401E135522C500E9368E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F741FBE6DC804BC980C2ABCF71C27B52 /* Foundation.framework in Frameworks */,
+				81841E6AB0F0FF8146578F755F9C9BCB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2D44018B4CA599A6BDE489F2F5FF98AE /* Frameworks */ = {
+		F74AD8640620A52C371E9810AFA3B5E5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E95D6B81193DCDADA9B0A0F0D808C94F /* Foundation.framework in Frameworks */,
+				494DD643B9936A0B2A4DC24C88BCD835 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B424AA577683E214BB454DDFE86911DA /* Frameworks */ = {
+		FBCA312A3E18A23B9E5A1F9C5CE053B0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C114A566C983610189D967EDFCF56857 /* Foundation.framework in Frameworks */,
+				275C5CCE5EAFC47508E5A8EDF394FC21 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		07017F82956DDAB96A44C01BF90582D0 /* Pods-UIViewControllerTransitions_Example */ = {
+		0F158BD0A7C4C84834D29715BF774565 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				39DF3FA1D1CCB1B74CFDC9A6CB1E60F6 /* Info.plist */,
-				3D0E5CD1850F0F26F8810E35BE66E426 /* Pods-UIViewControllerTransitions_Example.modulemap */,
-				39942C314BCD635ACC93077FE6FFBAF7 /* Pods-UIViewControllerTransitions_Example-acknowledgements.markdown */,
-				C145E1D8C7DB22B7020111BD214646E2 /* Pods-UIViewControllerTransitions_Example-acknowledgements.plist */,
-				C6F2BE69A173DBE895D394D40E9E0A28 /* Pods-UIViewControllerTransitions_Example-dummy.m */,
-				707D21FF1AC8318046FE69C073755E43 /* Pods-UIViewControllerTransitions_Example-frameworks.sh */,
-				C18365A663A7A0A24F396B85C3BBA276 /* Pods-UIViewControllerTransitions_Example-resources.sh */,
-				AF0C4A9720B3DCE80546937A7EA8B4D1 /* Pods-UIViewControllerTransitions_Example-umbrella.h */,
-				0CBCC82F1597CB873FA3E84C77E5B39D /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */,
-				81953A6FED90A06CB6772AF086AA6A4E /* Pods-UIViewControllerTransitions_Example.release.xcconfig */,
+				9006BBBC7E0A4D66E75FFDABA883261F /* UIViewControllerTransitions */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		372AB03F335F1691010EB2235DCC18C0 /* Pods-UIViewControllerTransitions_Example */ = {
+			isa = PBXGroup;
+			children = (
+				F3416D10EC8E8D21842C767B76ACC5E6 /* Pods-UIViewControllerTransitions_Example.modulemap */,
+				EFE1B670E2058F6F91C1ECADBECD5DE9 /* Pods-UIViewControllerTransitions_Example-acknowledgements.markdown */,
+				161362413233956626AA091883758908 /* Pods-UIViewControllerTransitions_Example-acknowledgements.plist */,
+				FB56839CA3C866BE8EDB9328CF1EE6F9 /* Pods-UIViewControllerTransitions_Example-dummy.m */,
+				16AC55B37770F35F6D718EDC2D2D0BD8 /* Pods-UIViewControllerTransitions_Example-frameworks.sh */,
+				CE54D924D7081B8F0680E4B79496B822 /* Pods-UIViewControllerTransitions_Example-Info.plist */,
+				688D38146D8EF8F22629C2EA75BDA2BC /* Pods-UIViewControllerTransitions_Example-umbrella.h */,
+				14D2A37F70C0CB6C08157C485C82FFD7 /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */,
+				9081E5D46F3B599306D7C41368891D32 /* Pods-UIViewControllerTransitions_Example.release.xcconfig */,
 			);
 			name = "Pods-UIViewControllerTransitions_Example";
 			path = "Target Support Files/Pods-UIViewControllerTransitions_Example";
 			sourceTree = "<group>";
 		};
-		0F5684B14D17993F65C5051AE9D5CA2C /* Development Pods */ = {
+		40898D44C5D0151802EAB7341F7D1AFC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8C4DAB5330662597E3391A72746D23C3 /* UIViewControllerTransitions */,
+				FE1008E82D4B9CA79D9FFDA61622F2F8 /* Pods_UIViewControllerTransitions_Example.framework */,
+				C742492FC3761B3E1A138ED612D682E8 /* Pods_UIViewControllerTransitions_Tests.framework */,
+				DA3585490C4551FF6623543C3A72F363 /* UIViewControllerTransitions.framework */,
 			);
-			name = "Development Pods";
+			name = Products;
 			sourceTree = "<group>";
 		};
-		41206BB312BA995408585706C36E53CC /* Classes */ = {
+		464A8CE1A3B222950A057CB0C273D303 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				1218A8D26520D4124BA594ED473FFBA0 /* AbstractAnimatedTransitioning.h */,
-				53536AD3FB39394F73910B6C9DE57369 /* AbstractAnimatedTransitioning.m */,
-				814E64B99D89D87E3911F87F568EF0B4 /* AbstractInteractiveTransition.h */,
-				1C70A00591DC714B513D1058983447B1 /* AbstractInteractiveTransition.m */,
-				2F746B5A68B2EEF3486A13DDAADE0206 /* AbstractTransition.h */,
-				5A8A9A2EB58894E36DF88190FAFFDBB8 /* AbstractTransition.m */,
-				63BB3FEF9F86AF2C7FEBEB0887F81A65 /* AnimatedNavigationTransitioning.h */,
-				493A8EFCF1B9E72CE22812425C1DDF98 /* AnimatedNavigationTransitioning.m */,
-				131213FA8643D028E803449A68DB78D9 /* AnimatedTransitioning.h */,
-				E6E555B506EF026CFA610D88B27893F4 /* AnimatedTransitioning.m */,
-				3ED804CC427BFAA452403970839E0375 /* DragDropTransition.h */,
-				0EF6A477529611EB978A23D03BC4627E /* DragDropTransition.m */,
-				74F46860F111BB22A4C4A0432B70C086 /* DragDropTransitioning.h */,
-				F7B9AE8CFE027ED8ED3EFF09D65E4BB2 /* DragDropTransitioning.m */,
-				26EA75965DB6710FCF2055FF3A0444AA /* FadeTransition.h */,
-				483C672FBB22A64E6E295FD0121A0C02 /* FadeTransition.m */,
-				417DBAC5BC0D18823964D38E797A78CF /* FadeTransitioning.h */,
-				C4B2D2B88591E23CCDC80F8D20C5D7C2 /* FadeTransitioning.m */,
-				531E149ADE3FDE8FCF2D63622CF5B8FD /* MoveTransition.h */,
-				11B50D7838808015D78693F5F4AAF7CE /* MoveTransition.m */,
-				688BA022C60304EFDF6FA6733A3D5F78 /* MoveTransitioning.h */,
-				AFAE4D377D6641486F0B0EF5B41C23AA /* MoveTransitioning.m */,
-				D2FE067645F7FF7F6B31FCD88D2881E8 /* NavigationMoveTransition.h */,
-				989FB0928FC0791CDA05B305969AC6B5 /* NavigationMoveTransition.m */,
-				47CB6D86538FF621E2A164E3B81F0547 /* NavigationMoveTransitioning.h */,
-				0D2EE5985E128F1A45E2ACED242FE976 /* NavigationMoveTransitioning.m */,
-				7217D42CA54542CFCE213F0D2CA6B369 /* NavigationPanningInteractiveTransition.h */,
-				04E24BC60E9B4302BEBB35C19F642714 /* NavigationPanningInteractiveTransition.m */,
-				888771EBE1E8AAA8288AD20EDDC47A89 /* PanningInteractiveTransition.h */,
-				E49996EB186B5CC0426BCE8FCFCED47B /* PanningInteractiveTransition.m */,
-				9A8168328B589354F8AF10C35D6B4FCB /* UIMaskedImageView.h */,
-				D916E218E5F7534882ADA5400AF8D079 /* UIMaskedImageView.m */,
-				01BAA7B2A1CC4A0E392ED8768B225319 /* UINavigationControllerTransition.h */,
-				7A3DD03ED522DE3B697837FA372F214A /* UINavigationControllerTransition.m */,
-				D0152261F24090F3B0C120A76C870CF4 /* UIViewControllerTransition.h */,
-				5AB6666AE83735DC3B4D039A370E3B26 /* UIViewControllerTransition.m */,
-				1466547EFF45C253E0BAC94F592C1F8E /* UIViewControllerTransitions.h */,
-				974CC3BA1DC04BE3E674A7EADD56F64A /* UIViewControllerTransitionsMacro.h */,
+				372AB03F335F1691010EB2235DCC18C0 /* Pods-UIViewControllerTransitions_Example */,
+				A65CA3466A32E1A979E7B0DE3A690A4E /* Pods-UIViewControllerTransitions_Tests */,
 			);
-			name = Classes;
-			path = Classes;
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		44468D8668E223156AAD7AB16FDB38AE /* UIViewControllerTransitions */ = {
+		9006BBBC7E0A4D66E75FFDABA883261F /* UIViewControllerTransitions */ = {
 			isa = PBXGroup;
 			children = (
-				41206BB312BA995408585706C36E53CC /* Classes */,
-			);
-			name = UIViewControllerTransitions;
-			path = UIViewControllerTransitions;
-			sourceTree = "<group>";
-		};
-		7AD8C690808EA18F3E6069FAFF9645D3 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				CD6351BC7B8A08350E44014611578A2A /* Info.plist */,
-				F3A2AF191B3EE7D70D4AFE09000D566B /* UIViewControllerTransitions.modulemap */,
-				31CDC44BBCEA4FF4EC614A7F3A2CDE75 /* UIViewControllerTransitions.xcconfig */,
-				CF5AF98DF218CE3A10FBD73E63E122F1 /* UIViewControllerTransitions-dummy.m */,
-				3063BA8C7AFB7C2DF2168086F4DE2DDF /* UIViewControllerTransitions-prefix.pch */,
-				F594B29EB97BA6607BF2F03F2E7BE3AE /* UIViewControllerTransitions-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/UIViewControllerTransitions";
-			sourceTree = "<group>";
-		};
-		7DB346D0F39D3F0E887471402A8071AB = {
-			isa = PBXGroup;
-			children = (
-				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				0F5684B14D17993F65C5051AE9D5CA2C /* Development Pods */,
-				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				D5E9C772B2E63245FACDEB230E4F502C /* Products */,
-				F023AC5D650BE58D95715BDC5414CC67 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		8C4DAB5330662597E3391A72746D23C3 /* UIViewControllerTransitions */ = {
-			isa = PBXGroup;
-			children = (
-				7AD8C690808EA18F3E6069FAFF9645D3 /* Support Files */,
-				44468D8668E223156AAD7AB16FDB38AE /* UIViewControllerTransitions */,
+				AB7693CF746E2249AFA2674B70BB6AC2 /* AbstractAnimatedTransitioning.h */,
+				FE1C7FFACB8E5C3F048180B11F73791D /* AbstractAnimatedTransitioning.m */,
+				3D86809C51397B02B081D70AC2A6A1AB /* AbstractInteractiveTransition.h */,
+				78A3A6F933289873FDB8878033B270FB /* AbstractInteractiveTransition.m */,
+				F06DDB9D66B85DDC985B96BC613410C5 /* AbstractTransition.h */,
+				7892B46551F7C4DF3AF54E450B5AE7F4 /* AbstractTransition.m */,
+				8FED475CE20560197B874BF8187E7ADF /* AnimatedNavigationTransitioning.h */,
+				FBA5A0D1C4415F537390F67D41551BC0 /* AnimatedNavigationTransitioning.m */,
+				452DB8628AFDBBA5F02E258D02470488 /* AnimatedTransitioning.h */,
+				471B17EB11967BF7BEEAFE88B040A05D /* AnimatedTransitioning.m */,
+				EF0ABD66CB7F45D00D84DBDD01989D3F /* DragDropTransition.h */,
+				EB18F323B26BE9AE5B85FF1E649C3D66 /* DragDropTransition.m */,
+				914A90F9B62894AD9FE410BE0C610EAB /* DragDropTransitioning.h */,
+				E706A1DAC86D6B0D7D6D1D883F5B5971 /* DragDropTransitioning.m */,
+				BBF4DFD7141B495BFC79F56FC11D482D /* FadeTransition.h */,
+				DE298D19699DB1E436A87E69A83C1730 /* FadeTransition.m */,
+				767018A97D32D197CF7DCE360D9AEDA4 /* FadeTransitioning.h */,
+				DFA3E028E29F854648244B11215FD467 /* FadeTransitioning.m */,
+				CB709599108166B7C7B6D3D0D848D68C /* MoveTransition.h */,
+				11E7CD5E6CD5BB20E655042352A471E3 /* MoveTransition.m */,
+				45272C9EAE558F010EB836BE51A0B381 /* MoveTransitioning.h */,
+				8DDDFF53593A6CD9E69C3B9575ACEC5D /* MoveTransitioning.m */,
+				5144F4E2557D7F7B73D99222EF3F19B3 /* NavigationMoveTransition.h */,
+				062F7794FB6E52FF8055E4B2B7F93A6D /* NavigationMoveTransition.m */,
+				1EF2ED61901154A8BF9BBF33D7A48E77 /* NavigationMoveTransitioning.h */,
+				96A4EF65D5D35B16419E994260FAF685 /* NavigationMoveTransitioning.m */,
+				FE70FBFC6362D8B56B137074793871D5 /* NavigationPanningInteractiveTransition.h */,
+				C31F1CED7A16128D4E1B81FC38DCBEC8 /* NavigationPanningInteractiveTransition.m */,
+				29E021D08C4EA4FCFFE58088E552C898 /* PanningInteractiveTransition.h */,
+				A2D39C0B4430C4E066E496846208C959 /* PanningInteractiveTransition.m */,
+				038BDB053D5200DE311F2885E00E63C5 /* UIMaskedImageView.h */,
+				4BB2456F7093FA0F9E24590B38146330 /* UIMaskedImageView.m */,
+				32EEC4088A86DF9286C61B4A5A8759A2 /* UINavigationControllerTransition.h */,
+				CBC4C73D71A96D32674915DE9E44AD03 /* UINavigationControllerTransition.m */,
+				0EA5E31162127518B7EACEC078DE6E3E /* UIViewControllerTransition.h */,
+				DD3949594B31EC44D831BF11BC52511D /* UIViewControllerTransition.m */,
+				907FC5DD2BB8D430FDEC3D884D3C3731 /* UIViewControllerTransitions.h */,
+				84E0A55FA1E05DBBBB36884970F30FC7 /* UIViewControllerTransitionsMacro.h */,
+				99D25A10C9E35B72F218C0B8DBDE089F /* Pod */,
+				D8D1B3F2A10583A932C298BE63988DD5 /* Support Files */,
 			);
 			name = UIViewControllerTransitions;
 			path = ../..;
 			sourceTree = "<group>";
 		};
-		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+		99D25A10C9E35B72F218C0B8DBDE089F /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				D35AF013A5F0BAD4F32504907A52519E /* iOS */,
+				9E4FF58130007E671B84461716B1887F /* LICENSE */,
+				BD619FE04BE54C622CD47E4451AEE16B /* README.md */,
+				F68A702C75C8E8D9E6D9326758A2BF59 /* UIViewControllerTransitions.podspec */,
 			);
-			name = Frameworks;
+			name = Pod;
 			sourceTree = "<group>";
 		};
-		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
+		A65CA3466A32E1A979E7B0DE3A690A4E /* Pods-UIViewControllerTransitions_Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		D5E9C772B2E63245FACDEB230E4F502C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DB86D80C3952C1A234FA7D7107C2E97C /* Pods_UIViewControllerTransitions_Example.framework */,
-				D0045B2BB26D37CB98894B8BE3FB7C4E /* Pods_UIViewControllerTransitions_Tests.framework */,
-				2ABA93158EA265661B9C430F835526AF /* UIViewControllerTransitions.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		DEE3693B0FFA6721D71E73D475A34C40 /* Pods-UIViewControllerTransitions_Tests */ = {
-			isa = PBXGroup;
-			children = (
-				ED9F8EA42D9BCD496781CD9D3E0D3AC2 /* Info.plist */,
-				CD9A55F6911F69EEDDC58264F5C6902C /* Pods-UIViewControllerTransitions_Tests.modulemap */,
-				27666268AAFCC9A20439211BBB6FAEEE /* Pods-UIViewControllerTransitions_Tests-acknowledgements.markdown */,
-				A26998F279C5E1B221508995119A8292 /* Pods-UIViewControllerTransitions_Tests-acknowledgements.plist */,
-				93ACC3D887B0691F58D8B352A7CD70E3 /* Pods-UIViewControllerTransitions_Tests-dummy.m */,
-				F29A3CABC627F303423F522966F6FF5F /* Pods-UIViewControllerTransitions_Tests-frameworks.sh */,
-				8D95B855AAB19021F31DB7D52566D3DD /* Pods-UIViewControllerTransitions_Tests-resources.sh */,
-				4BB5CA3373B5EAA9D3837EB32EC20920 /* Pods-UIViewControllerTransitions_Tests-umbrella.h */,
-				3D2F5651A3C3A31CDF3CB80CDE147834 /* Pods-UIViewControllerTransitions_Tests.debug.xcconfig */,
-				2EE17DF1D38D8053579CF34AC7DAC754 /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */,
+				D7DBAD3B65736BBC5E83034F14829C08 /* Pods-UIViewControllerTransitions_Tests.modulemap */,
+				79711FD77238B237FA5952DCA2354616 /* Pods-UIViewControllerTransitions_Tests-acknowledgements.markdown */,
+				B1FC96EC2BCA2E6840274549BF3F0DF8 /* Pods-UIViewControllerTransitions_Tests-acknowledgements.plist */,
+				86388E7CEFE92B411BB03910C6746C3D /* Pods-UIViewControllerTransitions_Tests-dummy.m */,
+				5B7ACE33FA12B88F50863D2F801B4E5E /* Pods-UIViewControllerTransitions_Tests-Info.plist */,
+				6A5AAA015A65F4A93727A4B9DB0F7675 /* Pods-UIViewControllerTransitions_Tests-umbrella.h */,
+				6BE1CADDF369F30D5889BD9DBA8364A8 /* Pods-UIViewControllerTransitions_Tests.debug.xcconfig */,
+				8E26913ACE11A0940CD960CAEAE91C68 /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */,
 			);
 			name = "Pods-UIViewControllerTransitions_Tests";
 			path = "Target Support Files/Pods-UIViewControllerTransitions_Tests";
 			sourceTree = "<group>";
 		};
-		F023AC5D650BE58D95715BDC5414CC67 /* Targets Support Files */ = {
+		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				07017F82956DDAB96A44C01BF90582D0 /* Pods-UIViewControllerTransitions_Example */,
-				DEE3693B0FFA6721D71E73D475A34C40 /* Pods-UIViewControllerTransitions_Tests */,
+				3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */,
 			);
-			name = "Targets Support Files";
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				0F158BD0A7C4C84834D29715BF774565 /* Development Pods */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				40898D44C5D0151802EAB7341F7D1AFC /* Products */,
+				464A8CE1A3B222950A057CB0C273D303 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0834CEBB1379A84116EF29F93051C60 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D8D1B3F2A10583A932C298BE63988DD5 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				81B526DCA9E0FF80F39E6A7C70E07D3F /* UIViewControllerTransitions.modulemap */,
+				6589B3AF81B6825284E6C54A2E98FB14 /* UIViewControllerTransitions-dummy.m */,
+				29F400348FD7EECF2A512909622490A0 /* UIViewControllerTransitions-Info.plist */,
+				EEAFC528F2DA6150544E581FB5874828 /* UIViewControllerTransitions-prefix.pch */,
+				9875BB2AD40B6ABE52B2455B02565910 /* UIViewControllerTransitions-umbrella.h */,
+				5290C0619444F7F9207984728E1DA518 /* UIViewControllerTransitions.debug.xcconfig */,
+				13EF936A0BE0B4879198D33B49415D04 /* UIViewControllerTransitions.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/UIViewControllerTransitions";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		0DD207B109C4F5F432ADE911502A6493 /* Headers */ = {
+		211F5E28E9A3AD215548EADCE0789BA9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8B30BC03C053290DF301EABD9AD5E20 /* AbstractAnimatedTransitioning.h in Headers */,
-				18274A1EED3301D7231532638BD3B7EB /* AbstractInteractiveTransition.h in Headers */,
-				4B4A9088BBDE624A0E695286808865AD /* AbstractTransition.h in Headers */,
-				C04A5EEDF5AB9310F640C4CDCC55D16A /* AnimatedNavigationTransitioning.h in Headers */,
-				D82C6610185F12A51B9320DECEADE4B8 /* AnimatedTransitioning.h in Headers */,
-				BFA634281741627EEF121D9ADE26BAC1 /* DragDropTransition.h in Headers */,
-				E39C51061FD0253989B18B69CF8A45A1 /* DragDropTransitioning.h in Headers */,
-				C4464F6941B368FA19D561BFDB541879 /* FadeTransition.h in Headers */,
-				B5782101329EB3FD7A6C706B8C088429 /* FadeTransitioning.h in Headers */,
-				2EDDD290A00A510946B01EC0EFD4D587 /* MoveTransition.h in Headers */,
-				E2428DBF1724F43A7829072E3D1AB5BC /* MoveTransitioning.h in Headers */,
-				5108CA99DD8645EFFBC320BEF1FCFC9A /* NavigationMoveTransition.h in Headers */,
-				3EF1D187E3B7D73B2C058799DEAB648C /* NavigationMoveTransitioning.h in Headers */,
-				48DB02E56124B207B81D48142718C13F /* NavigationPanningInteractiveTransition.h in Headers */,
-				2B8954F367D89A8BA25AE327A736EF37 /* PanningInteractiveTransition.h in Headers */,
-				F64354A216235F4F5FF8F868FB2857BA /* UIMaskedImageView.h in Headers */,
-				7C18E3956BA72B6984B1F2F8C41D8710 /* UINavigationControllerTransition.h in Headers */,
-				4FBF44C2C5C4E06BE171B00D9B4671E5 /* UIViewControllerTransition.h in Headers */,
-				640464BB5999A5B6CF0CF8E8CBF1D0AA /* UIViewControllerTransitions-umbrella.h in Headers */,
-				363D082C3C6BA6BB72C6F13826CD5839 /* UIViewControllerTransitions.h in Headers */,
-				283308452510FCCA46FBEDCEA226D5CF /* UIViewControllerTransitionsMacro.h in Headers */,
+				D3CCD7BAAD0423EEC74232CBC4715A47 /* Pods-UIViewControllerTransitions_Example-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		29B7EBBB5815EC73D63E3D62B77F7AB9 /* Headers */ = {
+		6F223B61E4BE79D6492521E672159D0F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C3D4B288CEC2DFB2ADFA19F7B37BAF0 /* Pods-UIViewControllerTransitions_Tests-umbrella.h in Headers */,
+				359C6B48C982DF3503DE2DD59964CB77 /* AbstractAnimatedTransitioning.h in Headers */,
+				12B9631CD4AEE1A65C6A584AFAEAC369 /* AbstractInteractiveTransition.h in Headers */,
+				284DB57BB8C4F0505F27C12226290B9C /* AbstractTransition.h in Headers */,
+				823CA65F5BF23651F4E8DD4143796392 /* AnimatedNavigationTransitioning.h in Headers */,
+				62D28AED2BAE9BE9772449AE202A3147 /* AnimatedTransitioning.h in Headers */,
+				1ABA7C88FB48325E18569512006F9AEE /* DragDropTransition.h in Headers */,
+				78FFDDC4B599F1BB8DEB2777E4297C59 /* DragDropTransitioning.h in Headers */,
+				5D44D03DE85BA73FCB3A99137BE0CB5B /* FadeTransition.h in Headers */,
+				AC76C62CCF86A47F482D292982C3FC5F /* FadeTransitioning.h in Headers */,
+				387430535F8B7463A654EE9D089F47F1 /* MoveTransition.h in Headers */,
+				E6B5B7D5A2E78EC7D5CD61F7F82C3E5A /* MoveTransitioning.h in Headers */,
+				784023D2C20D24F2A036CB752A8D414D /* NavigationMoveTransition.h in Headers */,
+				9873B2BCD1761CE8B237B9DCD4AA3B65 /* NavigationMoveTransitioning.h in Headers */,
+				4E8BAFD7097F87FCDBC34FA8863E9660 /* NavigationPanningInteractiveTransition.h in Headers */,
+				FFD3B542089EF852E8FEAFFBED000322 /* PanningInteractiveTransition.h in Headers */,
+				9085ABFA8CEC5C4FE808B31E19C30C23 /* UIMaskedImageView.h in Headers */,
+				214917AD98ED5ABA235C59D4C0FDC542 /* UINavigationControllerTransition.h in Headers */,
+				5B5F5D0BD2AA998ADB521AF6B46BD184 /* UIViewControllerTransition.h in Headers */,
+				31CF949577B8C3408FCE3F994E3F8590 /* UIViewControllerTransitions-umbrella.h in Headers */,
+				C9A4DFB6B5E3CF848EE90969421ED399 /* UIViewControllerTransitions.h in Headers */,
+				E18E143C6DF3E6C04CEC7B501B32A269 /* UIViewControllerTransitionsMacro.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D44C000394BD2F1376E11DA4F8EE3B89 /* Headers */ = {
+		81E3571AEAF3450F5BBEBFEC785F5D74 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A26853E21AEA79D5245EFA49B2316EC /* Pods-UIViewControllerTransitions_Example-umbrella.h in Headers */,
+				718E477A05417DFE03C53780B9FB546E /* Pods-UIViewControllerTransitions_Tests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		04FE5A8E351B24294B082A0B0DA16DD6 /* Pods-UIViewControllerTransitions_Tests */ = {
+		04B6A4DA07EAEBFCF845281703A6B2E0 /* Pods-UIViewControllerTransitions_Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2DF414E10B272AB1B702FA0ABB4D26ED /* Build configuration list for PBXNativeTarget "Pods-UIViewControllerTransitions_Tests" */;
+			buildConfigurationList = A560A587AD1CE4C73263BB5B9444161F /* Build configuration list for PBXNativeTarget "Pods-UIViewControllerTransitions_Tests" */;
 			buildPhases = (
-				F44D920AB7406A3AC09AD1A754D1925D /* Sources */,
-				22517937A26D81B892154D23BE5BAFC0 /* Frameworks */,
-				29B7EBBB5815EC73D63E3D62B77F7AB9 /* Headers */,
+				81E3571AEAF3450F5BBEBFEC785F5D74 /* Headers */,
+				29CFC0E8CA27712A942C4FEA0BBB27C1 /* Sources */,
+				FBCA312A3E18A23B9E5A1F9C5CE053B0 /* Frameworks */,
+				7911377B62109A20BE584344E1E23F30 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				0494A4B24DCEEED825759160FE68936C /* PBXTargetDependency */,
 			);
 			name = "Pods-UIViewControllerTransitions_Tests";
 			productName = "Pods-UIViewControllerTransitions_Tests";
-			productReference = D0045B2BB26D37CB98894B8BE3FB7C4E /* Pods_UIViewControllerTransitions_Tests.framework */;
+			productReference = C742492FC3761B3E1A138ED612D682E8 /* Pods_UIViewControllerTransitions_Tests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4CA13597E8884D50750DBA20F7844C11 /* UIViewControllerTransitions */ = {
+		383D2860F5AECB09375C9B0AD0A180B4 /* UIViewControllerTransitions */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B1A56F3EF1FE077EE86E2C4BC99AF35E /* Build configuration list for PBXNativeTarget "UIViewControllerTransitions" */;
+			buildConfigurationList = 1884C1298ED5016188C85C7DBAFAB1A6 /* Build configuration list for PBXNativeTarget "UIViewControllerTransitions" */;
 			buildPhases = (
-				A811B7906BF443FA464327904ECC1CCE /* Sources */,
-				2D44018B4CA599A6BDE489F2F5FF98AE /* Frameworks */,
-				0DD207B109C4F5F432ADE911502A6493 /* Headers */,
+				6F223B61E4BE79D6492521E672159D0F /* Headers */,
+				1686632FA108D380E780D50B598DBDC1 /* Sources */,
+				AB9A6342775A401E135522C500E9368E /* Frameworks */,
+				73CC2C3A6BA2661662D58D6CF699646D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -416,138 +418,167 @@
 			);
 			name = UIViewControllerTransitions;
 			productName = UIViewControllerTransitions;
-			productReference = 2ABA93158EA265661B9C430F835526AF /* UIViewControllerTransitions.framework */;
+			productReference = DA3585490C4551FF6623543C3A72F363 /* UIViewControllerTransitions.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		B5ABCB49574C5D0719B228EC67804A41 /* Pods-UIViewControllerTransitions_Example */ = {
+		B018673D13BB8AA6D7AB7E44323DA05B /* Pods-UIViewControllerTransitions_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E437E22E51A04CB0F3A75F0717EB6A65 /* Build configuration list for PBXNativeTarget "Pods-UIViewControllerTransitions_Example" */;
+			buildConfigurationList = F823152727D916CC116FAEB7DC8EC749 /* Build configuration list for PBXNativeTarget "Pods-UIViewControllerTransitions_Example" */;
 			buildPhases = (
-				51D8753BC6933D425220F8C2CA8934E6 /* Sources */,
-				B424AA577683E214BB454DDFE86911DA /* Frameworks */,
-				D44C000394BD2F1376E11DA4F8EE3B89 /* Headers */,
+				211F5E28E9A3AD215548EADCE0789BA9 /* Headers */,
+				52F64FFE02FAA7A73B211C48318AA383 /* Sources */,
+				F74AD8640620A52C371E9810AFA3B5E5 /* Frameworks */,
+				6232FA2272E85B2EBA787A63A0C79371 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				AC7C10A57BE155AC7898E7DB5B42A7BD /* PBXTargetDependency */,
+				079458FAB688A1F45D439CAD26A40F45 /* PBXTargetDependency */,
 			);
 			name = "Pods-UIViewControllerTransitions_Example";
 			productName = "Pods-UIViewControllerTransitions_Example";
-			productReference = DB86D80C3952C1A234FA7D7107C2E97C /* Pods_UIViewControllerTransitions_Example.framework */;
+			productReference = FE1008E82D4B9CA79D9FFDA61622F2F8 /* Pods_UIViewControllerTransitions_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
 			};
-			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
-			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = D5E9C772B2E63245FACDEB230E4F502C /* Products */;
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 40898D44C5D0151802EAB7341F7D1AFC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B5ABCB49574C5D0719B228EC67804A41 /* Pods-UIViewControllerTransitions_Example */,
-				04FE5A8E351B24294B082A0B0DA16DD6 /* Pods-UIViewControllerTransitions_Tests */,
-				4CA13597E8884D50750DBA20F7844C11 /* UIViewControllerTransitions */,
+				B018673D13BB8AA6D7AB7E44323DA05B /* Pods-UIViewControllerTransitions_Example */,
+				04B6A4DA07EAEBFCF845281703A6B2E0 /* Pods-UIViewControllerTransitions_Tests */,
+				383D2860F5AECB09375C9B0AD0A180B4 /* UIViewControllerTransitions */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		6232FA2272E85B2EBA787A63A0C79371 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73CC2C3A6BA2661662D58D6CF699646D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7911377B62109A20BE584344E1E23F30 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		51D8753BC6933D425220F8C2CA8934E6 /* Sources */ = {
+		1686632FA108D380E780D50B598DBDC1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DDE9D44E3F14B276FC34A05478078AE /* Pods-UIViewControllerTransitions_Example-dummy.m in Sources */,
+				A0D42176435EC444ADA3C970A1FE0D75 /* AbstractAnimatedTransitioning.m in Sources */,
+				61DD0A7721C983409F1039A6BF3078BF /* AbstractInteractiveTransition.m in Sources */,
+				F4B46D1BAB0F8CE236215A772F02FD96 /* AbstractTransition.m in Sources */,
+				A85CD5D5BE54F2BF0EB0759D03E1F1DB /* AnimatedNavigationTransitioning.m in Sources */,
+				32EE905A456125D6C5EDA7003383E805 /* AnimatedTransitioning.m in Sources */,
+				EC1133E29EE0CE8B0968AC3030779DFF /* DragDropTransition.m in Sources */,
+				F6D7A1B2115396C6850460C899F142D5 /* DragDropTransitioning.m in Sources */,
+				A8DAA1134E2B4D80AC1E80C71419817A /* FadeTransition.m in Sources */,
+				CAFEA40DB28D29EA21120D683824B558 /* FadeTransitioning.m in Sources */,
+				51D32B015E0E5FA9E1B190AA09ABBFC8 /* MoveTransition.m in Sources */,
+				F028E450FA7A0FAE6037788C1A6CDFEE /* MoveTransitioning.m in Sources */,
+				54EB0D4CB4967837DE671ED6AD012A7A /* NavigationMoveTransition.m in Sources */,
+				E6A609396B1BC95E7E74F05DC1C3EB02 /* NavigationMoveTransitioning.m in Sources */,
+				4474AF895F75E8B30F8216D091EEAF48 /* NavigationPanningInteractiveTransition.m in Sources */,
+				861DB072EA471F04099D36D827CC5B37 /* PanningInteractiveTransition.m in Sources */,
+				A824E06B601A73895B4F89133652C7B1 /* UIMaskedImageView.m in Sources */,
+				47DDDBFABDB2ED992305B9A1A2C4CA10 /* UINavigationControllerTransition.m in Sources */,
+				1C89763DF2B5AAE7BE4E5230371D9C96 /* UIViewControllerTransition.m in Sources */,
+				20F9205993A3F6613789B6F9E9878A8A /* UIViewControllerTransitions-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A811B7906BF443FA464327904ECC1CCE /* Sources */ = {
+		29CFC0E8CA27712A942C4FEA0BBB27C1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26B9B5F739395AAC3FAC6048A00B037D /* AbstractAnimatedTransitioning.m in Sources */,
-				364AAE89FE5B66E1078B0ACE8048A31F /* AbstractInteractiveTransition.m in Sources */,
-				139FCF0FBAFBA6A56B3B236078A37350 /* AbstractTransition.m in Sources */,
-				914667F7D160A861F0E0D908A31BF8CB /* AnimatedNavigationTransitioning.m in Sources */,
-				0BD7170B248440BBF1F2CD635438EBC1 /* AnimatedTransitioning.m in Sources */,
-				7857C70A419A34D16EA7EDB054177616 /* DragDropTransition.m in Sources */,
-				AE302346DE4B492A3682646FC4F29585 /* DragDropTransitioning.m in Sources */,
-				4348FA2A1EA46734D4F9F95C527B359F /* FadeTransition.m in Sources */,
-				08D6B6BF4371783991D341355473A842 /* FadeTransitioning.m in Sources */,
-				5D2F189EAFBB0089684A787BF579520E /* MoveTransition.m in Sources */,
-				8998EE1EA6B58287EADD0315779F9BD0 /* MoveTransitioning.m in Sources */,
-				86ACA52173E62954AB85FFFF31D8BE42 /* NavigationMoveTransition.m in Sources */,
-				2BDDBF738533C9BF418D395F393414D2 /* NavigationMoveTransitioning.m in Sources */,
-				5B85F21F547682736E7B234711DAF868 /* NavigationPanningInteractiveTransition.m in Sources */,
-				AE3AB078DCD705B10D77BE6006260C5B /* PanningInteractiveTransition.m in Sources */,
-				A64DC4FE342BAA416C02075E69E81AE6 /* UIMaskedImageView.m in Sources */,
-				7FFE10366EC50577A908723941E92A8E /* UINavigationControllerTransition.m in Sources */,
-				209BDEADCDFF860C5E2C07B565EE2BEA /* UIViewControllerTransition.m in Sources */,
-				CC9E58B7BCD6A5A92B9D8BA6E2E9E310 /* UIViewControllerTransitions-dummy.m in Sources */,
+				DE0A0B0314BF905ECFA69A41D5976B70 /* Pods-UIViewControllerTransitions_Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F44D920AB7406A3AC09AD1A754D1925D /* Sources */ = {
+		52F64FFE02FAA7A73B211C48318AA383 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7112E83DE61891B5260FCA870EA3E211 /* Pods-UIViewControllerTransitions_Tests-dummy.m in Sources */,
+				B434549894274F44E341883118885700 /* Pods-UIViewControllerTransitions_Example-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		AC7C10A57BE155AC7898E7DB5B42A7BD /* PBXTargetDependency */ = {
+		0494A4B24DCEEED825759160FE68936C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-UIViewControllerTransitions_Example";
+			target = B018673D13BB8AA6D7AB7E44323DA05B /* Pods-UIViewControllerTransitions_Example */;
+			targetProxy = 79E8604B8C7111CB633776B291E75298 /* PBXContainerItemProxy */;
+		};
+		079458FAB688A1F45D439CAD26A40F45 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = UIViewControllerTransitions;
-			target = 4CA13597E8884D50750DBA20F7844C11 /* UIViewControllerTransitions */;
-			targetProxy = C070641BC9F6EDEC0EC09ED7F1D94A81 /* PBXContainerItemProxy */;
+			target = 383D2860F5AECB09375C9B0AD0A180B4 /* UIViewControllerTransitions */;
+			targetProxy = 75429BAA7802437A8452E7BBC622CE76 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		22012AEE283CE46F50383D1FB9773465 /* Debug */ = {
+		3C9BDEA85FCDB9B6B8BBF533DFA8CA66 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D2F5651A3C3A31CDF3CB80CDE147834 /* Pods-UIViewControllerTransitions_Tests.debug.xcconfig */;
+			baseConfigurationReference = 6BE1CADDF369F30D5889BD9DBA8364A8 /* Pods-UIViewControllerTransitions_Tests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Tests/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_UIViewControllerTransitions_Tests;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -556,111 +587,31 @@
 			};
 			name = Debug;
 		};
-		34FE9531DA9AF2820790339988D5FF41 /* Release */ = {
+		45BF00B320A2FC2686B6BDA9F691B404 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 14D2A37F70C0CB6C08157C485C82FFD7 /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		54E76E4725AC0ABD08821E303715B956 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31CDC44BBCEA4FF4EC614A7F3A2CDE75 /* UIViewControllerTransitions.xcconfig */;
-			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/UIViewControllerTransitions/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = UIViewControllerTransitions;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		5D6AFCA86C3C7A281B90AAF3BA174C7E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0CBCC82F1597CB873FA3E84C77E5B39D /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Example/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_UIViewControllerTransitions_Example;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -669,154 +620,256 @@
 			};
 			name = Debug;
 		};
-		68679BA5C87D394F711DE5D7131D92B0 /* Debug */ = {
+		4BE66A09A74FD25164AAB3C2645B9B93 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31CDC44BBCEA4FF4EC614A7F3A2CDE75 /* UIViewControllerTransitions.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		565183AAD0EBD9F6B6A74D99FDFE43A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5290C0619444F7F9207984728E1DA518 /* UIViewControllerTransitions.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/UIViewControllerTransitions/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_MODULE_NAME = UIViewControllerTransitions;
 				PRODUCT_NAME = UIViewControllerTransitions;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		C104F7F091290C3D1E248192F07FE689 /* Debug */ = {
+		7EF7227D9B20A1D549000096ACCB23D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		C4CAC5EEA4C3885A8724817063BA87C9 /* Release */ = {
+		B817F1219E71A41F47A96A055BC67AD3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 81953A6FED90A06CB6772AF086AA6A4E /* Pods-UIViewControllerTransitions_Example.release.xcconfig */;
+			baseConfigurationReference = 13EF936A0BE0B4879198D33B49415D04 /* UIViewControllerTransitions.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Example/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_UIViewControllerTransitions_Example;
+				MODULEMAP_FILE = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions.modulemap";
+				PRODUCT_MODULE_NAME = UIViewControllerTransitions;
+				PRODUCT_NAME = UIViewControllerTransitions;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		DB010800CFF69BA28A8A5CBD3C22E76B /* Release */ = {
+		D057CC8300ED4397E0480C609A639CF8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EE17DF1D38D8053579CF34AC7DAC754 /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */;
+			baseConfigurationReference = 8E26913ACE11A0940CD960CAEAE91C68 /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Tests/Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_UIViewControllerTransitions_Tests;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FC09AD7ACB199AD1A81B96EF59B303F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9081E5D46F3B599306D7C41368891D32 /* Pods-UIViewControllerTransitions_Example.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -825,43 +878,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+		1884C1298ED5016188C85C7DBAFAB1A6 /* Build configuration list for PBXNativeTarget "UIViewControllerTransitions" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C104F7F091290C3D1E248192F07FE689 /* Debug */,
-				34FE9531DA9AF2820790339988D5FF41 /* Release */,
+				565183AAD0EBD9F6B6A74D99FDFE43A9 /* Debug */,
+				B817F1219E71A41F47A96A055BC67AD3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2DF414E10B272AB1B702FA0ABB4D26ED /* Build configuration list for PBXNativeTarget "Pods-UIViewControllerTransitions_Tests" */ = {
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				22012AEE283CE46F50383D1FB9773465 /* Debug */,
-				DB010800CFF69BA28A8A5CBD3C22E76B /* Release */,
+				7EF7227D9B20A1D549000096ACCB23D7 /* Debug */,
+				4BE66A09A74FD25164AAB3C2645B9B93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B1A56F3EF1FE077EE86E2C4BC99AF35E /* Build configuration list for PBXNativeTarget "UIViewControllerTransitions" */ = {
+		A560A587AD1CE4C73263BB5B9444161F /* Build configuration list for PBXNativeTarget "Pods-UIViewControllerTransitions_Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				68679BA5C87D394F711DE5D7131D92B0 /* Debug */,
-				54E76E4725AC0ABD08821E303715B956 /* Release */,
+				3C9BDEA85FCDB9B6B8BBF533DFA8CA66 /* Debug */,
+				D057CC8300ED4397E0480C609A639CF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E437E22E51A04CB0F3A75F0717EB6A65 /* Build configuration list for PBXNativeTarget "Pods-UIViewControllerTransitions_Example" */ = {
+		F823152727D916CC116FAEB7DC8EC749 /* Build configuration list for PBXNativeTarget "Pods-UIViewControllerTransitions_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5D6AFCA86C3C7A281B90AAF3BA174C7E /* Debug */,
-				C4CAC5EEA4C3885A8724817063BA87C9 /* Release */,
+				45BF00B320A2FC2686B6BDA9F691B404 /* Debug */,
+				FC09AD7ACB199AD1A81B96EF59B303F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 }

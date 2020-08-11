@@ -1,5 +1,6 @@
 # UIViewControllerTransitions
 
+![Swift](https://img.shields.io/badge/Swift-5-orange.svg)
 ![Objective-c](https://img.shields.io/badge/Objective-c-red.svg)
 [![CI Status](http://img.shields.io/travis/pisces/UIViewControllerTransitions.svg?style=flat)](https://travis-ci.org/pisces/UIViewControllerTransitions)
 [![Version](https://img.shields.io/cocoapods/v/UIViewControllerTransitions.svg?style=flat)](http://cocoapods.org/pods/UIViewControllerTransitions)
@@ -35,7 +36,7 @@ import UIViewControllerTransitions
 ```swift
 import UIViewControllerTransitions
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,52 +55,128 @@ class ViewController: UIViewController {
 ```swift
 import UIViewControllerTransitions
 
-class MoveTransitionFirstViewController: UIViewController {
+final class MoveTransitionFirstViewController: UIViewController, InteractiveTransitionDelegate {
+    
+    // MARK: - Private Properties
+    
     private lazy var secondViewController: UINavigationController = {
-        return UINavigationController(rootViewController: MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main))
+        let viewController = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
+        let transition = MoveTransition()
+        transition.durationForPresenting = 0.25
+        transition.durationForDismission = 0.35
+        transition.isAllowsInteraction = true
+        
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.transition = transition
+        return navigationController
     }()
+    
+    // MARK: - Overridden: UITableViewController (StatusBar Visibility)
+    
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .fade
+    }
+    
+    // MARK: - Overridden: UITableViewController (Life Cycle)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "First View"
         
-        let transition = MoveTransition()
-        transition.isAllowsInteraction = true
-        transition.presentingInteractor?.attach(self, present: secondViewController)
-        
-        secondViewController.transition = transition
+        secondViewController.transition?.presentingInteractor?.attach(self, present: secondViewController)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
     }
+    
+    // MARK: - Private Selectors
     
     @IBAction func clicked() {
         present(secondViewController, animated: true, completion: nil)
     }
 }
 
-class MoveTransitionSecondViewController: UIViewController {
+final class MoveTransitionSecondViewController: UITableViewController {
+    
+    // MARK: - Private Properties
+    
+    private var isInteractionBegan = false
+    private var isViewAppeared = false
+    
+    // MARK: - Overridden: UITableViewController (StatusBar Visibility)
+    
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .fade
+    }
+    
+    // MARK: - Overridden: UITableViewController (Life Cycle)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Second View"
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
+        navigationController?.transition?.dismissionInteractor?.delegate = self
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions(rawValue: 0), animations: {
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
     }
     
+    // MARK: - Overridden: UITableViewController (UITableView DataSource & Delegate)
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 50
+    }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let identifier = "UITableViewCell"
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
+        if cell == nil {
+            cell = UITableViewCell(style: .default, reuseIdentifier: identifier)
+        }
+        return cell!
+    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.textLabel?.text = "\(indexPath.row + 1)"
+    }
+    
+    // MARK: - Private Selectors
+    
     @objc private func close() {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension MoveTransitionSecondViewController: InteractiveTransitionDelegate {
+    func shouldChange(withInteractor interactor: AbstractInteractiveTransition) -> Bool {
+        return tableView.contentOffset.y + 88 <= 0
+    }
+    func interactor(_ interactor: AbstractInteractiveTransition, gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
 ```
@@ -482,7 +559,7 @@ $ brew update
 $ brew install carthage
 ```
 
-To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
+To integrate UIViewControllerTransitions into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
 github "pisces/UIViewControllerTransitions" ~> 3.0.0
@@ -500,4 +577,4 @@ Steve Kim, hh963103@gmail.com
 
 ## License
 
-UIViewControllerTransitions is available under the MIT license. See the LICENSE file for more info.
+UIViewControllerTransitions is available under the BSD 2-Clause license. See the LICENSE file for more info.
