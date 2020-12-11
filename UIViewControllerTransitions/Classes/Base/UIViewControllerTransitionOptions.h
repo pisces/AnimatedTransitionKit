@@ -31,6 +31,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface UIViewControllerTransitionOptions : NSObject
 @property (nonatomic, getter=isUsingSpring) BOOL usingSpring;

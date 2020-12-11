@@ -125,28 +125,28 @@
 		908D8C0EA50F83A23EBB9415866BACF0 /* MoveTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MoveTransitioning.h; sourceTree = "<group>"; };
 		927665713895EAC582849A4DF291B2CA /* AbstractTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AbstractTransition.m; sourceTree = "<group>"; };
 		94D4DADB29EE3DD3124A5539E168DC69 /* AbstractAnimatedTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AbstractAnimatedTransitioning.m; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A310671A37BF117B57FB3C6422E11635 /* AbstractInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AbstractInteractiveTransition.m; sourceTree = "<group>"; };
 		A75A3EBA65B8AA3B1A5D81A33E51254A /* PanningInteractiveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PanningInteractiveTransition.h; sourceTree = "<group>"; };
 		A94D1DEAEA13D684274F86616EE1346E /* NavigationMoveTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NavigationMoveTransitioning.h; sourceTree = "<group>"; };
 		AECA40B00FA2DA613A29B50F8BEEB16A /* UIViewControllerTransitionsMacro.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = UIViewControllerTransitionsMacro.h; sourceTree = "<group>"; };
 		AEF78C5D969D49E609B1078253A93A58 /* CGAffineTransform+Math.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CGAffineTransform+Math.swift"; sourceTree = "<group>"; };
-		AF13D3D71C97A700301BDC812D4A76DF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		B107DC62F721084AF88A9F3BD82B606C /* UIViewControllerTransitions.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = UIViewControllerTransitions.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		AF13D3D71C97A700301BDC812D4A76DF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		B107DC62F721084AF88A9F3BD82B606C /* UIViewControllerTransitions.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = UIViewControllerTransitions.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B10CA0BED7DB9059831BA15AEDC9F448 /* ZoomTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ZoomTransition.swift; sourceTree = "<group>"; };
 		B1FC96EC2BCA2E6840274549BF3F0DF8 /* Pods-UIViewControllerTransitions_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UIViewControllerTransitions_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		B3E8A1A8807E7EC7DBDF4E6BDE66345B /* NavigationPanningInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NavigationPanningInteractiveTransition.m; sourceTree = "<group>"; };
 		BA68D01E25D9EA65B2D232FEB4336543 /* UINavigationControllerTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = UINavigationControllerTransition.h; sourceTree = "<group>"; };
-		C07C9E610949A3D2FA837C1DE362A447 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		C07C9E610949A3D2FA837C1DE362A447 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		C51D6A8D73D9BEF786A727152DF04D4E /* NavigationMoveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = NavigationMoveTransition.h; sourceTree = "<group>"; };
-		C742492FC3761B3E1A138ED612D682E8 /* Pods_UIViewControllerTransitions_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UIViewControllerTransitions_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C742492FC3761B3E1A138ED612D682E8 /* Pods_UIViewControllerTransitions_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UIViewControllerTransitions_Tests.framework; path = "Pods-UIViewControllerTransitions_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C792E28BA623207E2CE5BF2FFF59FAC8 /* AnimatedTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AnimatedTransitioning.h; sourceTree = "<group>"; };
 		CBCBC368F7F7A0234CBDFE840D07F47D /* DragDropTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DragDropTransition.m; sourceTree = "<group>"; };
 		CE54D924D7081B8F0680E4B79496B822 /* Pods-UIViewControllerTransitions_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-UIViewControllerTransitions_Example-Info.plist"; sourceTree = "<group>"; };
 		CE6549507FCF0379D0A40FCCC7BCD77E /* AbstractAnimatedTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AbstractAnimatedTransitioning.h; sourceTree = "<group>"; };
 		D17D6C29BFC6B29E367E57A43CA7B763 /* AnimatedTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AnimatedTransitioning.m; sourceTree = "<group>"; };
 		D7DBAD3B65736BBC5E83034F14829C08 /* Pods-UIViewControllerTransitions_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-UIViewControllerTransitions_Tests.modulemap"; sourceTree = "<group>"; };
-		DA3585490C4551FF6623543C3A72F363 /* UIViewControllerTransitions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIViewControllerTransitions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA3585490C4551FF6623543C3A72F363 /* UIViewControllerTransitions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = UIViewControllerTransitions.framework; path = UIViewControllerTransitions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E20FFE3C980F37AF38ABE0FC60B40C1B /* UIViewControllerTransitions-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIViewControllerTransitions-dummy.m"; sourceTree = "<group>"; };
 		E5CB2DA20E9DB6C0F368992FEF701307 /* TransitionCompatible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TransitionCompatible.swift; sourceTree = "<group>"; };
 		E9C02BB87AEAA22CFEF8F64287822307 /* FadeTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = FadeTransition.h; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 		F93AC63E276F17919AE4784BCBF7BDF9 /* FadeTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = FadeTransitioning.h; sourceTree = "<group>"; };
 		FA035E8E0F61C1E977B95B5B23857D93 /* NavigationMoveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = NavigationMoveTransition.m; sourceTree = "<group>"; };
 		FB56839CA3C866BE8EDB9328CF1EE6F9 /* Pods-UIViewControllerTransitions_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-UIViewControllerTransitions_Example-dummy.m"; sourceTree = "<group>"; };
-		FE1008E82D4B9CA79D9FFDA61622F2F8 /* Pods_UIViewControllerTransitions_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UIViewControllerTransitions_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE1008E82D4B9CA79D9FFDA61622F2F8 /* Pods_UIViewControllerTransitions_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_UIViewControllerTransitions_Example.framework; path = "Pods-UIViewControllerTransitions_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFECF1DF8B2C38CE88DC4CE67FCB49F4 /* UIViewControllerTransitions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UIViewControllerTransitions.debug.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -244,6 +244,7 @@
 				F93AC63E276F17919AE4784BCBF7BDF9 /* FadeTransitioning.h */,
 				652618C652E6F5D11D001700B6863D63 /* FadeTransitioning.m */,
 			);
+			name = Fade;
 			path = Fade;
 			sourceTree = "<group>";
 		};
@@ -253,6 +254,7 @@
 				A75A3EBA65B8AA3B1A5D81A33E51254A /* PanningInteractiveTransition.h */,
 				3773AC0B05454566B16F4ED9AD0D7A60 /* PanningInteractiveTransition.m */,
 			);
+			name = Panning;
 			path = Panning;
 			sourceTree = "<group>";
 		};
@@ -336,6 +338,7 @@
 				B10CA0BED7DB9059831BA15AEDC9F448 /* ZoomTransition.swift */,
 				8DFCC34BFA3413ED99E4F06D5ED8AF29 /* ZoomTransitioning.swift */,
 			);
+			name = Zoom;
 			path = Zoom;
 			sourceTree = "<group>";
 		};
@@ -378,6 +381,7 @@
 				EB8E3B08A5768BA7B1FED8EFEA0FD5D6 /* DragDropTransitioning.h */,
 				F82BC4F157DB9819A5DA34F0609BC640 /* DragDropTransitioning.m */,
 			);
+			name = DragDrop;
 			path = DragDrop;
 			sourceTree = "<group>";
 		};
@@ -414,6 +418,7 @@
 				A94D1DEAEA13D684274F86616EE1346E /* NavigationMoveTransitioning.h */,
 				875853018B26DF0B81DD3B0EB3870DD7 /* NavigationMoveTransitioning.m */,
 			);
+			name = NavigationMove;
 			path = NavigationMove;
 			sourceTree = "<group>";
 		};
@@ -423,6 +428,7 @@
 				1726EB50ACF526D63B66349529FC1349 /* NavigationPanningInteractiveTransition.h */,
 				B3E8A1A8807E7EC7DBDF4E6BDE66345B /* NavigationPanningInteractiveTransition.m */,
 			);
+			name = NavigationPanning;
 			path = NavigationPanning;
 			sourceTree = "<group>";
 		};
@@ -450,6 +456,7 @@
 			children = (
 				87A875461FDED5D84D360CE44F17E436 /* PinchInteractiveTransition.swift */,
 			);
+			name = Pinch;
 			path = Pinch;
 			sourceTree = "<group>";
 		};
@@ -459,6 +466,7 @@
 				276F46E7E7AF8C512151BB0D9CC1FC8F /* AbstractInteractiveTransition.h */,
 				A310671A37BF117B57FB3C6422E11635 /* AbstractInteractiveTransition.m */,
 			);
+			name = Base;
 			path = Base;
 			sourceTree = "<group>";
 		};
@@ -472,6 +480,7 @@
 				C792E28BA623207E2CE5BF2FFF59FAC8 /* AnimatedTransitioning.h */,
 				D17D6C29BFC6B29E367E57A43CA7B763 /* AnimatedTransitioning.m */,
 			);
+			name = Base;
 			path = Base;
 			sourceTree = "<group>";
 		};
@@ -483,6 +492,7 @@
 				908D8C0EA50F83A23EBB9415866BACF0 /* MoveTransitioning.h */,
 				0CC6A98960D3D171226CC57C2F0BCFEA /* MoveTransitioning.m */,
 			);
+			name = Move;
 			path = Move;
 			sourceTree = "<group>";
 		};
@@ -600,7 +610,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -720,6 +730,7 @@
 			baseConfigurationReference = 6BE1CADDF369F30D5889BD9DBA8364A8 /* Pods-UIViewControllerTransitions_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -753,6 +764,7 @@
 			baseConfigurationReference = 9081E5D46F3B599306D7C41368891D32 /* Pods-UIViewControllerTransitions_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -903,7 +915,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -914,6 +927,7 @@
 			baseConfigurationReference = 14D2A37F70C0CB6C08157C485C82FFD7 /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -946,6 +960,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 57432A77921F81511E3E653C3FFA48C0 /* UIViewControllerTransitions.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -957,7 +972,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions.modulemap";
 				PRODUCT_MODULE_NAME = UIViewControllerTransitions;
@@ -978,6 +993,7 @@
 			baseConfigurationReference = 8E26913ACE11A0940CD960CAEAE91C68 /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1011,6 +1027,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FFECF1DF8B2C38CE88DC4CE67FCB49F4 /* UIViewControllerTransitions.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1022,7 +1039,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/UIViewControllerTransitions/UIViewControllerTransitions.modulemap";
 				PRODUCT_MODULE_NAME = UIViewControllerTransitions;
