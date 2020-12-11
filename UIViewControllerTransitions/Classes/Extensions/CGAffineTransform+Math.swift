@@ -24,43 +24,22 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  DragDropTransition.m
+//  CGAffineTransform+Math.swift
 //  UIViewControllerTransitions
 //
-//  Created by Steve Kim on 5/12/16.
-//  Modified by Steve Kim on 4/14/17.
-//      - Renew design and add new feature interactive transition
-//      - Rename UIViewControllerDragDropTransition to DragDropTransition
-//  Modified by Steve Kim on 8/14/17.
-//      - Refactoring extract methods
+//  Created by Steve Kim on 2020/12/11.
 //
 
-#import "DragDropTransition.h"
-#import "UIViewControllerTransitionsMacro.h"
+import UIKit
 
-@implementation DragDropTransition
-
-#pragma mark - Overridden: UIViewControllerTransition
-
-- (void)initProperties {
-    [super initProperties];
-    
-    self.animationOptionsForDismission = self.animationOptionsForPresenting = 7;
-    _imageViewContentMode = UIViewContentModeScaleAspectFill;
+extension CGAffineTransform {
+    public var rotation: CGFloat {
+        atan2(b, a)
+    }
+    public var scale: CGPoint {
+        .init(x: sqrt(pow(a, 2) + pow(c, 2)), y: sqrt(pow(b, 2) + pow(d, 2)))
+    }
+    public var translation: CGPoint {
+        .init(x: tx, y: ty)
+    }
 }
-
-- (AnimatedTransitioning *)transitioningForDismissedController:(UIViewController *)dismissed {
-    DragDropTransitioning *transitioning = [DragDropTransitioning new];
-    transitioning.imageViewContentMode = _imageViewContentMode;
-    transitioning.source = _dismissionSource;
-    return transitioning;
-}
-
-- (AnimatedTransitioning *)transitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    DragDropTransitioning *transitioning = [DragDropTransitioning new];
-    transitioning.imageViewContentMode = _imageViewContentMode;
-    transitioning.source =_presentingSource;
-    return transitioning;
-}
-
-@end

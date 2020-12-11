@@ -48,18 +48,20 @@
     self.toViewController.view.hidden = NO;
     self.toViewController.view.window.backgroundColor = [UIColor blackColor];
     
-    if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.fromViewController.view.alpha = 0;
-            self.toViewController.view.alpha = 1;
-            self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-        } completion:^(BOOL finished) {
-            self.toViewController.view.window.backgroundColor = backgroundColor;
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-            [self.fromViewController.view removeFromSuperview];
-            [self.belowViewController endAppearanceTransition];
-        }];
+    if (transitionContext.isInteractive) {
+        return;
     }
+    
+    [self animate:^{
+        self.fromViewController.view.alpha = 0;
+        self.toViewController.view.alpha = 1;
+        self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+    } completion:^{
+        self.toViewController.view.window.backgroundColor = backgroundColor;
+        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+        [self.fromViewController.view removeFromSuperview];
+        [self.belowViewController endAppearanceTransition];
+    }];
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -70,22 +72,24 @@
     
     [transitionContext.containerView addSubview:self.toViewController.view];
     
-    if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.toViewController.view.alpha = 1;
-            self.fromViewController.view.alpha = 0;
-            self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-        } completion:^(BOOL finished) {
-            self.fromViewController.view.window.backgroundColor = backgroundColor;
-            
-            if (![transitionContext transitionWasCancelled]) {
-                self.fromViewController.view.hidden = YES;
-            }
-            
-            [self.belowViewController endAppearanceTransition];
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-        }];
+    if (transitionContext.isInteractive) {
+        return;
     }
+    
+    [self animate:^{
+        self.toViewController.view.alpha = 1;
+        self.fromViewController.view.alpha = 0;
+        self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+    } completion:^{
+        self.fromViewController.view.window.backgroundColor = backgroundColor;
+        
+        if (![transitionContext transitionWasCancelled]) {
+            self.fromViewController.view.hidden = YES;
+        }
+        
+        [self.belowViewController endAppearanceTransition];
+        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+    }];
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
@@ -101,11 +105,12 @@
     const CGFloat belowViewAlpha = self.presenting ? 1 : 0;
     
     [self.belowViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
-    [UIView animateWithDuration:0.2 delay:0 options:7<<16 animations:^{
+    
+    [self animateWithDuration:0.25 animations:^{
         self.aboveViewController.view.alpha = aboveViewAlpha;
         self.belowViewController.view.alpha = belowViewAlpha;
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
-    } completion:^(BOOL finished) {
+    } completion:^{
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
         } else {
@@ -131,22 +136,20 @@
     const CGFloat belowViewAlpha = self.presenting ? 0 : 1;
     
     [self.belowViewController beginAppearanceTransition:!self.presenting animated:self.context.isAnimated];
-    [UIView animateWithDuration:0.2 delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
+    
+    [self animate:^{
         self.aboveViewController.view.alpha = aboveViewAlpha;
         self.belowViewController.view.alpha = belowViewAlpha;
-        self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
-    } completion:^(BOOL finished) {
+        self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
+    } completion:^{
         if (self.presenting) {
-            self.belowViewController.view.hidden = YES;
-            [self.belowViewController endAppearanceTransition];
-            [self.context completeTransition:!self.context.transitionWasCancelled];
-            completion();
-        } else {
-            [self.context completeTransition:!self.context.transitionWasCancelled];
-            completion();
             [self.aboveViewController.view removeFromSuperview];
-            [self.belowViewController endAppearanceTransition];
+        } else {
+            self.belowViewController.view.hidden = YES;
         }
+        
+        [self.context completeTransition:NO];
+        completion();
     }];
 }
 

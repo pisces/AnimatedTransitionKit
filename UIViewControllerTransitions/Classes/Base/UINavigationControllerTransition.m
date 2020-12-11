@@ -32,6 +32,7 @@
 
 #import "UINavigationControllerTransition.h"
 #import "NavigationPanningInteractiveTransition.h"
+#import "UIViewControllerTransitionOptions.h"
 #import <objc/runtime.h>
 
 @interface UINavigationControllerTransition ()
@@ -86,22 +87,28 @@
 - (void)initProperties {
     [super initProperties];
     
-    _durationForPop = _durationForPush = UINavigationControllerHideShowBarDuration;
-    _animationOptionsForPop = _animationOptionsForPush = 7<<16;
     _interactor = [NavigationPanningInteractiveTransition new];
     _interactor.direction = InteractiveTransitionDirectionHorizontal;
-    self.allowsInteraction = true;
+    
+    self.allowsInteraction = YES;
+    self.appearenceOptions.duration = self.disappearenceOptions.duration = UINavigationControllerHideShowBarDuration;
 }
 
 #pragma mark - UINavigationController delegate
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
     BOOL isPush = operation == UINavigationControllerOperationPush;
+    UIViewControllerTransitionOptions *options = isPush ? self.appearenceOptions : self.disappearenceOptions;
+    
     AnimatedNavigationTransitioning *transitioning = isPush ? [self transitioningForPush] : [self transitioningForPop];
     transitioning.push = isPush;
-    transitioning.animationOptions = isPush ? _animationOptionsForPush : _animationOptionsForPop;
-    transitioning.duration = isPush ? _durationForPush : _durationForPop;
+    transitioning.animationOptions = options.animationOptions;
+    transitioning.duration = options.duration;
+    transitioning.usingSpring = options.isUsingSpring;
+    transitioning.initialSpringVelocity = options.initialSpringVelocity;
+    transitioning.usingSpringWithDamping = options.usingSpringWithDamping;
     _transitioning = transitioning;
+    
     return _transitioning;
 }
 

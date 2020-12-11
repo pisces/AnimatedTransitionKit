@@ -73,7 +73,7 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
         print("viewDidAppear -> \(type(of: self))")
         
         if let navigationController = navigationController {
-            navigationController.navigationTransition?.interactor.attach(navigationController, present: secondViewController)
+            navigationController.navigationTransition?.interactor?.attach(navigationController, present: secondViewController)
         }
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -124,7 +124,7 @@ final class NavigationMoveTransitionSecondViewController: UITableViewController,
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        navigationController?.navigationTransition?.interactor.delegate = self
+        navigationController?.navigationTransition?.interactor?.delegate = self
         print("viewDidAppear -> \(type(of: self))")
     }
     override func viewWillDisappear(_ animated: Bool) {

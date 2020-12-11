@@ -24,19 +24,22 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  FadeTransitionViewControllers.swift
-//  UIViewControllerTransitionsExample
+//  ZoomTransitionViewControllers.swift
+//  UIViewControllerTransitions_Example
 //
-//  Created by pisces on 14/04/2017.
-//  Copyright © 2017 Steve Kim. All rights reserved.
+//  Created by Steve Kim on 2020/12/10.
+//  Copyright © 2020 Steve Kim. All rights reserved.
 //
 
 import UIViewControllerTransitions
 
-final class FadeTransitionFirstViewController: UIViewController {
+final class ZoomTransitionFirstViewController: UIViewController {
+    
+    @IBOutlet private weak var button: UIButton!
     
     private lazy var secondViewController: UINavigationController = {
-        return UINavigationController(rootViewController: FadeTransitionSecondViewController(nibName: "FadeTransitionSecondView", bundle: .main))
+        let rootViewController = UIStoryboard(name: "ZoomTransition", bundle: nil).instantiateViewController(withIdentifier: "SecondScene")
+        return UINavigationController(rootViewController: rootViewController)
     }()
     
     override var prefersStatusBarHidden: Bool {
@@ -50,11 +53,10 @@ final class FadeTransitionFirstViewController: UIViewController {
         super.viewDidLoad()
         
         title = "First View"
+        button.transition.id = "zoomTarget"
         
-        let transition = FadeTransition()
+        let transition = ZoomTransition()
         transition.isAllowsInteraction = true
-        transition.disappearenceInteractor?.direction = .horizontal
-        transition.appearenceInteractor?.direction = .horizontal
         transition.appearenceInteractor?.attach(self, present: secondViewController)
         
         secondViewController.transition = transition
@@ -72,7 +74,9 @@ final class FadeTransitionFirstViewController: UIViewController {
     }
 }
 
-final class FadeTransitionSecondViewController: UIViewController {
+final class ZoomTransitionSecondViewController: UIViewController {
+    
+    @IBOutlet private(set) weak var targetView: UIView!
     
     override var prefersStatusBarHidden: Bool {
         return false
@@ -86,6 +90,8 @@ final class FadeTransitionSecondViewController: UIViewController {
         
         title = "Second View"
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
+        
+        targetView.transition.id = "zoomTarget"
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

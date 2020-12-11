@@ -36,10 +36,11 @@ import UIViewControllerTransitions
 final class DemoViewController: UITableViewController {
     
     private let titles: [String] = [
-        "DragDropTransition",
-        "MoveTransition",
-        "FadeTransition",
-        "NavigationMoveTransition"
+        "DragDrop",
+        "Move",
+        "Fade",
+        "Move for Navigation",
+        "Zoom"
     ]
     
     override func viewDidLoad() {
@@ -83,18 +84,20 @@ final class DemoViewController: UITableViewController {
             viewController = FadeTransitionFirstViewController(nibName: "FadeTransitionFirstView", bundle: .main)
         case 3:
             viewController = NavigationMoveTransitionFirstViewController(nibName: "NavigationMoveTransitionFirstView", bundle: .main)
+        case 4:
+            viewController = UIStoryboard(name: "ZoomTransition", bundle: nil).instantiateViewController(withIdentifier: "FirstScene")
         default:
             break
         }
         
         guard let controller = viewController else {return}
         
-        if indexPath.row < 3 {
-            navigationController?.pushViewController(controller, animated: true)
-        } else {
+        if indexPath.row == 3 {
             let navigationController = UINavigationController(rootViewController: controller)
             navigationController.modalPresentationStyle = .fullScreen
             present(navigationController, animated: true, completion: nil)
+        } else {
+            navigationController?.pushViewController(controller, animated: true)
         }
     }
 }

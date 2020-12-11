@@ -94,7 +94,7 @@ final class DragDropTransitionSecondViewController: UIViewController, Interactiv
         title = "Second View"
         edgesForExtendedLayout = .bottom
         imageView.isHidden = true
-        navigationController?.transition?.dismissionInteractor?.delegate = self
+        navigationController?.transition?.disappearenceInteractor?.delegate = self
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
     }
     

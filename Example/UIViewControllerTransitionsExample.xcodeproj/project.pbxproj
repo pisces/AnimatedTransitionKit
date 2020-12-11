@@ -36,6 +36,8 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
+		CE5BB7482581E61400534662 /* ZoomTransitionViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5BB7472581E61400534662 /* ZoomTransitionViewControllers.swift */; };
+		CE5BB74C2581E68B00534662 /* ZoomTransition.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE5BB74B2581E68B00534662 /* ZoomTransition.storyboard */; };
 		ED7B14BEBD59CBA340049AB7 /* Pods_UIViewControllerTransitions_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D544000CF3B29512EAF0D13B /* Pods_UIViewControllerTransitions_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +91,8 @@
 		73BAF19C0A1FB5035CB5C931 /* Pods-UIViewControllerTransitions_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C73CA04607B807B38338EFCA /* Pods_UIViewControllerTransitions_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UIViewControllerTransitions_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C980721F417434BDACFD36B6 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		CE5BB7472581E61400534662 /* ZoomTransitionViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomTransitionViewControllers.swift; sourceTree = "<group>"; };
+		CE5BB74B2581E68B00534662 /* ZoomTransition.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ZoomTransition.storyboard; sourceTree = "<group>"; };
 		D544000CF3B29512EAF0D13B /* Pods_UIViewControllerTransitions_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UIViewControllerTransitions_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E90FAC279C8476B56523BDCD /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E9EABE18F8A41F65FB32BC92 /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 				238D0A851EA0959E00D9C55C /* Images.xcassets */,
 				238D0A861EA0959E00D9C55C /* LaunchScreen.storyboard */,
 				238D0A871EA0959E00D9C55C /* Main.storyboard */,
+				CE5BB74B2581E68B00534662 /* ZoomTransition.storyboard */,
 			);
 			name = Resource;
 			path = UIViewControllerTransitionsExample/Resource;
@@ -159,6 +164,7 @@
 				238D0AAB1EA09F0300D9C55C /* FadeTransitionViewControllers.swift */,
 				238D0A911EA0959E00D9C55C /* MoveTransitionViewControllers.swift */,
 				23FDEA151F40719300DF3825 /* NavigationMoveTransitionViewControllers.swift */,
+				CE5BB7472581E61400534662 /* ZoomTransitionViewControllers.swift */,
 			);
 			name = Source;
 			path = UIViewControllerTransitionsExample/Source;
@@ -168,7 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
-				6003F593195388D20070C39A /* Example for UIViewControllerTransitions */,
+				6003F593195388D20070C39A /* UIViewControllerTransitionsExample */,
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
@@ -197,7 +203,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6003F593195388D20070C39A /* Example for UIViewControllerTransitions */ = {
+		6003F593195388D20070C39A /* UIViewControllerTransitionsExample */ = {
 			isa = PBXGroup;
 			children = (
 				238D0A7B1EA0915100D9C55C /* AppDelegate.swift */,
@@ -205,7 +211,7 @@
 				238D0A8A1EA0959E00D9C55C /* Source */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
-			name = "Example for UIViewControllerTransitions";
+			name = UIViewControllerTransitionsExample;
 			path = UIViewControllerTransitions;
 			sourceTree = "<group>";
 		};
@@ -298,7 +304,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = Demo;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Steve Kim";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
@@ -347,6 +353,7 @@
 				238D0A9C1EA0959E00D9C55C /* MoveTransitionSecondView.xib in Resources */,
 				238D0A9B1EA0959E00D9C55C /* MoveTransitionFirstView.xib in Resources */,
 				23FDEA141F40714300DF3825 /* NavigationMoveTransitionSecondView.xib in Resources */,
+				CE5BB74C2581E68B00534662 /* ZoomTransition.storyboard in Resources */,
 				238D0A9A1EA0959E00D9C55C /* FadeTransitionSecondView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,6 +436,7 @@
 				234561431F45AF73001C512C /* CustomNavigationTransition.swift in Sources */,
 				238D0AAC1EA09F0300D9C55C /* FadeTransitionViewControllers.swift in Sources */,
 				23FDEA161F40719300DF3825 /* NavigationMoveTransitionViewControllers.swift in Sources */,
+				CE5BB7482581E61400534662 /* ZoomTransitionViewControllers.swift in Sources */,
 				234A7D0D1E4C646300DA1446 /* main.m in Sources */,
 				238D0AA31EA0959E00D9C55C /* DragDropTransitionViewControllers.swift in Sources */,
 				238D0A7C1EA0915100D9C55C /* AppDelegate.swift in Sources */,
@@ -495,6 +503,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -519,7 +528,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -548,6 +557,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -565,7 +575,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -587,7 +597,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Prefix.pch";
 				INFOPLIST_FILE = "${PROJECT_NAME}/${PRODUCT_NAME}-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = pisces.lib.UIViewControllerTransitions;
@@ -615,7 +625,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "${PROJECT_NAME}/${PRODUCT_NAME}-Prefix.pch";
 				INFOPLIST_FILE = "${PROJECT_NAME}/${PRODUCT_NAME}-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = pisces.lib.UIViewControllerTransitions;

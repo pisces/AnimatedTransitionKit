@@ -49,19 +49,18 @@ const CGFloat unfocusedCompletionBounds = 50;
     [self applyDropShadow:self.fromViewController.view.layer];
     [transitionContext.containerView insertSubview:self.toViewController.view belowSubview:self.fromViewController.view];
     
-    if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.fromViewController.view.layer.transform = self.focusedTransformTo;
-            self.toViewController.view.layer.transform = self.unfocusedTransformTo;
-        } completion:^(BOOL finished) {
-            self.fromViewController.view.hidden = YES;
-            [self clearDropShadow:self.fromViewController.view.layer];
-            
-            dispatch_after_sec(0.05, ^{
-                [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-            });
-        }];
+    if (transitionContext.isInteractive) {
+        return;
     }
+    
+    [self animate:^{
+        self.fromViewController.view.layer.transform = self.focusedTransformTo;
+        self.toViewController.view.layer.transform = self.unfocusedTransformTo;
+    } completion:^{
+        self.fromViewController.view.hidden = YES;
+        [self clearDropShadow:self.fromViewController.view.layer];
+        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+    }];
 }
 
 - (void)animateTransitionForPush:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -72,19 +71,18 @@ const CGFloat unfocusedCompletionBounds = 50;
     [self applyDropShadow:self.toViewController.view.layer];
     [transitionContext.containerView addSubview:self.toViewController.view];
     
-    if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.fromViewController.view.layer.transform = self.unfocusedTransformTo;
-            self.toViewController.view.layer.transform = self.focusedTransformTo;
-        } completion:^(BOOL finished) {
-            self.fromViewController.view.hidden = YES;
-            [self clearDropShadow:self.toViewController.view.layer];
-            
-            dispatch_after_sec(0.05, ^{
-                [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-            });
-        }];
+    if (transitionContext.isInteractive) {
+        return;
     }
+    
+    [self animate:^{
+        self.fromViewController.view.layer.transform = self.unfocusedTransformTo;
+        self.toViewController.view.layer.transform = self.focusedTransformTo;
+    } completion:^{
+        self.fromViewController.view.hidden = YES;
+        [self clearDropShadow:self.toViewController.view.layer];
+        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+    }];
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
@@ -95,16 +93,13 @@ const CGFloat unfocusedCompletionBounds = 50;
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    [UIView animateWithDuration:0.15 delay:0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
+    [self animateWithDuration:0.2 animations:^{
         self.aboveViewController.view.layer.transform = self.focusedTransformFrom;
         self.belowViewController.view.layer.transform = self.unfocusedTransformFrom;
-    } completion:^(BOOL finished) {
+    } completion:^{
         self.belowViewController.view.hidden = !self.isPush;
-        
-        dispatch_after_sec(0.05, ^{
-            [self.context completeTransition:!self.context.transitionWasCancelled];
-            completion();
-        });
+        [self.context completeTransition:!self.context.transitionWasCancelled];
+        completion();
     }];
 }
 
@@ -117,16 +112,13 @@ const CGFloat unfocusedCompletionBounds = 50;
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-    [UIView animateWithDuration:0.15 delay:0 options:7 | UIViewAnimationOptionAllowUserInteraction animations:^{
+    [self animate:^{
         self.aboveViewController.view.layer.transform = self.focusedTransformTo;
         self.belowViewController.view.layer.transform = self.unfocusedTransformTo;
-    } completion:^(BOOL finished) {
+    } completion:^{
         self.belowViewController.view.hidden = self.isPush;
-        
-        dispatch_after_sec(0.05, ^{
-            [self.context completeTransition:!self.context.transitionWasCancelled];
-            completion();
-        });
+        [self.context completeTransition:!self.context.transitionWasCancelled];
+        completion();
     }];
 }
 

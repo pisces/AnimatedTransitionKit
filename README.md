@@ -17,6 +17,23 @@
 - Provide transitions three types
 - Support percent driven interactive transtion with pan gesture recognizer
 
+## Example
+![](Screenshot/ExMoveTransition.gif)&nbsp;&nbsp;&nbsp;
+![](Screenshot/ExDragDropTransition.gif)
+
+## Transition Types
+- Move
+- DragDrop
+- Fade
+- Zoom
+
+## Navigation Transition Types
+- Move
+
+## Gestures
+- Pan
+- Pinch
+
 ## Import
 
 Objective-C
@@ -29,6 +46,62 @@ import UIViewControllerTransitions
 ```
 
 ## 🔥Using UIViewControllerTransition
+
+### Pinch Zoom Example
+
+```swift
+
+import UIViewControllerTransitions
+
+final class ZoomTransitionFirstViewController: UIViewController {
+    
+    @IBOutlet private weak var button: UIButton!
+    
+    private lazy var secondViewController: UINavigationController = {
+        let rootViewController = UIStoryboard(name: "ZoomTransition", bundle: nil).instantiateViewController(withIdentifier: "SecondScene")
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "First View"
+
+        // View binding with any transition id
+        button.transition.id = "zoomTarget"
+        
+        let transition = ZoomTransition()
+        transition.isAllowsInteraction = true
+        transition.appearenceInteractor?.attach(self, present: secondViewController)
+        
+        secondViewController.transition = transition
+    }
+    
+    @IBAction func clicked() {
+        present(secondViewController, animated: true, completion: nil)
+    }
+}
+
+final class ZoomTransitionSecondViewController: UIViewController {
+    
+    @IBOutlet private(set) weak var targetView: UIView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "Second View"
+        navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
+        
+        // View binding with matched transition id
+        targetView.transition.id = "zoomTarget"
+    }
+    
+    @objc private func close() {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+```
 
 ### MoveTransition Example 1
 #### Using transition for dismission with swipe gesture.
@@ -50,7 +123,6 @@ final class ViewController: UIViewController {
 
 ### MoveTransition Example 2
 #### Using transition for presenting and dismission both with swipe gesture.
-![](Screenshot/ExMoveTransition.gif)
 
 ```swift
 import UIViewControllerTransitions
@@ -62,8 +134,8 @@ final class MoveTransitionFirstViewController: UIViewController, InteractiveTran
     private lazy var secondViewController: UINavigationController = {
         let viewController = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
         let transition = MoveTransition()
-        transition.durationForPresenting = 0.25
-        transition.durationForDismission = 0.35
+        transition.appearenceOptions.duration = 0.25
+        transition.disappearenceOptions.duration = 0.35
         transition.isAllowsInteraction = true
         
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -72,15 +144,6 @@ final class MoveTransitionFirstViewController: UIViewController, InteractiveTran
         return navigationController
     }()
     
-    // MARK: - Overridden: UITableViewController (StatusBar Visibility)
-    
-    override var prefersStatusBarHidden: Bool {
-        return false
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
-    }
-    
     // MARK: - Overridden: UITableViewController (Life Cycle)
     
     override func viewDidLoad() {
@@ -88,14 +151,7 @@ final class MoveTransitionFirstViewController: UIViewController, InteractiveTran
         
         title = "First View"
         
-        secondViewController.transition?.presentingInteractor?.attach(self, present: secondViewController)
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
+        secondViewController.transition?.appearenceInteractor?.attach(self, present: secondViewController)
     }
     
     // MARK: - Private Selectors
@@ -112,18 +168,6 @@ final class MoveTransitionSecondViewController: UITableViewController {
     private var isInteractionBegan = false
     private var isViewAppeared = false
     
-    // MARK: - Overridden: UITableViewController (StatusBar Visibility)
-    
-    override var prefersStatusBarHidden: Bool {
-        return false
-    }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
-    }
-    
     // MARK: - Overridden: UITableViewController (Life Cycle)
     
     override func viewDidLoad() {
@@ -131,14 +175,7 @@ final class MoveTransitionSecondViewController: UITableViewController {
         
         title = "Second View"
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
-        navigationController?.transition?.dismissionInteractor?.delegate = self
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
+        navigationController?.transition?.disappearenceInteractor?.delegate = self
     }
     
     // MARK: - Overridden: UITableViewController (UITableView DataSource & Delegate)
@@ -195,14 +232,13 @@ override func viewDidLoad() {
     transition.isAllowsInteraction = true
 
     // Attach view controller to interactive transition for presenting
-    transition.presentingInteractor?.attach(self, present: secondNavigationController)
+    transition.appearenceInteractor?.attach(self, present: secondNavigationController)
 
     secondNavigationController.transition = transition
 }
 ```
 
 #### DragDropTransition Example
-![](Screenshot/ExDragDropTransition.gif)
 
 ```swift
 import UIViewControllerTransitions
@@ -227,7 +263,7 @@ class DragDropTransitionFirstViewController: UIViewController {
         
         let transition = DragDropTransition()
         transition.isAllowsInteraction = true
-        transition.dismissionInteractor?.delegate = secondViewController
+        transition.disappearenceInteractor?.delegate = secondViewController
         
         let w = view.frame.size.width
         let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
@@ -376,7 +412,7 @@ class CustomTransitioning: AnimatedTransitioning {
 ```swift
 let transition = CustomTransition()
 transition.isAllowsInteraction = true
-transition.presentingInteractor?.attach(self, present: secondViewController)
+transition.appearenceInteractor?.attach(self, present: secondViewController)
 
 secondViewController.transition = transition
 present(secondViewController, animated: true, completion: nil)
@@ -535,10 +571,10 @@ To integrate UIViewControllerTransitions into your Xcode project using CocoaPods
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '7.0'
+platform :ios, '9.0'
 
 target '<Your Target Name>' do
-    pod 'UIViewControllerTransitions', '~> 3.0.0'
+    pod 'UIViewControllerTransitions', '~> 3.1.0'
 end
 ```
 
@@ -562,14 +598,14 @@ $ brew install carthage
 To integrate UIViewControllerTransitions into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/UIViewControllerTransitions" ~> 3.0.0
+github "pisces/UIViewControllerTransitions" ~> 3.1.0
 ```
 
 Run `carthage update` to build the framework and drag the built `UIViewControllerTransitions.framework` into your Xcode project.
 
 ## Requirements
 
-iOS Deployment Target 8.0 higher
+iOS Deployment Target 9.0 higher
 
 ## Author
 

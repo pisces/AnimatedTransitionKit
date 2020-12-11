@@ -91,19 +91,21 @@
     self.toViewController.view.window.backgroundColor = [UIColor blackColor];
     self.fromViewController.view.transform = self.transformFrom;
     
-    if (!transitionContext.isInteractive) {
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-            self.toViewController.view.alpha = 1;
-            self.toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-            self.fromViewController.view.transform = self.transformTo;
-        } completion:^(BOOL finished) {
-            self.toViewController.view.window.backgroundColor = backgroundColor;
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-            [self.fromViewController.view removeFromSuperview];
-            [self.belowViewController endAppearanceTransition];
-        }];
+    if (transitionContext.isInteractive) {
+        return;
     }
+    
+    [self animate:^{
+        self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+        self.toViewController.view.alpha = 1;
+        self.toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        self.fromViewController.view.transform = self.transformTo;
+    } completion:^{
+        self.toViewController.view.window.backgroundColor = backgroundColor;
+        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+        [self.fromViewController.view removeFromSuperview];
+        [self.belowViewController endAppearanceTransition];
+    }];
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -114,26 +116,26 @@
     
     [transitionContext.containerView addSubview:self.toViewController.view];
     
-    if (!transitionContext.isInteractive) {
-        self.toViewController.view.hidden = NO;
-        
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations:^{
-            self.toViewController.view.transform = self.transformTo;
-            self.fromViewController.view.alpha = 0.5;
-            self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-            self.fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
-        } completion:^(BOOL finished) {
-            self.fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-            self.fromViewController.view.window.backgroundColor = backgroundColor;
-            
-            if (!transitionContext.transitionWasCancelled) {
-                self.fromViewController.view.hidden = YES;
-            }
-            
-            [self.belowViewController endAppearanceTransition];
-            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-        }];
+    if (transitionContext.isInteractive) {
+        return;
     }
+    
+    [self animate:^{
+        self.toViewController.view.transform = self.transformTo;
+        self.fromViewController.view.alpha = 0.5;
+        self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+        self.fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
+    } completion:^{
+        self.fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        self.fromViewController.view.window.backgroundColor = backgroundColor;
+        
+        if (!transitionContext.transitionWasCancelled) {
+            self.fromViewController.view.hidden = YES;
+        }
+        
+        [self.belowViewController endAppearanceTransition];
+        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+    }];
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
@@ -149,12 +151,12 @@
     const CGFloat alpha = self.presenting ? 1 : 0.5;
     const CGFloat scale = self.presenting ? 1 : 0.94;
     
-    [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
+    [self animateWithDuration:0.25 animations:^{
         self.aboveViewController.view.transform = self.transformFrom;
         self.belowViewController.view.alpha = alpha;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
-    } completion:^(BOOL finished) {
+    } completion:^{
         self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
         
         if (self.presenting) {
@@ -192,12 +194,12 @@
     const CGFloat alpha = self.presenting ? 0.5 : 1;
     const CGFloat scale = self.presenting ? 0.94 : 1;
     
-    [UIView animateWithDuration:0.15 delay:0 options:7<<16 | UIViewAnimationOptionAllowUserInteraction animations:^{
+    [self animate:^{
         self.aboveViewController.view.transform = self.transformTo;
         self.belowViewController.view.alpha = alpha;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
-    } completion:^(BOOL finished) {
+    } completion:^{
         self.belowViewController.view.alpha = alpha;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         

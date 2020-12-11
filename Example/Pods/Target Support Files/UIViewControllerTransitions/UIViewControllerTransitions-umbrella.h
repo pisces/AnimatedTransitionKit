@@ -10,9 +10,16 @@
 #endif
 #endif
 
-#import "AbstractAnimatedTransitioning.h"
-#import "AbstractInteractiveTransition.h"
 #import "AbstractTransition.h"
+#import "UINavigationControllerTransition.h"
+#import "UIViewControllerTransition.h"
+#import "UIViewControllerTransitionOptions.h"
+#import "UIViewControllerTransitions.h"
+#import "UIViewControllerTransitionsMacro.h"
+#import "AbstractInteractiveTransition.h"
+#import "NavigationPanningInteractiveTransition.h"
+#import "PanningInteractiveTransition.h"
+#import "AbstractAnimatedTransitioning.h"
 #import "AnimatedNavigationTransitioning.h"
 #import "AnimatedTransitioning.h"
 #import "DragDropTransition.h"
@@ -23,13 +30,7 @@
 #import "MoveTransitioning.h"
 #import "NavigationMoveTransition.h"
 #import "NavigationMoveTransitioning.h"
-#import "NavigationPanningInteractiveTransition.h"
-#import "PanningInteractiveTransition.h"
 #import "UIMaskedImageView.h"
-#import "UINavigationControllerTransition.h"
-#import "UIViewControllerTransition.h"
-#import "UIViewControllerTransitions.h"
-#import "UIViewControllerTransitionsMacro.h"
 
 FOUNDATION_EXPORT double UIViewControllerTransitionsVersionNumber;
 FOUNDATION_EXPORT const unsigned char UIViewControllerTransitionsVersionString[];

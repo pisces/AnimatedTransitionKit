@@ -40,8 +40,8 @@ final class MoveTransitionFirstViewController: UIViewController, InteractiveTran
     private lazy var secondViewController: UINavigationController = {
         let viewController = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
         let transition = MoveTransition()
-        transition.durationForPresenting = 0.25
-        transition.durationForDismission = 0.35
+        transition.appearenceOptions.duration = 0.25
+        transition.disappearenceOptions.duration = 0.35
         transition.isAllowsInteraction = true
         
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -66,7 +66,7 @@ final class MoveTransitionFirstViewController: UIViewController, InteractiveTran
         
         title = "First View"
         
-        secondViewController.transition?.presentingInteractor?.attach(self, present: secondViewController)
+        secondViewController.transition?.appearenceInteractor?.attach(self, present: secondViewController)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -121,7 +121,7 @@ final class MoveTransitionSecondViewController: UITableViewController {
         
         title = "Second View"
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
-        navigationController?.transition?.dismissionInteractor?.delegate = self
+        navigationController?.transition?.disappearenceInteractor?.delegate = self
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

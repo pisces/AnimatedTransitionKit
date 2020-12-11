@@ -73,6 +73,31 @@
 
 #pragma mark - Public methods
 
+- (void)animate:(void (^)(void))animations
+     completion:(void (^)(void))completion {
+    [self animateWithDuration:_duration animations:animations completion:completion];
+}
+
+- (void)animateWithDuration:(NSTimeInterval)duration
+                 animations:(void (^)(void))animations
+                 completion:(void (^)(void))completion {
+    if (_usingSpring) {
+        [UIView animateWithDuration:_duration
+                              delay:0
+             usingSpringWithDamping:_usingSpringWithDamping
+              initialSpringVelocity:_initialSpringVelocity
+                            options:_animationOptions | UIViewAnimationOptionAllowUserInteraction
+                         animations:animations
+                         completion:^(BOOL finished) { completion(); }];
+    } else {
+        [UIView animateWithDuration:_duration
+                              delay:0
+                            options:_animationOptions | UIViewAnimationOptionAllowUserInteraction
+                         animations:animations
+                         completion:^(BOOL finished) { completion(); }];
+    }
+}
+
 - (void)clear {
     _fromViewController.view.alpha = 1;
     _fromViewController.view.transform = CGAffineTransformTranslate(self.fromViewController.view.transform, 0, 0);

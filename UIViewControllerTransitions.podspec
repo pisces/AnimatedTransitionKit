@@ -15,6 +15,6 @@ Pod::Spec.new do |s|
   s.license          = 'BSD 2-Clause'
   s.author           = { "Steve Kim" => "hh963103@gmail.com" }
   s.source           = { :git => "https://github.com/pisces/UIViewControllerTransitions.git", :tag => s.version.to_s }
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
   s.source_files = 'UIViewControllerTransitions/Classes/**/*'
 end

@@ -44,13 +44,9 @@
 @end
 
 @interface UIViewControllerTransition : AbstractTransition <UIViewControllerTransitioningDelegate, UIViewControllerTransitionProtected>
-@property (nonatomic) UIViewAnimationOptions animationOptionsForDismission;
-@property (nonatomic) UIViewAnimationOptions animationOptionsForPresenting;
-@property (nonatomic) NSTimeInterval durationForDismission;
-@property (nonatomic) NSTimeInterval durationForPresenting;
-@property (nullable, nonatomic, strong) AbstractInteractiveTransition *dismissionInteractor;
-@property (nullable, nonatomic, strong) AbstractInteractiveTransition *presentingInteractor;
 @property (nullable, nonatomic, weak) UIViewController *viewController;
+@property (nullable, nonatomic, strong) AbstractInteractiveTransition *appearenceInteractor;
+@property (nullable, nonatomic, strong) AbstractInteractiveTransition *disappearenceInteractor;
 @end
 
 @interface UIViewController (UIViewControllerTransitions)

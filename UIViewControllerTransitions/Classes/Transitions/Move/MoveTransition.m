@@ -55,7 +55,7 @@
     }
     
     _direction = direction;
-    self.dismissionInteractor.direction = self.presentingInteractor.direction = self.interactiveTransitionDirection;
+    self.appearenceInteractor.direction = self.disappearenceInteractor.direction = self.interactiveTransitionDirection;
 }
 
 #pragma mark - Overridden: UIViewControllerTransition

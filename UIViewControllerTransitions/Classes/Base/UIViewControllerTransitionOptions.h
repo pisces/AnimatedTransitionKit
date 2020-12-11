@@ -24,30 +24,24 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  UINavigationControllerTransition.h
+//  UIViewControllerTransitionOptions.h
 //  UIViewControllerTransitions
 //
-//  Created by Steve Kim on 8/13/17.
+//  Created by Steve Kim on 2020/12/11.
 //
 
-#import <UIKit/UIKit.h>
-#import "AnimatedNavigationTransitioning.h"
-#import "AbstractTransition.h"
+#import <Foundation/Foundation.h>
 
-@protocol UINavigationControllerTransitionProtected <NSObject>
-- (AnimatedNavigationTransitioning * _Nullable)transitioningForPop;
-- (AnimatedNavigationTransitioning * _Nullable)transitioningForPush;
-@end
+@interface UIViewControllerTransitionOptions : NSObject
+@property (nonatomic, getter=isUsingSpring) BOOL usingSpring;
+@property (nonatomic) CGFloat usingSpringWithDamping;
+@property (nonatomic) CGFloat initialSpringVelocity;
+@property (nonatomic) UIViewAnimationOptions animationOptions;
+@property (nonatomic) NSTimeInterval duration;
 
-@interface UINavigationControllerTransition : AbstractTransition <UINavigationControllerDelegate, UINavigationControllerTransitionProtected>
-@property (nonatomic) NSTimeInterval durationForPop;
-@property (nonatomic) NSTimeInterval durationForPush;
-@property (nonatomic) UIViewAnimationOptions animationOptionsForPop;
-@property (nonatomic) UIViewAnimationOptions animationOptionsForPush;
-@property (nonnull, nonatomic, strong) AbstractInteractiveTransition *interactor;
-@property (nullable, nonatomic, weak) UINavigationController *navigationController;
-@end
-
-@interface UINavigationController (UIViewControllerTransitions)
-@property (nullable, nonatomic, weak) UINavigationControllerTransition *navigationTransition;
+- (id _Nonnull)initWithDuration:(NSTimeInterval)duration
+               animationOptions:(UIViewAnimationOptions)animationOptions
+                  isUsingSpring:(BOOL)isUsingSpring
+         usingSpringWithDamping:(CGFloat)usingSpringWithDamping
+          initialSpringVelocity:(CGFloat)initialSpringVelocity;
 @end

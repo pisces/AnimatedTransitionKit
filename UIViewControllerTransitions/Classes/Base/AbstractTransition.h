@@ -24,51 +24,30 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  AbstractTransition.m
+//  AbstractTransition.h
 //  UIViewControllerTransitions
 //
 //  Created by Steve Kim on 8/14/17.
 //
 
-#import "AbstractTransition.h"
+#import "AbstractAnimatedTransitioning.h"
+#import "AbstractInteractiveTransition.h"
+#import "UIViewControllerTransitionOptions.h"
 
-@implementation AbstractTransition
+@protocol AbstractTransitionProtected <NSObject>
+- (void)initProperties;
+@end
 
-#pragma mark - Con(De)structor
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        [self initProperties];
-    }
-    return self;
-}
-
-#pragma mark - Public Methods
-
-- (void)beginInteration {
-    _interacting = YES;
-}
-
-- (void)clear {
-    [self.transitioning clear];
-}
-
-- (void)endInteration {
-    _interacting = NO;
-}
-
-- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
-    return NO;
-}
-
-- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor {
-    return NO;
-}
-
-#pragma mark - Protected Methods
-
-- (void)initProperties {
-}
-
+@interface AbstractTransition: NSObject <AbstractTransitionProtected>
+@property (nonatomic, getter=isAllowsInteraction) BOOL allowsInteraction;
+@property (nonatomic, readonly, getter=isInteracting) BOOL interacting;
+@property (nullable, nonatomic, readonly) AbstractInteractiveTransition *currentInteractor;
+@property (nullable, nonatomic, readonly) AbstractAnimatedTransitioning *transitioning;
+@property (nonnull, nonatomic, strong) UIViewControllerTransitionOptions *disappearenceOptions;
+@property (nonnull, nonatomic, strong) UIViewControllerTransitionOptions *appearenceOptions;
+- (void)beginInteration;
+- (void)clear;
+- (void)endInteration;
+- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
+- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
 @end

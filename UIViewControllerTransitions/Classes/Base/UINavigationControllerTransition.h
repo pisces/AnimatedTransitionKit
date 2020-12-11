@@ -24,27 +24,27 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  AbstractTransition.h
+//  UINavigationControllerTransition.h
 //  UIViewControllerTransitions
 //
-//  Created by Steve Kim on 8/14/17.
+//  Created by Steve Kim on 8/13/17.
 //
 
-#import "AbstractAnimatedTransitioning.h"
-#import "AbstractInteractiveTransition.h"
+#import <UIKit/UIKit.h>
+#import "AnimatedNavigationTransitioning.h"
+#import "AbstractTransition.h"
+#import "UIViewControllerTransitionOptions.h"
 
-@protocol AbstractTransitionProtected <NSObject>
-- (void)initProperties;
+@protocol UINavigationControllerTransitionProtected <NSObject>
+- (AnimatedNavigationTransitioning * _Nullable)transitioningForPop;
+- (AnimatedNavigationTransitioning * _Nullable)transitioningForPush;
 @end
 
-@interface AbstractTransition: NSObject <AbstractTransitionProtected>
-@property (nonatomic, getter=isAllowsInteraction) BOOL allowsInteraction;
-@property (nonatomic, readonly, getter=isInteracting) BOOL interacting;
-@property (nullable, nonatomic, readonly) AbstractInteractiveTransition *currentInteractor;
-@property (nullable, nonatomic, readonly) AbstractAnimatedTransitioning *transitioning;
-- (void)beginInteration;
-- (void)clear;
-- (void)endInteration;
-- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
-- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
+@interface UINavigationControllerTransition : AbstractTransition <UINavigationControllerDelegate, UINavigationControllerTransitionProtected>
+@property (nullable, nonatomic, weak) UINavigationController *navigationController;
+@property (nullable, nonatomic, strong) AbstractInteractiveTransition *interactor;
+@end
+
+@interface UINavigationController (UIViewControllerTransitions)
+@property (nullable, nonatomic, weak) UINavigationControllerTransition *navigationTransition;
 @end

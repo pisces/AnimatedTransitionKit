@@ -48,6 +48,13 @@
 
 #pragma mark - Overridden: AbstractTransition
 
+- (void)initProperties {
+    [super initProperties];
+    
+    _appearenceInteractor = [PanningInteractiveTransition new];
+    _disappearenceInteractor = [PanningInteractiveTransition new];
+}
+
 - (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
     if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
         return NO;
@@ -70,8 +77,8 @@
 - (void)setAllowsInteraction:(BOOL)allowsInteraction {
     [super setAllowsInteraction:allowsInteraction];
     
-    _dismissionInteractor.gestureRecognizer.enabled = allowsInteraction;
-    _presentingInteractor.gestureRecognizer.enabled = allowsInteraction;
+    _appearenceInteractor.gestureRecognizer.enabled = allowsInteraction;
+    _disappearenceInteractor.gestureRecognizer.enabled = allowsInteraction;
 }
 
 - (void)setViewController:(UIViewController *)viewController {
@@ -83,43 +90,40 @@
     _viewController.transitioningDelegate = self;
     _viewController.modalPresentationStyle = UIModalPresentationCustom;
     
-    [self.dismissionInteractor attach:_viewController presentViewController:nil];
-}
-
-- (void)initProperties {
-    [super initProperties];
-    
-    _durationForDismission = _durationForPresenting = 0.15;
-    _animationOptionsForDismission = _animationOptionsForPresenting = 7<<16;
-    _dismissionInteractor = [PanningInteractiveTransition new];
-    _presentingInteractor = [PanningInteractiveTransition new];
+    [_disappearenceInteractor attach:_viewController presentViewController:nil];
 }
 
 #pragma mark - UIViewControllerTransitioning delegate
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-    _currentInteractor = self.dismissionInteractor;
+    _currentInteractor = _disappearenceInteractor;
     _transitioning = [self transitioningForDismissedController:dismissed];
-    _transitioning.animationOptions = _animationOptionsForDismission;
-    _transitioning.duration = _durationForDismission;
+    _transitioning.animationOptions = self.disappearenceOptions.animationOptions;
+    _transitioning.duration = self.disappearenceOptions.duration;
+    _transitioning.usingSpring = self.disappearenceOptions.isUsingSpring;
+    _transitioning.initialSpringVelocity = self.disappearenceOptions.initialSpringVelocity;
+    _transitioning.usingSpringWithDamping = self.disappearenceOptions.usingSpringWithDamping;
     return _transitioning;
 }
 
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    _currentInteractor = self.presentingInteractor;
+    _currentInteractor = _appearenceInteractor;
     _transitioning = [self transitioningForForPresentedController:presented presentingController:presenting sourceController:source];
     ((AnimatedTransitioning *) _transitioning).presenting = YES;
-    _transitioning.animationOptions = _animationOptionsForPresenting;
-    _transitioning.duration = _durationForPresenting;
+    _transitioning.animationOptions = self.appearenceOptions.animationOptions;
+    _transitioning.duration = self.appearenceOptions.duration;
+    _transitioning.usingSpring = self.appearenceOptions.isUsingSpring;
+    _transitioning.initialSpringVelocity = self.appearenceOptions.initialSpringVelocity;
+    _transitioning.usingSpringWithDamping = self.appearenceOptions.usingSpringWithDamping;
     return _transitioning;
 }
 
 - (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator {
-    return (self.allowsInteraction && self.isInteracting) ? self.dismissionInteractor : nil;
+    return (self.allowsInteraction && self.isInteracting) ? _disappearenceInteractor : nil;
 }
 
 - (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator {
-    return (self.allowsInteraction && self.isInteracting) ? self.presentingInteractor : nil;
+    return (self.allowsInteraction && self.isInteracting) ? _appearenceInteractor : nil;
 }
 
 #pragma mark - Protected methods
