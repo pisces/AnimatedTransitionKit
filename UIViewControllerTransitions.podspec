@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "UIViewControllerTransitions"
-  s.version          = "3.1.0"
+  s.version          = "3.1.1"
   s.summary          = "UIViewController Transitioning Library."
   s.description      = "This library helps you to apply and create Custom UIViewController Transitions."
   s.homepage         = "https://github.com/pisces/UIViewControllerTransitions"
