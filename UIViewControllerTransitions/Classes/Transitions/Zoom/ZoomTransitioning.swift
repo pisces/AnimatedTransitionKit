@@ -44,6 +44,9 @@ final class ZoomTransitioning: AnimatedTransitioning {
               let toView = findView(withId: id, in: toVC.view),
               let snapshotView = fromView.snapshotView(afterScreenUpdates: true) else { return }
         
+        let center = toView.superview?.convert(
+            toView.center,
+            to: transitionContext.containerView) ?? .zero
         let transform = CGAffineTransform(
             scaleX: toView.bounds.size.width / fromView.bounds.size.width,
             y: toView.bounds.size.height / fromView.bounds.size.height)
@@ -55,17 +58,17 @@ final class ZoomTransitioning: AnimatedTransitioning {
         
         transitionContext.containerView.addSubview(snapshotView)
         
-        self.snapshotView = snapshotView
-        self.fromView = fromView
-        self.toView = toView
         self.transform = transform
+        self.fromView = fromView
+        self.snapshotView = snapshotView
+        self.toView = toView
         
         if transitionContext.isInteractive { return }
         
         animate({
             fromVC.view.alpha = 0
             toVC.view.tintAdjustmentMode = .normal
-            snapshotView.center = toView.center
+            snapshotView.center = center
             snapshotView.transform = transform
         },
         completion: { [weak self] in
@@ -93,26 +96,29 @@ final class ZoomTransitioning: AnimatedTransitioning {
         transitionContext.containerView.addSubview(snapshotView)
         toVC.view.layoutIfNeeded()
         
+        let center = toView.superview?.convert(
+            toView.center,
+            to: transitionContext.containerView) ?? .zero
         let transform = CGAffineTransform(
             scaleX: toView.bounds.size.width / fromView.bounds.size.width,
             y: toView.bounds.size.height / fromView.bounds.size.height)
         
-        snapshotView.center = fromView.center
+        snapshotView.center = fromView.superview?.convert(fromView.center, to: transitionContext.containerView) ?? .zero
         toVC.view.alpha = 0
         fromView.isHidden = true
         toView.isHidden = true
         
-        self.snapshotView = snapshotView
-        self.fromView = fromView
-        self.toView = toView
         self.transform = transform
+        self.fromView = fromView
+        self.snapshotView = snapshotView
+        self.toView = toView
         
         if transitionContext.isInteractive { return }
         
         animate({
             toVC.view.alpha = 1
             fromVC.view.tintAdjustmentMode = .dimmed
-            snapshotView.center = toView.center
+            snapshotView.center = center
             snapshotView.transform = transform
         },
         completion: { [weak self] in
