@@ -190,16 +190,20 @@ final class ZoomTransitioning: AnimatedTransitioning {
     }
     
     override func interactionCompleted(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
-        guard let snapshotView = snapshotView,
-              let center = toView?.center,
-              let transform = transform,
+        guard let context = context,
+              let snapshotView = snapshotView,
               let aboveVC = aboveViewController,
-              let belowVC = belowViewController else { return }
+              let belowVC = belowViewController,
+              let transform = transform,
+              let toView = toView else { return }
         
         let alpha: CGFloat = isPresenting ? 1 : 0
         let tintAdjustmentMode: UIView.TintAdjustmentMode = isPresenting ? .dimmed : .normal
+        let center = toView.superview?.convert(
+            toView.center,
+            to: context.containerView) ?? .zero
         
-        belowVC.beginAppearanceTransition(!isPresenting, animated: context?.isAnimated == true)
+        belowVC.beginAppearanceTransition(!isPresenting, animated: context.isAnimated == true)
         
         animate({
             aboveVC.view.alpha = alpha
@@ -208,8 +212,7 @@ final class ZoomTransitioning: AnimatedTransitioning {
             snapshotView.transform = transform
         },
         completion: { [weak self] in
-            guard let self = self,
-                  let context = self.context else { return }
+            guard let self = self else { return }
             
             self.fromView?.isHidden = false
             self.toView?.isHidden = false
