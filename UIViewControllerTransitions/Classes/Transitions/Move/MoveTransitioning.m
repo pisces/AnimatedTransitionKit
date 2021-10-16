@@ -37,10 +37,14 @@
 
 #import "MoveTransitioning.h"
 #import "PanningInteractiveTransition.h"
+#import "UIScrollView+Utils.h"
 #import "UIViewControllerTransition.h"
 #import "UIViewControllerTransitionsMacro.h"
 
 @implementation MoveTransitioning
+{
+    CGFloat interactionOffset;
+}
 @synthesize percentOfBounds = _percentOfBounds;
 
 #pragma mark - Properties
@@ -141,6 +145,20 @@
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
     [super interactionBegan:interactor transitionContext:transitionContext];
     
+    UIScrollView *scrollView = self.relatedScrollView;
+    switch (_direction) {
+        case MoveTransitioningDirectionUp:
+            interactionOffset = scrollView.contentOffset.y + scrollView.extAdjustedContentInset.top;
+            break;
+        case MoveTransitioningDirectionDown: {
+            interactionOffset = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height + scrollView.extAdjustedContentInset.bottom);
+            break;
+        }
+        default:
+            interactionOffset = 0;
+            break;
+    }
+    
     [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
     
     self.aboveViewController.view.transform = self.transformFrom;
@@ -168,6 +186,7 @@
         [self.context completeTransition:NO];
         completion();
     }];
+    interactionOffset = 0;
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
@@ -179,11 +198,11 @@
     scale = MAX(0.94, MIN(1, scale));
     
     if (interactor.isVertical) {
-        CGFloat y = self.transformFrom.ty + ((interactor.point.y - interactor.beginPoint.y) * 1.5);
-        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(0, [self calculatedValue:y]);
+        const CGFloat y = (self.transformFrom.ty + interactor.translation.y) - interactionOffset;
+        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(0, [self restricted:y]);
     } else {
-        const CGFloat x = self.transformFrom.tx + ((interactor.point.x - interactor.beginPoint.x) * 1.5);
-        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation([self calculatedValue:x], 0);
+        const CGFloat x = (self.transformFrom.tx + interactor.translation.x) - interactionOffset;
+        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation([self restricted:x], 0);
     }
     
     self.belowViewController.view.alpha = alpha;
@@ -215,6 +234,7 @@
             [self.belowViewController endAppearanceTransition];
         }
     }];
+    interactionOffset = 0;
 }
 
 - (void)updatePercentOfBounds {
@@ -225,7 +245,7 @@
 
 #pragma mark - Private methods
 
-- (CGFloat)calculatedValue:(CGFloat)value {
+- (CGFloat)restricted:(CGFloat)value {
     if (_direction == MoveTransitioningDirectionUp) {
         return MAX(0, value);
     }

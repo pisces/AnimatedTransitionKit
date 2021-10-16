@@ -41,7 +41,6 @@
 @end
 
 @interface PanningInteractiveTransition : AbstractInteractiveTransition <PanningInteractiveTransitionProtected>
-@property (nonatomic, readonly) CGPoint translation;
 @property (nonatomic, readonly) PanningDirection panningDirection;
 @property (nonatomic, readonly) PanningDirection startPanningDirection;
 @end

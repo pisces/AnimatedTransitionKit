@@ -44,15 +44,8 @@
 @implementation PanningInteractiveTransition
 @synthesize gestureRecognizer = _gestureRecognizer;
 @synthesize shouldComplete = _shouldComplete;
-@synthesize beginPoint = _beginPoint;
-@synthesize beginViewPoint = _beginViewPoint;
-@synthesize point = _point;
 
 #pragma mark - Public Properties
-
-- (CGPoint)translation {
-    return [self.panGestureRecognizer translationInView:self.currentViewController.view.superview];
-}
 
 - (PanningDirection)panningDirection {
     return self.panGestureRecognizer.panningDirection;
@@ -89,6 +82,12 @@
     return self;
 }
 
+#pragma mark - Overridden: AbstractInteractiveTransition
+
+- (CGPoint)translation {
+    return [self.panGestureRecognizer translationInView:self.currentViewController.view.superview];
+}
+
 #pragma mark - Protected Methods
 
 - (BOOL)beginInteractiveTransition {
@@ -122,9 +121,6 @@
     
     [self.transition beginInteration];
     
-    _beginPoint = [self.panGestureRecognizer locationInView:self.currentViewController.view.superview];
-    _beginViewPoint = self.currentViewController.view.frame.origin;
-    
     if (![self beginInteractiveTransition]) {
         [self.transition endInteration];
     }
@@ -133,8 +129,6 @@
 #pragma mark - Private Selectors
 
 - (void)panned {
-    const CGPoint newPoint = [self.panGestureRecognizer locationInView:self.currentViewController.view.superview];
-    
     switch (self.panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
             [self panningBegan];
@@ -145,23 +139,17 @@
                 ![self.transition.currentInteractor isEqual:self] ||
                 ([self.delegate respondsToSelector:@selector(shouldChangeWithInteractor:)] &&
                  ![self.delegate shouldChangeWithInteractor:self])) {
-                [self panningBegan];
-                _beginPoint = newPoint;
-                _beginViewPoint = self.currentViewController.view.frame.origin;
                 return;
             }
             
             const BOOL isAppearing = [self.transition isAppearingWithInteractor:self];
             const CGPoint translation = self.translation;
-            const CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
             const CGFloat translationValue = self.isVertical ? translation.y : translation.x;
-            const CGFloat velocityValue = self.isVertical ? velocity.y : velocity.x;
             const CGFloat targetSize = self.isVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat dragAmount = targetSize * (isAppearing ? -1 : 1);
             const CGFloat percent = fmin(fmax(-1, translationValue / dragAmount), 1);
             
-            _point = newPoint;
-            _shouldComplete = ABS(percent) + MIN(0.15, ABS(velocityValue / 3000)) > 0.3;
+            _shouldComplete = ABS(percent) > 0.3;
             
             [self updateInteractiveTransition:percent];
             break;

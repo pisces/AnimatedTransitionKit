@@ -67,6 +67,7 @@
 @implementation DragDropTransitioning
 {
 @private
+    CGPoint beginViewPoint;
     UIImageView *sourceImageView;
 }
 
@@ -136,6 +137,8 @@
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
     [super interactionBegan:interactor transitionContext:transitionContext];
     
+    beginViewPoint = interactor.currentViewController.view.frame.origin;
+    
     if (self.presenting) {
         return;
     }
@@ -147,6 +150,8 @@
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     [super interactionCancelled:interactor completion:completion];
+    
+    beginViewPoint = CGPointZero;
     
     if (self.presenting) {
         return;
@@ -179,19 +184,21 @@
         return;
     }
     
-    const CGFloat y = interactor.beginViewPoint.y + (interactor.point.y - interactor.beginPoint.y);
+    const CGFloat y = beginViewPoint.y + interactor.translation.y;
     const CGFloat progress = ABS(y) / self.completionBounds;
     const CGFloat alpha = 1 - progress;
     const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * progress));
     const CGFloat imageScale = MIN(1, (MAX(0.5, 1 - ABS(y) / self.aboveViewController.view.bounds.size.height)));
     
-    sourceImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(imageScale, imageScale), (interactor.point.x - interactor.beginPoint.x), (interactor.point.y - interactor.beginPoint.y));
+    sourceImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(imageScale, imageScale), interactor.translation.x, interactor.translation.y);
     self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
     self.aboveViewController.view.alpha = alpha;
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^)(void))completion {
     [super interactionCompleted:interactor completion:completion];
+    
+    beginViewPoint = CGPointZero;
     
     if (self.presenting) {
         return;
