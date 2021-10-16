@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2020, Steve Kim
+//  Copyright (c) 2016 ~ 2021, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -34,25 +34,14 @@
 
 #import <UIKit/UIKit.h>
 #import "AbstractInteractiveTransition.h"
-
-typedef NS_ENUM(NSUInteger, PanningDirection) {
-    PanningDirectionNone,
-    PanningDirectionUp,
-    PanningDirectionDown,
-    PanningDirectionLeft,
-    PanningDirectionRight
-};
-
-BOOL PanningDirectionIsVertical(PanningDirection direction);
+#import "UIPanGestureRecognizer+PanningDirection.h"
 
 @protocol PanningInteractiveTransitionProtected <NSObject>
 - (BOOL)beginInteractiveTransition;
 @end
 
 @interface PanningInteractiveTransition : AbstractInteractiveTransition <PanningInteractiveTransitionProtected>
+@property (nonatomic, readonly) CGPoint translation;
 @property (nonatomic, readonly) PanningDirection panningDirection;
-@end
-
-@interface UIPanGestureRecognizer (UIViewControllerTransitions)
-@property (nonatomic, readonly) PanningDirection panningDirection;
+@property (nonatomic, readonly) PanningDirection startPanningDirection;
 @end

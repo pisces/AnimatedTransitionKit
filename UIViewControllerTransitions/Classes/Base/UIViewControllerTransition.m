@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2020, Steve Kim
+//  Copyright (c) 2016 ~ 2021, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,7 @@
     if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
         return NO;
     }
-    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
     return interactor.isVertical ? direction == PanningDirectionUp : direction == PanningDirectionLeft;
 }
 
@@ -67,7 +67,7 @@
     if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
         return NO;
     }
-    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
     if (interactor.isVertical) {
         return interactor.isAppearing ? direction == PanningDirectionUp : direction == PanningDirectionDown;
     }
