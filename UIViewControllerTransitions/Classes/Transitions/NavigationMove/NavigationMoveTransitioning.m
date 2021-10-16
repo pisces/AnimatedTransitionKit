@@ -106,7 +106,7 @@ const CGFloat unfocusedCompletionBounds = 50;
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     [super interactionChanged:interactor percent:percent];
     
-    const CGFloat x = CATransform3DGetAffineTransform(self.focusedTransformFrom).tx + ((interactor.point.x - interactor.beginPoint.x) * 1.2);
+    const CGFloat x = CATransform3DGetAffineTransform(self.focusedTransformFrom).tx + (interactor.translation.x * 1.2);
     self.aboveViewController.view.layer.transform = CATransform3DMakeTranslation(MAX(0, x), 0, 1);
     self.belowViewController.view.layer.transform = self.unfocusedTransform;
 }

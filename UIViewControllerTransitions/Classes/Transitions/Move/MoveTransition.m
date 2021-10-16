@@ -111,12 +111,14 @@
 - (AnimatedTransitioning *)transitioningForDismissedController:(UIViewController *)dismissed {
     MoveTransitioning *transitioning = [MoveTransitioning new];
     transitioning.direction = _direction;
+    transitioning.relatedScrollView = self.relatedScrollView;
     return transitioning;
 }
 
 - (AnimatedTransitioning *)transitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     MoveTransitioning *transitioning = [MoveTransitioning new];
     transitioning.direction = _direction;
+    transitioning.relatedScrollView = self.relatedScrollView;
     return transitioning;
 }
 
@@ -141,7 +143,7 @@
                     return shouldChange;
                 }
                 case PanningDirectionUp: {
-                    BOOL shouldChange = panningInteractor.translation.y > 0;
+                    BOOL shouldChange = panningInteractor.currentViewController.view.transform.ty > 0;
                     if (shouldChange) {
                         [scrollView extScrollsToTop];
                     }
@@ -153,7 +155,7 @@
         case MoveTransitioningDirectionDown:
             switch (panningInteractor.panningDirection) {
                 case PanningDirectionDown: {
-                    BOOL shouldChange = panningInteractor.translation.y < 0;
+                    BOOL shouldChange = panningInteractor.currentViewController.view.transform.ty < 0;
                     if (shouldChange) {
                         [scrollView extScrollsToBottom];
                     }
@@ -161,7 +163,7 @@
                 }
                 case PanningDirectionUp: {
                     CGFloat caculated = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height + scrollView.extAdjustedContentInset.bottom);
-                    BOOL shouldChange = caculated > 0;
+                    BOOL shouldChange = caculated >= 0;
                     if (shouldChange) {
                         [scrollView extScrollsToBottom];
                     }

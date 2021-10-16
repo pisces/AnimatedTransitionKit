@@ -181,10 +181,6 @@
             [_delegate didCancelWithInteractor:self];
         }
     }
-    
-    _beginPoint = CGPointZero;
-    _beginViewPoint = CGPointZero;
-    _point = CGPointZero;
 }
 
 @end

@@ -46,4 +46,5 @@ typedef NS_ENUM(NSUInteger, MoveTransitioningDirection) {
 
 @interface MoveTransitioning : AnimatedTransitioning
 @property (nonatomic) MoveTransitioningDirection direction;
+@property (nullable, nonatomic, weak) UIScrollView *relatedScrollView;
 @end
