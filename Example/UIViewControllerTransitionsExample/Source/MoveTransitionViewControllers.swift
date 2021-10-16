@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2020, Steve Kim
+//  Copyright (c) 2016 ~ 2021, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -121,7 +121,7 @@ final class MoveTransitionSecondViewController: UITableViewController {
         
         title = "Second View"
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
-        navigationController?.transition?.disappearenceInteractor?.delegate = self
+        (navigationController?.transition as? MoveTransition)?.relatedScrollView = tableView
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -175,14 +175,5 @@ final class MoveTransitionSecondViewController: UITableViewController {
     
     @objc private func close() {
         dismiss(animated: true, completion: nil)
-    }
-}
-
-extension MoveTransitionSecondViewController: InteractiveTransitionDelegate {
-    func shouldChange(withInteractor interactor: AbstractInteractiveTransition) -> Bool {
-        return tableView.contentOffset.y + 88 <= 0
-    }
-    func interactor(_ interactor: AbstractInteractiveTransition, gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 }

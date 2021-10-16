@@ -1,5 +1,5 @@
 PODS:
-  - UIViewControllerTransitions (3.1.0)
+  - UIViewControllerTransitions (3.1.2)
 
 DEPENDENCIES:
   - UIViewControllerTransitions (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  UIViewControllerTransitions: 533b174a286a16b07e02dbc5ec9fc1908f98f071
+  UIViewControllerTransitions: f4fa8a4f436408c75051fec64df3f5be3d226743
 
 PODFILE CHECKSUM: 95ed24ff60f6256aab943e76af4fb1cac0d7065c
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.11.0

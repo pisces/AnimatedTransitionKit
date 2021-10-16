@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2020, Steve Kim
+//  Copyright (c) 2016 ~ 2021, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -32,12 +32,10 @@
 //      - Renew design and add new feature interactive transition
 //
 
+#import <UIKit/UIKit.h>
 #import "PanningInteractiveTransition.h"
 #import "AbstractTransition.h"
-
-BOOL PanningDirectionIsVertical(PanningDirection direction) {
-    return direction == PanningDirectionUp || direction == PanningDirectionDown;
-}
+#import "UIScrollView+Utils.h"
 
 @interface PanningInteractiveTransition ()
 @property (nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
@@ -52,11 +50,19 @@ BOOL PanningDirectionIsVertical(PanningDirection direction) {
 
 #pragma mark - Public Properties
 
-- (UIPanGestureRecognizer *)panGestureRecognizer {
-    return (UIPanGestureRecognizer *) _gestureRecognizer;
+- (CGPoint)translation {
+    return [self.panGestureRecognizer translationInView:self.currentViewController.view.superview];
+}
+
+- (PanningDirection)panningDirection {
+    return self.panGestureRecognizer.panningDirection;
 }
 
 #pragma mark - Private Properties
+
+- (UIPanGestureRecognizer *)panGestureRecognizer {
+    return (UIPanGestureRecognizer *) _gestureRecognizer;
+}
 
 - (BOOL)shouldBeginInteraction {
     if ([self.transition isAppearingWithInteractor:self]) {
@@ -103,7 +109,7 @@ BOOL PanningDirectionIsVertical(PanningDirection direction) {
 #pragma mark - Private Methods
 
 - (void)panningBegan {
-    _panningDirection = self.panGestureRecognizer.panningDirection;
+    _startPanningDirection = self.panGestureRecognizer.panningDirection;
     
     if (!self.shouldBeginInteraction ||
         self.transition.transitioning.isAnimating ||
@@ -146,19 +152,16 @@ BOOL PanningDirectionIsVertical(PanningDirection direction) {
             }
             
             const BOOL isAppearing = [self.transition isAppearingWithInteractor:self];
-            const CGPoint translation = [self.panGestureRecognizer translationInView:self.currentViewController.view.superview];
+            const CGPoint translation = self.translation;
             const CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
             const CGFloat translationValue = self.isVertical ? translation.y : translation.x;
             const CGFloat velocityValue = self.isVertical ? velocity.y : velocity.x;
             const CGFloat targetSize = self.isVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat dragAmount = targetSize * (isAppearing ? -1 : 1);
-            const CGFloat threshold = self.transition.transitioning.completionBounds / targetSize;
             const CGFloat percent = fmin(fmax(-1, translationValue / dragAmount), 1);
-            const CGFloat addendValue = isAppearing ? (velocityValue < 0 ? velocityValue : 0) : (velocityValue > 0 ? velocityValue : 0);
-            const CGFloat completionFactor = ABS(((newPoint.y - _beginPoint.y) + addendValue) / dragAmount);
             
             _point = newPoint;
-            _shouldComplete = completionFactor > threshold;
+            _shouldComplete = ABS(percent) + MIN(0.15, ABS(velocityValue / 3000)) > 0.3;
             
             [self updateInteractiveTransition:percent];
             break;
@@ -182,25 +185,6 @@ BOOL PanningDirectionIsVertical(PanningDirection direction) {
         default:
             break;
     }
-}
-
-@end
-
-@implementation UIPanGestureRecognizer (UIViewControllerTransitions)
-- (PanningDirection)panningDirection {
-    CGPoint velocity = [self velocityInView:self.view];
-    CGFloat ratio = UIScreen.mainScreen.bounds.size.height / UIScreen.mainScreen.bounds.size.width;
-    BOOL vertical = fabs(velocity.y) > fabs(velocity.x * ratio);
-    
-    if (vertical) {
-        if (velocity.y < 0) return PanningDirectionUp;
-        if (velocity.y > 0) return PanningDirectionDown;
-    }
-    
-    if (velocity.x > 0) return PanningDirectionRight;
-    if (velocity.x < 0) return PanningDirectionLeft;
-    
-    return PanningDirectionNone;
 }
 
 @end

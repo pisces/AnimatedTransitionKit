@@ -16,6 +16,8 @@
 #import "UIViewControllerTransitionOptions.h"
 #import "UIViewControllerTransitions.h"
 #import "UIViewControllerTransitionsMacro.h"
+#import "UIPanGestureRecognizer+PanningDirection.h"
+#import "UIScrollView+Utils.h"
 #import "AbstractInteractiveTransition.h"
 #import "NavigationPanningInteractiveTransition.h"
 #import "PanningInteractiveTransition.h"
