@@ -35,118 +35,124 @@ import UIViewControllerTransitions
 
 final class NavigationMoveTransitionFirstViewController: UIViewController {
     
-    private lazy var secondViewController: NavigationMoveTransitionSecondViewController = {
-        return NavigationMoveTransitionSecondViewController(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
-    }()
+    // MARK: - Lifecycle
     
     override var prefersStatusBarHidden: Bool {
-        return false
+        false
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        .default
     }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
+        .fade
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "First View"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self, action: #selector(close))
-        
         let transition = NavigationMoveTransition()
         navigationController?.navigationTransition = transition
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         print("viewWillAppear -> \(type(of: self))")
-        
         UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         print("viewDidAppear -> \(type(of: self))")
-        
         if let navigationController = navigationController {
             navigationController.navigationTransition?.interactor?.attach(navigationController, present: secondViewController)
         }
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         print("viewWillDisappear -> \(type(of: self))")
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
         print("viewDidDisappear -> \(type(of: self))")
     }
     
-    @IBAction func clicked() {
+    // MARK: - Private
+    
+    private lazy var secondViewController: NavigationMoveTransitionSecondViewController = {
+        .init(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
+    }()
+    
+    @IBAction private func clicked() {
         navigationController?.pushViewController(secondViewController, animated: true)
     }
+    
     @objc private func close() {
         dismiss(animated: true, completion: nil)
     }
 }
 
-final class NavigationMoveTransitionSecondViewController: UITableViewController, InteractiveTransitionDelegate {
+final class NavigationMoveTransitionSecondViewController: UITableViewController {
+    
+    // MARK: - Lifecycle
     
     override var prefersStatusBarHidden: Bool {
-        return false
+        false
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .lightContent
     }
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
+        .fade
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "Second View"
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         print("viewWillAppear -> \(type(of: self))")
-        
         UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
             self.setNeedsStatusBarAppearanceUpdate()
         }, completion: nil)
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         navigationController?.navigationTransition?.interactor?.delegate = self
         print("viewDidAppear -> \(type(of: self))")
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         print("viewWillDisappear -> \(type(of: self))")
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
         print("viewDidDisappear -> \(type(of: self))")
     }
     
+    // MARK: - Overridden: UITableViewController
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        1
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        50
     }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        100
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "UITableViewCell"
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
@@ -155,22 +161,8 @@ final class NavigationMoveTransitionSecondViewController: UITableViewController,
         }
         return cell!
     }
+    
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.textLabel?.text = "\(indexPath.row + 1)"
-    }
-    
-    func didBegin(withInteractor interactor: AbstractInteractiveTransition) {
-        tableView.panGestureRecognizer.isEnabled = false
-    }
-    func didChange(withInteractor interactor: AbstractInteractiveTransition, percent: CGFloat) {
-    }
-    func didCancel(withInteractor interactor: AbstractInteractiveTransition) {
-        tableView.panGestureRecognizer.isEnabled = true
-    }
-    func didComplete(withInteractor interactor: AbstractInteractiveTransition) {
-        tableView.panGestureRecognizer.isEnabled = true
-    }
-    func interactor(_ interactor: AbstractInteractiveTransition, shouldInteractionWith gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 }

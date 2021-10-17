@@ -77,7 +77,7 @@ extension PinchInteractiveTransition {
     private func pinchBegan() {
         guard shouldBeginInteraction,
               transition?.isInteracting == false,
-              (delegate?.interactor?(self, shouldInteractionWith: gestureRecognizer) ?? true) else { return }
+              (delegate?.interactor?(self, shouldInteract: gestureRecognizer) ?? true) else { return }
         
         transition?.beginInteration()
         

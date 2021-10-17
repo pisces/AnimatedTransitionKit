@@ -58,6 +58,9 @@
 }
 
 - (BOOL)shouldBeginInteraction {
+    if (![self.transition isValidWithInteractor:self]) {
+        return NO;
+    }
     if ([self.transition isAppearingWithInteractor:self]) {
         return self.presentViewController != nil;
     }
@@ -113,9 +116,8 @@
     if (!self.shouldBeginInteraction ||
         self.transition.transitioning.isAnimating ||
         self.transition.isInteracting ||
-        ![self.transition isValidWithInteractor:self] ||
-        ([self.delegate respondsToSelector:@selector(interactor:shouldInteractionWithGestureRecognizer:)] &&
-        ![self.delegate interactor:self shouldInteractionWithGestureRecognizer:_gestureRecognizer])) {
+        ([self.delegate respondsToSelector:@selector(interactor:shouldInteract:)] &&
+        ![self.delegate interactor:self shouldInteract:_gestureRecognizer])) {
         return;
     }
     
@@ -137,14 +139,16 @@
         case UIGestureRecognizerStateChanged: {
             if (!self.transition.isInteracting ||
                 ![self.transition.currentInteractor isEqual:self] ||
-                ([self.delegate respondsToSelector:@selector(shouldChangeWithInteractor:)] &&
-                 ![self.delegate shouldChangeWithInteractor:self])) {
+                ![self.transition.transitioning shouldTransition:self] ||
+                ([self.delegate respondsToSelector:@selector(shouldTransition:)] &&
+                 ![self.delegate shouldTransition:self])) {
                 return;
             }
             
             const BOOL isAppearing = [self.transition isAppearingWithInteractor:self];
+            const CGFloat translationOffset = self.transition.transitioning.translationOffset;
             const CGPoint translation = self.translation;
-            const CGFloat translationValue = self.isVertical ? translation.y : translation.x;
+            const CGFloat translationValue = (self.isVertical ? translation.y : translation.x) - translationOffset;
             const CGFloat targetSize = self.isVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat dragAmount = targetSize * (isAppearing ? -1 : 1);
             const CGFloat percent = fmin(fmax(-1, translationValue / dragAmount), 1);
@@ -157,6 +161,7 @@
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
             if (!self.transition.isInteracting || ![self.transition.currentInteractor isEqual:self]) {
+                [self.transition endInteration];
                 return;
             }
             

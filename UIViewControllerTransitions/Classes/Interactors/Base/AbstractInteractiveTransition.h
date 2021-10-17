@@ -67,7 +67,7 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 - (void)didChangeWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent;
 - (void)didCancelWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
 - (void)didCompleteWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
-- (BOOL)shouldChangeWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
+- (BOOL)shouldTransition:(AbstractInteractiveTransition * _Nonnull)interactor;
 - (void)willCancelWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
 - (void)willCompleteWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
 - (BOOL)interactor:(AbstractInteractiveTransition * _Nonnull)interactor gestureRecognizerShouldBegin:(UIGestureRecognizer * _Nonnull)gestureRecognizer;
@@ -75,5 +75,5 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 - (BOOL)interactor:(AbstractInteractiveTransition * _Nonnull)interactor gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldReceiveTouch:(UITouch * _Nullable)touch;
 - (BOOL)interactor:(AbstractInteractiveTransition * _Nonnull)interactor gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer;
 - (BOOL)interactor:(AbstractInteractiveTransition * _Nonnull)interactor gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer;
-- (BOOL)interactor:(AbstractInteractiveTransition * _Nonnull)interactor shouldInteractionWithGestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer;
+- (BOOL)interactor:(AbstractInteractiveTransition * _Nonnull)interactor shouldInteract:(UIGestureRecognizer * _Nonnull)gestureRecognizer;
 @end

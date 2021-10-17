@@ -34,10 +34,7 @@
 import UIViewControllerTransitions
 
 final class CustomNavigationTransition: UINavigationControllerTransition {
-    override func transitioningForPop() -> AnimatedNavigationTransitioning? {
-        return CustomNavigationTransitioning()
-    }
-    override func transitioningForPush() -> AnimatedNavigationTransitioning? {
+    override func newTransitioning() -> AnimatedNavigationTransitioning? {
         return CustomNavigationTransitioning()
     }
 }

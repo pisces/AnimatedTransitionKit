@@ -36,6 +36,7 @@
 #import <objc/runtime.h>
 
 @interface UINavigationControllerTransition ()
+@property (nonatomic, readonly) BOOL isPush;
 @property (nullable, nonatomic, readonly) AnimatedNavigationTransitioning *navigationTransitioning;
 @end
 
@@ -52,7 +53,8 @@
 }
 
 - (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
-    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]] ||
+        !self.isPush) {
         return NO;
     }
     PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
@@ -60,11 +62,7 @@
 }
 
 - (BOOL)isValidWithInteractor:(AbstractInteractiveTransition *)interactor {
-    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
-        return NO;
-    }
-    PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
-    return [self isAppearingWithInteractor:interactor] ? direction == PanningDirectionLeft : direction == PanningDirectionRight;
+    return self.isPush ? [self isAppearingWithInteractor:interactor] : YES;
 }
 
 - (void)setAllowsInteraction:(BOOL)allowsInteraction {
@@ -98,17 +96,13 @@
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
     BOOL isPush = operation == UINavigationControllerOperationPush;
-    UIViewControllerTransitionOptions *options = isPush ? self.appearenceOptions : self.disappearenceOptions;
-    
-    AnimatedNavigationTransitioning *transitioning = isPush ? [self transitioningForPush] : [self transitioningForPop];
-    transitioning.push = isPush;
-    transitioning.animationOptions = options.animationOptions;
-    transitioning.duration = options.duration;
-    transitioning.usingSpring = options.isUsingSpring;
-    transitioning.initialSpringVelocity = options.initialSpringVelocity;
-    transitioning.usingSpringWithDamping = options.usingSpringWithDamping;
-    _transitioning = transitioning;
-    
+    if (!_transitioning) {
+        AnimatedNavigationTransitioning *transitioning = [self newTransitioning];
+        transitioning.appearenceOptions = self.appearenceOptions;
+        transitioning.disappearenceOptions = self.disappearenceOptions;
+        _transitioning = transitioning;
+    }
+    self.navigationTransitioning.push = isPush;
     return _transitioning;
 }
 
@@ -119,15 +113,15 @@
 
 #pragma mark - Protected methods
 
-- (AnimatedNavigationTransitioning *)transitioningForPop {
-    return nil;
-}
-
-- (AnimatedNavigationTransitioning *)transitioningForPush {
+- (AnimatedNavigationTransitioning *)newTransitioning {
     return nil;
 }
 
 #pragma mark - Private methods
+
+- (BOOL)isPush {
+    return self.navigationTransitioning == nil || self.navigationTransitioning.isPush;
+}
 
 - (AnimatedNavigationTransitioning *)navigationTransitioning {
     return (AnimatedNavigationTransitioning *) _transitioning;

@@ -104,8 +104,6 @@
     const CGFloat aboveViewAlpha = self.presenting ? 0 : 1;
     const CGFloat belowViewAlpha = self.presenting ? 1 : 0;
     
-    [self.belowViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
-    
     [self animateWithDuration:0.25 animations:^{
         self.aboveViewController.view.alpha = aboveViewAlpha;
         self.belowViewController.view.alpha = belowViewAlpha;
@@ -125,31 +123,31 @@
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     [super interactionChanged:interactor percent:fmin(1, fmax(0, percent))];
     
-    CGFloat _percent = fmin(1, fmax(0, percent));
-    
-    self.aboveViewController.view.alpha = MAX(0, MIN(1, self.presenting ? _percent : 1 - _percent));
-    self.belowViewController.view.alpha = MAX(0, MIN(1, self.presenting ? 1 - _percent : _percent));
+    CGFloat caculated = fmin(1, fmax(0, percent));
+    self.aboveViewController.view.alpha = MAX(0, MIN(1, self.presenting ? caculated : 1 - caculated));
+    self.belowViewController.view.alpha = MAX(0, MIN(1, self.presenting ? 1 - caculated : caculated));
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     const CGFloat aboveViewAlpha = self.presenting ? 1 : 0;
     const CGFloat belowViewAlpha = self.presenting ? 0 : 1;
     
-    [self.belowViewController beginAppearanceTransition:!self.presenting animated:self.context.isAnimated];
-    
     [self animate:^{
         self.aboveViewController.view.alpha = aboveViewAlpha;
         self.belowViewController.view.alpha = belowViewAlpha;
-        self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
+        self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
     } completion:^{
         if (self.presenting) {
-            [self.aboveViewController.view removeFromSuperview];
-        } else {
             self.belowViewController.view.hidden = YES;
+            [self.belowViewController endAppearanceTransition];
+            [self.context completeTransition:!self.context.transitionWasCancelled];
+            completion();
+        } else {
+            [self.context completeTransition:!self.context.transitionWasCancelled];
+            completion();
+            [self.aboveViewController.view removeFromSuperview];
+            [self.belowViewController endAppearanceTransition];
         }
-        
-        [self.context completeTransition:NO];
-        completion();
     }];
 }
 

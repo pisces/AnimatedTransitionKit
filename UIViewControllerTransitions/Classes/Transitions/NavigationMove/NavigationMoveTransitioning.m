@@ -59,6 +59,7 @@ const CGFloat unfocusedCompletionBounds = 50;
     } completion:^{
         self.fromViewController.view.hidden = YES;
         [self clearDropShadow:self.fromViewController.view.layer];
+        [self toggleIsPush];
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
     }];
 }
@@ -81,6 +82,7 @@ const CGFloat unfocusedCompletionBounds = 50;
     } completion:^{
         self.fromViewController.view.hidden = YES;
         [self clearDropShadow:self.toViewController.view.layer];
+        [self toggleIsPush];
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
     }];
 }
@@ -118,6 +120,7 @@ const CGFloat unfocusedCompletionBounds = 50;
     } completion:^{
         self.belowViewController.view.hidden = self.isPush;
         [self.context completeTransition:!self.context.transitionWasCancelled];
+        [self toggleIsPush];
         completion();
     }];
 }
@@ -167,6 +170,10 @@ const CGFloat unfocusedCompletionBounds = 50;
     layer.shadowOffset = CGSizeZero;
     layer.shadowRadius = 0;
     layer.shadowOpacity = 0;
+}
+
+- (void)toggleIsPush {
+    self.push = !self.push;
 }
 
 @end

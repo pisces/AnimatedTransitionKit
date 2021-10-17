@@ -37,7 +37,7 @@
 #pragma mark - UIViewControllerAnimatedTransitioning protocol
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
-    return _duration;
+    return _options.duration;
 }
 
 - (void)animationEnded:(BOOL)transitionCompleted {
@@ -75,26 +75,30 @@
 
 - (void)animate:(void (^)(void))animations
      completion:(void (^)(void))completion {
-    [self animateWithDuration:_duration animations:animations completion:completion];
+    [self animateWithDuration:_options.duration animations:animations completion:completion];
 }
 
 - (void)animateWithDuration:(NSTimeInterval)duration
                  animations:(void (^)(void))animations
                  completion:(void (^)(void))completion {
-    if (_usingSpring) {
-        [UIView animateWithDuration:_duration
-                              delay:0
-             usingSpringWithDamping:_usingSpringWithDamping
-              initialSpringVelocity:_initialSpringVelocity
-                            options:_animationOptions | UIViewAnimationOptionAllowUserInteraction
+    if (_options.usingSpring) {
+        [UIView animateWithDuration:_options.duration
+                              delay:_options.delay
+             usingSpringWithDamping:_options.usingSpringWithDamping
+              initialSpringVelocity:_options.initialSpringVelocity
+                            options:_options.animationOptions | UIViewAnimationOptionAllowUserInteraction
                          animations:animations
-                         completion:^(BOOL finished) { completion(); }];
+                         completion:^(BOOL finished) {
+            completion();
+        }];
     } else {
-        [UIView animateWithDuration:_duration
-                              delay:0
-                            options:_animationOptions | UIViewAnimationOptionAllowUserInteraction
+        [UIView animateWithDuration:_options.duration
+                              delay:_options.delay
+                            options:_options.animationOptions | UIViewAnimationOptionAllowUserInteraction
                          animations:animations
-                         completion:^(BOOL finished) { completion(); }];
+                         completion:^(BOOL finished) {
+            completion();
+        }];
     }
 }
 
@@ -108,6 +112,7 @@
     _animating = NO;
     _percentOfInteraction = 0;
     _percentOfBounds = 0;
+    _translationOffset = 0;
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
@@ -124,6 +129,10 @@
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
+}
+
+- (BOOL)shouldTransition:(AbstractInteractiveTransition *)interactor {
+    return YES;
 }
 
 - (void)startAnimating {

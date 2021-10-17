@@ -70,15 +70,17 @@
 
 - (void)initProperties {
     _appearenceOptions = [[UIViewControllerTransitionOptions new] initWithDuration:0.35
+                                                                            delay:0
                                                            animationOptions:7 << 16
                                                               isUsingSpring:NO
                                                      usingSpringWithDamping:0.6
                                                       initialSpringVelocity:1.0];
     _disappearenceOptions = [[UIViewControllerTransitionOptions new] initWithDuration:0.35
-                                                           animationOptions:7 << 16
-                                                              isUsingSpring:NO
-                                                     usingSpringWithDamping:0.6
-                                                      initialSpringVelocity:1.0];
+                                                                                delay:0
+                                                                     animationOptions:7 << 16
+                                                                        isUsingSpring:NO
+                                                               usingSpringWithDamping:0.6
+                                                                initialSpringVelocity:1.0];
 }
 
 @end

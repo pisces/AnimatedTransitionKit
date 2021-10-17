@@ -56,7 +56,8 @@
 }
 
 - (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
-    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]] ||
+        !interactor.isAppearing) {
         return NO;
     }
     PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
@@ -64,14 +65,7 @@
 }
 
 - (BOOL)isValidWithInteractor:(AbstractInteractiveTransition *)interactor {
-    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
-        return NO;
-    }
-    PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
-    if (interactor.isVertical) {
-        return interactor.isAppearing ? direction == PanningDirectionUp : direction == PanningDirectionDown;
-    }
-    return interactor.isAppearing ? direction == PanningDirectionLeft : direction == PanningDirectionRight;
+    return interactor.isAppearing ? [self isAppearingWithInteractor:interactor] : YES;
 }
 
 - (void)setAllowsInteraction:(BOOL)allowsInteraction {
@@ -98,11 +92,7 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     _currentInteractor = _disappearenceInteractor;
     _transitioning = [self transitioningForDismissedController:dismissed];
-    _transitioning.animationOptions = self.disappearenceOptions.animationOptions;
-    _transitioning.duration = self.disappearenceOptions.duration;
-    _transitioning.usingSpring = self.disappearenceOptions.isUsingSpring;
-    _transitioning.initialSpringVelocity = self.disappearenceOptions.initialSpringVelocity;
-    _transitioning.usingSpringWithDamping = self.disappearenceOptions.usingSpringWithDamping;
+    _transitioning.options = self.disappearenceOptions;
     return _transitioning;
 }
 
@@ -110,11 +100,7 @@
     _currentInteractor = _appearenceInteractor;
     _transitioning = [self transitioningForForPresentedController:presented presentingController:presenting sourceController:source];
     ((AnimatedTransitioning *) _transitioning).presenting = YES;
-    _transitioning.animationOptions = self.appearenceOptions.animationOptions;
-    _transitioning.duration = self.appearenceOptions.duration;
-    _transitioning.usingSpring = self.appearenceOptions.isUsingSpring;
-    _transitioning.initialSpringVelocity = self.appearenceOptions.initialSpringVelocity;
-    _transitioning.usingSpringWithDamping = self.appearenceOptions.usingSpringWithDamping;
+    _transitioning.options = self.appearenceOptions;
     return _transitioning;
 }
 

@@ -33,9 +33,17 @@
 
 import UIViewControllerTransitions
 
-final class MoveTransitionFirstViewController: UIViewController, InteractiveTransitionDelegate {
+final class MoveTransitionFirstViewController: UIViewController {
     
-    // MARK: - Private Properties
+    // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "First View"
+        secondViewController.transition?.appearenceInteractor?.attach(self, present: secondViewController)
+    }
+    
+    // MARK: - Private
     
     private lazy var secondViewController: UINavigationController = {
         let viewController = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
@@ -43,6 +51,7 @@ final class MoveTransitionFirstViewController: UIViewController, InteractiveTran
         transition.appearenceOptions.duration = 0.25
         transition.disappearenceOptions.duration = 0.35
         transition.isAllowsInteraction = true
+        transition.disappearenceInteractor?.delegate = viewController
         
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.modalPresentationStyle = .fullScreen
@@ -50,105 +59,23 @@ final class MoveTransitionFirstViewController: UIViewController, InteractiveTran
         return navigationController
     }()
     
-    // MARK: - Overridden: UITableViewController (StatusBar Visibility)
-    
-    override var prefersStatusBarHidden: Bool {
-        return false
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
-    }
-    
-    // MARK: - Overridden: UITableViewController (Life Cycle)
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        title = "First View"
-        
-        secondViewController.transition?.appearenceInteractor?.attach(self, present: secondViewController)
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        print("viewWillAppear -> \(self)")
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        print("viewDidAppear -> \(self)")
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        print("viewWillDisappear -> \(self)")
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        print("viewDidDisappear -> \(self)")
-    }
-    
-    // MARK: - Private Selectors
-    
-    @IBAction func clicked() {
+    @IBAction private func clicked() {
         present(secondViewController, animated: true, completion: nil)
     }
 }
 
 final class MoveTransitionSecondViewController: UITableViewController {
     
-    // MARK: - Overridden: UITableViewController (StatusBar Visibility)
-    
-    override var prefersStatusBarHidden: Bool {
-        return false
-    }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
-    }
-    
-    // MARK: - Overridden: UITableViewController (Life Cycle)
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "Second View"
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
         (navigationController?.transition as? MoveTransition)?.relatedScrollView = tableView
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        print("viewWillAppear -> \(self)")
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        print("viewDidAppear -> \(self)")
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        print("viewWillDisappear -> \(self)")
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        print("viewDidDisappear -> \(self)")
-    }
     
-    // MARK: - Overridden: UITableViewController (UITableView DataSource & Delegate)
+    // MARK: - Overridden: UITableViewController
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -171,9 +98,21 @@ final class MoveTransitionSecondViewController: UITableViewController {
         cell.textLabel?.text = "\(indexPath.row + 1)"
     }
     
-    // MARK: - Private Selectors
+    // MARK: - Private
+    
+    private var isInteractionBegan = false
+    private var isViewAppeared = false
     
     @objc private func close() {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - InteractiveTransitionDelegate
+
+extension MoveTransitionSecondViewController: InteractiveTransitionDelegate {
+    
+    func shouldTransition(_ interactor: AbstractInteractiveTransition) -> Bool {
+        navigationController?.viewControllers.count == 1
     }
 }

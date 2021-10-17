@@ -34,6 +34,13 @@
 
 @implementation AnimatedNavigationTransitioning
 
+#pragma mark - Public Properties
+
+- (void)setPush:(BOOL)push {
+    _push = push;
+    self.options = push ? _appearenceOptions : _disappearenceOptions;
+}
+
 #pragma mark - Overridden: AbstractAnimatedTransitioning
 
 - (UIViewController *)aboveViewController {
