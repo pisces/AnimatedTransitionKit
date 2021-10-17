@@ -34,6 +34,7 @@
 
 @implementation UIViewControllerTransitionOptions
 - (id)initWithDuration:(NSTimeInterval)duration
+                 delay:(NSTimeInterval)delay
       animationOptions:(UIViewAnimationOptions)animationOptions
          isUsingSpring:(BOOL)isUsingSpring
 usingSpringWithDamping:(CGFloat)usingSpringWithDamping
@@ -42,6 +43,7 @@ usingSpringWithDamping:(CGFloat)usingSpringWithDamping
     self = [super init];
     if (self) {
         _duration = duration;
+        _delay = delay;
         _animationOptions = animationOptions;
         _usingSpring = isUsingSpring;
         _usingSpringWithDamping = usingSpringWithDamping;

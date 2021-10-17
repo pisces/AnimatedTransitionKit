@@ -37,11 +37,7 @@
 
 #pragma mark - Overridden: UINavigationControllerTransition
 
-- (AnimatedNavigationTransitioning *)transitioningForPop {
-    return [NavigationMoveTransitioning new];
-}
-
-- (AnimatedNavigationTransitioning *)transitioningForPush {
+- (AnimatedNavigationTransitioning *)newTransitioning {
     return [NavigationMoveTransitioning new];
 }
 

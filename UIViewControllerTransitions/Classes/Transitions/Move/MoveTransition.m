@@ -64,7 +64,8 @@
 #pragma mark - Overridden: UIViewControllerTransition
 
 - (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
-    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]] ||
+        !interactor.isAppearing) {
         return NO;
     }
     
@@ -81,29 +82,10 @@
     return direction == PanningDirectionRight;
 }
 
-- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition *)interactor {
-    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
-        return NO;
-    }
-    
-    PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
-    if (_direction == MoveTransitioningDirectionUp) {
-        return interactor.isAppearing ? direction == PanningDirectionUp : direction == PanningDirectionDown;
-    }
-    if (_direction == MoveTransitioningDirectionDown) {
-        return interactor.isAppearing ? direction == PanningDirectionDown : direction == PanningDirectionUp;
-    }
-    if (_direction == MoveTransitioningDirectionLeft) {
-        return interactor.isAppearing ? direction == PanningDirectionLeft : direction == PanningDirectionRight;
-    }
-    return interactor.isAppearing ? direction == PanningDirectionRight : direction == PanningDirectionLeft;
-}
-
 - (id)init {
     self = [super init];
     if (self) {
         _direction = MoveTransitioningDirectionUp;
-        self.disappearenceInteractor.delegate = self;
     }
     return self;
 }
@@ -120,62 +102,6 @@
     transitioning.direction = _direction;
     transitioning.relatedScrollView = self.relatedScrollView;
     return transitioning;
-}
-
-#pragma mark - InteractiveTransitionDelegate
-
-- (BOOL)shouldChangeWithInteractor:(AbstractInteractiveTransition *)interactor {
-    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
-        return NO;
-    }
-    
-    PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
-    UIScrollView *scrollView = self.relatedScrollView;
-    
-    switch (_direction) {
-        case MoveTransitioningDirectionUp:
-            switch (panningInteractor.panningDirection) {
-                case PanningDirectionDown: {
-                    BOOL shouldChange = scrollView.contentOffset.y + scrollView.extAdjustedContentInset.top <= 0;
-                    if (shouldChange) {
-                        [scrollView extScrollsToTop];
-                    }
-                    return shouldChange;
-                }
-                case PanningDirectionUp: {
-                    BOOL shouldChange = panningInteractor.currentViewController.view.transform.ty > 0;
-                    if (shouldChange) {
-                        [scrollView extScrollsToTop];
-                    }
-                    return shouldChange;
-                }
-                default:
-                    return NO;
-            }
-        case MoveTransitioningDirectionDown:
-            switch (panningInteractor.panningDirection) {
-                case PanningDirectionDown: {
-                    BOOL shouldChange = panningInteractor.currentViewController.view.transform.ty < 0;
-                    if (shouldChange) {
-                        [scrollView extScrollsToBottom];
-                    }
-                    return shouldChange;
-                }
-                case PanningDirectionUp: {
-                    CGFloat caculated = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height + scrollView.extAdjustedContentInset.bottom);
-                    BOOL shouldChange = caculated >= 0;
-                    if (shouldChange) {
-                        [scrollView extScrollsToBottom];
-                    }
-                    return shouldChange;
-                }
-                default:
-                    return NO;
-            }
-        default:
-            break;
-    }
-    return YES;;
 }
 
 @end

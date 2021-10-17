@@ -37,10 +37,12 @@
 @property (nonatomic, getter=isUsingSpring) BOOL usingSpring;
 @property (nonatomic) CGFloat usingSpringWithDamping;
 @property (nonatomic) CGFloat initialSpringVelocity;
-@property (nonatomic) UIViewAnimationOptions animationOptions;
+@property (nonatomic) NSTimeInterval delay;
 @property (nonatomic) NSTimeInterval duration;
+@property (nonatomic) UIViewAnimationOptions animationOptions;
 
 - (id _Nonnull)initWithDuration:(NSTimeInterval)duration
+                          delay:(NSTimeInterval)delay
                animationOptions:(UIViewAnimationOptions)animationOptions
                   isUsingSpring:(BOOL)isUsingSpring
          usingSpringWithDamping:(CGFloat)usingSpringWithDamping

@@ -42,10 +42,8 @@
 #import "UIViewControllerTransitionsMacro.h"
 
 @implementation MoveTransitioning
-{
-    CGFloat interactionOffset;
-}
 @synthesize percentOfBounds = _percentOfBounds;
+@synthesize translationOffset = _translationOffset;
 
 #pragma mark - Properties
 
@@ -148,19 +146,18 @@
     UIScrollView *scrollView = self.relatedScrollView;
     switch (_direction) {
         case MoveTransitioningDirectionUp:
-            interactionOffset = scrollView.contentOffset.y + scrollView.extAdjustedContentInset.top;
+            _translationOffset = scrollView.contentOffset.y + scrollView.extAdjustedContentInset.top;
             break;
         case MoveTransitioningDirectionDown: {
-            interactionOffset = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height + scrollView.extAdjustedContentInset.bottom);
+            _translationOffset = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height + scrollView.extAdjustedContentInset.bottom);
             break;
         }
         default:
-            interactionOffset = 0;
+            _translationOffset = 0;
             break;
     }
     
     [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
-    
     self.aboveViewController.view.transform = self.transformFrom;
     self.aboveViewController.view.hidden = NO;
 }
@@ -186,7 +183,6 @@
         [self.context completeTransition:NO];
         completion();
     }];
-    interactionOffset = 0;
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
@@ -198,10 +194,10 @@
     scale = MAX(0.94, MIN(1, scale));
     
     if (interactor.isVertical) {
-        const CGFloat y = (self.transformFrom.ty + interactor.translation.y) - interactionOffset;
+        const CGFloat y = (self.transformFrom.ty + interactor.translation.y) - _translationOffset;
         self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(0, [self restricted:y]);
     } else {
-        const CGFloat x = (self.transformFrom.tx + interactor.translation.x) - interactionOffset;
+        const CGFloat x = (self.transformFrom.tx + interactor.translation.x) - _translationOffset;
         self.aboveViewController.view.transform = CGAffineTransformMakeTranslation([self restricted:x], 0);
     }
     
@@ -234,7 +230,60 @@
             [self.belowViewController endAppearanceTransition];
         }
     }];
-    interactionOffset = 0;
+}
+
+- (BOOL)shouldTransition:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    
+    PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
+    UIScrollView *scrollView = self.relatedScrollView;
+    
+    switch (_direction) {
+        case MoveTransitioningDirectionUp:
+            switch (panningInteractor.panningDirection) {
+                case PanningDirectionDown: {
+                    BOOL shouldChange = scrollView.contentOffset.y + scrollView.extAdjustedContentInset.top <= 0;
+                    if (shouldChange) {
+                        [scrollView extScrollsToTop];
+                    }
+                    return shouldChange;
+                }
+                case PanningDirectionUp: {
+                    BOOL shouldChange = panningInteractor.currentViewController.view.transform.ty > 0;
+                    if (shouldChange) {
+                        [scrollView extScrollsToTop];
+                    }
+                    return shouldChange;
+                }
+                default:
+                    return NO;
+            }
+        case MoveTransitioningDirectionDown:
+            switch (panningInteractor.panningDirection) {
+                case PanningDirectionDown: {
+                    BOOL shouldChange = panningInteractor.currentViewController.view.transform.ty < 0;
+                    if (shouldChange) {
+                        [scrollView extScrollsToBottom];
+                    }
+                    return shouldChange;
+                }
+                case PanningDirectionUp: {
+                    CGFloat caculated = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height + scrollView.extAdjustedContentInset.bottom);
+                    BOOL shouldChange = caculated >= 0;
+                    if (shouldChange) {
+                        [scrollView extScrollsToBottom];
+                    }
+                    return shouldChange;
+                }
+                default:
+                    return NO;
+            }
+        default:
+            break;
+    }
+    return YES;
 }
 
 - (void)updatePercentOfBounds {

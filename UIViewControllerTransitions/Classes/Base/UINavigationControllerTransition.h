@@ -36,8 +36,7 @@
 #import "UIViewControllerTransitionOptions.h"
 
 @protocol UINavigationControllerTransitionProtected <NSObject>
-- (AnimatedNavigationTransitioning * _Nullable)transitioningForPop;
-- (AnimatedNavigationTransitioning * _Nullable)transitioningForPush;
+- (AnimatedNavigationTransitioning * _Nullable)newTransitioning;
 @end
 
 @interface UINavigationControllerTransition : AbstractTransition <UINavigationControllerDelegate, UINavigationControllerTransitionProtected>

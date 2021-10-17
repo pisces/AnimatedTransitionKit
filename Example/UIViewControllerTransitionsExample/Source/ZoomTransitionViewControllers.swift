@@ -35,24 +35,14 @@ import UIViewControllerTransitions
 
 final class ZoomTransitionFirstViewController: UIViewController {
     
-    @IBOutlet private weak var button: UIButton!
-    
-    private lazy var secondViewController: UINavigationController = {
-        let rootViewController = UIStoryboard(name: "ZoomTransition", bundle: nil).instantiateViewController(withIdentifier: "SecondScene")
-        return UINavigationController(rootViewController: rootViewController)
-    }()
-    
-    override var prefersStatusBarHidden: Bool {
-        return false
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
-    }
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "First View"
+
+        // View binding with any transition id
         button.transition.id = "zoomTarget"
         
         let transition = ZoomTransition()
@@ -61,45 +51,39 @@ final class ZoomTransitionFirstViewController: UIViewController {
         
         secondViewController.transition = transition
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
+
+    // MARK: - Private
     
-    @IBAction func clicked() {
+    private lazy var secondViewController: UINavigationController = {
+        let rootViewController = UIStoryboard(name: "ZoomTransition", bundle: nil).instantiateViewController(withIdentifier: "SecondScene")
+        return UINavigationController(rootViewController: rootViewController)
+    }()
+    
+    @IBOutlet private weak var button: UIButton!
+    
+    @IBAction private func clicked() {
         present(secondViewController, animated: true, completion: nil)
     }
 }
 
 final class ZoomTransitionSecondViewController: UIViewController {
     
-    @IBOutlet private(set) weak var targetView: UIView!
-    
-    override var prefersStatusBarHidden: Bool {
-        return false
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return .fade
-    }
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "Second View"
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
         
+        // View binding with matched transition id
         targetView.transition.id = "zoomTarget"
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
+    
+    // MARK: - Internal
+    
+    @IBOutlet private(set) weak var targetView: UIView!
+    
+    // MARK: - Private
     
     @objc private func close() {
         dismiss(animated: true, completion: nil)

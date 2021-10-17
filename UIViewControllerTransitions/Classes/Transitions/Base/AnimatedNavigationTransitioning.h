@@ -40,4 +40,6 @@
 
 @interface AnimatedNavigationTransitioning : AbstractAnimatedTransitioning <AnimatedNavigationTransitioningProtected>
 @property (nonatomic, getter=isPush) BOOL push;
+@property (nullable, nonatomic, strong) UIViewControllerTransitionOptions *appearenceOptions;
+@property (nullable, nonatomic, strong) UIViewControllerTransitionOptions *disappearenceOptions;
 @end

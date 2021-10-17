@@ -31,26 +31,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIViewControllerTransitionOptions.h"
 
 @class AbstractInteractiveTransition;
 
 @interface AbstractAnimatedTransitioning : NSObject <UIViewControllerAnimatedTransitioning>
 @property (nonatomic, getter=isAnimating, readonly) BOOL animating;
-@property (nonatomic, getter=isUsingSpring) BOOL usingSpring;
 @property (nonatomic) CGFloat completionBounds;
-@property (nonatomic) CGFloat initialSpringVelocity;
-@property (nonatomic) CGFloat usingSpringWithDamping;
 @property (nonatomic, readonly) CGFloat percentOfBounds;
 @property (nonatomic, readonly) CGFloat percentOfInteraction;
+@property (nonatomic, readonly) CGFloat translationOffset;
 @property (nonatomic, readonly) CGFloat heightRatio;
 @property (nonatomic, readonly) CGFloat widthRatio;
-@property (nonatomic) UIViewAnimationOptions animationOptions;
-@property (nonatomic) NSTimeInterval duration;
 @property (nullable, nonatomic, weak) id <UIViewControllerContextTransitioning> context;
 @property (nullable, nonatomic, weak) UIViewController *fromViewController;
 @property (nullable, nonatomic, weak) UIViewController *toViewController;
 @property (nullable, nonatomic, readonly) UIViewController *belowViewController;
 @property (nullable, nonatomic, readonly) UIViewController *aboveViewController;
+@property (nullable, nonatomic, strong) UIViewControllerTransitionOptions *options;
 
 - (void)animate:(void (^ _Nullable)(void))animations
      completion:(void (^ _Nullable)(void))completion;
@@ -73,6 +71,7 @@
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor
                   completion:(void (^_Nullable)(void))completion;
+- (BOOL)shouldTransition:(AbstractInteractiveTransition * _Nonnull)interactor;
 
 - (void)startAnimating;
 - (void)updatePercentOfBounds;
