@@ -125,7 +125,6 @@ final class NavigationMoveTransitionSecondViewController: UITableViewController 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationController?.navigationTransition?.interactor?.delegate = self
         print("viewDidAppear -> \(type(of: self))")
     }
     
