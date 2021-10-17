@@ -111,6 +111,7 @@
 #pragma mark - Private Methods
 
 - (void)panningBegan {
+    _shouldComplete = NO;
     _startPanningDirection = self.panGestureRecognizer.panningDirection;
     
     if (!self.shouldBeginInteraction ||
@@ -149,11 +150,13 @@
             const CGFloat translationOffset = self.transition.transitioning.translationOffset;
             const CGPoint translation = self.translation;
             const CGFloat translationValue = (self.isVertical ? translation.y : translation.x) - translationOffset;
+            const CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
+            const CGFloat velocityValue = self.isVertical ? velocity.y : velocity.x;
             const CGFloat targetSize = self.isVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat dragAmount = targetSize * (isAppearing ? -1 : 1);
             const CGFloat percent = fmin(fmax(-1, translationValue / dragAmount), 1);
-            
-            _shouldComplete = ABS(percent) > 0.3;
+            const CGFloat absPercent = ABS(percent);
+            _shouldComplete = absPercent > 0.3 || (absPercent > 0 && ABS(velocityValue) > 300);
             
             [self updateInteractiveTransition:percent];
             break;
@@ -172,7 +175,6 @@
             }
             
             [self.transition endInteration];
-            _shouldComplete = NO;
             break;
         }
         default:

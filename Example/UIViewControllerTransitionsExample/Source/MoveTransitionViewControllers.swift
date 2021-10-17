@@ -115,4 +115,12 @@ extension MoveTransitionSecondViewController: InteractiveTransitionDelegate {
     func shouldTransition(_ interactor: AbstractInteractiveTransition) -> Bool {
         navigationController?.viewControllers.count == 1
     }
+    
+    func didCancel(withInteractor interactor: AbstractInteractiveTransition) {
+        print("didCancel")
+    }
+    
+    func didComplete(withInteractor interactor: AbstractInteractiveTransition) {
+        print("didComplete")
+    }
 }
