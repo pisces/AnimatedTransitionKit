@@ -55,7 +55,7 @@
     _disappearenceInteractor = [PanningInteractiveTransition new];
 }
 
-- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
+- (BOOL)isAppearing:(AbstractInteractiveTransition *)interactor {
     if (![interactor isKindOfClass:[PanningInteractiveTransition class]] ||
         !interactor.isAppearing) {
         return NO;
@@ -64,13 +64,22 @@
     return interactor.isVertical ? direction == PanningDirectionUp : direction == PanningDirectionLeft;
 }
 
-- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition *)interactor {
-    return interactor.isAppearing ? [self isAppearingWithInteractor:interactor] : YES;
+- (BOOL)isValid:(AbstractInteractiveTransition *)interactor {
+    return interactor.isAppearing ? [self isAppearing:interactor] : YES;
+}
+
+- (BOOL)shouldCompleteInteractor:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
+    return interactor.isVertical ?
+        (interactor.isAppearing ? direction == PanningDirectionUp : direction == PanningDirectionDown) :
+        (interactor.isAppearing ? direction == PanningDirectionLeft : direction == PanningDirectionRight);
 }
 
 - (void)setAllowsInteraction:(BOOL)allowsInteraction {
     [super setAllowsInteraction:allowsInteraction];
-    
     _appearenceInteractor.gestureRecognizer.enabled = allowsInteraction;
     _disappearenceInteractor.gestureRecognizer.enabled = allowsInteraction;
 }

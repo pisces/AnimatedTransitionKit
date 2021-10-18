@@ -48,8 +48,6 @@ final class MoveTransitionFirstViewController: UIViewController {
     private lazy var secondViewController: UINavigationController = {
         let viewController = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
         let transition = MoveTransition()
-        transition.appearenceOptions.duration = 0.25
-        transition.disappearenceOptions.duration = 0.35
         transition.isAllowsInteraction = true
         transition.disappearenceInteractor?.delegate = viewController
         

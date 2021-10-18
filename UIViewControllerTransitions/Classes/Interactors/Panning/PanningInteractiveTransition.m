@@ -58,10 +58,10 @@
 }
 
 - (BOOL)shouldBeginInteraction {
-    if (![self.transition isValidWithInteractor:self]) {
+    if (![self.transition isValid:self]) {
         return NO;
     }
-    if ([self.transition isAppearingWithInteractor:self]) {
+    if ([self.transition isAppearing:self]) {
         return self.presentViewController != nil;
     }
     return self.viewController != nil;
@@ -103,7 +103,7 @@
 #pragma mark - Protected Methods
 
 - (BOOL)beginInteractiveTransition {
-    if ([self.transition isAppearingWithInteractor:self]) {
+    if ([self.transition isAppearing:self]) {
         if (!self.presentViewController) {
             return NO;
         }
@@ -155,13 +155,14 @@
                 return;
             }
             
-            const BOOL isAppearing = [self.transition isAppearingWithInteractor:self];
+            const BOOL isAppearing = [self.transition isAppearing:self];
             const CGPoint translation = self.translation;
             const CGFloat translationValue = (self.isVertical ? translation.y : translation.x) - self.translationOffset;
             const CGFloat targetSize = self.isVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat interactionDistance = targetSize * (isAppearing ? -1 : 1);
             const CGFloat percent = fmin(fmax(-1, translationValue / interactionDistance), 1);
-            _shouldComplete = translationValue > interactionDistance * 0.1;
+            
+            _shouldComplete = ABS(translationValue) > interactionDistance * 0.1 && [self.transition shouldCompleteInteractor:self];
             
             [self updateInteractiveTransition:percent];
             break;

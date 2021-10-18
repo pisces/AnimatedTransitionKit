@@ -63,12 +63,11 @@
 
 #pragma mark - Overridden: UIViewControllerTransition
 
-- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
+- (BOOL)isAppearing:(AbstractInteractiveTransition *)interactor {
     if (![interactor isKindOfClass:[PanningInteractiveTransition class]] ||
         !interactor.isAppearing) {
         return NO;
     }
-    
     PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
     if (_direction == MoveTransitioningDirectionUp) {
         return direction == PanningDirectionUp;
@@ -80,6 +79,23 @@
         return direction == PanningDirectionLeft;
     }
     return direction == PanningDirectionRight;
+}
+
+- (BOOL)shouldCompleteInteractor:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
+    if (_direction == MoveTransitioningDirectionUp) {
+        return interactor.isAppearing ? direction == PanningDirectionUp : direction == PanningDirectionDown;
+    }
+    if (_direction == MoveTransitioningDirectionDown) {
+        return interactor.isAppearing ? direction == PanningDirectionDown : direction == PanningDirectionUp;
+    }
+    if (_direction == MoveTransitioningDirectionLeft) {
+        return interactor.isAppearing ? direction == PanningDirectionLeft : direction == PanningDirectionRight;
+    }
+    return interactor.isAppearing ? direction == PanningDirectionRight : direction == PanningDirectionLeft;
 }
 
 - (id)init {
