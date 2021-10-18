@@ -72,7 +72,7 @@ final class MoveTransitionSecondViewController: UITableViewController {
         super.viewDidLoad()
         title = "Second View"
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
-        (navigationController?.transition as? MoveTransition)?.relatedScrollView = tableView
+        navigationController?.transition?.disappearenceInteractor?.drivingScrollView = tableView
     }
     
     // MARK: - Overridden: UITableViewController

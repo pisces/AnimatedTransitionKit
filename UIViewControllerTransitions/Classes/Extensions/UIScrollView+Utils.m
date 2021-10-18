@@ -18,11 +18,13 @@
 }
 
 - (void)extScrollsToBottom {
-    self.contentOffset = CGPointMake(self.contentOffset.x, self.contentSize.height - self.bounds.size.height + self.extAdjustedContentInset.bottom);
+    CGPoint point = CGPointMake(self.contentOffset.x, self.contentSize.height - self.bounds.size.height + self.extAdjustedContentInset.bottom);
+    [self setContentOffset:point animated:NO];
 }
 
 - (void)extScrollsToTop {
-    self.contentOffset = CGPointMake(self.contentOffset.x, -self.extAdjustedContentInset.top);
+    CGPoint point = CGPointMake(self.contentOffset.x, -self.extAdjustedContentInset.top);
+    [self setContentOffset:point animated:NO];
 }
 
 @end

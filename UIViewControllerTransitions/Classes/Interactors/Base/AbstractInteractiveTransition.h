@@ -49,10 +49,12 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 @property (nonatomic, readonly, getter=isInteractionEnabled) BOOL interactionEnabled;
 @property (nonatomic, readonly, getter=isVertical) BOOL vertical;
 @property (nonatomic, readonly) BOOL shouldComplete;
+@property (nonatomic) CGFloat translationOffset;
 @property (nonatomic) InteractiveTransitionDirection direction;
 @property (nonatomic, readonly) CGPoint translation;
 @property (nonnull, nonatomic, readonly) UIGestureRecognizer *gestureRecognizer;
 @property (nullable, nonatomic, weak) id<InteractiveTransitionDelegate> delegate;
+@property (nullable, nonatomic, weak) UIScrollView *drivingScrollView;
 @property (nullable, weak, readonly) UIViewController *presentViewController;
 @property (nullable, weak, readonly) UIViewController *viewController;
 @property (nonnull, readonly) UIViewController *currentViewController;

@@ -91,6 +91,15 @@
     return [self.panGestureRecognizer translationInView:self.currentViewController.view.superview];
 }
 
+- (void)setDrivingScrollView:(UIScrollView *)drivingScrollView {
+    [super setDrivingScrollView:drivingScrollView];
+    [_gestureRecognizer removeTarget:self action:@selector(panned)];
+    
+    _gestureRecognizer = drivingScrollView.panGestureRecognizer;
+    _gestureRecognizer.enabled = NO;
+    [_gestureRecognizer addTarget:self action:@selector(panned)];
+}
+
 #pragma mark - Protected Methods
 
 - (BOOL)beginInteractiveTransition {
@@ -147,16 +156,12 @@
             }
             
             const BOOL isAppearing = [self.transition isAppearingWithInteractor:self];
-            const CGFloat translationOffset = self.transition.transitioning.translationOffset;
             const CGPoint translation = self.translation;
-            const CGFloat translationValue = (self.isVertical ? translation.y : translation.x) - translationOffset;
-            const CGPoint velocity = [self.panGestureRecognizer velocityInView:self.currentViewController.view.superview];
-            const CGFloat velocityValue = self.isVertical ? velocity.y : velocity.x;
+            const CGFloat translationValue = (self.isVertical ? translation.y : translation.x) - self.translationOffset;
             const CGFloat targetSize = self.isVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
-            const CGFloat dragAmount = targetSize * (isAppearing ? -1 : 1);
-            const CGFloat percent = fmin(fmax(-1, translationValue / dragAmount), 1);
-            const CGFloat absPercent = ABS(percent);
-            _shouldComplete = absPercent > 0.3 || (absPercent > 0 && ABS(velocityValue) > 300);
+            const CGFloat interactionDistance = targetSize * (isAppearing ? -1 : 1);
+            const CGFloat percent = fmin(fmax(-1, translationValue / interactionDistance), 1);
+            _shouldComplete = translationValue > interactionDistance * 0.1;
             
             [self updateInteractiveTransition:percent];
             break;

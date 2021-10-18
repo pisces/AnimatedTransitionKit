@@ -40,5 +40,4 @@
 
 @interface MoveTransition : UIViewControllerTransition
 @property (nonatomic) MoveTransitioningDirection direction;
-@property (nullable, nonatomic, weak) UIScrollView *relatedScrollView;
 @end

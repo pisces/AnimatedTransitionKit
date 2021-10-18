@@ -112,7 +112,6 @@
     _animating = NO;
     _percentOfInteraction = 0;
     _percentOfBounds = 0;
-    _translationOffset = 0;
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
