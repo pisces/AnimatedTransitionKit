@@ -46,7 +46,7 @@
 }
 
 - (BOOL)beginInteractiveTransition {
-    if ([self.transition isAppearingWithInteractor:self]) {
+    if ([self.transition isAppearing:self]) {
         if (!self.presentViewController || [self.navigationController.viewControllers containsObject:self.presentViewController]) {
             return NO;
         }
@@ -60,7 +60,7 @@
 #pragma mark - Properties
 
 - (BOOL)isInteractionEnabled {
-    if ([self.transition isAppearingWithInteractor:self]) {
+    if ([self.transition isAppearing:self]) {
         return self.presentViewController && ![self.navigationController.viewControllers containsObject:self.presentViewController];
     }
     return self.navigationController.viewControllers.count > 1;

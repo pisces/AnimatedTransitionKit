@@ -58,24 +58,28 @@
     _interacting = NO;
 }
 
-- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
+- (BOOL)isAppearing:(AbstractInteractiveTransition *)interactor {
     return NO;
 }
 
-- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition * _Nonnull)interactor {
+- (BOOL)isValid:(AbstractInteractiveTransition * _Nonnull)interactor {
     return NO;
+}
+
+- (BOOL)shouldCompleteInteractor:(AbstractInteractiveTransition *)interactor {
+    return YES;
 }
 
 #pragma mark - Protected Methods
 
 - (void)initProperties {
-    _appearenceOptions = [[UIViewControllerTransitionOptions new] initWithDuration:0.35
+    _appearenceOptions = [[UIViewControllerTransitionOptions new] initWithDuration:UINavigationControllerHideShowBarDuration
                                                                             delay:0
                                                            animationOptions:7 << 16
                                                               isUsingSpring:NO
                                                      usingSpringWithDamping:0.6
                                                       initialSpringVelocity:1.0];
-    _disappearenceOptions = [[UIViewControllerTransitionOptions new] initWithDuration:0.35
+    _disappearenceOptions = [[UIViewControllerTransitionOptions new] initWithDuration:UINavigationControllerHideShowBarDuration
                                                                                 delay:0
                                                                      animationOptions:7 << 16
                                                                         isUsingSpring:NO

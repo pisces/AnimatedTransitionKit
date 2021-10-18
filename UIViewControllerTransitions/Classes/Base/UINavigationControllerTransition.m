@@ -52,7 +52,7 @@
     return nil;
 }
 
-- (BOOL)isAppearingWithInteractor:(AbstractInteractiveTransition *)interactor {
+- (BOOL)isAppearing:(AbstractInteractiveTransition *)interactor {
     if (![interactor isKindOfClass:[PanningInteractiveTransition class]] ||
         !self.isPush) {
         return NO;
@@ -61,8 +61,16 @@
     return direction == PanningDirectionLeft;
 }
 
-- (BOOL)isValidWithInteractor:(AbstractInteractiveTransition *)interactor {
-    return self.isPush ? [self isAppearingWithInteractor:interactor] : YES;
+- (BOOL)isValid:(AbstractInteractiveTransition *)interactor {
+    return self.isPush ? [self isAppearing:interactor] : YES;
+}
+
+- (BOOL)shouldCompleteInteractor:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
+    return self.isPush ? direction == PanningDirectionLeft : direction == PanningDirectionRight;
 }
 
 - (void)setAllowsInteraction:(BOOL)allowsInteraction {

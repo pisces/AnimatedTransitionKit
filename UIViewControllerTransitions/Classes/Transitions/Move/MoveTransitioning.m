@@ -264,9 +264,8 @@
                     return NO;
             }
         default:
-            break;
+            return YES;
     }
-    return YES;
 }
 
 - (void)updatePercentOfBounds {
