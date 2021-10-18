@@ -43,7 +43,6 @@
 
 @implementation MoveTransitioning
 @synthesize percentOfBounds = _percentOfBounds;
-@synthesize translationOffset = _translationOffset;
 
 #pragma mark - Properties
 
@@ -143,20 +142,7 @@
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
     [super interactionBegan:interactor transitionContext:transitionContext];
     
-    UIScrollView *scrollView = self.relatedScrollView;
-    switch (_direction) {
-        case MoveTransitioningDirectionUp:
-            _translationOffset = scrollView.contentOffset.y + scrollView.extAdjustedContentInset.top;
-            break;
-        case MoveTransitioningDirectionDown: {
-            _translationOffset = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height + scrollView.extAdjustedContentInset.bottom);
-            break;
-        }
-        default:
-            _translationOffset = 0;
-            break;
-    }
-    
+    [self updateTranslationOffset:interactor];
     [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
     self.aboveViewController.view.transform = self.transformFrom;
     self.aboveViewController.view.hidden = NO;
@@ -188,16 +174,17 @@
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     [super interactionChanged:interactor percent:percent];
     
+    PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
     CGFloat alpha = self.presenting ? 1 - ((1 - 0.5) * self.percentOfBounds) : 0.5 + ((1 - 0.5) * self.percentOfBounds);
     CGFloat scale = self.presenting ? 1 - ((1 - 0.94) * self.percentOfBounds) : 0.94 + ((1 - 0.94) * self.percentOfBounds);
     alpha = MAX(0.5, MIN(1, alpha));
     scale = MAX(0.94, MIN(1, scale));
     
     if (interactor.isVertical) {
-        const CGFloat y = (self.transformFrom.ty + interactor.translation.y) - _translationOffset;
+        const CGFloat y = (self.transformFrom.ty + interactor.translation.y) - panningInteractor.translationOffset;
         self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(0, [self restricted:y]);
     } else {
-        const CGFloat x = (self.transformFrom.tx + interactor.translation.x) - _translationOffset;
+        const CGFloat x = (self.transformFrom.tx + interactor.translation.x) - panningInteractor.translationOffset;
         self.aboveViewController.view.transform = CGAffineTransformMakeTranslation([self restricted:x], 0);
     }
     
@@ -233,12 +220,8 @@
 }
 
 - (BOOL)shouldTransition:(AbstractInteractiveTransition *)interactor {
-    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
-        return NO;
-    }
-    
     PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
-    UIScrollView *scrollView = self.relatedScrollView;
+    UIScrollView *scrollView = panningInteractor.drivingScrollView;
     
     switch (_direction) {
         case MoveTransitioningDirectionUp:
@@ -305,6 +288,24 @@
         return MAX(0, value);
     }
     return MIN(0, value);
+}
+
+- (void)updateTranslationOffset:(AbstractInteractiveTransition *)interactor {
+    PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
+    UIScrollView *scrollView = panningInteractor.drivingScrollView;
+    
+    switch (_direction) {
+        case MoveTransitioningDirectionUp:
+            panningInteractor.translationOffset = scrollView.contentOffset.y + scrollView.extAdjustedContentInset.top;
+            break;
+        case MoveTransitioningDirectionDown: {
+            panningInteractor.translationOffset = scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.bounds.size.height + scrollView.extAdjustedContentInset.bottom);
+            break;
+        }
+        default:
+            panningInteractor.translationOffset = 0;
+            break;
+    }
 }
 
 @end

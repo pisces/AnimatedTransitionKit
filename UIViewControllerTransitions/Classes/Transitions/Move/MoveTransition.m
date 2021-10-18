@@ -93,14 +93,12 @@
 - (AnimatedTransitioning *)transitioningForDismissedController:(UIViewController *)dismissed {
     MoveTransitioning *transitioning = [MoveTransitioning new];
     transitioning.direction = _direction;
-    transitioning.relatedScrollView = self.relatedScrollView;
     return transitioning;
 }
 
 - (AnimatedTransitioning *)transitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     MoveTransitioning *transitioning = [MoveTransitioning new];
     transitioning.direction = _direction;
-    transitioning.relatedScrollView = self.relatedScrollView;
     return transitioning;
 }
 

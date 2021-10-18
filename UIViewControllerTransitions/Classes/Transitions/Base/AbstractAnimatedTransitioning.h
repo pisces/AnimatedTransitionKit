@@ -40,7 +40,6 @@
 @property (nonatomic) CGFloat completionBounds;
 @property (nonatomic, readonly) CGFloat percentOfBounds;
 @property (nonatomic, readonly) CGFloat percentOfInteraction;
-@property (nonatomic, readonly) CGFloat translationOffset;
 @property (nonatomic, readonly) CGFloat heightRatio;
 @property (nonatomic, readonly) CGFloat widthRatio;
 @property (nullable, nonatomic, weak) id <UIViewControllerContextTransitioning> context;
