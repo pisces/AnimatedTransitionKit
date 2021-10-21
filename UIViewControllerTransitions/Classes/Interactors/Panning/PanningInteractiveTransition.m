@@ -119,13 +119,11 @@
 
 #pragma mark - Private Methods
 
-- (void)panningBegan {
-    _shouldComplete = NO;
-    _startPanningDirection = self.panGestureRecognizer.panningDirection;
-    
+- (void)beginInteration {
     if (!self.shouldBeginInteraction ||
         self.transition.transitioning.isAnimating ||
         self.transition.isInteracting ||
+        ![self.delegate shouldTransition:self] ||
         ([self.delegate respondsToSelector:@selector(interactor:shouldInteract:)] &&
         ![self.delegate interactor:self shouldInteract:_gestureRecognizer])) {
         return;
@@ -138,15 +136,23 @@
     }
 }
 
+- (void)panningBegan {
+    _shouldComplete = NO;
+    _startPanningDirection = self.panGestureRecognizer.panningDirection;
+}
+
 #pragma mark - Private Selectors
 
 - (void)panned {
     switch (self.panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
             [self panningBegan];
+            [self beginInteration];
             break;
         }
         case UIGestureRecognizerStateChanged: {
+            [self beginInteration];
+            
             if (!self.transition.isInteracting ||
                 ![self.transition.currentInteractor isEqual:self] ||
                 ![self.transition.transitioning shouldTransition:self] ||
