@@ -156,8 +156,8 @@
     
     _viewController = viewController;
     _presentViewController = presentViewController;
-    
     [_viewController.view addGestureRecognizer:self.gestureRecognizer];
+    [self.gestureRecognizer requireGestureRecognizerToFail:_viewController.view.gestureRecognizers.firstObject];
 }
 
 - (void)detach {
