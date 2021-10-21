@@ -65,9 +65,11 @@
 }
 
 - (BOOL)shouldInteractiveTransition {
-    return _selectedPanGestureRecognizer == self.drivingScrollView.panGestureRecognizer ?
+    BOOL shouldTransitionOfTransitioning = _selectedPanGestureRecognizer == self.drivingScrollView.panGestureRecognizer ?
         [self.transition.transitioning shouldTransition:self] :
         YES;
+    BOOL shouldTransitionOfDelegate = ![self.delegate respondsToSelector:@selector(shouldTransition:)] || [self.delegate shouldTransition:self];
+    return shouldTransitionOfTransitioning && shouldTransitionOfDelegate;
 }
 
 - (UIPanGestureRecognizer *)panGestureRecognizer {
@@ -175,9 +177,7 @@
             
             if (!self.transition.isInteracting ||
                 ![self.transition.currentInteractor isEqual:self] ||
-                !self.shouldInteractiveTransition ||
-                ([self.delegate respondsToSelector:@selector(shouldTransition:)] &&
-                 ![self.delegate shouldTransition:self])) {
+                !self.shouldInteractiveTransition) {
                 return;
             }
             
