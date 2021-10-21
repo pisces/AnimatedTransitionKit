@@ -142,4 +142,7 @@
     _percentOfBounds = _percentOfInteraction * (UIScreen.mainScreen.bounds.size.height / _completionBounds);
 }
 
+- (void)updateTranslationOffset:(AbstractInteractiveTransition *)interactor {
+}
+
 @end

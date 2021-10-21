@@ -38,6 +38,7 @@
 #import "UIScrollView+Utils.h"
 
 @interface PanningInteractiveTransition ()
+@property (nonatomic, readonly) BOOL shouldInteractiveTransition;
 @property (nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
 @end
 
@@ -48,14 +49,10 @@
 #pragma mark - Public Properties
 
 - (PanningDirection)panningDirection {
-    return self.panGestureRecognizer.panningDirection;
+    return _selectedPanGestureRecognizer.panningDirection;
 }
 
 #pragma mark - Private Properties
-
-- (UIPanGestureRecognizer *)panGestureRecognizer {
-    return (UIPanGestureRecognizer *) _gestureRecognizer;
-}
 
 - (BOOL)shouldBeginInteraction {
     if (![self.transition isValid:self]) {
@@ -67,17 +64,26 @@
     return self.viewController != nil;
 }
 
+- (BOOL)shouldInteractiveTransition {
+    return _selectedPanGestureRecognizer == self.drivingScrollView.panGestureRecognizer ?
+        [self.transition.transitioning shouldTransition:self] :
+        YES;
+}
+
+- (UIPanGestureRecognizer *)panGestureRecognizer {
+    return (UIPanGestureRecognizer *) _gestureRecognizer;
+}
+
 #pragma mark - Con(De)structors
 
 - (void)dealloc {
     [self detach];
-    [_gestureRecognizer removeTarget:self action:@selector(panned)];
 }
 
 - (id)init {
     self = [super init];
     if (self) {
-        _gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned)];
+        _gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
         _gestureRecognizer.delegate = self;
         _gestureRecognizer.enabled = NO;
         self.panGestureRecognizer.maximumNumberOfTouches = 1;
@@ -87,17 +93,28 @@
 
 #pragma mark - Overridden: AbstractInteractiveTransition
 
+- (void)detach {
+    [super detach];
+    
+    if (self.drivingScrollView) {
+        [self.drivingScrollView.panGestureRecognizer removeTarget:self action:@selector(panned:)];
+    }
+}
+
+- (CGFloat)translationOffset {
+    return _selectedPanGestureRecognizer == self.drivingScrollView.panGestureRecognizer ?
+        [super translationOffset] :
+        0;
+}
+
 - (CGPoint)translation {
-    return [self.panGestureRecognizer translationInView:self.currentViewController.view.superview];
+    return [_selectedPanGestureRecognizer translationInView:self.currentViewController.view.superview];
 }
 
 - (void)setDrivingScrollView:(UIScrollView *)drivingScrollView {
     [super setDrivingScrollView:drivingScrollView];
-    [_gestureRecognizer removeTarget:self action:@selector(panned)];
-    
-    _gestureRecognizer = drivingScrollView.panGestureRecognizer;
-    _gestureRecognizer.enabled = NO;
-    [_gestureRecognizer addTarget:self action:@selector(panned)];
+    [drivingScrollView.panGestureRecognizer addTarget:self action:@selector(panned:)];
+    [_gestureRecognizer requireGestureRecognizerToFail:drivingScrollView.panGestureRecognizer];
 }
 
 #pragma mark - Protected Methods
@@ -119,13 +136,13 @@
 
 #pragma mark - Private Methods
 
-- (void)beginInteration {
+- (void)beginInterationIfAvailable {
     if (!self.shouldBeginInteraction ||
         self.transition.transitioning.isAnimating ||
         self.transition.isInteracting ||
-        ![self.delegate shouldTransition:self] ||
+        !self.shouldInteractiveTransition ||
         ([self.delegate respondsToSelector:@selector(interactor:shouldInteract:)] &&
-        ![self.delegate interactor:self shouldInteract:_gestureRecognizer])) {
+        ![self.delegate interactor:self shouldInteract:_selectedPanGestureRecognizer])) {
         return;
     }
     
@@ -138,24 +155,27 @@
 
 - (void)panningBegan {
     _shouldComplete = NO;
-    _startPanningDirection = self.panGestureRecognizer.panningDirection;
+    _startPanningDirection = self.selectedPanGestureRecognizer.panningDirection;
+    [self.transition.transitioning updateTranslationOffset:self];
 }
 
 #pragma mark - Private Selectors
 
-- (void)panned {
-    switch (self.panGestureRecognizer.state) {
+- (void)panned:(UIPanGestureRecognizer *)panGestureRecognizer {
+    _selectedPanGestureRecognizer = panGestureRecognizer;
+    
+    switch (panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
             [self panningBegan];
-            [self beginInteration];
+            [self beginInterationIfAvailable];
             break;
         }
         case UIGestureRecognizerStateChanged: {
-            [self beginInteration];
+            [self beginInterationIfAvailable];
             
             if (!self.transition.isInteracting ||
                 ![self.transition.currentInteractor isEqual:self] ||
-                ![self.transition.transitioning shouldTransition:self] ||
+                !self.shouldInteractiveTransition ||
                 ([self.delegate respondsToSelector:@selector(shouldTransition:)] &&
                  ![self.delegate shouldTransition:self])) {
                 return;
@@ -180,7 +200,7 @@
                 return;
             }
             
-            if (_gestureRecognizer.state == UIGestureRecognizerStateEnded && _shouldComplete) {
+            if (panGestureRecognizer.state == UIGestureRecognizerStateEnded && _shouldComplete) {
                 [self finishInteractiveTransition];
             } else {
                 [self cancelInteractiveTransition];
