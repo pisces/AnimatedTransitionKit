@@ -43,4 +43,5 @@
 @interface PanningInteractiveTransition : AbstractInteractiveTransition <PanningInteractiveTransitionProtected>
 @property (nonatomic, readonly) PanningDirection panningDirection;
 @property (nonatomic, readonly) PanningDirection startPanningDirection;
+@property (nonatomic, readonly) UIPanGestureRecognizer *selectedPanGestureRecognizer;
 @end

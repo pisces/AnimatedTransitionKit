@@ -74,4 +74,5 @@
 
 - (void)startAnimating;
 - (void)updatePercentOfBounds;
+- (void)updateTranslationOffset:(AbstractInteractiveTransition * _Nonnull)interactor;
 @end

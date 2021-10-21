@@ -142,7 +142,6 @@
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
     [super interactionBegan:interactor transitionContext:transitionContext];
     
-    [self updateTranslationOffset:interactor];
     [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
     self.aboveViewController.view.transform = self.transformFrom;
     self.aboveViewController.view.hidden = NO;
@@ -274,21 +273,6 @@
     _percentOfBounds = (self.percentOfInteraction * multiply) * (bounds / self.completionBounds);
 }
 
-#pragma mark - Private methods
-
-- (CGFloat)restricted:(CGFloat)value {
-    if (_direction == MoveTransitioningDirectionUp) {
-        return MAX(0, value);
-    }
-    if (_direction == MoveTransitioningDirectionDown) {
-        return MIN(0, value);
-    }
-    if (_direction == MoveTransitioningDirectionLeft) {
-        return MAX(0, value);
-    }
-    return MIN(0, value);
-}
-
 - (void)updateTranslationOffset:(AbstractInteractiveTransition *)interactor {
     PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
     UIScrollView *scrollView = panningInteractor.drivingScrollView;
@@ -305,6 +289,21 @@
             panningInteractor.translationOffset = 0;
             break;
     }
+}
+
+#pragma mark - Private methods
+
+- (CGFloat)restricted:(CGFloat)value {
+    if (_direction == MoveTransitioningDirectionUp) {
+        return MAX(0, value);
+    }
+    if (_direction == MoveTransitioningDirectionDown) {
+        return MIN(0, value);
+    }
+    if (_direction == MoveTransitioningDirectionLeft) {
+        return MAX(0, value);
+    }
+    return MIN(0, value);
 }
 
 @end
