@@ -647,7 +647,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 
 target '<Your Target Name>' do
-    pod 'UIViewControllerTransitions', '~> 3.2.7'
+    pod 'UIViewControllerTransitions', '~> 3.2.8'
 end
 ```
 
@@ -671,7 +671,7 @@ $ brew install carthage
 To integrate UIViewControllerTransitions into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/UIViewControllerTransitions" ~> 3.2.7
+github "pisces/UIViewControllerTransitions" ~> 3.2.8
 ```
 
 Run `carthage update` to build the framework and drag the built `UIViewControllerTransitions.framework` into your Xcode project.
