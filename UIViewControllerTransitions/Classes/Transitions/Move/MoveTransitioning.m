@@ -85,24 +85,20 @@
 }
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
-    UIColor *backgroundColor = self.toViewController.view.window.backgroundColor;
-    
     self.toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     self.toViewController.view.hidden = NO;
-    self.toViewController.view.window.backgroundColor = [UIColor blackColor];
     self.fromViewController.view.transform = self.transformFrom;
-    
+
     if (transitionContext.isInteractive) {
         return;
     }
-    
+
     [self animate:^{
         self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
         self.toViewController.view.alpha = 1;
         self.toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
         self.fromViewController.view.transform = self.transformTo;
     } completion:^{
-        self.toViewController.view.window.backgroundColor = backgroundColor;
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self.fromViewController.view removeFromSuperview];
         [self.belowViewController endAppearanceTransition];
@@ -110,17 +106,14 @@
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
-    UIColor *backgroundColor = self.fromViewController.view.window.backgroundColor;
-    
-    self.fromViewController.view.window.backgroundColor = [UIColor blackColor];
     self.toViewController.view.transform = self.transformFrom;
-    
+
     [transitionContext.containerView addSubview:self.toViewController.view];
-    
+
     if (transitionContext.isInteractive) {
         return;
     }
-    
+
     [self animate:^{
         self.toViewController.view.transform = self.transformTo;
         self.fromViewController.view.alpha = 0.5;
@@ -128,12 +121,11 @@
         self.fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     } completion:^{
         self.fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        self.fromViewController.view.window.backgroundColor = backgroundColor;
-        
+
         if (!transitionContext.transitionWasCancelled) {
             self.fromViewController.view.hidden = YES;
         }
-        
+
         [self.belowViewController endAppearanceTransition];
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
     }];
@@ -141,7 +133,7 @@
 
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
     [super interactionBegan:interactor transitionContext:transitionContext];
-    
+
     [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
     self.aboveViewController.view.transform = self.transformFrom;
     self.aboveViewController.view.hidden = NO;
@@ -150,7 +142,7 @@
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     const CGFloat alpha = self.presenting ? 1 : 0.5;
     const CGFloat scale = self.presenting ? 1 : 0.94;
-    
+
     [self animateWithDuration:0.25 animations:^{
         self.aboveViewController.view.transform = self.transformFrom;
         self.belowViewController.view.alpha = alpha;
@@ -158,13 +150,11 @@
         self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
     } completion:^{
         self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
-        
+
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
-        } else {
-            self.belowViewController.view.hidden = YES;
         }
-        
+
         [self.context completeTransition:NO];
         completion();
     }];
@@ -172,13 +162,8 @@
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     [super interactionChanged:interactor percent:percent];
-    
+
     PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
-    CGFloat alpha = self.presenting ? 1 - ((1 - 0.5) * self.percentOfBounds) : 0.5 + ((1 - 0.5) * self.percentOfBounds);
-    CGFloat scale = self.presenting ? 1 - ((1 - 0.94) * self.percentOfBounds) : 0.94 + ((1 - 0.94) * self.percentOfBounds);
-    alpha = MAX(0.5, MIN(1, alpha));
-    scale = MAX(0.94, MIN(1, scale));
-    
     if (interactor.isVertical) {
         const CGFloat y = (self.transformFrom.ty + interactor.translation.y) - panningInteractor.translationOffset;
         self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(0, [self restricted:y]);
@@ -186,7 +171,11 @@
         const CGFloat x = (self.transformFrom.tx + interactor.translation.x) - panningInteractor.translationOffset;
         self.aboveViewController.view.transform = CGAffineTransformMakeTranslation([self restricted:x], 0);
     }
-    
+
+    CGFloat alpha = self.presenting ? 1 - ((1 - 0.5) * self.percentOfBounds) : 0.5 + ((1 - 0.5) * self.percentOfBounds);
+    CGFloat scale = self.presenting ? 1 - ((1 - 0.94) * self.percentOfBounds) : 0.94 + ((1 - 0.94) * self.percentOfBounds);
+    alpha = MAX(0.5, MIN(1, alpha));
+    scale = MAX(0.94, MIN(1, scale));
     self.belowViewController.view.alpha = alpha;
     self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
 }
@@ -194,7 +183,7 @@
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     const CGFloat alpha = self.presenting ? 0.5 : 1;
     const CGFloat scale = self.presenting ? 0.94 : 1;
-    
+
     [self animate:^{
         self.aboveViewController.view.transform = self.transformTo;
         self.belowViewController.view.alpha = alpha;
@@ -203,7 +192,7 @@
     } completion:^{
         self.belowViewController.view.alpha = alpha;
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
-        
+
         if (self.presenting) {
             self.belowViewController.view.hidden = YES;
             [self.belowViewController endAppearanceTransition];
@@ -221,7 +210,7 @@
 - (BOOL)shouldTransition:(AbstractInteractiveTransition *)interactor {
     PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
     UIScrollView *scrollView = panningInteractor.drivingScrollView;
-    
+
     switch (_direction) {
         case MoveTransitioningDirectionUp:
             switch (panningInteractor.panningDirection) {
@@ -276,7 +265,7 @@
 - (void)updateTranslationOffset:(AbstractInteractiveTransition *)interactor {
     PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
     UIScrollView *scrollView = panningInteractor.drivingScrollView;
-    
+
     switch (_direction) {
         case MoveTransitioningDirectionUp:
             panningInteractor.translationOffset = scrollView.contentOffset.y + scrollView.extAdjustedContentInset.top;
