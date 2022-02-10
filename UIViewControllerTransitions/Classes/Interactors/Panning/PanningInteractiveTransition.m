@@ -65,7 +65,7 @@
 }
 
 - (BOOL)shouldInteractiveTransition {
-    BOOL shouldTransitionOfTransitioning = _selectedPanGestureRecognizer == self.drivingScrollView.panGestureRecognizer ?
+    BOOL shouldTransitionOfTransitioning = _selectedPanGestureRecognizer == self.drivingScrollView.panGestureRecognizer && self.transition.transitioning ?
         [self.transition.transitioning shouldTransition:self] :
         YES;
     BOOL shouldTransitionOfDelegate = ![self.delegate respondsToSelector:@selector(shouldTransition:)] || [self.delegate shouldTransition:self];

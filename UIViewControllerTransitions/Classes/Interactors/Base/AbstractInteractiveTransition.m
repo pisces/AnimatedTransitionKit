@@ -69,11 +69,11 @@
 
 - (void)cancelInteractiveTransition {
     [super cancelInteractiveTransition];
-    
+
     if ([_delegate respondsToSelector:@selector(willCancelWithInteractor:)]) {
         [_delegate willCancelWithInteractor:self];
     }
-    
+
     [self.transition.transitioning interactionCancelled:self completion:^{
         [self completion];
     }];
@@ -81,11 +81,11 @@
 
 - (void)finishInteractiveTransition {
     [super finishInteractiveTransition];
-    
+
     if ([_delegate respondsToSelector:@selector(willCompleteWithInteractor:)]) {
         [_delegate willCompleteWithInteractor:self];
     }
-    
+
     [self.transition.transitioning interactionCompleted:self completion:^{
         [self completion];
     }];
@@ -93,10 +93,10 @@
 
 - (void)startInteractiveTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     [super startInteractiveTransition:transitionContext];
-    
+
     [self.transition.transitioning startAnimating];
     [self.transition.transitioning interactionBegan:self transitionContext:transitionContext];
-    
+
     if ([_delegate respondsToSelector:@selector(didBeginWithInteractor:)]) {
         [_delegate didBeginWithInteractor:self];
     }
@@ -104,9 +104,9 @@
 
 - (void)updateInteractiveTransition:(CGFloat)percentComplete {
     [super updateInteractiveTransition:percentComplete];
-    
+
     [self.transition.transitioning interactionChanged:self percent:percentComplete];
-    
+
     if ([_delegate respondsToSelector:@selector(didChangeWithInteractor:percent:)]) {
         [_delegate didChangeWithInteractor:self percent:percentComplete];
     }
@@ -152,17 +152,17 @@
 #pragma mark - Public methods
 
 - (void)attach:(UIViewController *)viewController presentViewController:(UIViewController *)presentViewController {
-    [self detach];
-    
+    if (_viewController) {
+        [self detach];
+    }
+
     _viewController = viewController;
     _presentViewController = presentViewController;
     [_viewController.view addGestureRecognizer:self.gestureRecognizer];
-    [self.gestureRecognizer requireGestureRecognizerToFail:_viewController.view.gestureRecognizers.firstObject];
 }
 
 - (void)detach {
     [self.gestureRecognizer.view removeGestureRecognizer:self.gestureRecognizer];
-    
     _viewController = nil;
     _presentViewController = nil;
 }
@@ -171,7 +171,7 @@
 
 - (void)completion {
     [self.transition.transitioning endAnimating];
-    
+
     if (self.shouldComplete) {
         if ([_delegate respondsToSelector:@selector(didCompleteWithInteractor:)]) {
             [_delegate didCompleteWithInteractor:self];
