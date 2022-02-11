@@ -42,11 +42,10 @@
 #pragma mark - Overridden: AnimatedTransitioning
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
-    UIColor *backgroundColor = self.toViewController.view.window.backgroundColor;
-    
-    self.toViewController.view.alpha = 0;
+    if (self.isAllowsDeactivating) {
+        self.toViewController.view.alpha = 0;
+    }
     self.toViewController.view.hidden = NO;
-    self.toViewController.view.window.backgroundColor = [UIColor blackColor];
     
     if (transitionContext.isInteractive) {
         return;
@@ -54,10 +53,12 @@
     
     [self animate:^{
         self.fromViewController.view.alpha = 0;
-        self.toViewController.view.alpha = 1;
-        self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+
+        if (self.isAllowsDeactivating) {
+            self.toViewController.view.alpha = 1;
+            self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+        }
     } completion:^{
-        self.toViewController.view.window.backgroundColor = backgroundColor;
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self.fromViewController.view removeFromSuperview];
         [self.belowViewController endAppearanceTransition];
@@ -65,8 +66,8 @@
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
-    UIColor *backgroundColor = self.toViewController.view.window.backgroundColor;
-    
+    [super animateTransitionForPresenting:transitionContext];
+
     self.toViewController.view.alpha = 0;
     self.toViewController.view.frame = self.fromViewController.view.bounds;
     
@@ -78,11 +79,12 @@
     
     [self animate:^{
         self.toViewController.view.alpha = 1;
-        self.fromViewController.view.alpha = 0;
-        self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+
+        if (self.isAllowsDeactivating) {
+            self.fromViewController.view.alpha = 0;
+            self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+        }
     } completion:^{
-        self.fromViewController.view.window.backgroundColor = backgroundColor;
-        
         if (![transitionContext transitionWasCancelled]) {
             self.fromViewController.view.hidden = YES;
         }
@@ -102,12 +104,15 @@
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     const CGFloat aboveViewAlpha = self.presenting ? 0 : 1;
-    const CGFloat belowViewAlpha = self.presenting ? 1 : 0;
     
     [self animateWithDuration:0.25 animations:^{
         self.aboveViewController.view.alpha = aboveViewAlpha;
-        self.belowViewController.view.alpha = belowViewAlpha;
-        self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
+
+        if (self.isAllowsDeactivating) {
+            const CGFloat belowViewAlpha = self.presenting ? 1 : 0;
+            self.belowViewController.view.alpha = belowViewAlpha;
+            self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
+        }
     } completion:^{
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
@@ -125,17 +130,23 @@
     
     CGFloat caculated = fmin(1, fmax(0, percent));
     self.aboveViewController.view.alpha = MAX(0, MIN(1, self.presenting ? caculated : 1 - caculated));
-    self.belowViewController.view.alpha = MAX(0, MIN(1, self.presenting ? 1 - caculated : caculated));
+
+    if (self.isAllowsDeactivating) {
+        self.belowViewController.view.alpha = MAX(0, MIN(1, self.presenting ? 1 - caculated : caculated));
+    }
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     const CGFloat aboveViewAlpha = self.presenting ? 1 : 0;
-    const CGFloat belowViewAlpha = self.presenting ? 0 : 1;
     
     [self animate:^{
         self.aboveViewController.view.alpha = aboveViewAlpha;
-        self.belowViewController.view.alpha = belowViewAlpha;
-        self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
+
+        if (self.isAllowsDeactivating) {
+            const CGFloat belowViewAlpha = self.presenting ? 0 : 1;
+            self.belowViewController.view.alpha = belowViewAlpha;
+            self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
+        }
     } completion:^{
         if (self.presenting) {
             self.belowViewController.view.hidden = YES;

@@ -73,6 +73,7 @@
 #pragma mark - Protected Methods
 
 - (void)initProperties {
+    _allowsDeactivating = YES;
     _allowsInteraction = YES;
     _appearenceOptions = [[UIViewControllerTransitionOptions new] initWithDuration:UINavigationControllerHideShowBarDuration
                                                                             delay:0

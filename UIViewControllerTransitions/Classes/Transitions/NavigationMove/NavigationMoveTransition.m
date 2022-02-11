@@ -38,7 +38,9 @@
 #pragma mark - Overridden: UINavigationControllerTransition
 
 - (AnimatedNavigationTransitioning *)newTransitioning {
-    return [NavigationMoveTransitioning new];
+    NavigationMoveTransitioning *transitioning = [NavigationMoveTransitioning new];
+    transitioning.allowsDeactivating = self.allowsDeactivating;
+    return transitioning;
 }
 
 @end

@@ -44,11 +44,15 @@
 #pragma mark - Overridden: UIViewControllerTransition
 
 - (AnimatedTransitioning *)transitioningForDismissedController:(UIViewController *)dismissed {
-    return [FadeTransitioning new];
+    FadeTransitioning *transitioning = [FadeTransitioning new];
+    transitioning.allowsDeactivating = self.allowsDeactivating;
+    return transitioning;
 }
 
 - (AnimatedTransitioning *)transitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    return [FadeTransitioning new];
+    FadeTransitioning *transitioning = [FadeTransitioning new];
+    transitioning.allowsDeactivating = self.allowsDeactivating;
+    return transitioning;
 }
 
 @end
