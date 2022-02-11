@@ -82,6 +82,7 @@
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
+    self.toViewController.view.frame = self.fromViewController.view.bounds;
 }
 
 @end

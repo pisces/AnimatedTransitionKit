@@ -74,10 +74,7 @@
 #pragma mark - Overridden: AnimatedTransitioning
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
-    UIColor *backgroundColor = self.toViewController.view.window.backgroundColor;
-    
     self.toViewController.view.hidden = NO;
-    self.toViewController.view.window.backgroundColor = [UIColor blackColor];
     
     if (!sourceImageView) {
         sourceImageView = [self createImageView];
@@ -92,7 +89,6 @@
         [self animateDismission];
     } completion:^{
         [self completeSource];
-        self.toViewController.view.window.backgroundColor = backgroundColor;
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self.fromViewController.view removeFromSuperview];
         [self.belowViewController endAppearanceTransition];
@@ -100,9 +96,9 @@
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
-    UIColor *backgroundColor = self.fromViewController.view.window.backgroundColor;
+    [super animateTransitionForPresenting:transitionContext];
+
     sourceImageView = [self createImageView];
-    self.fromViewController.view.window.backgroundColor = [UIColor blackColor];
     
     [transitionContext.containerView addSubview:self.toViewController.view];
     [transitionContext.containerView addSubview:sourceImageView];
@@ -115,14 +111,19 @@
     
     [self animate:^{
         self.toViewController.view.alpha = 1;
-        self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-        self.fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
+
+        if (self.isAllowsDeactivating) {
+            self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+            self.fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
+        }
+
         self->sourceImageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
         self->sourceImageView.frame = self->_source.to();
     } completion:^{
-        self.fromViewController.view.alpha = 1;
-        self.fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        self.fromViewController.view.window.backgroundColor = backgroundColor;
+        if (self.isAllowsDeactivating) {
+            self.fromViewController.view.alpha = 1;
+            self.fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        }
         
         if (!transitionContext.transitionWasCancelled) {
             self.fromViewController.view.hidden = YES;
@@ -159,8 +160,11 @@
     
     [self animateWithDuration:0.25 animations:^{
         self.aboveViewController.view.alpha = 1;
-        self.belowViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
-        self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+
+        if (self.isAllowsDeactivating) {
+            self.belowViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
+            self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+        }
         
         self->sourceImageView.transform = CGAffineTransformMakeScale(1, 1);
         self->sourceImageView.frame = self->_source.from();
@@ -186,13 +190,16 @@
     
     const CGFloat y = beginViewPoint.y + interactor.translation.y;
     const CGFloat progress = ABS(y) / self.completionBounds;
-    const CGFloat alpha = 1 - progress;
-    const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * progress));
     const CGFloat imageScale = MIN(1, (MAX(0.5, 1 - ABS(y) / self.aboveViewController.view.bounds.size.height)));
     
     sourceImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(imageScale, imageScale), interactor.translation.x, interactor.translation.y);
-    self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
-    self.aboveViewController.view.alpha = alpha;
+
+    if (self.isAllowsDeactivating) {
+        const CGFloat alpha = 1 - progress;
+        const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * progress));
+        self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
+        self.aboveViewController.view.alpha = alpha;
+    }
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^)(void))completion {

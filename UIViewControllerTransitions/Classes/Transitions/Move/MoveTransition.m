@@ -108,12 +108,14 @@
 
 - (AnimatedTransitioning *)transitioningForDismissedController:(UIViewController *)dismissed {
     MoveTransitioning *transitioning = [MoveTransitioning new];
+    transitioning.allowsDeactivating = self.allowsDeactivating;
     transitioning.direction = _direction;
     return transitioning;
 }
 
 - (AnimatedTransitioning *)transitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     MoveTransitioning *transitioning = [MoveTransitioning new];
+    transitioning.allowsDeactivating = self.allowsDeactivating;
     transitioning.direction = _direction;
     return transitioning;
 }

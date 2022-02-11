@@ -85,7 +85,9 @@
 }
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
-    self.toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
+    if (self.isAllowsDeactivating) {
+        self.toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
+    }
     self.toViewController.view.hidden = NO;
     self.fromViewController.view.transform = self.transformFrom;
 
@@ -94,9 +96,11 @@
     }
 
     [self animate:^{
-        self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
-        self.toViewController.view.alpha = 1;
-        self.toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        if (self.isAllowsDeactivating) {
+            self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+            self.toViewController.view.alpha = 1;
+            self.toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        }
         self.fromViewController.view.transform = self.transformTo;
     } completion:^{
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
@@ -106,6 +110,8 @@
 }
 
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
+    [super animateTransitionForPresenting:transitionContext];
+
     self.toViewController.view.transform = self.transformFrom;
 
     [transitionContext.containerView addSubview:self.toViewController.view];
@@ -116,11 +122,16 @@
 
     [self animate:^{
         self.toViewController.view.transform = self.transformTo;
-        self.fromViewController.view.alpha = 0.5;
-        self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
-        self.fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
+
+        if (self.isAllowsDeactivating) {
+            self.fromViewController.view.alpha = 0.5;
+            self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+            self.fromViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
+        }
     } completion:^{
-        self.fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        if (self.isAllowsDeactivating) {
+            self.fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        }
 
         if (!transitionContext.transitionWasCancelled) {
             self.fromViewController.view.hidden = YES;
@@ -145,11 +156,16 @@
 
     [self animateWithDuration:0.25 animations:^{
         self.aboveViewController.view.transform = self.transformFrom;
-        self.belowViewController.view.alpha = alpha;
-        self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
-        self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
+
+        if (self.isAllowsDeactivating) {
+            self.belowViewController.view.alpha = alpha;
+            self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
+            self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeNormal : UIViewTintAdjustmentModeDimmed;
+        }
     } completion:^{
-        self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
+        if (self.isAllowsDeactivating) {
+            self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
+        }
 
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
@@ -172,12 +188,14 @@
         self.aboveViewController.view.transform = CGAffineTransformMakeTranslation([self restricted:x], 0);
     }
 
-    CGFloat alpha = self.presenting ? 1 - ((1 - 0.5) * self.percentOfBounds) : 0.5 + ((1 - 0.5) * self.percentOfBounds);
-    CGFloat scale = self.presenting ? 1 - ((1 - 0.94) * self.percentOfBounds) : 0.94 + ((1 - 0.94) * self.percentOfBounds);
-    alpha = MAX(0.5, MIN(1, alpha));
-    scale = MAX(0.94, MIN(1, scale));
-    self.belowViewController.view.alpha = alpha;
-    self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
+    if (self.isAllowsDeactivating) {
+        CGFloat alpha = self.presenting ? 1 - ((1 - 0.5) * self.percentOfBounds) : 0.5 + ((1 - 0.5) * self.percentOfBounds);
+        CGFloat scale = self.presenting ? 1 - ((1 - 0.94) * self.percentOfBounds) : 0.94 + ((1 - 0.94) * self.percentOfBounds);
+        alpha = MAX(0.5, MIN(1, alpha));
+        scale = MAX(0.94, MIN(1, scale));
+        self.belowViewController.view.alpha = alpha;
+        self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
+    }
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
@@ -186,12 +204,17 @@
 
     [self animate:^{
         self.aboveViewController.view.transform = self.transformTo;
-        self.belowViewController.view.alpha = alpha;
-        self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
-        self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
+
+        if (self.isAllowsDeactivating) {
+            self.belowViewController.view.alpha = alpha;
+            self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
+            self.belowViewController.view.tintAdjustmentMode = self.presenting ? UIViewTintAdjustmentModeDimmed : UIViewTintAdjustmentModeNormal;
+        }
     } completion:^{
-        self.belowViewController.view.alpha = alpha;
-        self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
+        if (self.isAllowsDeactivating) {
+            self.belowViewController.view.alpha = alpha;
+            self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
+        }
 
         if (self.presenting) {
             self.belowViewController.view.hidden = YES;

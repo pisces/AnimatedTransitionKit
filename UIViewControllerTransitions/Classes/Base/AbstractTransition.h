@@ -39,6 +39,7 @@
 @end
 
 @interface AbstractTransition: NSObject <AbstractTransitionProtected>
+@property (nonatomic, getter=isAllowsDeactivating) BOOL allowsDeactivating;
 @property (nonatomic, getter=isAllowsInteraction) BOOL allowsInteraction;
 @property (nonatomic, readonly, getter=isInteracting) BOOL interacting;
 @property (nullable, nonatomic, readonly) AbstractInteractiveTransition *currentInteractor;
