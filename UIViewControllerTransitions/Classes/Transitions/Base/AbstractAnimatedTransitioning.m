@@ -31,6 +31,7 @@
 //
 
 #import "AbstractAnimatedTransitioning.h"
+#import "AbstractInteractiveTransition.h"
 
 @implementation AbstractAnimatedTransitioning
 
@@ -50,10 +51,6 @@
 }
 
 #pragma mark - Properties
-
-- (CGFloat)completionBounds {
-    return UIScreen.mainScreen.bounds.size.width/4;
-}
 
 - (CGFloat)heightRatio {
     return UIScreen.mainScreen.bounds.size.height/667;
@@ -111,7 +108,7 @@
 - (void)endAnimating {
     _animating = NO;
     _percentOfInteraction = 0;
-    _percentOfBounds = 0;
+    _percentOfCompletion = 0;
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
@@ -123,8 +120,7 @@
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     _percentOfInteraction = percent;
-    
-    [self updatePercentOfBounds];
+    _percentOfCompletion = percent / interactor.percentForCompletion;
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
@@ -136,10 +132,6 @@
 
 - (void)startAnimating {
     _animating = YES;
-}
-
-- (void)updatePercentOfBounds {
-    _percentOfBounds = _percentOfInteraction * (UIScreen.mainScreen.bounds.size.height / _completionBounds);
 }
 
 - (void)updateTranslationOffset:(AbstractInteractiveTransition *)interactor {

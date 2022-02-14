@@ -42,7 +42,6 @@
 #import "UIViewControllerTransitionsMacro.h"
 
 @implementation MoveTransitioning
-@synthesize percentOfBounds = _percentOfBounds;
 
 #pragma mark - Properties
 
@@ -80,10 +79,6 @@
 
 #pragma mark - Overridden: AnimatedTransitioning
 
-- (CGFloat)completionBounds {
-    return ([self isVertical] ? UIScreen.mainScreen.bounds.size.height : UIScreen.mainScreen.bounds.size.width) / 4;
-}
-
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
     if (self.isAllowsDeactivating) {
         self.toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
@@ -96,15 +91,16 @@
     }
 
     [self animate:^{
+        self.fromViewController.view.transform = self.transformTo;
         if (self.isAllowsDeactivating) {
             self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
             self.toViewController.view.alpha = 1;
             self.toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
         }
-        self.fromViewController.view.transform = self.transformTo;
     } completion:^{
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self.fromViewController.view removeFromSuperview];
+        self.fromViewController.view.transform = self.transformFrom;
         [self.belowViewController endAppearanceTransition];
     }];
 }
@@ -169,6 +165,8 @@
 
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
+        } else if (self.isAllowsDeactivating) {
+            self.belowViewController.view.hidden = YES;
         }
 
         [self.context completeTransition:NO];
@@ -189,8 +187,8 @@
     }
 
     if (self.isAllowsDeactivating) {
-        CGFloat alpha = self.presenting ? 1 - ((1 - 0.5) * self.percentOfBounds) : 0.5 + ((1 - 0.5) * self.percentOfBounds);
-        CGFloat scale = self.presenting ? 1 - ((1 - 0.94) * self.percentOfBounds) : 0.94 + ((1 - 0.94) * self.percentOfBounds);
+        CGFloat alpha = self.presenting ? 1 - ((1 - 0.5) * self.percentOfCompletion) : 0.5 + ((1 - 0.5) * self.percentOfCompletion);
+        CGFloat scale = self.presenting ? 1 - ((1 - 0.94) * self.percentOfCompletion) : 0.94 + ((1 - 0.94) * self.percentOfCompletion);
         alpha = MAX(0.5, MIN(1, alpha));
         scale = MAX(0.94, MIN(1, scale));
         self.belowViewController.view.alpha = alpha;
@@ -217,7 +215,9 @@
         }
 
         if (self.presenting) {
-            self.belowViewController.view.hidden = YES;
+            if (self.isAllowsDeactivating) {
+                self.belowViewController.view.hidden = YES;
+            }
             [self.belowViewController endAppearanceTransition];
             [self.context completeTransition:!self.context.transitionWasCancelled];
             completion();
@@ -225,6 +225,7 @@
             [self.context completeTransition:!self.context.transitionWasCancelled];
             completion();
             [self.aboveViewController.view removeFromSuperview];
+            self.aboveViewController.view.transform = self.transformFrom;
             [self.belowViewController endAppearanceTransition];
         }
     }];
@@ -277,12 +278,6 @@
         default:
             return YES;
     }
-}
-
-- (void)updatePercentOfBounds {
-    CGFloat multiply = _direction == MoveTransitioningDirectionUp || _direction == MoveTransitioningDirectionLeft ? 1 : -1;
-    CGFloat bounds = self.isVertical ? UIScreen.mainScreen.bounds.size.height : UIScreen.mainScreen.bounds.size.width;
-    _percentOfBounds = (self.percentOfInteraction * multiply) * (bounds / self.completionBounds);
 }
 
 - (void)updateTranslationOffset:(AbstractInteractiveTransition *)interactor {

@@ -38,8 +38,7 @@
 @interface AbstractAnimatedTransitioning : NSObject <UIViewControllerAnimatedTransitioning>
 @property (nonatomic, getter=isAllowsDeactivating) BOOL allowsDeactivating;
 @property (nonatomic, getter=isAnimating, readonly) BOOL animating;
-@property (nonatomic) CGFloat completionBounds;
-@property (nonatomic, readonly) CGFloat percentOfBounds;
+@property (nonatomic, readonly) CGFloat percentOfCompletion;
 @property (nonatomic, readonly) CGFloat percentOfInteraction;
 @property (nonatomic, readonly) CGFloat heightRatio;
 @property (nonatomic, readonly) CGFloat widthRatio;
@@ -74,6 +73,5 @@
 - (BOOL)shouldTransition:(AbstractInteractiveTransition * _Nonnull)interactor;
 
 - (void)startAnimating;
-- (void)updatePercentOfBounds;
 - (void)updateTranslationOffset:(AbstractInteractiveTransition * _Nonnull)interactor;
 @end

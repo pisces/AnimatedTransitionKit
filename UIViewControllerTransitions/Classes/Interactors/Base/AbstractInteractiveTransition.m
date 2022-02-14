@@ -61,6 +61,7 @@
     self = [super init];
     if (self) {
         _direction = InteractiveTransitionDirectionVertical;
+        _percentForCompletion = 0.15;
     }
     return self;
 }

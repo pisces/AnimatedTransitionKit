@@ -51,13 +51,12 @@ final class FadeTransitionFirstViewController: UIViewController {
         
         title = "First View"
         
-        let transition = FadeTransition()
-        transition.isAllowsInteraction = true
-        transition.disappearenceInteractor?.direction = .horizontal
-        transition.appearenceInteractor?.direction = .horizontal
-        transition.appearenceInteractor?.attach(self, present: secondViewController)
-        
-        secondViewController.transition = transition
+        secondViewController.transition = { [self] in
+            $0.disappearenceInteractor?.direction = .vertical
+            $0.appearenceInteractor?.direction = .vertical
+            $0.appearenceInteractor?.attach(self, present: secondViewController)
+            return $0
+        }(FadeTransition())
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
