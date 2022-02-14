@@ -141,6 +141,7 @@ static void *AssociatedKeyTransition = @"transition";
     if ([transition isEqual:[self transition]])
         return;
     
+    self.modalPresentationStyle = UIModalPresentationCustom;
     transition.viewController = self;
     
     objc_setAssociatedObject(self, &AssociatedKeyTransition, transition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
