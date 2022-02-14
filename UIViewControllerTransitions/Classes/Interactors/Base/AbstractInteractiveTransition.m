@@ -125,7 +125,7 @@
     if ([_delegate respondsToSelector:@selector(interactor:gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:)]) {
         return [_delegate interactor:self gestureRecognizer:gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:otherGestureRecognizer];
     }
-    return YES;
+    return NO;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
