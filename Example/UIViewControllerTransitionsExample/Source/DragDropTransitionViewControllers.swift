@@ -55,43 +55,34 @@ final class DragDropTransitionFirstViewController: UIViewController {
     @objc private func tapped() {
         let secondViewController = DragDropTransitionSecondViewController(nibName: "DragDropTransitionSecondView", bundle: .main)
         let secondNavigationController = UINavigationController(rootViewController: secondViewController)
-        
-        let transition = DragDropTransition()
-        transition.isAllowsInteraction = true
-        transition.disappearenceInteractor?.delegate = secondViewController
-        
-        let w = view.frame.size.width
-        let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
-        let navigationBarHeight = navigationController!.navigationBar.frame.size.height
-        let bigRect = CGRect(x: 0, y: statusBarHeight + navigationBarHeight, width: w, height: w)
-        let smallRect = imageView.frame
-        
-        transition.presentingSource = DragDropTransitioningSource.image({ () -> UIImage? in
-            self.imageView.image
-        }, from: { () -> CGRect in
-            smallRect
-        }, to: { () -> CGRect in
-            bigRect
-        }, rotation: { () -> CGFloat in
-            0
-        }) {
-            self.imageView.isHidden = true
-            secondViewController.imageView.isHidden = false
-        }
-        
-        transition.dismissionSource = DragDropTransitioningSource.image({ () -> UIImage? in
-            secondViewController.imageView.image
-        }, from: { () -> CGRect in
-            bigRect
-        }, to: { () -> CGRect in
-            smallRect
-        }, rotation: { () -> CGFloat in
-            0
-        }) {
-            self.imageView.isHidden = false
-        }
-        
-        secondNavigationController.transition = transition
+
+        secondNavigationController.transition = { [self] in
+            $0.disappearenceInteractor?.delegate = secondViewController
+
+            let w = view.frame.size.width
+            let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
+            let navigationBarHeight = navigationController!.navigationBar.frame.size.height
+            let bigRect = CGRect(x: 0, y: statusBarHeight + navigationBarHeight, width: w, height: w)
+            let smallRect = imageView.frame
+
+            $0.presentingSource = .image(
+                { imageView.image },
+                from: { smallRect },
+                to: { bigRect },
+                rotation: { 0 },
+                completion: {
+                    imageView.isHidden = true
+                    secondViewController.imageView.isHidden = false
+                })
+            $0.dismissionSource = .image(
+                { secondViewController.imageView.image },
+                from: { bigRect },
+                to: { smallRect },
+                rotation: { 0 },
+                completion: { imageView.isHidden = false })
+            return $0
+        }(DragDropTransition())
+
         navigationController?.present(secondNavigationController, animated: true, completion: nil)
     }
 }

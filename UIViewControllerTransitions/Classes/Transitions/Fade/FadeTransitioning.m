@@ -35,6 +35,8 @@
 //
 
 #import "FadeTransitioning.h"
+#import "PanningInteractiveTransition.h"
+#import "UIScrollView+Utils.h"
 #import "UIViewControllerTransitionsMacro.h"
 
 @implementation FadeTransitioning
@@ -116,7 +118,7 @@
     } completion:^{
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
-        } else {
+        } else if (self.isAllowsDeactivating) {
             self.belowViewController.view.hidden = YES;
         }
         
@@ -127,7 +129,7 @@
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     [super interactionChanged:interactor percent:fmin(1, fmax(0, percent))];
-    
+
     CGFloat caculated = fmin(1, fmax(0, percent));
     self.aboveViewController.view.alpha = MAX(0, MIN(1, self.presenting ? caculated : 1 - caculated));
 
@@ -160,6 +162,16 @@
             [self.belowViewController endAppearanceTransition];
         }
     }];
+}
+
+- (BOOL)shouldTransition:(AbstractInteractiveTransition *)interactor {
+    return interactor.translation.y - interactor.translationOffset >= 0;
+}
+
+- (void)updateTranslationOffset:(AbstractInteractiveTransition *)interactor {
+    PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
+    UIScrollView *scrollView = panningInteractor.drivingScrollView;
+    panningInteractor.translationOffset = scrollView.contentOffset.y + scrollView.extAdjustedContentInset.top;
 }
 
 @end

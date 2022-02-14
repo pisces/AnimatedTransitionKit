@@ -37,7 +37,6 @@
 const CGFloat unfocusedCompletionBounds = 50;
 
 @implementation NavigationMoveTransitioning
-@synthesize percentOfBounds = _percentOfBounds;
 
 #pragma mark - Overridden: AnimatedNavigationTransitioning
 
@@ -126,10 +125,6 @@ const CGFloat unfocusedCompletionBounds = 50;
 }
 
 #pragma mark - Properties
-
-- (void)updatePercentOfBounds {
-    _percentOfBounds = self.percentOfInteraction * (UIScreen.mainScreen.bounds.size.width / self.completionBounds);
-}
 
 - (CATransform3D)focusedTransformFrom {
     return CATransform3DMakeTranslation(self.isPush ? UIScreen.mainScreen.bounds.size.width : 0, 0, 1);

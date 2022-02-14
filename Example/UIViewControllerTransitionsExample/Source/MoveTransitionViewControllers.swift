@@ -47,13 +47,13 @@ final class MoveTransitionFirstViewController: UIViewController {
     
     private lazy var secondViewController: UINavigationController = {
         let viewController = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
-        let transition = MoveTransition()
-        transition.isAllowsInteraction = true
-        transition.disappearenceInteractor?.delegate = viewController
-        
         let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.transition = transition
+
+        navigationController.transition = {
+            $0.disappearenceInteractor?.delegate = viewController
+            return $0
+        }(MoveTransition())
+
         return navigationController
     }()
     

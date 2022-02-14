@@ -69,7 +69,6 @@
         [self.transition.transitioning shouldTransition:self] :
         YES;
     BOOL shouldTransitionOfDelegate = ![self.delegate respondsToSelector:@selector(shouldTransition:)] || [self.delegate shouldTransition:self];
-    NSLog(@"shouldInteractiveTransition -> %d, %d", shouldTransitionOfTransitioning, shouldTransitionOfDelegate);
     return shouldTransitionOfTransitioning && shouldTransitionOfDelegate;
 }
 
@@ -186,8 +185,8 @@
             const CGFloat targetSize = self.isVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat interactionDistance = targetSize * (isAppearing ? -1 : 1);
             const CGFloat percent = fmin(fmax(-1, translationValue / interactionDistance), 1);
-            
-            _shouldComplete = ABS(translationValue) > interactionDistance * 0.1 && [self.transition shouldCompleteInteractor:self];
+
+            _shouldComplete = ABS(percent) > self.percentForCompletion && [self.transition shouldCompleteInteractor:self];
             
             [self updateInteractiveTransition:percent];
             break;

@@ -51,8 +51,9 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
         super.viewDidLoad()
         title = "First View"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self, action: #selector(close))
-        let transition = NavigationMoveTransition()
-        navigationController?.navigationTransition = transition
+        navigationController?.navigationTransition = {
+            return $0
+        }(NavigationMoveTransition())
     }
     
     override func viewWillAppear(_ animated: Bool) {

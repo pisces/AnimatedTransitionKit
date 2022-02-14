@@ -189,14 +189,13 @@
     }
     
     const CGFloat y = beginViewPoint.y + interactor.translation.y;
-    const CGFloat progress = ABS(y) / self.completionBounds;
     const CGFloat imageScale = MIN(1, (MAX(0.5, 1 - ABS(y) / self.aboveViewController.view.bounds.size.height)));
     
     sourceImageView.transform = CGAffineTransformTranslate(CGAffineTransformMakeScale(imageScale, imageScale), interactor.translation.x, interactor.translation.y);
 
     if (self.isAllowsDeactivating) {
-        const CGFloat alpha = 1 - progress;
-        const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * progress));
+        const CGFloat alpha = 1 - self.percentOfCompletion;
+        const CGFloat scale = MIN(1, 0.94 + ((1 - 0.94) * self.percentOfCompletion));
         self.belowViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.aboveViewController.view.alpha = alpha;
     }

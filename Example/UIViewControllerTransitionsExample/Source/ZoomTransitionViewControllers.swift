@@ -45,11 +45,11 @@ final class ZoomTransitionFirstViewController: UIViewController {
         // View binding with any transition id
         button.transition.id = "zoomTarget"
         
-        let transition = ZoomTransition()
-        transition.isAllowsInteraction = true
-        transition.appearenceInteractor?.attach(self, present: secondViewController)
-        
-        secondViewController.transition = transition
+        secondViewController.transition = { [self] in
+            $0.isAllowsInteraction = true
+            $0.appearenceInteractor?.attach(self, present: secondViewController)
+            return $0
+        }(ZoomTransition())
     }
 
     // MARK: - Private
