@@ -85,7 +85,7 @@
             self.fromViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
         }
     } completion:^{
-        if (![transitionContext transitionWasCancelled]) {
+        if (self.isAllowsDeactivating && ![transitionContext transitionWasCancelled]) {
             self.fromViewController.view.hidden = YES;
         }
         

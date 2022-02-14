@@ -131,10 +131,10 @@
     } completion:^{
         if (self.isAllowsDeactivating) {
             self.fromViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        }
 
-        if (!transitionContext.transitionWasCancelled) {
-            self.fromViewController.view.hidden = YES;
+            if (!transitionContext.transitionWasCancelled) {
+                self.fromViewController.view.hidden = YES;
+            }
         }
 
         [self.belowViewController endAppearanceTransition];
