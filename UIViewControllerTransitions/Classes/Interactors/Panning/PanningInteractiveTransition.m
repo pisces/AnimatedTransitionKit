@@ -69,6 +69,7 @@
         [self.transition.transitioning shouldTransition:self] :
         YES;
     BOOL shouldTransitionOfDelegate = ![self.delegate respondsToSelector:@selector(shouldTransition:)] || [self.delegate shouldTransition:self];
+    NSLog(@"shouldInteractiveTransition -> %d, %d", shouldTransitionOfTransitioning, shouldTransitionOfDelegate);
     return shouldTransitionOfTransitioning && shouldTransitionOfDelegate;
 }
 
@@ -115,7 +116,6 @@
 - (void)setDrivingScrollView:(UIScrollView *)drivingScrollView {
     [super setDrivingScrollView:drivingScrollView];
     [drivingScrollView.panGestureRecognizer addTarget:self action:@selector(panned:)];
-    [_gestureRecognizer requireGestureRecognizerToFail:drivingScrollView.panGestureRecognizer];
 }
 
 #pragma mark - Protected Methods
