@@ -74,7 +74,9 @@
 #pragma mark - Overridden: AnimatedTransitioning
 
 - (void)animateTransitionForDismission:(id<UIViewControllerContextTransitioning>)transitionContext {
-    self.toViewController.view.hidden = NO;
+    if (self.isAllowsDeactivating) {
+        self.toViewController.view.hidden = NO;
+    }
     
     if (!sourceImageView) {
         sourceImageView = [self createImageView];
@@ -99,12 +101,11 @@
     [super animateTransitionForPresenting:transitionContext];
 
     sourceImageView = [self createImageView];
-    
+
+    self.toViewController.view.alpha = 0;
     [transitionContext.containerView addSubview:self.toViewController.view];
     [transitionContext.containerView addSubview:sourceImageView];
-    
-    self.toViewController.view.alpha = 0;
-    
+
     if (transitionContext.isInteractive) {
         return;
     }
@@ -129,7 +130,7 @@
             }
         }
         
-        [self.belowViewController endAppearanceTransition];
+        [self.fromViewController endAppearanceTransition];
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self completeSource];
     }];
@@ -172,10 +173,13 @@
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
         } else {
-            self.belowViewController.view.hidden = YES;
+            if (self.isAllowsDeactivating) {
+                self.belowViewController.view.hidden = YES;
+            }
+            [self.belowViewController endAppearanceTransition];
+            [self.context completeTransition:NO];
         }
-        
-        [self.context completeTransition:NO];
+
         completion();
         [self clearSourceImageView];
     }];
@@ -213,10 +217,10 @@
     [self animate:^{
         [self animateDismission];
     } completion:^{
-        [self.context completeTransition:!self.context.transitionWasCancelled];
         completion();
         [self completeSource];
         [self.aboveViewController.view removeFromSuperview];
+        [self.context completeTransition:!self.context.transitionWasCancelled];
         [self.belowViewController endAppearanceTransition];
     }];
 }
@@ -256,8 +260,11 @@
 
 - (void)animateDismission {
     self.aboveViewController.view.alpha = 0;
-    self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
-    self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+
+    if (self.isAllowsDeactivating) {
+        self.belowViewController.view.transform = CGAffineTransformMakeScale(1, 1);
+        self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+    }
     
     sourceImageView.layer.transform = CATransform3DMakeRotation(self.angle, 0, 0, 1);
     sourceImageView.frame = _source.to();

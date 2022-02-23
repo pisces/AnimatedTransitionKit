@@ -55,7 +55,6 @@
     
     [self animate:^{
         self.fromViewController.view.alpha = 0;
-
         if (self.isAllowsDeactivating) {
             self.toViewController.view.alpha = 1;
             self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
@@ -63,7 +62,7 @@
     } completion:^{
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self.fromViewController.view removeFromSuperview];
-        [self.belowViewController endAppearanceTransition];
+        [self.toViewController endAppearanceTransition];
     }];
 }
 
@@ -71,8 +70,6 @@
     [super animateTransitionForPresenting:transitionContext];
 
     self.toViewController.view.alpha = 0;
-    self.toViewController.view.frame = self.fromViewController.view.bounds;
-    
     [transitionContext.containerView addSubview:self.toViewController.view];
     
     if (transitionContext.isInteractive) {
@@ -91,7 +88,7 @@
             self.fromViewController.view.hidden = YES;
         }
         
-        [self.belowViewController endAppearanceTransition];
+        [self.fromViewController endAppearanceTransition];
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
     }];
 }
@@ -100,12 +97,12 @@
     [super interactionBegan:interactor transitionContext:transitionContext];
     
     [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
-    
-    self.aboveViewController.view.hidden = NO;
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     const CGFloat aboveViewAlpha = self.presenting ? 0 : 1;
+
+    [self.belowViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
     
     [self animateWithDuration:0.25 animations:^{
         self.aboveViewController.view.alpha = aboveViewAlpha;
@@ -118,11 +115,15 @@
     } completion:^{
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
-        } else if (self.isAllowsDeactivating) {
-            self.belowViewController.view.hidden = YES;
+            [self.context completeTransition:NO];
+            [self.belowViewController endAppearanceTransition];
+        } else {
+            if (self.isAllowsDeactivating) {
+                self.belowViewController.view.hidden = YES;
+            }
+            [self.belowViewController endAppearanceTransition];
+            [self.context completeTransition:NO];
         }
-        
-        [self.context completeTransition:NO];
         completion();
     }];
 }
@@ -151,14 +152,16 @@
         }
     } completion:^{
         if (self.presenting) {
-            self.belowViewController.view.hidden = YES;
+            if (self.isAllowsDeactivating) {
+                self.belowViewController.view.hidden = YES;
+            }
             [self.belowViewController endAppearanceTransition];
-            [self.context completeTransition:!self.context.transitionWasCancelled];
             completion();
+            [self.context completeTransition:!self.context.transitionWasCancelled];
         } else {
-            [self.context completeTransition:!self.context.transitionWasCancelled];
-            completion();
             [self.aboveViewController.view removeFromSuperview];
+            completion();
+            [self.context completeTransition:!self.context.transitionWasCancelled];
             [self.belowViewController endAppearanceTransition];
         }
     }];
