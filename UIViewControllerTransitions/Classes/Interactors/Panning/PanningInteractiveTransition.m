@@ -188,10 +188,11 @@
             const CGFloat velocityValue = self.isVertical ? self.velocity.y : self.velocity.x;
             const CGFloat targetSize = self.isVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat interactionDistance = targetSize * (isAppearing ? -1 : 1);
+            const CGFloat percent = fmin(fmax(-1, translationValue / interactionDistance), 1);
             const CGFloat multiply = MAX(1, ABS(velocityValue / 300));
-            const CGFloat percent = fmin(fmax(-1, translationValue / interactionDistance * multiply), 1);
+            const CGFloat percentForComparison = ABS(percent * multiply);
 
-            _shouldComplete = ABS(percent) > self.percentForCompletion && [self.transition shouldCompleteInteractor:self];
+            _shouldComplete = percentForComparison > self.percentForCompletion && [self.transition shouldCompleteInteractor:self];
             
             [self updateInteractiveTransition:percent];
             break;
