@@ -112,6 +112,10 @@
     return [_selectedPanGestureRecognizer translationInView:self.currentViewController.view.superview];
 }
 
+- (CGPoint)velocity {
+    return [_selectedPanGestureRecognizer velocityInView:self.currentViewController.view];
+}
+
 - (void)setDrivingScrollView:(UIScrollView *)drivingScrollView {
     [super setDrivingScrollView:drivingScrollView];
     [drivingScrollView.panGestureRecognizer addTarget:self action:@selector(panned:)];
@@ -180,11 +184,12 @@
             }
             
             const BOOL isAppearing = [self.transition isAppearing:self];
-            const CGPoint translation = self.translation;
-            const CGFloat translationValue = (self.isVertical ? translation.y : translation.x) - self.translationOffset;
+            const CGFloat translationValue = (self.isVertical ? self.translation.y : self.translation.x) - self.translationOffset;
+            const CGFloat velocityValue = self.isVertical ? self.velocity.y : self.velocity.x;
             const CGFloat targetSize = self.isVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat interactionDistance = targetSize * (isAppearing ? -1 : 1);
-            const CGFloat percent = fmin(fmax(-1, translationValue / interactionDistance), 1);
+            const CGFloat multiply = MAX(1, ABS(velocityValue / 300));
+            const CGFloat percent = fmin(fmax(-1, translationValue / interactionDistance * multiply), 1);
 
             _shouldComplete = ABS(percent) > self.percentForCompletion && [self.transition shouldCompleteInteractor:self];
             

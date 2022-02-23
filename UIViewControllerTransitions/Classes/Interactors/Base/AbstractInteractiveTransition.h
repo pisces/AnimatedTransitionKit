@@ -53,6 +53,7 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 @property (nonatomic) CGFloat translationOffset;
 @property (nonatomic) InteractiveTransitionDirection direction;
 @property (nonatomic, readonly) CGPoint translation;
+@property (nonatomic, readonly) CGPoint velocity;
 @property (nonnull, nonatomic, readonly) UIGestureRecognizer *gestureRecognizer;
 @property (nullable, nonatomic, weak) id<InteractiveTransitionDelegate> delegate;
 @property (nullable, nonatomic, weak) UIScrollView *drivingScrollView;

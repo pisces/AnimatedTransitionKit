@@ -101,7 +101,7 @@
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self.fromViewController.view removeFromSuperview];
         self.fromViewController.view.transform = self.transformFrom;
-        [self.belowViewController endAppearanceTransition];
+        [self.toViewController endAppearanceTransition];
     }];
 }
 
@@ -109,7 +109,6 @@
     [super animateTransitionForPresenting:transitionContext];
 
     self.toViewController.view.transform = self.transformFrom;
-
     [transitionContext.containerView addSubview:self.toViewController.view];
 
     if (transitionContext.isInteractive) {
@@ -133,7 +132,7 @@
             }
         }
 
-        [self.belowViewController endAppearanceTransition];
+        [self.fromViewController endAppearanceTransition];
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
     }];
 }
@@ -142,13 +141,13 @@
     [super interactionBegan:interactor transitionContext:transitionContext];
 
     [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
-    self.aboveViewController.view.transform = self.transformFrom;
-    self.aboveViewController.view.hidden = NO;
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     const CGFloat alpha = self.presenting ? 1 : 0.5;
     const CGFloat scale = self.presenting ? 1 : 0.94;
+
+    [self.belowViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
 
     [self animateWithDuration:0.25 animations:^{
         self.aboveViewController.view.transform = self.transformFrom;
@@ -165,11 +164,16 @@
 
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
-        } else if (self.isAllowsDeactivating) {
-            self.belowViewController.view.hidden = YES;
+            [self.context completeTransition:NO];
+            [self.belowViewController endAppearanceTransition];
+        } else {
+            if (self.isAllowsDeactivating) {
+                self.belowViewController.view.hidden = YES;
+            }
+            [self.belowViewController endAppearanceTransition];
+            [self.context completeTransition:NO];
         }
-
-        [self.context completeTransition:NO];
+        self.aboveViewController.view.transform = CGAffineTransformIdentity;
         completion();
     }];
 }
@@ -219,13 +223,13 @@
                 self.belowViewController.view.hidden = YES;
             }
             [self.belowViewController endAppearanceTransition];
-            [self.context completeTransition:!self.context.transitionWasCancelled];
             completion();
+            [self.context completeTransition:!self.context.transitionWasCancelled];
         } else {
-            [self.context completeTransition:!self.context.transitionWasCancelled];
-            completion();
-            [self.aboveViewController.view removeFromSuperview];
             self.aboveViewController.view.transform = self.transformFrom;
+            [self.aboveViewController.view removeFromSuperview];
+            completion();
+            [self.context completeTransition:!self.context.transitionWasCancelled];
             [self.belowViewController endAppearanceTransition];
         }
     }];

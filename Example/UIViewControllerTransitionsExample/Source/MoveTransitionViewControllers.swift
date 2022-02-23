@@ -42,6 +42,26 @@ final class MoveTransitionFirstViewController: UIViewController {
         title = "First View"
         secondViewController.transition?.appearenceInteractor?.attach(self, present: secondViewController)
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("first -> viewWillAppear")
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("first -> viewDidAppear")
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("first -> viewWillDisappear")
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("first -> viewDidDisappear")
+    }
     
     // MARK: - Private
     
@@ -75,22 +95,22 @@ final class MoveTransitionSecondViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear")
+        print("second -> viewWillAppear")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("viewDidAppear")
+        print("second -> viewDidAppear")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("viewWillDisappear")
+        print("second -> viewWillDisappear")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        print("viewDidDisappear")
+        print("second -> viewDidDisappear")
     }
     
     // MARK: - Overridden: UITableViewController
