@@ -129,13 +129,14 @@
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
-    [super interactionChanged:interactor percent:fmin(1, fmax(0, percent))];
+    const CGFloat restrictedPercent = fmin(1, fmax(0, percent));
 
-    CGFloat caculated = fmin(1, fmax(0, percent));
-    self.aboveViewController.view.alpha = MAX(0, MIN(1, self.presenting ? caculated : 1 - caculated));
+    [super interactionChanged:interactor percent:restrictedPercent];
+
+    self.aboveViewController.view.alpha = MAX(0, MIN(1, self.presenting ? restrictedPercent : 1 - restrictedPercent));
 
     if (self.isAllowsDeactivating) {
-        self.belowViewController.view.alpha = MAX(0, MIN(1, self.presenting ? 1 - caculated : caculated));
+        self.belowViewController.view.alpha = MAX(0, MIN(1, self.presenting ? 1 - restrictedPercent : restrictedPercent));
     }
 }
 
