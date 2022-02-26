@@ -142,7 +142,7 @@ final class MoveTransitionSecondViewController: UITableViewController {
     private var isViewAppeared = false
     
     @objc private func close() {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }
 

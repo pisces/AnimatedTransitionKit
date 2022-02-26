@@ -38,10 +38,10 @@
 #import "AbstractAnimatedTransitioning.h"
 
 @protocol AnimatedTransitioningProtected <NSObject>
+@property (nonatomic, getter=isPresenting) BOOL presenting;
 - (void)animateTransitionForDismission:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext;
 - (void)animateTransitionForPresenting:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext;
 @end
 
 @interface AnimatedTransitioning : AbstractAnimatedTransitioning <AnimatedTransitioningProtected>
-@property (nonatomic, getter=isPresenting) BOOL presenting;
 @end

@@ -76,7 +76,7 @@
     }
 
     [self.transition.transitioning interactionCancelled:self completion:^{
-        [self completion];
+        [self completeInteraction];
     }];
 }
 
@@ -88,7 +88,7 @@
     }
 
     [self.transition.transitioning interactionCompleted:self completion:^{
-        [self completion];
+        [self completeInteraction];
     }];
 }
 
@@ -170,7 +170,7 @@
 
 #pragma mark - Private methods
 
-- (void)completion {
+- (void)completeInteraction {
     [self.transition.transitioning endAnimating];
 
     if (self.shouldComplete) {
