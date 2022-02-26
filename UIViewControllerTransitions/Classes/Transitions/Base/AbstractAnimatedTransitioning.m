@@ -99,11 +99,7 @@
     }
 }
 
-- (void)clear {
-    _fromViewController.view.alpha = 1;
-    _fromViewController.view.transform = CGAffineTransformTranslate(self.fromViewController.view.transform, 0, 0);
-    _fromViewController.view.hidden = NO;
-}
+- (void)clear { }
 
 - (void)endAnimating {
     _animating = NO;

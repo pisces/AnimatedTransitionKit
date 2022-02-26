@@ -38,6 +38,10 @@
 #import "UIViewControllerTransition.h"
 
 @implementation AnimatedTransitioning
+{
+@private BOOL isDismissTransitionInitialized;
+}
+@synthesize presenting = _presenting;
 
 #pragma mark - Overridden: AbstractAnimatedTransitioning
 
@@ -51,6 +55,8 @@
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     [super animateTransition:transitionContext];
+
+    isDismissTransitionInitialized = !_presenting;
     
     self.fromViewController.modalPresentationCapturesStatusBarAppearance = YES;
     self.toViewController.modalPresentationCapturesStatusBarAppearance = YES;
@@ -67,13 +73,20 @@
 }
 
 - (void)clear {
-    [super clear];
-    
-    [self.fromViewController beginAppearanceTransition:YES animated:NO];
-    [self.toViewController beginAppearanceTransition:NO animated:NO];
-    [self.toViewController.view removeFromSuperview];
-    [self.fromViewController endAppearanceTransition];
-    [self.toViewController endAppearanceTransition];
+    if (isDismissTransitionInitialized) { return; }
+
+    if (self.isAllowsDeactivating) {
+        self.belowViewController.view.alpha = 1;
+        self.belowViewController.view.transform = CGAffineTransformTranslate(self.belowViewController.view.transform, 0, 0);
+        self.belowViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
+        self.belowViewController.view.hidden = NO;
+    }
+
+    [self.aboveViewController beginAppearanceTransition:NO animated:NO];
+    [self.belowViewController beginAppearanceTransition:YES animated:NO];
+    [self.aboveViewController.view removeFromSuperview];
+    [self.aboveViewController endAppearanceTransition];
+    [self.belowViewController endAppearanceTransition];
 }
 
 #pragma mark - Protected methods

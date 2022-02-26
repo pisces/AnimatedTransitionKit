@@ -36,6 +36,10 @@
 
 #pragma mark - Con(De)structor
 
+- (void)dealloc {
+    [self clear];
+}
+
 - (id)init {
     self = [super init];
     if (self) {
