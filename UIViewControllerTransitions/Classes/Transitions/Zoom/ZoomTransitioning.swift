@@ -74,7 +74,9 @@ final class ZoomTransitioning: AnimatedTransitioning {
         completion: { [weak self] in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             fromVC.view.removeFromSuperview()
-            toVC.endAppearanceTransition()
+            if #available(iOS 16.0, *) { } else {
+                toVC.endAppearanceTransition()
+            }
             self?.removeSnapshotView()
             fromView.isHidden = false
             toView.isHidden = false
@@ -124,7 +126,9 @@ final class ZoomTransitioning: AnimatedTransitioning {
         completion: { [weak self] in
             fromView.isHidden = false
             toView.isHidden = false
-            fromVC.endAppearanceTransition()
+            if #available(iOS 16.0, *) { } else {
+                fromVC.endAppearanceTransition()
+            }
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             self?.removeSnapshotView()
         })
@@ -132,7 +136,9 @@ final class ZoomTransitioning: AnimatedTransitioning {
     
     override func interactionBegan(_ interactor: AbstractInteractiveTransition, transitionContext: UIViewControllerContextTransitioning) {
         super.interactionBegan(interactor, transitionContext: transitionContext)
-        belowViewController?.beginAppearanceTransition(!isPresenting, animated: transitionContext.isAnimated)
+        if #available(iOS 16.0, *) { } else {
+            belowViewController?.beginAppearanceTransition(!isPresenting, animated: transitionContext.isAnimated)
+        }
     }
     
     override func interactionCancelled(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
@@ -142,8 +148,10 @@ final class ZoomTransitioning: AnimatedTransitioning {
         
         let alpha: CGFloat = isPresenting ? 0 : 1
         let tintAdjustmentMode: UIView.TintAdjustmentMode = isPresenting ? .normal : .dimmed
-        
-        belowVC.beginAppearanceTransition(!isPresenting, animated: context?.isAnimated == true)
+
+        if #available(iOS 16.0, *) { } else {
+            belowVC.beginAppearanceTransition(!isPresenting, animated: context?.isAnimated == true)
+        }
         
         animate(
             withDuration: 0.25,
@@ -202,8 +210,10 @@ final class ZoomTransitioning: AnimatedTransitioning {
         let center = toView.superview?.convert(
             toView.center,
             to: context.containerView) ?? .zero
-        
-        belowVC.beginAppearanceTransition(!isPresenting, animated: context.isAnimated == true)
+
+        if #available(iOS 16.0, *) { } else {
+            belowVC.beginAppearanceTransition(!isPresenting, animated: context.isAnimated == true)
+        }
         
         animate({
             aboveVC.view.alpha = alpha
@@ -218,14 +228,18 @@ final class ZoomTransitioning: AnimatedTransitioning {
             self.toView?.isHidden = false
             
             if self.isPresenting {
-                belowVC.endAppearanceTransition()
+                if #available(iOS 16.0, *) { } else {
+                    belowVC.endAppearanceTransition()
+                }
                 context.completeTransition(!context.transitionWasCancelled)
                 self.removeSnapshotView()
             } else {
                 context.completeTransition(!context.transitionWasCancelled)
                 self.removeSnapshotView()
                 aboveVC.view.removeFromSuperview()
-                belowVC.endAppearanceTransition()
+                if #available(iOS 16.0, *) { } else {
+                    belowVC.endAppearanceTransition()
+                }
             }
         })
     }

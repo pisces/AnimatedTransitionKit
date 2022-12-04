@@ -62,7 +62,9 @@
     } completion:^{
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self.fromViewController.view removeFromSuperview];
-        [self.toViewController endAppearanceTransition];
+        if (@available(iOS 16.0, *)) { } else {
+            [self.toViewController endAppearanceTransition];
+        }
     }];
 }
 
@@ -87,22 +89,28 @@
         if (self.isAllowsDeactivating && ![transitionContext transitionWasCancelled]) {
             self.fromViewController.view.hidden = YES;
         }
-        
-        [self.fromViewController endAppearanceTransition];
+
+        if (@available(iOS 16.0, *)) { } else {
+            [self.fromViewController endAppearanceTransition];
+        }
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
     }];
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition *)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
     [super interactionBegan:interactor transitionContext:transitionContext];
-    
-    [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
+
+    if (@available(iOS 16.0, *)) { } else {
+        [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
+    }
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
     const CGFloat aboveViewAlpha = self.presenting ? 0 : 1;
 
-    [self.belowViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
+    if (@available(iOS 16.0, *)) { } else {
+        [self.belowViewController beginAppearanceTransition:self.presenting animated:self.context.isAnimated];
+    }
     
     [self animateWithDuration:0.25 animations:^{
         self.aboveViewController.view.alpha = aboveViewAlpha;
@@ -116,12 +124,16 @@
         if (self.presenting) {
             [self.aboveViewController.view removeFromSuperview];
             [self.context completeTransition:NO];
-            [self.belowViewController endAppearanceTransition];
+            if (@available(iOS 16.0, *)) { } else {
+                [self.belowViewController endAppearanceTransition];
+            }
         } else {
             if (self.isAllowsDeactivating) {
                 self.belowViewController.view.hidden = YES;
             }
-            [self.belowViewController endAppearanceTransition];
+            if (@available(iOS 16.0, *)) { } else {
+                [self.belowViewController endAppearanceTransition];
+            }
             [self.context completeTransition:NO];
         }
         completion();
@@ -156,14 +168,18 @@
             if (self.isAllowsDeactivating) {
                 self.belowViewController.view.hidden = YES;
             }
-            [self.belowViewController endAppearanceTransition];
+            if (@available(iOS 16.0, *)) { } else {
+                [self.belowViewController endAppearanceTransition];
+            }
             completion();
             [self.context completeTransition:!self.context.transitionWasCancelled];
         } else {
             [self.aboveViewController.view removeFromSuperview];
             completion();
             [self.context completeTransition:!self.context.transitionWasCancelled];
-            [self.belowViewController endAppearanceTransition];
+            if (@available(iOS 16.0, *)) { } else {
+                [self.belowViewController endAppearanceTransition];
+            }
         }
     }];
 }
