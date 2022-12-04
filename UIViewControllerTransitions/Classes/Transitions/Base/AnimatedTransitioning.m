@@ -60,9 +60,11 @@
     
     self.fromViewController.modalPresentationCapturesStatusBarAppearance = YES;
     self.toViewController.modalPresentationCapturesStatusBarAppearance = YES;
-    
-    if (!transitionContext.isInteractive) {
-        [self.belowViewController beginAppearanceTransition:!_presenting animated:transitionContext.isAnimated];
+
+    if (@available(iOS 16.0, *)) { } else {
+        if (!transitionContext.isInteractive) {
+            [self.belowViewController beginAppearanceTransition:!_presenting animated:transitionContext.isAnimated];
+        }
     }
     
     if (_presenting) {
@@ -82,11 +84,15 @@
         self.belowViewController.view.hidden = NO;
     }
 
-    [self.aboveViewController beginAppearanceTransition:NO animated:NO];
-    [self.belowViewController beginAppearanceTransition:YES animated:NO];
+    if (@available(iOS 16.0, *)) { } else {
+        [self.aboveViewController beginAppearanceTransition:NO animated:NO];
+        [self.belowViewController beginAppearanceTransition:YES animated:NO];
+    }
     [self.aboveViewController.view removeFromSuperview];
-    [self.aboveViewController endAppearanceTransition];
-    [self.belowViewController endAppearanceTransition];
+    if (@available(iOS 16.0, *)) { } else {
+        [self.aboveViewController endAppearanceTransition];
+        [self.belowViewController endAppearanceTransition];
+    }
 }
 
 #pragma mark - Protected methods

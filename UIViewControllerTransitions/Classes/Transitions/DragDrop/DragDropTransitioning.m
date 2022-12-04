@@ -93,7 +93,12 @@
         [self completeSource];
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self.fromViewController.view removeFromSuperview];
-        [self.belowViewController endAppearanceTransition];
+        if (@available(iOS 16.0, *)) {
+        } else {
+            if (@available(iOS 16.0, *)) { } else {
+                [self.belowViewController endAppearanceTransition];
+            }
+        }
     }];
 }
 
@@ -129,8 +134,10 @@
                 self.fromViewController.view.hidden = YES;
             }
         }
-        
-        [self.fromViewController endAppearanceTransition];
+
+        if (@available(iOS 16.0, *)) { } else {
+            [self.fromViewController endAppearanceTransition];
+        }
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self completeSource];
     }];
@@ -144,8 +151,10 @@
     if (self.presenting) {
         return;
     }
-    
-    [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
+
+    if (@available(iOS 16.0, *)) { } else {
+        [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
+    }
     
     self.aboveViewController.view.hidden = NO;
 }
@@ -176,7 +185,9 @@
             if (self.isAllowsDeactivating) {
                 self.belowViewController.view.hidden = YES;
             }
-            [self.belowViewController endAppearanceTransition];
+            if (@available(iOS 16.0, *)) { } else {
+                [self.belowViewController endAppearanceTransition];
+            }
             [self.context completeTransition:NO];
         }
 
@@ -221,7 +232,9 @@
         [self completeSource];
         [self.aboveViewController.view removeFromSuperview];
         [self.context completeTransition:!self.context.transitionWasCancelled];
-        [self.belowViewController endAppearanceTransition];
+        if (@available(iOS 16.0, *)) { } else {
+            [self.belowViewController endAppearanceTransition];
+        }
     }];
 }
 
@@ -276,8 +289,10 @@
     } else {
         self.belowViewController.view.hidden = YES;
     }
-    
-    [self.belowViewController endAppearanceTransition];
+
+    if (@available(iOS 16.0, *)) { } else {
+        [self.belowViewController endAppearanceTransition];
+    }
     
     dispatch_after_sec(0.05, ^{
         [self.context completeTransition:!self.context.transitionWasCancelled];
