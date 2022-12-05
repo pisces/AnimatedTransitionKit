@@ -42,6 +42,7 @@
 @property (nonatomic, getter=isAllowsDeactivating) BOOL allowsDeactivating;
 @property (nonatomic, getter=isAllowsInteraction) BOOL allowsInteraction;
 @property (nonatomic, readonly, getter=isInteracting) BOOL interacting;
+@property (nonatomic) BOOL isAllowsAppearanceTransition;
 @property (nullable, nonatomic, readonly) AbstractInteractiveTransition *currentInteractor;
 @property (nullable, nonatomic, readonly) AbstractAnimatedTransitioning *transitioning;
 @property (nonnull, nonatomic, strong) UIViewControllerTransitionOptions *disappearenceOptions;

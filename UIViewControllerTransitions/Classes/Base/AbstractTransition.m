@@ -79,6 +79,7 @@
 - (void)initProperties {
     _allowsDeactivating = YES;
     _allowsInteraction = YES;
+    _isAllowsAppearanceTransition = YES;
     _appearenceOptions = [[UIViewControllerTransitionOptions new] initWithDuration:UINavigationControllerHideShowBarDuration
                                                                             delay:0
                                                            animationOptions:7 << 16
