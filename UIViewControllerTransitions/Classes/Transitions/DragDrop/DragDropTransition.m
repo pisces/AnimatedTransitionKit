@@ -52,7 +52,6 @@
 
 - (AnimatedTransitioning *)transitioningForDismissedController:(UIViewController *)dismissed {
     DragDropTransitioning *transitioning = [DragDropTransitioning new];
-    transitioning.allowsDeactivating = self.allowsDeactivating;
     transitioning.imageViewContentMode = _imageViewContentMode;
     transitioning.source = _dismissionSource;
     return transitioning;
@@ -60,7 +59,6 @@
 
 - (AnimatedTransitioning *)transitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     DragDropTransitioning *transitioning = [DragDropTransitioning new];
-    transitioning.allowsDeactivating = self.allowsDeactivating;
     transitioning.imageViewContentMode = _imageViewContentMode;
     transitioning.source =_presentingSource;
     return transitioning;

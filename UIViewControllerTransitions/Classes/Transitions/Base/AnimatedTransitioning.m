@@ -61,10 +61,8 @@
     self.fromViewController.modalPresentationCapturesStatusBarAppearance = YES;
     self.toViewController.modalPresentationCapturesStatusBarAppearance = YES;
 
-    if (@available(iOS 16.0, *)) { } else {
-        if (!transitionContext.isInteractive) {
-            [self.belowViewController beginAppearanceTransition:!_presenting animated:transitionContext.isAnimated];
-        }
+    if (self.isAllowsAppearanceTransition && !transitionContext.isInteractive) {
+        [self.belowViewController beginAppearanceTransition:!_presenting animated:transitionContext.isAnimated];
     }
     
     if (_presenting) {
@@ -84,12 +82,13 @@
         self.belowViewController.view.hidden = NO;
     }
 
-    if (@available(iOS 16.0, *)) { } else {
+    if (self.isAllowsAppearanceTransition) {
         [self.aboveViewController beginAppearanceTransition:NO animated:NO];
         [self.belowViewController beginAppearanceTransition:YES animated:NO];
     }
     [self.aboveViewController.view removeFromSuperview];
-    if (@available(iOS 16.0, *)) { } else {
+
+    if (self.isAllowsAppearanceTransition) {
         [self.aboveViewController endAppearanceTransition];
         [self.belowViewController endAppearanceTransition];
     }

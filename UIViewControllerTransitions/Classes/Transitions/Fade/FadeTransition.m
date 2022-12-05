@@ -45,13 +45,11 @@
 
 - (AnimatedTransitioning *)transitioningForDismissedController:(UIViewController *)dismissed {
     FadeTransitioning *transitioning = [FadeTransitioning new];
-    transitioning.allowsDeactivating = self.allowsDeactivating;
     return transitioning;
 }
 
 - (AnimatedTransitioning *)transitioningForForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     FadeTransitioning *transitioning = [FadeTransitioning new];
-    transitioning.allowsDeactivating = self.allowsDeactivating;
     return transitioning;
 }
 

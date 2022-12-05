@@ -101,6 +101,8 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     _currentInteractor = _disappearenceInteractor;
     _transitioning = [self transitioningForDismissedController:dismissed];
+    _transitioning.allowsDeactivating = self.allowsDeactivating;
+    _transitioning.isAllowsAppearanceTransition = self.isAllowsAppearanceTransition;
     _transitioning.options = self.disappearenceOptions;
     return _transitioning;
 }
@@ -108,8 +110,10 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     _currentInteractor = _appearenceInteractor;
     _transitioning = [self transitioningForForPresentedController:presented presentingController:presenting sourceController:source];
-    ((AnimatedTransitioning *) _transitioning).presenting = YES;
+    _transitioning.allowsDeactivating = self.allowsDeactivating;
+    _transitioning.isAllowsAppearanceTransition = self.isAllowsAppearanceTransition;
     _transitioning.options = self.appearenceOptions;
+    ((AnimatedTransitioning *) _transitioning).presenting = YES;
     return _transitioning;
 }
 

@@ -93,11 +93,9 @@
         [self completeSource];
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self.fromViewController.view removeFromSuperview];
-        if (@available(iOS 16.0, *)) {
-        } else {
-            if (@available(iOS 16.0, *)) { } else {
-                [self.belowViewController endAppearanceTransition];
-            }
+
+        if (self.isAllowsAppearanceTransition) {
+            [self.belowViewController endAppearanceTransition];
         }
     }];
 }
@@ -135,7 +133,7 @@
             }
         }
 
-        if (@available(iOS 16.0, *)) { } else {
+        if (self.isAllowsAppearanceTransition) {
             [self.fromViewController endAppearanceTransition];
         }
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
@@ -152,7 +150,7 @@
         return;
     }
 
-    if (@available(iOS 16.0, *)) { } else {
+    if (self.isAllowsAppearanceTransition) {
         [self.belowViewController beginAppearanceTransition:!self.presenting animated:transitionContext.isAnimated];
     }
     
@@ -185,7 +183,7 @@
             if (self.isAllowsDeactivating) {
                 self.belowViewController.view.hidden = YES;
             }
-            if (@available(iOS 16.0, *)) { } else {
+            if (self.isAllowsAppearanceTransition) {
                 [self.belowViewController endAppearanceTransition];
             }
             [self.context completeTransition:NO];
@@ -232,7 +230,8 @@
         [self completeSource];
         [self.aboveViewController.view removeFromSuperview];
         [self.context completeTransition:!self.context.transitionWasCancelled];
-        if (@available(iOS 16.0, *)) { } else {
+
+        if (self.isAllowsAppearanceTransition) {
             [self.belowViewController endAppearanceTransition];
         }
     }];
@@ -290,7 +289,7 @@
         self.belowViewController.view.hidden = YES;
     }
 
-    if (@available(iOS 16.0, *)) { } else {
+    if (self.isAllowsAppearanceTransition) {
         [self.belowViewController endAppearanceTransition];
     }
     
