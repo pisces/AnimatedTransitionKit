@@ -49,32 +49,32 @@
     return _direction == MoveTransitioningDirectionUp || _direction == MoveTransitioningDirectionDown;
 }
 
-- (CGAffineTransform)transformFrom {
+- (CGAffineTransform)transformFrom:(CGPoint)from {
     CGSize size = UIScreen.mainScreen.bounds.size;
     if (_direction == MoveTransitioningDirectionUp) {
-        return CGAffineTransformMakeTranslation(0, self.presenting ? size.height : 0);
+        return CGAffineTransformMakeTranslation(from.x, self.presenting ? size.height : 0);
     }
     if (_direction == MoveTransitioningDirectionDown) {
-        return CGAffineTransformMakeTranslation(0, self.presenting ? -size.height : 0);
+        return CGAffineTransformMakeTranslation(from.x, self.presenting ? -size.height : 0);
     }
     if (_direction == MoveTransitioningDirectionLeft) {
-        return CGAffineTransformMakeTranslation(self.presenting ? size.width : 0, 0);
+        return CGAffineTransformMakeTranslation(self.presenting ? size.width : 0, from.y);
     }
-    return CGAffineTransformMakeTranslation(self.presenting ? -size.width : 0, 0);
+    return CGAffineTransformMakeTranslation(self.presenting ? -size.width : 0, from.y);
 }
 
-- (CGAffineTransform)transformTo {
+- (CGAffineTransform)transformTo:(CGPoint)to {
     CGSize size = UIScreen.mainScreen.bounds.size;
     if (_direction == MoveTransitioningDirectionUp) {
-        return CGAffineTransformMakeTranslation(0, self.presenting ? 0 : size.height);
+        return CGAffineTransformMakeTranslation(to.x, self.presenting ? 0 : size.height);
     }
     if (_direction == MoveTransitioningDirectionDown) {
-        return CGAffineTransformMakeTranslation(0, self.presenting ? 0 : -size.height);
+        return CGAffineTransformMakeTranslation(to.y, self.presenting ? 0 : -size.height);
     }
     if (_direction == MoveTransitioningDirectionLeft) {
-        return CGAffineTransformMakeTranslation(self.presenting ? 0 : size.width, 0);
+        return CGAffineTransformMakeTranslation(self.presenting ? 0 : size.width, to.y);
     }
-    return CGAffineTransformMakeTranslation(self.presenting ? 0 : -size.width, 0);
+    return CGAffineTransformMakeTranslation(self.presenting ? 0 : -size.width, to.y);
 }
 
 #pragma mark - Overridden: AnimatedTransitioning
@@ -83,15 +83,18 @@
     if (self.isAllowsDeactivating) {
         self.toViewController.view.transform = CGAffineTransformMakeScale(0.94, 0.94);
     }
+
+    CGPoint point = CGPointMake(self.fromViewController.view.transform.tx, self.fromViewController.view.transform.ty);
+    CGAffineTransform transformFrom = [self transformFrom: point];
     self.toViewController.view.hidden = NO;
-    self.fromViewController.view.transform = self.transformFrom;
+    self.fromViewController.view.transform = transformFrom;
 
     if (transitionContext.isInteractive) {
         return;
     }
 
     [self animate:^{
-        self.fromViewController.view.transform = self.transformTo;
+        self.fromViewController.view.transform = [self transformTo: point];
         if (self.isAllowsDeactivating) {
             self.toViewController.view.tintAdjustmentMode = UIViewTintAdjustmentModeNormal;
             self.toViewController.view.alpha = 1;
@@ -100,7 +103,7 @@
     } completion:^{
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         [self.fromViewController.view removeFromSuperview];
-        self.fromViewController.view.transform = self.transformFrom;
+        self.fromViewController.view.transform = transformFrom;
 
         if (self.isAllowsAppearanceTransition) {
             [self.toViewController endAppearanceTransition];
@@ -111,7 +114,7 @@
 - (void)animateTransitionForPresenting:(id<UIViewControllerContextTransitioning>)transitionContext {
     [super animateTransitionForPresenting:transitionContext];
 
-    self.toViewController.view.transform = self.transformFrom;
+    self.toViewController.view.transform = [self transformFrom: self.fromViewController.view.frame.origin];
     [transitionContext.containerView addSubview:self.toViewController.view];
 
     if (transitionContext.isInteractive) {
@@ -119,7 +122,7 @@
     }
 
     [self animate:^{
-        self.toViewController.view.transform = self.transformTo;
+        self.toViewController.view.transform = [self transformTo: self.fromViewController.view.frame.origin];
 
         if (self.isAllowsDeactivating) {
             self.fromViewController.view.alpha = 0.5;
@@ -159,7 +162,8 @@
     }
 
     [self animateWithDuration:0.25 animations:^{
-        self.aboveViewController.view.transform = self.transformFrom;
+        CGPoint point = CGPointMake(self.aboveViewController.view.transform.tx, self.aboveViewController.view.transform.ty);
+        self.aboveViewController.view.transform = [self transformFrom: point];
 
         if (self.isAllowsDeactivating) {
             self.belowViewController.view.alpha = alpha;
@@ -187,7 +191,6 @@
             }
             [self.context completeTransition:NO];
         }
-        self.aboveViewController.view.transform = CGAffineTransformIdentity;
         completion();
     }];
 }
@@ -195,12 +198,15 @@
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     [super interactionChanged:interactor percent:percent];
 
+    CGPoint point = CGPointMake(self.aboveViewController.view.transform.tx, self.aboveViewController.view.transform.ty);
+    CGAffineTransform transformFrom = [self transformFrom: point];
+
     PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
     if (interactor.isVertical) {
-        const CGFloat y = (self.transformFrom.ty + interactor.translation.y) - panningInteractor.translationOffset;
-        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(0, [self restricted:y]);
+        const CGFloat y = (transformFrom.ty + interactor.translation.y) - panningInteractor.translationOffset;
+        self.aboveViewController.view.transform = CGAffineTransformMakeTranslation(transformFrom.tx, [self restricted:y]);
     } else {
-        const CGFloat x = (self.transformFrom.tx + interactor.translation.x) - panningInteractor.translationOffset;
+        const CGFloat x = (transformFrom.tx + interactor.translation.x) - panningInteractor.translationOffset;
         self.aboveViewController.view.transform = CGAffineTransformMakeTranslation([self restricted:x], 0);
     }
 
@@ -218,8 +224,10 @@
     const CGFloat alpha = self.presenting ? 0.5 : 1;
     const CGFloat scale = self.presenting ? 0.94 : 1;
 
+    CGPoint point = CGPointMake(self.aboveViewController.view.transform.tx, self.aboveViewController.view.transform.ty);
+
     [self animate:^{
-        self.aboveViewController.view.transform = self.transformTo;
+        self.aboveViewController.view.transform = [self transformTo: point];
 
         if (self.isAllowsDeactivating) {
             self.belowViewController.view.alpha = alpha;
@@ -242,7 +250,7 @@
             completion();
             [self.context completeTransition:!self.context.transitionWasCancelled];
         } else {
-            self.aboveViewController.view.transform = self.transformFrom;
+            self.aboveViewController.view.transform = [self transformFrom: point];
             [self.aboveViewController.view removeFromSuperview];
             completion();
             [self.context completeTransition:!self.context.transitionWasCancelled];
