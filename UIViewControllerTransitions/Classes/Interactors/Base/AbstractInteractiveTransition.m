@@ -60,6 +60,7 @@
 - (id)init {
     self = [super init];
     if (self) {
+        _shouldBeginWhenGestureChanged = YES;
         _direction = InteractiveTransitionDirectionVertical;
         _percentForCompletion = 0.15;
     }

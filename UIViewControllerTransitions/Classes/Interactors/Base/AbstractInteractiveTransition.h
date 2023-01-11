@@ -49,6 +49,7 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 @property (nonatomic, readonly, getter=isInteractionEnabled) BOOL interactionEnabled;
 @property (nonatomic, readonly, getter=isVertical) BOOL vertical;
 @property (nonatomic, readonly) BOOL shouldComplete;
+@property (nonatomic) BOOL shouldBeginWhenGestureChanged;
 @property (nonatomic) CGFloat percentForCompletion;
 @property (nonatomic) CGFloat translationOffset;
 @property (nonatomic) InteractiveTransitionDirection direction;
