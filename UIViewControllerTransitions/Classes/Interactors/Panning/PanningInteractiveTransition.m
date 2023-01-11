@@ -175,7 +175,9 @@
             break;
         }
         case UIGestureRecognizerStateChanged: {
-            [self beginInterationIfAvailable];
+            if (self.shouldBeginWhenGestureChanged) {
+                [self beginInterationIfAvailable];
+            }
             
             if (!self.transition.isInteracting ||
                 ![self.transition.currentInteractor isEqual:self] ||
