@@ -37,11 +37,17 @@
 
 @interface UINavigationControllerTransition ()
 @property (nonatomic, readonly) BOOL isPush;
+@property (nullable, nonatomic, weak) id<UINavigationControllerDelegate> originNavigationDelegate;
 @property (nullable, nonatomic, readonly) AnimatedNavigationTransitioning *navigationTransitioning;
 @end
 
 @implementation UINavigationControllerTransition
+@synthesize isEnabled = _isEnabled;
 @synthesize transitioning = _transitioning;
+
+- (void)dealloc {
+    self.isEnabled = NO;
+}
 
 #pragma mark - Overridden: AbstractTransition
 
@@ -57,8 +63,17 @@
         !self.isPush) {
         return NO;
     }
-    PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
-    return direction == PanningDirectionLeft;
+    
+    PanningDirection panningDirection = ((PanningInteractiveTransition *) interactor).startPanningDirection;
+
+    switch (interactor.direction) {
+        case InteractiveTransitionDirectionHorizontal:
+            return panningDirection == PanningDirectionLeft;
+        case InteractiveTransitionDirectionVertical:
+            return panningDirection == PanningDirectionUp;
+        case InteractiveTransitionDirectionAll:
+            return panningDirection == PanningDirectionLeft || panningDirection == PanningDirectionUp;
+    }
 }
 
 - (BOOL)isValid:(AbstractInteractiveTransition *)interactor {
@@ -69,8 +84,23 @@
     if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
         return NO;
     }
-    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
-    return self.isPush ? direction == PanningDirectionLeft : direction == PanningDirectionRight;
+
+    PanningDirection panningDirection = ((PanningInteractiveTransition *) interactor).panningDirection;
+
+    switch (interactor.direction) {
+        case InteractiveTransitionDirectionHorizontal:
+            return self.isPush 
+                ? panningDirection == PanningDirectionLeft
+                : panningDirection == PanningDirectionRight;
+        case InteractiveTransitionDirectionVertical:
+            return self.isPush 
+                ? panningDirection == PanningDirectionUp
+                : panningDirection == PanningDirectionDown;
+        case InteractiveTransitionDirectionAll:
+            return self.isPush
+                ? (panningDirection == PanningDirectionLeft || panningDirection == PanningDirectionUp)
+                : (panningDirection == PanningDirectionRight || panningDirection == PanningDirectionDown);
+    }
 }
 
 - (void)setAllowsInteraction:(BOOL)allowsInteraction {
@@ -79,20 +109,34 @@
     _interactor.gestureRecognizer.enabled = allowsInteraction;
 }
 
+- (void)setIsEnabled:(BOOL)isEnabled {
+    if (isEnabled == _isEnabled) {
+        return;
+    }
+
+    _isEnabled = isEnabled;
+
+    [self activateOrDeactivate];
+}
+
 - (void)setNavigationController:(UINavigationController *)navigationController {
     if ([navigationController isEqual:_navigationController]) {
         return;
     }
-    
+
+    if (!_navigationController) {
+        _originNavigationDelegate = navigationController.delegate;
+    }
+
     _navigationController = navigationController;
-    _navigationController.delegate = self;
-    
-    [_interactor attach:_navigationController presentViewController:nil];
+
+    [self activateOrDeactivate];
 }
 
 - (void)initProperties {
     [super initProperties];
-    
+
+    _isEnabled = YES;
     _interactor = [NavigationPanningInteractiveTransition new];
     _interactor.direction = InteractiveTransitionDirectionHorizontal;
     
@@ -121,7 +165,7 @@
 
 #pragma mark - Protected methods
 
-- (AnimatedNavigationTransitioning *)newTransitioning {
+- (AnimatedNavigationTransitioning * _Nullable)newTransitioning {
     return nil;
 }
 
@@ -133,6 +177,20 @@
 
 - (AnimatedNavigationTransitioning *)navigationTransitioning {
     return (AnimatedNavigationTransitioning *) _transitioning;
+}
+
+- (void)activateOrDeactivate {
+    if (!_navigationController) {
+        return;
+    }
+
+    if (_isEnabled) {
+        _navigationController.delegate = self;
+        [_interactor attach:_navigationController presentViewController:nil];
+    } else {
+        [_interactor detach];
+        _navigationController.delegate = _originNavigationDelegate;
+    }
 }
 
 @end
