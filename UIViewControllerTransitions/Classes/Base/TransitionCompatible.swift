@@ -32,7 +32,7 @@
 
 import Foundation
 
-public protocol TransitionCompatible {
+public protocol TransitionCompatible: AnyObject {
   associatedtype CompatibleType
 
   var transition: TransitionWrapper<CompatibleType> { get }
@@ -40,14 +40,35 @@ public protocol TransitionCompatible {
 
 extension TransitionCompatible {
     public var transition: TransitionWrapper<Self> {
-        TransitionWrapper(self)
+        guard let value = objc_getAssociatedObject(self, &keyForTransition) as? TransitionWrapper<Self> else {
+            let value = TransitionWrapper(self)
+            objc_setAssociatedObject(self, &keyForTransition, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            return value
+        }
+        return value
     }
 }
 
 public final class TransitionWrapper<Base> {
-    public let base: Base
-    
     public init(_ base: Base) {
         self.base = base
     }
+
+    public let base: Base
+
+    public var id: String? {
+        get {
+            objc_getAssociatedObject(base, &keyForTransitionID) as? String
+        }
+        set {
+            objc_setAssociatedObject(base, &keyForTransitionID, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    public func clear() {
+        id = nil
+    }
 }
+
+private var keyForTransition: UInt8 = 0
+private var keyForTransitionID: UInt8 = 0

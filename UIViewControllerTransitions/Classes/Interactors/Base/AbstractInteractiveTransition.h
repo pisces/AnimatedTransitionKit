@@ -36,7 +36,8 @@
 
 typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
     InteractiveTransitionDirectionVertical,
-    InteractiveTransitionDirectionHorizontal
+    InteractiveTransitionDirectionHorizontal,
+    InteractiveTransitionDirectionAll,
 };
 
 @class AbstractTransition;

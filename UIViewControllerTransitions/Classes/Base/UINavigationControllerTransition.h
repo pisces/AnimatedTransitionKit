@@ -40,6 +40,7 @@
 @end
 
 @interface UINavigationControllerTransition : AbstractTransition <UINavigationControllerDelegate, UINavigationControllerTransitionProtected>
+@property (nonatomic) BOOL isEnabled;
 @property (nullable, nonatomic, weak) UINavigationController *navigationController;
 @property (nullable, nonatomic, strong) AbstractInteractiveTransition *interactor;
 @end

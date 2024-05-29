@@ -39,9 +39,9 @@ final class ZoomTransitioning: AnimatedTransitioning {
     override func animateTransition(forDismission transitionContext: UIViewControllerContextTransitioning) {
         guard let fromVC = fromViewController,
               let toVC = toViewController,
-              let id = findId(in: fromVC.view),
-              let fromView = findView(withId: id, in: fromVC.view),
-              let toView = findView(withId: id, in: toVC.view),
+              let id = fromVC.view.transition.findID(),
+              let fromView = fromVC.view.transition.find(withID: id),
+              let toView = toVC.view.transition.find(withID: id),
               let snapshotView = fromView.snapshotView(afterScreenUpdates: true) else { return }
         
         let center = toView.superview?.convert(
@@ -65,11 +65,13 @@ final class ZoomTransitioning: AnimatedTransitioning {
         
         if transitionContext.isInteractive { return }
         
-        animate({
+        animate({ [weak self] in
             fromVC.view.alpha = 0
-            toVC.view.tintAdjustmentMode = .normal
             snapshotView.center = center
             snapshotView.transform = transform
+            if self?.isAllowsDeactivating == true {
+                toVC.view.tintAdjustmentMode = .normal
+            }
         },
         completion: { [weak self] in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
@@ -88,14 +90,14 @@ final class ZoomTransitioning: AnimatedTransitioning {
     override func animateTransition(forPresenting transitionContext: UIViewControllerContextTransitioning) {
         guard let fromVC = fromViewController,
               let toVC = toViewController,
-              let id = findId(in: fromVC.view) else { return }
-        
+              let id = fromVC.view.transition.findID() else { return }
+
         let toVisibleVC = (toVC as? UINavigationController)?.visibleViewController ?? toVC
         
-        guard let fromView = findView(withId: id, in: fromVC.view),
+        guard let fromView = fromVC.view.transition.find(withID: id),
               let snapshotView = fromView.snapshotView(afterScreenUpdates: true),
-              let toView = findView(withId: id, in: toVisibleVC.view) else { return }
-        
+              let toView = toVisibleVC.view.transition.find(withID: id) else { return }
+
         transitionContext.containerView.addSubview(toVC.view)
         transitionContext.containerView.addSubview(snapshotView)
         toVC.view.layoutIfNeeded()
@@ -119,11 +121,13 @@ final class ZoomTransitioning: AnimatedTransitioning {
         
         if transitionContext.isInteractive { return }
         
-        animate({
+        animate({ [weak self] in
             toVC.view.alpha = 1
-            fromVC.view.tintAdjustmentMode = .dimmed
             snapshotView.center = center
             snapshotView.transform = transform
+            if self?.isAllowsDeactivating == true {
+                fromVC.view.tintAdjustmentMode = .dimmed
+            }
         },
         completion: { [weak self] in
             fromView.isHidden = false
@@ -157,10 +161,12 @@ final class ZoomTransitioning: AnimatedTransitioning {
         
         animate(
             withDuration: 0.25,
-            animations: {
+            animations: {  [weak self] in
                 aboveVC.view.alpha = alpha
-                belowVC.view.tintAdjustmentMode = tintAdjustmentMode
-                snapshotView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                snapshotView.transform = .identity
+                if self?.isAllowsDeactivating == true {
+                    belowVC.view.tintAdjustmentMode = tintAdjustmentMode
+                }
             },
             completion: { [weak self] in
                 guard let self = self,
@@ -174,6 +180,7 @@ final class ZoomTransitioning: AnimatedTransitioning {
                 }
                 self.removeSnapshotView()
                 context.completeTransition(false)
+                completion?()
             })
     }
     
@@ -217,11 +224,13 @@ final class ZoomTransitioning: AnimatedTransitioning {
             belowVC.beginAppearanceTransition(!isPresenting, animated: context.isAnimated == true)
         }
         
-        animate({
+        animate({ [weak self] in
             aboveVC.view.alpha = alpha
-            belowVC.view.tintAdjustmentMode = tintAdjustmentMode
             snapshotView.center = center
             snapshotView.transform = transform
+            if self?.isAllowsDeactivating == true {
+                belowVC.view.tintAdjustmentMode = tintAdjustmentMode
+            }
         },
         completion: { [weak self] in
             guard let self = self else { return }
@@ -244,6 +253,7 @@ final class ZoomTransitioning: AnimatedTransitioning {
                     belowVC.endAppearanceTransition()
                 }
             }
+            completion?()
         })
     }
     

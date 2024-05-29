@@ -34,14 +34,26 @@
 import UIViewControllerTransitions
 
 final class DemoViewController: UITableViewController {
-    
-    private let titles: [String] = [
-        "DragDrop",
-        "Move",
-        "Fade",
-        "Move for Navigation",
-        "Zoom"
-    ]
+
+    private enum Item: String, CaseIterable {
+        case dragDrop
+        case move
+        case fade
+        case moveForNavigation
+        case zoom
+
+        var title: String {
+            rawValue.capitalized
+        }
+        var isNavigationTransition: Bool {
+            switch self {
+            case .moveForNavigation:
+                return true
+            default:
+                return false
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +65,7 @@ final class DemoViewController: UITableViewController {
         return 1
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titles.count
+        return Item.allCases.count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
@@ -70,34 +82,31 @@ final class DemoViewController: UITableViewController {
         return cell!
     }
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.textLabel?.text = titles[indexPath.row]
+        cell.textLabel?.text = Item.allCases[indexPath.row].title
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var viewController: UIViewController?
-        
-        switch indexPath.row {
-        case 0:
-            viewController = DragDropTransitionFirstViewController(nibName: "DragDropTransitionFirstView", bundle: .main)
-        case 1:
-            viewController = MoveTransitionFirstViewController(nibName: "MoveTransitionFirstView", bundle: .main)
-        case 2:
-            viewController = FadeTransitionFirstViewController(nibName: "FadeTransitionFirstView", bundle: .main)
-        case 3:
-            viewController = NavigationMoveTransitionFirstViewController(nibName: "NavigationMoveTransitionFirstView", bundle: .main)
-        case 4:
-            viewController = UIStoryboard(name: "ZoomTransition", bundle: nil).instantiateViewController(withIdentifier: "FirstScene")
-        default:
-            break
-        }
-        
-        guard let controller = viewController else {return}
-        
-        if indexPath.row == 3 {
-            let navigationController = UINavigationController(rootViewController: controller)
+        let item = Item.allCases[indexPath.row]
+        let viewController: UIViewController = {
+            switch $0 {
+            case .dragDrop:
+                return DragDropTransitionFirstViewController(nibName: "DragDropTransitionFirstView", bundle: .main)
+            case .move:
+                return MoveTransitionFirstViewController(nibName: "MoveTransitionFirstView", bundle: .main)
+            case .fade:
+                return FadeTransitionFirstViewController(nibName: "FadeTransitionFirstView", bundle: .main)
+            case .moveForNavigation:
+                return NavigationMoveTransitionFirstViewController(nibName: "NavigationMoveTransitionFirstView", bundle: .main)
+            case .zoom:
+                return UIStoryboard(name: "ZoomTransition", bundle: nil).instantiateViewController(withIdentifier: "FirstScene")
+            }
+        }(item)
+
+        if item.isNavigationTransition {
+            let navigationController = UINavigationController(rootViewController: viewController)
             navigationController.modalPresentationStyle = .fullScreen
             present(navigationController, animated: true, completion: nil)
         } else {
-            navigationController?.pushViewController(controller, animated: true)
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
 }
