@@ -184,13 +184,27 @@
                 !self.shouldInteractiveTransition) {
                 return;
             }
-            
+
+            const CGSize screenSize = UIScreen.mainScreen.bounds.size;
+            CGFloat translationValue;
+            CGFloat targetSize;
+            switch (self.direction) {
+                case InteractiveTransitionDirectionVertical:
+                    translationValue = self.translation.y;
+                    targetSize = screenSize.height;
+                case InteractiveTransitionDirectionHorizontal:
+                    translationValue = self.translation.x;
+                    targetSize = screenSize.width;
+                case InteractiveTransitionDirectionAll:
+                    translationValue = self.translation.x + self.translation.y;
+                    targetSize = screenSize.width + screenSize.height;
+            }
+
             const BOOL isAppearing = [self.transition isAppearing:self];
-            const CGFloat translationValue = (self.isVertical ? self.translation.y : self.translation.x) - self.translationOffset;
+            const CGFloat fixedTranslationValue = translationValue - self.translationOffset;
             const CGFloat velocityValue = self.isVertical ? self.velocity.y : self.velocity.x;
-            const CGFloat targetSize = self.isVertical ? [UIScreen mainScreen].bounds.size.height : [UIScreen mainScreen].bounds.size.width;
             const CGFloat interactionDistance = targetSize * (isAppearing ? -1 : 1);
-            const CGFloat percent = fmin(fmax(-1, translationValue / interactionDistance), 1);
+            const CGFloat percent = fmin(fmax(-1, fixedTranslationValue / interactionDistance), 1);
             const CGFloat multiply = MAX(1, ABS(velocityValue / 300));
             const CGFloat percentForComparison = ABS(percent * multiply);
 
