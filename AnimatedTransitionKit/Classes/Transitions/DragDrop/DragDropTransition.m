@@ -40,7 +40,7 @@
 
 @implementation DragDropTransition
 
-#pragma mark - Overridden: UIViewControllerTransition
+#pragma mark - Overridden: AnimatedTransition
 
 - (void)initProperties {
     [super initProperties];
