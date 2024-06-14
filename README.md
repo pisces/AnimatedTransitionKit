@@ -44,7 +44,7 @@ Swift
 import AnimatedTransitionKit
 ```
 
-## 🔥Using UIViewControllerTransition
+## 🔥Using AnimatedTransition
 
 ### Using ZoomTransition
 
@@ -417,7 +417,7 @@ secondViewController.transition = transition
 present(secondViewController, animated: true, completion: nil)
 ```
 
-## 🔥Using UINavigationControllerTransition
+## 🔥Using AnimatedNavigationTransition
 
 ### Using NavigationMoveTransition
 ![](Screenshot/ExNavigationMoveTransition.gif)
@@ -561,7 +561,7 @@ final class NavigationMoveTransitionSecondViewController: UITableViewController 
 
 ```
 
-### Customize UINavigationControllerTransition
+### Customize AnimatedNavigationTransition
 ```swift
 import AnimatedTransitionKit
 
