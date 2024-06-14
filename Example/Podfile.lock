@@ -1,16 +1,16 @@
 PODS:
-  - UIViewControllerTransitions (3.2.15)
+  - AnimatedTransitionKit (4.0.0)
 
 DEPENDENCIES:
-  - UIViewControllerTransitions (from `../`)
+  - AnimatedTransitionKit (from `../`)
 
 EXTERNAL SOURCES:
-  UIViewControllerTransitions:
+  AnimatedTransitionKit:
     :path: "../"
 
 SPEC CHECKSUMS:
-  UIViewControllerTransitions: 11407612e848fd2e82477b6336fd88265bb1f754
+  AnimatedTransitionKit: f632954f5ae126f5a88149db014aa75d1098f6f6
 
-PODFILE CHECKSUM: 95ed24ff60f6256aab943e76af4fb1cac0d7065c
+PODFILE CHECKSUM: cfd905b6a73b2b51e76b492dc0d3d41931d673dc
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.14.3
