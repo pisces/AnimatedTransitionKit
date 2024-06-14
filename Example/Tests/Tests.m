@@ -1,6 +1,6 @@
 //
-//  UIViewControllerTransitionsTests.m
-//  UIViewControllerTransitionsTests
+//  AnimatedTransitionKitTests.m
+//  AnimatedTransitionKitTests
 //
 //  Created by Steve Kim on 05/13/2016.
 //  Copyright (c) 2016 Steve Kim. All rights reserved.

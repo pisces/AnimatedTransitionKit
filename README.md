@@ -1,11 +1,11 @@
-# UIViewControllerTransitions
+# AnimatedTransitionKit
 
 ![Swift](https://img.shields.io/badge/Swift-5-orange.svg)
 ![Objective-c](https://img.shields.io/badge/Objective-c-red.svg)
-[![CI Status](http://img.shields.io/travis/pisces/UIViewControllerTransitions.svg?style=flat)](https://travis-ci.org/pisces/UIViewControllerTransitions)
-[![Version](https://img.shields.io/cocoapods/v/UIViewControllerTransitions.svg?style=flat)](http://cocoapods.org/pods/UIViewControllerTransitions)
-[![License](https://img.shields.io/cocoapods/l/UIViewControllerTransitions.svg?style=flat)](http://cocoapods.org/pods/UIViewControllerTransitions)
-[![Platform](https://img.shields.io/cocoapods/p/UIViewControllerTransitions.svg?style=flat)](http://cocoapods.org/pods/UIViewControllerTransitions)
+[![CI Status](http://img.shields.io/travis/pisces/AnimatedTransitionKit.svg?style=flat)](https://travis-ci.org/pisces/AnimatedTransitionKit)
+[![Version](https://img.shields.io/cocoapods/v/AnimatedTransitionKit.svg?style=flat)](http://cocoapods.org/pods/AnimatedTransitionKit)
+[![License](https://img.shields.io/cocoapods/l/AnimatedTransitionKit.svg?style=flat)](http://cocoapods.org/pods/AnimatedTransitionKit)
+[![Platform](https://img.shields.io/cocoapods/p/AnimatedTransitionKit.svg?style=flat)](http://cocoapods.org/pods/AnimatedTransitionKit)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 - It's the very simple library to apply transitioning to between scene and other scene
@@ -37,11 +37,11 @@
 
 Objective-C
 ```objective-c
-#import <UIViewControllerTransitions/UIViewControllerTransitions.h>
+#import <AnimatedTransitionKit/AnimatedTransitionKit.h>
 ```
 Swift
 ```swift
-import UIViewControllerTransitions
+import AnimatedTransitionKit
 ```
 
 ## 🔥Using UIViewControllerTransition
@@ -49,7 +49,7 @@ import UIViewControllerTransitions
 ### Using ZoomTransition
 
 ```swift
-import UIViewControllerTransitions
+import AnimatedTransitionKit
 
 final class ZoomTransitionFirstViewController: UIViewController {
     
@@ -114,7 +114,7 @@ final class ZoomTransitionSecondViewController: UIViewController {
 #### Using single transition for dismission with pan gesture
 
 ```swift
-import UIViewControllerTransitions
+import AnimatedTransitionKit
 
 final class ViewController: UIViewController {
 
@@ -133,7 +133,7 @@ final class ViewController: UIViewController {
 #### Using pair transitions for presenting and dismission both with pan gesture
 
 ```swift
-import UIViewControllerTransitions
+import AnimatedTransitionKit
 
 final class MoveTransitionFirstViewController: UIViewController {
     
@@ -226,7 +226,7 @@ extension MoveTransitionSecondViewController: InteractiveTransitionDelegate {
 #### Using DragDropTransition
 
 ```swift
-import UIViewControllerTransitions
+import AnimatedTransitionKit
 
 final class DragDropTransitionFirstViewController: UIViewController {
 
@@ -350,7 +350,7 @@ extension DragDropTransitionSecondViewController: InteractiveTransitionDelegate 
 ### Customize UIViewControllerTransition
 
 ```swift
-import UIViewControllerTransitions
+import AnimatedTransitionKit
 
 class CustomTransition: UIViewControllerTransition {
     
@@ -423,7 +423,7 @@ present(secondViewController, animated: true, completion: nil)
 ![](Screenshot/ExNavigationMoveTransition.gif)
 
 ```swift
-import UIViewControllerTransitions
+import AnimatedTransitionKit
 
 final class NavigationMoveTransitionFirstViewController: UIViewController {
     
@@ -563,7 +563,7 @@ final class NavigationMoveTransitionSecondViewController: UITableViewController 
 
 ### Customize UINavigationControllerTransition
 ```swift
-import UIViewControllerTransitions
+import AnimatedTransitionKit
 
 class CustomNavigationTransition: UINavigationControllerTransition {
 
@@ -638,16 +638,16 @@ navigationController.push(secondViewController, animated: true, completion: nil)
 $ gem install cocoapods
 ```
 
-> CocoaPods 1.1.0+ is required to build UIViewControllerTransitions.
+> CocoaPods 1.1.0+ is required to build AnimatedTransitionKit.
 
-To integrate UIViewControllerTransitions into your Xcode project using CocoaPods, specify it in your `Podfile`:
+To integrate AnimatedTransitionKit into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 
 target '<Your Target Name>' do
-    pod 'UIViewControllerTransitions', '~> 3.5'
+    pod 'AnimatedTransitionKit', '~> 4'
 end
 ```
 
@@ -668,13 +668,13 @@ $ brew update
 $ brew install carthage
 ```
 
-To integrate UIViewControllerTransitions into your Xcode project using Carthage, specify it in your `Cartfile`:
+To integrate AnimatedTransitionKit into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "pisces/UIViewControllerTransitions" ~> 3.5
+github "pisces/AnimatedTransitionKit" ~> 4
 ```
 
-Run `carthage update` to build the framework and drag the built `UIViewControllerTransitions.framework` into your Xcode project.
+Run `carthage update` to build the framework and drag the built `AnimatedTransitionKit.framework` into your Xcode project.
 
 ## Requirements
 
@@ -686,4 +686,4 @@ Steve Kim, hh963103@gmail.com
 
 ## License
 
-UIViewControllerTransitions is available under the BSD 2-Clause license. See the LICENSE file for more info.
+AnimatedTransitionKit is available under the BSD 2-Clause license. See the LICENSE file for more info.

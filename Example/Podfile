@@ -1,9 +1,9 @@
 use_frameworks!
 
-target 'UIViewControllerTransitions_Example' do
-  pod 'UIViewControllerTransitions', :path => '../'
+target 'AnimatedTransitionKit_Example' do
+  pod 'AnimatedTransitionKit', :path => '../'
 
-  target 'UIViewControllerTransitions_Tests' do
+  target 'AnimatedTransitionKit_Tests' do
     inherit! :search_paths
 
     
