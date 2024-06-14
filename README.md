@@ -61,7 +61,7 @@ final class ZoomTransitionFirstViewController: UIViewController {
         title = "First View"
 
         // View binding with any transition id
-        button.transition.id = "zoomTarget"
+        button.transitionItem.id = "zoomTarget"
         
         let transition = ZoomTransition()
         transition.isAllowsInteraction = true
@@ -94,7 +94,7 @@ final class ZoomTransitionSecondViewController: UIViewController {
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
         
         // View binding with matched transition id
-        targetView.transition.id = "zoomTarget"
+        targetView.transitionItem.id = "zoomTarget"
     }
     
     // MARK: - Internal
