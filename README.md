@@ -347,12 +347,12 @@ extension DragDropTransitionSecondViewController: InteractiveTransitionDelegate 
 }
 ```
 
-### Customize UIViewControllerTransition
+### Customize AnimatedTransition
 
 ```swift
 import AnimatedTransitionKit
 
-class CustomTransition: UIViewControllerTransition {
+class CustomTransition: AnimatedTransition {
     
     override func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return CustomTransitioning()

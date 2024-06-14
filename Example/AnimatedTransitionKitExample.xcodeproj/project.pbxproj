@@ -53,12 +53,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04582A65F794DF91D8743740 /* Pods-UIViewControllerTransitions_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example.release.xcconfig"; sourceTree = "<group>"; };
 		13430A173436093ECE352088 /* Pods-AnimatedTransitionKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedTransitionKit_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedTransitionKit_Example/Pods-AnimatedTransitionKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		13AF4C38C2A9B2EF70263A24 /* Pods-AnimatedTransitionKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedTransitionKit_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedTransitionKit_Tests/Pods-AnimatedTransitionKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		1EAE91E06958D6BE144D1C6C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		3745473CCA24264F0C99D27D /* Pods-AnimatedTransitionKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedTransitionKit_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedTransitionKit_Example/Pods-AnimatedTransitionKit_Example.release.xcconfig"; sourceTree = "<group>"; };
-		53C0476F04B756FBA6350C2A /* UIViewControllerTransitions.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = UIViewControllerTransitions.podspec; path = ../UIViewControllerTransitions.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6003F58A195388D20070C39A /* AnimatedTransitionKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimatedTransitionKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -68,7 +66,6 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		73BAF19C0A1FB5035CB5C931 /* Pods-UIViewControllerTransitions_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		92AB7E932C3A258CFBA22433 /* Pods-AnimatedTransitionKit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatedTransitionKit_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatedTransitionKit_Tests/Pods-AnimatedTransitionKit_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C980721F417434BDACFD36B6 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		CE49A7B12C1C05D200314E68 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -97,8 +94,6 @@
 		CE49A7CC2C1C05D200314E68 /* AnimatedTransitionKit_Example-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AnimatedTransitionKit_Example-Info.plist"; sourceTree = "<group>"; };
 		D9669DEF6660F12B1FE4F672 /* Pods_AnimatedTransitionKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimatedTransitionKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE399537EA72B80FDF3543C6 /* Pods_AnimatedTransitionKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimatedTransitionKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E90FAC279C8476B56523BDCD /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Tests/Pods-UIViewControllerTransitions_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		E9EABE18F8A41F65FB32BC92 /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UIViewControllerTransitions_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UIViewControllerTransitions_Example/Pods-UIViewControllerTransitions_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,10 +124,6 @@
 		1B07FB6B63B1A6CF5A87660E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E9EABE18F8A41F65FB32BC92 /* Pods-UIViewControllerTransitions_Example.debug.xcconfig */,
-				04582A65F794DF91D8743740 /* Pods-UIViewControllerTransitions_Example.release.xcconfig */,
-				73BAF19C0A1FB5035CB5C931 /* Pods-UIViewControllerTransitions_Tests.debug.xcconfig */,
-				E90FAC279C8476B56523BDCD /* Pods-UIViewControllerTransitions_Tests.release.xcconfig */,
 				13430A173436093ECE352088 /* Pods-AnimatedTransitionKit_Example.debug.xcconfig */,
 				3745473CCA24264F0C99D27D /* Pods-AnimatedTransitionKit_Example.release.xcconfig */,
 				13AF4C38C2A9B2EF70263A24 /* Pods-AnimatedTransitionKit_Tests.debug.xcconfig */,
@@ -196,7 +187,6 @@
 		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				53C0476F04B756FBA6350C2A /* UIViewControllerTransitions.podspec */,
 				C980721F417434BDACFD36B6 /* README.md */,
 				1EAE91E06958D6BE144D1C6C /* LICENSE */,
 			);

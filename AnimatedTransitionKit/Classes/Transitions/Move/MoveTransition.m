@@ -61,7 +61,7 @@
     self.appearenceInteractor.direction = self.disappearenceInteractor.direction = self.interactiveTransitionDirection;
 }
 
-#pragma mark - Overridden: UIViewControllerTransition
+#pragma mark - Overridden: AnimatedTransition
 
 - (BOOL)isAppearing:(AbstractInteractiveTransition *)interactor {
     if (![interactor isKindOfClass:[PanningInteractiveTransition class]] ||
