@@ -192,12 +192,15 @@
                 case InteractiveTransitionDirectionVertical:
                     translationValue = self.translation.y;
                     targetSize = screenSize.height;
+                    break;
                 case InteractiveTransitionDirectionHorizontal:
                     translationValue = self.translation.x;
                     targetSize = screenSize.width;
+                    break;
                 case InteractiveTransitionDirectionAll:
                     translationValue = self.translation.x + self.translation.y;
                     targetSize = screenSize.width + screenSize.height;
+                    break;
             }
 
             const BOOL isAppearing = [self.transition isAppearing:self];
@@ -209,7 +212,6 @@
             const CGFloat percentForComparison = ABS(percent * multiply);
 
             _shouldComplete = percentForComparison > self.percentForCompletion && [self.transition shouldCompleteInteractor:self];
-            
             [self updateInteractiveTransition:percent];
             break;
         }
