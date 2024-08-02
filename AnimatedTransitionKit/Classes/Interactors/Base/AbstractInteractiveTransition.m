@@ -72,6 +72,10 @@
 - (void)cancelInteractiveTransition {
     [super cancelInteractiveTransition];
 
+    if (!self.transition.transitioning.context) {
+        return;
+    }
+
     if ([_delegate respondsToSelector:@selector(willCancelWithInteractor:)]) {
         [_delegate willCancelWithInteractor:self];
     }
