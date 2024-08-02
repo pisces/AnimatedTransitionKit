@@ -186,26 +186,30 @@
             }
 
             const CGSize screenSize = UIScreen.mainScreen.bounds.size;
+            const BOOL isStartPanningDirectionVertical = PanningDirectionIsVertical(self.startPanningDirection);
             CGFloat translationValue;
             CGFloat targetSize;
+            CGFloat velocityValue;
             switch (self.direction) {
                 case InteractiveTransitionDirectionVertical:
                     translationValue = self.translation.y;
                     targetSize = screenSize.height;
+                    velocityValue = self.velocity.y;
                     break;
                 case InteractiveTransitionDirectionHorizontal:
                     translationValue = self.translation.x;
                     targetSize = screenSize.width;
+                    velocityValue = self.velocity.x;
                     break;
                 case InteractiveTransitionDirectionAll:
-                    translationValue = self.translation.x + self.translation.y;
-                    targetSize = screenSize.width + screenSize.height;
+                    translationValue = isStartPanningDirectionVertical ? self.translation.y : self.translation.x;
+                    targetSize = isStartPanningDirectionVertical ? screenSize.height : screenSize.width;
+                    velocityValue = isStartPanningDirectionVertical ? self.velocity.y : self.velocity.x;
                     break;
             }
 
             const BOOL isAppearing = [self.transition isAppearing:self];
             const CGFloat fixedTranslationValue = translationValue - self.translationOffset;
-            const CGFloat velocityValue = self.isVertical ? self.velocity.y : self.velocity.x;
             const CGFloat interactionDistance = targetSize * (isAppearing ? -1 : 1);
             const CGFloat percent = fmin(fmax(-1, fixedTranslationValue / interactionDistance), 1);
             const CGFloat multiply = MAX(1, ABS(velocityValue / 300));
