@@ -37,6 +37,21 @@
 #import "AbstractTransition.h"
 #import "UIScrollView+Utils.h"
 
+struct Percent {
+    CGFloat rawValue;
+    CGFloat processedValue;
+};
+typedef struct Percent Percent;
+
+Percent PercentMake(CGFloat rawValue, CGFloat processedValue) {
+    Percent percent;
+    percent.rawValue = rawValue;
+    percent.processedValue = processedValue;
+    return percent;
+}
+
+const Percent PercentZero;
+
 @interface PanningInteractiveTransition ()
 @property (nonatomic, readonly) BOOL shouldInteractiveTransition;
 @property (nonatomic, readonly) UIPanGestureRecognizer *panGestureRecognizer;
@@ -185,38 +200,10 @@
                 return;
             }
 
-            const CGSize screenSize = UIScreen.mainScreen.bounds.size;
-            const BOOL isStartPanningDirectionVertical = PanningDirectionIsVertical(self.startPanningDirection);
-            CGFloat translationValue;
-            CGFloat targetSize;
-            CGFloat velocityValue;
-            switch (self.direction) {
-                case InteractiveTransitionDirectionVertical:
-                    translationValue = self.translation.y;
-                    targetSize = screenSize.height;
-                    velocityValue = self.velocity.y;
-                    break;
-                case InteractiveTransitionDirectionHorizontal:
-                    translationValue = self.translation.x;
-                    targetSize = screenSize.width;
-                    velocityValue = self.velocity.x;
-                    break;
-                case InteractiveTransitionDirectionAll:
-                    translationValue = isStartPanningDirectionVertical ? self.translation.y : self.translation.x;
-                    targetSize = isStartPanningDirectionVertical ? screenSize.height : screenSize.width;
-                    velocityValue = isStartPanningDirectionVertical ? self.velocity.y : self.velocity.x;
-                    break;
-            }
+            Percent percent = [self percentWhenPanningChanged];
+            _shouldComplete = percent.processedValue > self.percentForCompletion && [self.transition shouldCompleteInteractor:self];
 
-            const BOOL isAppearing = [self.transition isAppearing:self];
-            const CGFloat fixedTranslationValue = translationValue - self.translationOffset;
-            const CGFloat interactionDistance = targetSize * (isAppearing ? -1 : 1);
-            const CGFloat percent = fmin(fmax(-1, fixedTranslationValue / interactionDistance), 1);
-            const CGFloat multiply = MAX(1, ABS(velocityValue / 300));
-            const CGFloat percentForComparison = ABS(percent * multiply);
-
-            _shouldComplete = percentForComparison > self.percentForCompletion && [self.transition shouldCompleteInteractor:self];
-            [self updateInteractiveTransition:percent];
+            [self updateInteractiveTransition:percent.rawValue];
             break;
         }
         case UIGestureRecognizerStateCancelled:
@@ -238,6 +225,49 @@
         default:
             break;
     }
+}
+
+- (Percent)percentWhenPanningChanged {
+    const CGSize screenSize = UIScreen.mainScreen.bounds.size;
+    switch (self.direction) {
+        case InteractiveTransitionDirectionVertical:
+            return [self percentWithTranslation:self.translation.y
+                                           size:screenSize.height
+                                       velocity:self.velocity.y];
+        case InteractiveTransitionDirectionHorizontal:
+            return [self percentWithTranslation:self.translation.x
+                                           size:screenSize.width
+                                       velocity:self.velocity.x];
+        case InteractiveTransitionDirectionAll:
+            return [self percentForDirectionAllWithScreenSize:screenSize];
+    }
+}
+
+- (Percent)percentForDirectionAllWithScreenSize:(CGSize)screenSize {
+    Percent verticalPercent = [self percentWithTranslation:self.translation.y
+                                                      size:screenSize.height
+                                                  velocity:self.velocity.y];
+    Percent horizontalPercent = [self percentWithTranslation:self.translation.x
+                                                        size:screenSize.width
+                                                    velocity:self.velocity.x];
+    const BOOL isStartPanningDirectionVertical = PanningDirectionIsVertical(self.startPanningDirection);
+
+    if (isStartPanningDirectionVertical) {
+        return verticalPercent.processedValue > horizontalPercent.processedValue ? verticalPercent : PercentZero;
+    }
+    return horizontalPercent.processedValue > verticalPercent.processedValue ? horizontalPercent : PercentZero;
+}
+
+- (Percent)percentWithTranslation:(CGFloat)translation
+                             size:(CGFloat)size
+                         velocity:(CGFloat)velocity {
+    const BOOL isAppearing = [self.transition isAppearing:self];
+    const CGFloat bounds = translation - self.translationOffset;
+    const CGFloat interactionDistance = size * (isAppearing ? -1 : 1);
+    const CGFloat rawValue = fmin(fmax(-1, bounds / interactionDistance), 1);
+    const CGFloat multiply = MAX(1, ABS(velocity / 300));
+    const CGFloat processedValue = ABS(rawValue * multiply);
+    return PercentMake(rawValue, processedValue);
 }
 
 @end
