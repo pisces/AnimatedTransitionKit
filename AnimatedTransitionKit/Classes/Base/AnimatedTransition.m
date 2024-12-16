@@ -50,7 +50,7 @@
 
 - (void)initProperties {
     [super initProperties];
-    
+
     _appearenceInteractor = [PanningInteractiveTransition new];
     _disappearenceInteractor = [PanningInteractiveTransition new];
 }
@@ -72,8 +72,11 @@
     if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
         return NO;
     }
-    PanningDirection direction = ((PanningInteractiveTransition *) interactor).panningDirection;
-    return interactor.isVertical ?
+    PanningInteractiveTransition *panningInteractor = (PanningInteractiveTransition *) interactor;
+    PanningDirection direction = panningInteractor.panningDirection;
+    BOOL isVertical = PanningDirectionIsVertical(panningInteractor.startPanningDirection);
+
+    return isVertical ?
         (interactor.isAppearing ? direction == PanningDirectionUp : direction == PanningDirectionDown) :
         (interactor.isAppearing ? direction == PanningDirectionLeft : direction == PanningDirectionRight);
 }
@@ -88,11 +91,11 @@
     if ([viewController isEqual:_viewController]) {
         return;
     }
-    
+
     _viewController = viewController;
     _viewController.transitioningDelegate = self;
     _viewController.modalPresentationStyle = UIModalPresentationCustom;
-    
+
     [_disappearenceInteractor attach:_viewController presentViewController:nil];
 }
 
@@ -144,10 +147,10 @@ static void *AssociatedKeyTransition = @"transition";
 - (void)setTransition:(AnimatedTransition *)transition {
     if ([transition isEqual:[self transition]])
         return;
-    
+
     self.modalPresentationStyle = UIModalPresentationCustom;
     transition.viewController = self;
-    
+
     objc_setAssociatedObject(self, &AssociatedKeyTransition, transition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
