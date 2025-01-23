@@ -61,12 +61,23 @@ public final class TransitionItemWrapper<Base> {
             objc_getAssociatedObject(base, &keyForTransitionID) as? String
         }
         set {
+            if let transitionView = transitionView(with: newValue) {
+                transitionView.transitionItem.clear()
+            }
             objc_setAssociatedObject(base, &keyForTransitionID, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
     public func clear() {
         id = nil
+    }
+
+    private func transitionView(with id: String?) -> UIView? {
+        guard let id,
+              let rootView = UIApplication.shared.windows.first?.rootViewController?.view else {
+            return nil
+        }
+        return rootView.transitionItem.find(withID: id)
     }
 }
 
