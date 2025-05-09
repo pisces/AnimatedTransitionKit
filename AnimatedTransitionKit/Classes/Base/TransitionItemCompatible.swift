@@ -33,9 +33,9 @@
 import Foundation
 
 public protocol TransitionItemCompatible: AnyObject {
-  associatedtype CompatibleType
+    associatedtype CompatibleType: AnyObject
 
-  var transitionItem: TransitionItemWrapper<CompatibleType> { get }
+    var transitionItem: TransitionItemWrapper<CompatibleType> { get }
 }
 
 extension TransitionItemCompatible {
@@ -49,28 +49,31 @@ extension TransitionItemCompatible {
     }
 }
 
-public final class TransitionItemWrapper<Base> {
+public final class TransitionItemWrapper<Base> where Base: AnyObject {
     public init(_ base: Base) {
         self.base = base
     }
 
-    public let base: Base
-
     public var id: String? {
         get {
-            objc_getAssociatedObject(base, &keyForTransitionID) as? String
+            guard let base else { return nil }
+            return objc_getAssociatedObject(base, &keyForTransitionID) as? String
         }
         set {
             if let transitionView = transitionView(with: newValue) {
                 transitionView.transitionItem.clear()
             }
-            objc_setAssociatedObject(base, &keyForTransitionID, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            if let base {
+                objc_setAssociatedObject(base, &keyForTransitionID, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
         }
     }
 
     public func clear() {
         id = nil
     }
+
+    private(set) weak var base: Base?
 
     private func transitionView(with id: String?) -> UIView? {
         guard let id,
