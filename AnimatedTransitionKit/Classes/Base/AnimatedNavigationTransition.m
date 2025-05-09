@@ -36,7 +36,6 @@
 #import <objc/runtime.h>
 
 @interface AnimatedNavigationTransition ()
-@property (nonatomic, readonly) BOOL isPush;
 @property (nullable, nonatomic, weak) id<UINavigationControllerDelegate> originNavigationDelegate;
 @property (nullable, nonatomic, readonly) AnimatedNavigationTransitioning *navigationTransitioning;
 @end
@@ -119,13 +118,23 @@
     [self activateOrDeactivate];
 }
 
+- (BOOL)isPush {
+    return self.navigationTransitioning == nil || self.navigationTransitioning.isPush;
+}
+
 - (void)setNavigationController:(UINavigationController *)navigationController {
     if ([navigationController isEqual:_navigationController]) {
         return;
     }
 
     if (!_navigationController) {
-        _originNavigationDelegate = navigationController.delegate;
+        BOOL isNavigationTransition = [navigationController.delegate isKindOfClass:[AnimatedNavigationTransition class]];
+        if (isNavigationTransition) {
+            AnimatedNavigationTransition *navigationTransition = (AnimatedNavigationTransition *) navigationController.delegate;
+            _originNavigationDelegate = navigationTransition.originNavigationDelegate;
+        } else {
+            _originNavigationDelegate = navigationController.delegate;
+        }
     }
 
     _navigationController = navigationController;
@@ -171,10 +180,6 @@
 
 #pragma mark - Private methods
 
-- (BOOL)isPush {
-    return self.navigationTransitioning == nil || self.navigationTransitioning.isPush;
-}
-
 - (AnimatedNavigationTransitioning *)navigationTransitioning {
     return (AnimatedNavigationTransitioning *) _transitioning;
 }
@@ -200,9 +205,10 @@ static void *AssociatedKeyNavigationTransition = @"navigationTransition";
 @implementation UINavigationController (AnimatedTransitionKit)
 
 - (void)setNavigationTransition:(AnimatedNavigationTransition *)navigationTransition {
-    if ([navigationTransition isEqual:[self navigationTransition]])
+    if ([navigationTransition isEqual:self.navigationTransition])
         return;
-    
+
+    self.navigationTransition.isEnabled = NO;
     navigationTransition.navigationController = self;
     
     objc_setAssociatedObject(self, &AssociatedKeyNavigationTransition, navigationTransition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
