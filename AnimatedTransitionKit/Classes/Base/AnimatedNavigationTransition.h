@@ -37,6 +37,9 @@
 
 @protocol AnimatedNavigationTransitionProtected <NSObject>
 - (AnimatedNavigationTransitioning * _Nullable)newTransitioning;
+- (BOOL)shouldUseTransitioningForOperation:(UINavigationControllerOperation)operation
+                           fromVC:(UIViewController * _Nullable)fromVC
+                             toVC:(UIViewController * _Nullable)toVC;
 @end
 
 @interface AnimatedNavigationTransition : AbstractTransition <UINavigationControllerDelegate, AnimatedNavigationTransitionProtected>
