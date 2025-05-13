@@ -136,16 +136,13 @@
             _originNavigationDelegate = navigationController.delegate;
         }
     }
-
     _navigationController = navigationController;
-
-    [self activateOrDeactivate];
 }
 
 - (void)initProperties {
     [super initProperties];
 
-    _isEnabled = YES;
+    _isEnabled = NO;
     _interactor = [NavigationPanningInteractiveTransition new];
     _interactor.direction = InteractiveTransitionDirectionHorizontal;
     
@@ -155,21 +152,54 @@
 
 #pragma mark - UINavigationController delegate
 
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    BOOL isPush = operation == UINavigationControllerOperationPush;
-    if (!_transitioning) {
-        AnimatedNavigationTransitioning *transitioning = [self newTransitioning];
-        transitioning.appearenceOptions = self.appearenceOptions;
-        transitioning.disappearenceOptions = self.disappearenceOptions;
-        _transitioning = transitioning;
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (!_transitioning && self.shouldSendToOriginNavigationDelegate) {
+        [_originNavigationDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
     }
-    self.navigationTransitioning.push = isPush;
-    return _transitioning;
 }
 
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-                      interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
-    return self.currentInteractor ? (id<UIViewControllerAnimatedTransitioning>) self.currentInteractor : nil;
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (!_transitioning && self.shouldSendToOriginNavigationDelegate) {
+        [_originNavigationDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
+    }
+}
+
+- (nullable id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                           animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                        fromViewController:(UIViewController *)fromVC
+                                                          toViewController:(UIViewController *)toVC {
+    BOOL shouldUseTransitioning = [self shouldUseTransitioningForOperation:operation fromVC:fromVC toVC:toVC];
+    if (shouldUseTransitioning) {
+        if (!_transitioning) {
+            AnimatedNavigationTransitioning *transitioning = [self newTransitioning];
+            transitioning.appearenceOptions = self.appearenceOptions;
+            transitioning.disappearenceOptions = self.disappearenceOptions;
+            _transitioning = transitioning;
+        }
+        self.navigationTransitioning.push = operation == UINavigationControllerOperationPush;
+        return _transitioning;
+    }
+
+    if (self.shouldSendToOriginNavigationDelegate) {
+        self.isEnabled = NO;
+        return [_originNavigationDelegate navigationController:navigationController
+                               animationControllerForOperation:operation
+                                            fromViewController:fromVC
+                                              toViewController:toVC];
+    }
+    return nil;
+}
+
+- (nullable id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
+                                  interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>)animationController {
+    if ([animationController isEqual:_transitioning]) {
+        return self.currentInteractor;
+    }
+    if (self.shouldSendToOriginNavigationDelegate) {
+        return [_originNavigationDelegate navigationController:navigationController
+                   interactionControllerForAnimationController:animationController];
+    }
+    return nil;
 }
 
 #pragma mark - Protected methods
@@ -178,10 +208,20 @@
     return nil;
 }
 
+- (BOOL)shouldUseTransitioningForOperation:(UINavigationControllerOperation)operation
+                                       fromVC:(UIViewController * _Nullable)fromVC
+                                         toVC:(UIViewController * _Nullable)toVC {
+    return YES;
+}
+
 #pragma mark - Private methods
 
 - (AnimatedNavigationTransitioning *)navigationTransitioning {
     return (AnimatedNavigationTransitioning *) _transitioning;
+}
+
+- (BOOL)shouldSendToOriginNavigationDelegate {
+    return ![_originNavigationDelegate isKindOfClass:[AnimatedNavigationTransition self]];
 }
 
 - (void)activateOrDeactivate {
@@ -205,13 +245,12 @@ static void *AssociatedKeyNavigationTransition = @"navigationTransition";
 @implementation UINavigationController (AnimatedTransitionKit)
 
 - (void)setNavigationTransition:(AnimatedNavigationTransition *)navigationTransition {
-    if ([navigationTransition isEqual:self.navigationTransition])
-        return;
-
-    self.navigationTransition.isEnabled = NO;
-    navigationTransition.navigationController = self;
-    
-    objc_setAssociatedObject(self, &AssociatedKeyNavigationTransition, navigationTransition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (![navigationTransition isEqual:self.navigationTransition]) {
+        self.navigationTransition.isEnabled = NO;
+        navigationTransition.navigationController = self;
+        objc_setAssociatedObject(self, &AssociatedKeyNavigationTransition, navigationTransition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    navigationTransition.isEnabled = YES;
 }
 
 - (AnimatedNavigationTransition *)navigationTransition {
