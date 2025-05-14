@@ -153,15 +153,29 @@
 #pragma mark - UINavigationController delegate
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (!_transitioning && self.shouldSendToOriginNavigationDelegate) {
+    if (self.shouldSendToOriginNavigationDelegate) {
         [_originNavigationDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
     }
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (!_transitioning && self.shouldSendToOriginNavigationDelegate) {
+    if (self.shouldSendToOriginNavigationDelegate) {
         [_originNavigationDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
     }
+}
+
+- (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController *)navigationController {
+    if (self.shouldSendToOriginNavigationDelegate) {
+        return [_originNavigationDelegate navigationControllerSupportedInterfaceOrientations:navigationController];
+    }
+    return navigationController.supportedInterfaceOrientations;
+}
+
+- (UIInterfaceOrientation)navigationControllerPreferredInterfaceOrientationForPresentation:(UINavigationController *)navigationController {
+    if (self.shouldSendToOriginNavigationDelegate) {
+        return [_originNavigationDelegate navigationControllerPreferredInterfaceOrientationForPresentation:navigationController];
+    }
+    return navigationController.preferredInterfaceOrientationForPresentation;
 }
 
 - (nullable id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
