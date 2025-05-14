@@ -153,26 +153,30 @@
 #pragma mark - UINavigationController delegate
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (self.shouldSendToOriginNavigationDelegate) {
+    SEL selector = @selector(navigationController:willShowViewController:animated:);
+    if ([self shouldSendToOriginNavigationDelegate:selector]) {
         [_originNavigationDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
     }
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (self.shouldSendToOriginNavigationDelegate) {
+    SEL selector = @selector(navigationController:didShowViewController:animated:);
+    if ([self shouldSendToOriginNavigationDelegate:selector]) {
         [_originNavigationDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
     }
 }
 
 - (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController *)navigationController {
-    if (self.shouldSendToOriginNavigationDelegate) {
+    SEL selector = @selector(navigationControllerSupportedInterfaceOrientations:);
+    if ([self shouldSendToOriginNavigationDelegate:selector]) {
         return [_originNavigationDelegate navigationControllerSupportedInterfaceOrientations:navigationController];
     }
     return navigationController.supportedInterfaceOrientations;
 }
 
 - (UIInterfaceOrientation)navigationControllerPreferredInterfaceOrientationForPresentation:(UINavigationController *)navigationController {
-    if (self.shouldSendToOriginNavigationDelegate) {
+    SEL selector = @selector(navigationControllerPreferredInterfaceOrientationForPresentation:);
+    if ([self shouldSendToOriginNavigationDelegate:selector]) {
         return [_originNavigationDelegate navigationControllerPreferredInterfaceOrientationForPresentation:navigationController];
     }
     return navigationController.preferredInterfaceOrientationForPresentation;
@@ -194,7 +198,8 @@
         return _transitioning;
     }
 
-    if (self.shouldSendToOriginNavigationDelegate) {
+    SEL selector = @selector(navigationController:animationControllerForOperation:fromViewController:toViewController:);
+    if ([self shouldSendToOriginNavigationDelegate:selector]) {
         self.isEnabled = NO;
         return [_originNavigationDelegate navigationController:navigationController
                                animationControllerForOperation:operation
@@ -209,7 +214,8 @@
     if ([animationController isEqual:_transitioning]) {
         return self.currentInteractor;
     }
-    if (self.shouldSendToOriginNavigationDelegate) {
+    SEL selector = @selector(navigationController:interactionControllerForAnimationController:);
+    if ([self shouldSendToOriginNavigationDelegate:selector]) {
         return [_originNavigationDelegate navigationController:navigationController
                    interactionControllerForAnimationController:animationController];
     }
@@ -234,8 +240,10 @@
     return (AnimatedNavigationTransitioning *) _transitioning;
 }
 
-- (BOOL)shouldSendToOriginNavigationDelegate {
-    return ![_originNavigationDelegate isKindOfClass:[AnimatedNavigationTransition self]];
+- (BOOL)shouldSendToOriginNavigationDelegate:(SEL)aSelector {
+    return _originNavigationDelegate &&
+        ![_originNavigationDelegate isKindOfClass:[AnimatedNavigationTransition self]] &&
+        [_originNavigationDelegate respondsToSelector:aSelector];
 }
 
 - (void)activateOrDeactivate {

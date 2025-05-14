@@ -2,7 +2,6 @@
 
 ![Swift](https://img.shields.io/badge/Swift-5-orange.svg)
 ![Objective-c](https://img.shields.io/badge/Objective-c-red.svg)
-[![CI Status](http://img.shields.io/travis/pisces/AnimatedTransitionKit.svg?style=flat)](https://travis-ci.org/pisces/AnimatedTransitionKit)
 [![Version](https://img.shields.io/cocoapods/v/AnimatedTransitionKit.svg?style=flat)](http://cocoapods.org/pods/AnimatedTransitionKit)
 [![License](https://img.shields.io/cocoapods/l/AnimatedTransitionKit.svg?style=flat)](http://cocoapods.org/pods/AnimatedTransitionKit)
 [![Platform](https://img.shields.io/cocoapods/p/AnimatedTransitionKit.svg?style=flat)](http://cocoapods.org/pods/AnimatedTransitionKit)
