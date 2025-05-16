@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2021, Steve Kim
+//  Copyright (c) 2016 ~, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -171,7 +171,7 @@
     if ([self shouldSendToOriginNavigationDelegate:selector]) {
         return [_originNavigationDelegate navigationControllerSupportedInterfaceOrientations:navigationController];
     }
-    return navigationController.supportedInterfaceOrientations;
+    return navigationController.topViewController.supportedInterfaceOrientations;
 }
 
 - (UIInterfaceOrientation)navigationControllerPreferredInterfaceOrientationForPresentation:(UINavigationController *)navigationController {
@@ -179,7 +179,7 @@
     if ([self shouldSendToOriginNavigationDelegate:selector]) {
         return [_originNavigationDelegate navigationControllerPreferredInterfaceOrientationForPresentation:navigationController];
     }
-    return navigationController.preferredInterfaceOrientationForPresentation;
+    return navigationController.topViewController.preferredInterfaceOrientationForPresentation;
 }
 
 - (nullable id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
