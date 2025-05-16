@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2021, Steve Kim
+//  Copyright (c) 2016 ~, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without

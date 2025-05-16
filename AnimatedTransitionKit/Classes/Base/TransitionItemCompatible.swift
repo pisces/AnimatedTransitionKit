@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2021, Steve Kim
+//  Copyright (c) 2016 ~, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -77,10 +77,22 @@ public final class TransitionItemWrapper<Base> where Base: AnyObject {
 
     private func transitionView(with id: String?) -> UIView? {
         guard let id,
-              let rootView = UIApplication.shared.windows.first?.rootViewController?.view else {
+              let responder = base as? UIResponder,
+              let rootView = viewController(for: responder)?.view else {
             return nil
         }
         return rootView.transitionItem.find(withID: id)
+    }
+
+    private func viewController(for responder: UIResponder) -> UIViewController? {
+        if let vc = responder as? UIViewController,
+           (vc.parent == nil || vc.parent === vc.navigationController) {
+            return vc
+        }
+        if let nextResponser = responder.next {
+            return viewController(for: nextResponser)
+        }
+        return nil
     }
 }
 
