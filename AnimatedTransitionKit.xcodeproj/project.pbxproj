@@ -142,7 +142,7 @@
 		234A7CBC1E4C623100DA1446 = {
 			isa = PBXGroup;
 			children = (
-				234A7CC81E4C623100DA1446 /* UIViewControllerTransitions */,
+				234A7CC81E4C623100DA1446 /* AnimatedTransitionKit */,
 				234A7CC71E4C623100DA1446 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -156,13 +156,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		234A7CC81E4C623100DA1446 /* UIViewControllerTransitions */ = {
+		234A7CC81E4C623100DA1446 /* AnimatedTransitionKit */ = {
 			isa = PBXGroup;
 			children = (
 				CE90A5352583557E009CD82D /* Classes */,
 				23B336031E4C7A86008AA055 /* Info.plist */,
 			);
-			path = UIViewControllerTransitions;
+			path = AnimatedTransitionKit;
 			sourceTree = "<group>";
 		};
 		CE90A5352583557E009CD82D /* Classes */ = {
@@ -429,7 +429,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 234A7CC01E4C623100DA1446 /* Build configuration list for PBXProject "UIViewControllerTransitions" */;
+			buildConfigurationList = 234A7CC01E4C623100DA1446 /* Build configuration list for PBXProject "AnimatedTransitionKit" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -683,7 +683,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		234A7CC01E4C623100DA1446 /* Build configuration list for PBXProject "UIViewControllerTransitions" */ = {
+		234A7CC01E4C623100DA1446 /* Build configuration list for PBXProject "AnimatedTransitionKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				234A7CD81E4C623100DA1446 /* Debug */,
