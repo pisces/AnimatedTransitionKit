@@ -32,6 +32,8 @@
 
 import UIKit
 
+// MARK: - UIView + TransitionItemCompatible
+
 extension UIView: TransitionItemCompatible { }
 
 extension TransitionItemWrapper where Base: UIView {

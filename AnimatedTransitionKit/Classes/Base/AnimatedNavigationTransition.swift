@@ -30,10 +30,14 @@
 //  Created by Steve Kim on 5/29/25.
 //
 
-import Foundation
 import Combine
+import Foundation
+
+// MARK: - AnimatedNavigationTransition
 
 open class AnimatedNavigationTransition: AbstractTransition {
+
+    // MARK: Lifecycle
 
     deinit {
         isEnabled = false
@@ -45,6 +49,8 @@ open class AnimatedNavigationTransition: AbstractTransition {
         bind()
     }
 
+    // MARK: Open
+
     override open var isAllowsInteraction: Bool {
         didSet {
             interactor?.gestureRecognizer.isEnabled = isAllowsInteraction
@@ -52,7 +58,7 @@ open class AnimatedNavigationTransition: AbstractTransition {
     }
 
     override open var currentInteractor: AbstractInteractiveTransition? {
-        if self.isAllowsInteraction, self.isInteracting {
+        if isAllowsInteraction, isInteracting {
             return interactor
         }
         return nil
@@ -106,7 +112,7 @@ open class AnimatedNavigationTransition: AbstractTransition {
         for operation: UINavigationController.Operation,
         from fromVC: UIViewController,
         to toVC: UIViewController)
-    -> Bool
+        -> Bool
     {
         true
     }
@@ -115,9 +121,13 @@ open class AnimatedNavigationTransition: AbstractTransition {
         nil
     }
 
+    // MARK: Public
+
+    public var interactor: AbstractInteractiveTransition?
+
     public var navigationController: UINavigationController? {
         get {
-            return _navigationController
+            _navigationController
         }
         set {
             if newValue === _navigationController {
@@ -133,8 +143,6 @@ open class AnimatedNavigationTransition: AbstractTransition {
             _navigationController = newValue
         }
     }
-    private weak var _navigationController: UINavigationController?
-
     public var isEnabled: Bool = false {
         didSet {
             activateOrDeactivate()
@@ -145,8 +153,6 @@ open class AnimatedNavigationTransition: AbstractTransition {
         navigationTransitioning?.isPush ?? true
     }
 
-    public var interactor: AbstractInteractiveTransition?
-
     public func destoryIfNeeded() {
         guard let targetViewController,
               let navigationController,
@@ -154,18 +160,26 @@ open class AnimatedNavigationTransition: AbstractTransition {
         targetViewController.cachedNavigationTransition = nil
     }
 
+    // MARK: Internal
+
     weak var navigationTransition: AnimatedNavigationTransition?
+
+    // MARK: Fileprivate
 
     fileprivate weak var targetViewController: UIViewController?
     fileprivate var originNCDelegate: UINavigationControllerDelegate?
 
+    // MARK: Private
+
     private static let didShowViewControllerSubject = PassthroughSubject<UIViewController, Never>()
+
+    private weak var _navigationController: UINavigationController?
+
+    private var cancellableSet: Set<AnyCancellable> = []
 
     private var navigationTransitioning: AnimatedNavigationTransitioning? {
         transitioning as? AnimatedNavigationTransitioning
     }
-
-    private var cancellableSet: Set<AnyCancellable> = []
 
     private func shouldSendToOriginNCDelegate(_ selector: Selector) -> Bool {
         guard let originNCDelegate,
@@ -234,6 +248,8 @@ extension AnimatedNavigationTransition {
             .store(in: &cancellableSet)
     }
 }
+
+// MARK: UINavigationControllerDelegate
 
 extension AnimatedNavigationTransition: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {

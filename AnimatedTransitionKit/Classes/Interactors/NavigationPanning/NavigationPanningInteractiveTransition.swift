@@ -33,6 +33,9 @@
 import Foundation
 
 public final class NavigationPanningInteractiveTransition: PanningInteractiveTransition {
+
+    // MARK: Public
+
     override public var isInteractionEnabled: Bool {
         guard let transition,
               let navigationController else { return false }
@@ -57,6 +60,8 @@ public final class NavigationPanningInteractiveTransition: PanningInteractiveTra
         }
         return true
     }
+
+    // MARK: Private
 
     private var navigationController: UINavigationController? {
         viewController as? UINavigationController
