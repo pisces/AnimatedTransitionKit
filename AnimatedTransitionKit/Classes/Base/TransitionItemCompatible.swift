@@ -32,6 +32,8 @@
 
 import Foundation
 
+// MARK: - TransitionItemCompatible
+
 public protocol TransitionItemCompatible: AnyObject {
     associatedtype CompatibleType: AnyObject
 
@@ -49,10 +51,17 @@ extension TransitionItemCompatible {
     }
 }
 
+// MARK: - TransitionItemWrapper
+
 public final class TransitionItemWrapper<Base> where Base: AnyObject {
+
+    // MARK: Lifecycle
+
     public init(_ base: Base) {
         self.base = base
     }
+
+    // MARK: Public
 
     public var id: String? {
         get {
@@ -73,12 +82,17 @@ public final class TransitionItemWrapper<Base> where Base: AnyObject {
         id = nil
     }
 
+    // MARK: Internal
+
     private(set) weak var base: Base?
+
+    // MARK: Private
 
     private func transitionView(with id: String?) -> UIView? {
         guard let id,
               let responder = base as? UIResponder,
-              let rootView = viewController(for: responder)?.view else {
+              let rootView = viewController(for: responder)?.view else
+        {
             return nil
         }
         return rootView.transitionItem.find(withID: id)
@@ -86,7 +100,8 @@ public final class TransitionItemWrapper<Base> where Base: AnyObject {
 
     private func viewController(for responder: UIResponder) -> UIViewController? {
         if let vc = responder as? UIViewController,
-           (vc.parent == nil || vc.parent === vc.navigationController) {
+           vc.parent == nil || vc.parent === vc.navigationController
+        {
             return vc
         }
         if let nextResponser = responder.next {

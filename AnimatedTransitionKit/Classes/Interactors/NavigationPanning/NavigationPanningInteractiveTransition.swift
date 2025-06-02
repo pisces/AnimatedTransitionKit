@@ -24,59 +24,46 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  UIView+Transitioning.swift
+//  NavigationPanningInteractiveTransition.swift
 //  AnimatedTransitionKit
 //
-//  Created by Steve Kim on 2020/12/10.
+//  Created by Steve Kim on 5/29/25.
 //
 
-import UIKit
+import Foundation
 
-// MARK: - UIView + TransitionItemCompatible
-
-extension UIView: TransitionItemCompatible { }
-
-extension TransitionItemWrapper where Base: UIView {
+public final class NavigationPanningInteractiveTransition: PanningInteractiveTransition {
 
     // MARK: Public
 
-    public func findID() -> String? {
-        findIDRecursively(in: base)
+    override public var isInteractionEnabled: Bool {
+        guard let transition,
+              let navigationController else { return false }
+        return if transition.isAppearing(self) {
+            viewControllerForAppearing.map { !navigationController.viewControllers.contains($0) } ?? false
+        } else {
+            navigationController.viewControllers.count > 1
+        }
     }
 
-    public func find(withID id: String?) -> UIView? {
-        guard let id else { return nil }
-        return findRecursively(withID: id, in: base)
+    override public func beginInteractiveTransition() -> Bool {
+        guard let transition,
+              let navigationController else { return false }
+        if transition.isAppearing(self) {
+            guard let viewControllerForAppearing else { return false }
+            let shouldPush = !navigationController.viewControllers.contains(viewControllerForAppearing)
+            if shouldPush {
+                navigationController.pushViewController(viewControllerForAppearing, animated: true)
+            }
+        } else {
+            navigationController.popViewController(animated: true)
+        }
+        return true
     }
 
     // MARK: Private
 
-    private func findIDRecursively(in view: UIView?) -> String? {
-        guard let view else { return nil }
-        if let id = view.transitionItem.id { return id }
-
-        var finded: String?
-        view.subviews.forEach {
-            if let id = findIDRecursively(in: $0) {
-                finded = id
-                return
-            }
-        }
-        return finded
-    }
-
-    private func findRecursively(withID id: String?, in view: UIView?) -> UIView? {
-        guard let id,
-              let view else { return nil }
-        guard view.transitionItem.id != id else { return view }
-
-        var finded: UIView?
-        view.subviews.forEach {
-            if let view = findRecursively(withID: id, in: $0) {
-                finded = view
-                return
-            }
-        }
-        return finded
+    private var navigationController: UINavigationController? {
+        viewController as? UINavigationController
     }
 }

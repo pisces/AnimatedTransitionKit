@@ -58,12 +58,13 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 @property (nonatomic, readonly) CGPoint velocity;
 @property (nonnull, nonatomic, readonly) UIGestureRecognizer *gestureRecognizer;
 @property (nullable, nonatomic, weak) id<InteractiveTransitionDelegate> delegate;
+@property (nullable, nonatomic, weak) id<InteractiveTransitionDataSource> dataSource;
 @property (nullable, nonatomic, weak) UIScrollView *drivingScrollView;
-@property (nullable, weak, readonly) UIViewController *presentViewController;
+@property (nullable) UIViewController *viewControllerForAppearing;
 @property (nullable, weak, readonly) UIViewController *viewController;
 @property (nonnull, readonly) UIViewController *currentViewController;
-@property (nullable, nonatomic, readonly) AbstractTransition *transition;
-- (void)attach:(__weak UIViewController * _Nonnull)viewController presentViewController:(__weak UIViewController * _Nullable)presentViewController;
+@property (nullable, weak) AbstractTransition *transition;
+- (void)attach:(__weak UIViewController * _Nonnull)viewController;
 - (void)detach;
 @end
 
@@ -82,4 +83,8 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 - (BOOL)interactor:(AbstractInteractiveTransition * _Nonnull)interactor gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer;
 - (BOOL)interactor:(AbstractInteractiveTransition * _Nonnull)interactor gestureRecognizer:(UIGestureRecognizer * _Nonnull)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer * _Nonnull)otherGestureRecognizer;
 - (BOOL)interactor:(AbstractInteractiveTransition * _Nonnull)interactor shouldInteract:(UIGestureRecognizer * _Nonnull)gestureRecognizer;
+@end
+
+@protocol InteractiveTransitionDataSource <NSObject>
+- (nullable UIViewController *)viewControllerForAppearing:(AbstractInteractiveTransition * _Nonnull)interactor;
 @end

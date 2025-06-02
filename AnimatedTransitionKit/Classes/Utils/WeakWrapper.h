@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2021, Steve Kim
+//  Copyright (c) 2016 ~, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -24,13 +24,22 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  NavigationMoveTransition.h
+//  WeakWrapper.h
 //  AnimatedTransitionKit
 //
-//  Created by Steve Kim on 8/13/17.
+//  Created by Steve Kim on 5/30/25.
 //
 
-#import "AnimatedNavigationTransition.h"
+#import <Foundation/Foundation.h>
 
-@interface NavigationMoveTransition : AnimatedNavigationTransition
+NS_ASSUME_NONNULL_BEGIN
+
+@interface WeakWrapper : NSObject
+@property (nullable, nonatomic, weak) id value;
+- (instancetype)initWithValue:(_Nullable id)value;
 @end
+
+void setWeakAssociatedObject(id host, const void *key, _Nullable id value);
+id getAssociatedObject(id host, const void *key);
+
+NS_ASSUME_NONNULL_END

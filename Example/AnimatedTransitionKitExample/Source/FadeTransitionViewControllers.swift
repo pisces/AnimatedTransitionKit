@@ -34,11 +34,7 @@
 import AnimatedTransitionKit
 
 final class FadeTransitionFirstViewController: UIViewController {
-    
-    private lazy var secondViewController: UINavigationController = {
-        return UINavigationController(rootViewController: FadeTransitionSecondViewController(nibName: "FadeTransitionSecondView", bundle: .main))
-    }()
-    
+
     override var prefersStatusBarHidden: Bool {
         return false
     }
@@ -50,14 +46,10 @@ final class FadeTransitionFirstViewController: UIViewController {
         super.viewDidLoad()
         
         title = "First View"
-        
-        secondViewController.transition = { [self] in
-            $0.disappearenceInteractor?.direction = .vertical
-            $0.appearenceInteractor?.direction = .vertical
-            $0.appearenceInteractor?.attach(self, present: secondViewController)
-            return $0
-        }(FadeTransition())
+
+        fadeTransition.prepareAppearance(from: self)
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -67,7 +59,26 @@ final class FadeTransitionFirstViewController: UIViewController {
     }
     
     @IBAction func clicked() {
-        present(secondViewController, animated: true, completion: nil)
+        present(createSecondVC(), animated: true, completion: nil)
+    }
+
+    private lazy var fadeTransition = {
+        $0.appearenceInteractor?.direction = .vertical
+        $0.disappearenceInteractor?.direction = .vertical
+        return $0
+    }(FadeTransition())
+}
+
+extension FadeTransitionFirstViewController: InteractiveTransitionDataSource {
+    func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        createSecondVC()
+    }
+
+    private func createSecondVC() -> UIViewController {
+        let rootVC = FadeTransitionSecondViewController(nibName: "FadeTransitionSecondView", bundle: .main)
+        let navigationController = UINavigationController(rootViewController: rootVC)
+        navigationController.transition = fadeTransition
+        return navigationController
     }
 }
 

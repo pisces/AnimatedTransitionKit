@@ -64,8 +64,7 @@
 #pragma mark - Overridden: AnimatedTransition
 
 - (BOOL)isAppearing:(AbstractInteractiveTransition *)interactor {
-    if (![interactor isKindOfClass:[PanningInteractiveTransition class]] ||
-        !interactor.isAppearing) {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
         return NO;
     }
     PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;

@@ -36,49 +36,32 @@ import AnimatedTransitionKit
 final class MoveTransitionFirstViewController: UIViewController {
     
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "First View"
-        secondViewController.transition?.appearenceInteractor?.attach(self, present: secondViewController)
+        moveTransition.prepareAppearance(from: self)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("first -> viewWillAppear")
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("first -> viewDidAppear")
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("first -> viewWillDisappear")
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("first -> viewDidDisappear")
-    }
-    
     // MARK: - Private
-    
-    private lazy var secondViewController: UINavigationController = {
-        let viewController = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
-        let navigationController = UINavigationController(rootViewController: viewController)
 
-        navigationController.transition = {
-            $0.disappearenceInteractor?.delegate = viewController
-            return $0
-        }(MoveTransition())
+    private lazy var moveTransition = MoveTransition()
 
-        return navigationController
-    }()
-    
     @IBAction private func clicked() {
-        present(secondViewController, animated: true, completion: nil)
+        present(createSecondVC(), animated: true, completion: nil)
+    }
+}
+
+extension MoveTransitionFirstViewController: InteractiveTransitionDataSource {
+    func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        createSecondVC()
+    }
+
+    private func createSecondVC() -> UIViewController {
+        let rootVC = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
+        let navigationController = UINavigationController(rootViewController: rootVC)
+        navigationController.transition = moveTransition
+        return navigationController
     }
 }
 
@@ -91,26 +74,6 @@ final class MoveTransitionSecondViewController: UITableViewController {
         title = "Second View"
         navigationItem.setLeftBarButton(UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(close)), animated: false)
         navigationController?.transition?.disappearenceInteractor?.drivingScrollView = tableView
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("second -> viewWillAppear")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("second -> viewDidAppear")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("second -> viewWillDisappear")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("second -> viewDidDisappear")
     }
     
     // MARK: - Overridden: UITableViewController
@@ -138,9 +101,6 @@ final class MoveTransitionSecondViewController: UITableViewController {
     
     // MARK: - Private
     
-    private var isInteractionBegan = false
-    private var isViewAppeared = false
-    
     @objc private func close() {
         dismiss(animated: true)
     }
@@ -149,16 +109,7 @@ final class MoveTransitionSecondViewController: UITableViewController {
 // MARK: - InteractiveTransitionDelegate
 
 extension MoveTransitionSecondViewController: InteractiveTransitionDelegate {
-    
     func shouldTransition(_ interactor: AbstractInteractiveTransition) -> Bool {
         navigationController?.viewControllers.count == 1
-    }
-    
-    func didCancel(withInteractor interactor: AbstractInteractiveTransition) {
-        print("didCancel")
-    }
-    
-    func didComplete(withInteractor interactor: AbstractInteractiveTransition) {
-        print("didComplete")
     }
 }
