@@ -36,16 +36,6 @@ import AnimatedTransitionKit
 final class NavigationMoveTransitionFirstViewController: UIViewController {
     
     // MARK: - Lifecycle
-
-    override var prefersStatusBarHidden: Bool {
-        false
-    }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .default
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        .fade
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,36 +47,10 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
         }(NavigationMoveTransition())
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("viewWillAppear -> \(type(of: self))")
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewDidAppear -> \(type(of: self))")
-        if let navigationController = navigationController {
-            navigationController.navigationTransition?.interactor?.attach(navigationController)
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("viewWillDisappear -> \(type(of: self))")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("viewDidDisappear -> \(type(of: self))")
-    }
-    
     // MARK: - Private
     
     @IBAction private func clicked() {
-        let vc = NavigationMoveTransitionSecondViewController()
+        let vc = createSecondVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -97,6 +61,10 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
 
 extension NavigationMoveTransitionFirstViewController: InteractiveTransitionDataSource {
     func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        createSecondVC()
+    }
+
+    private func createSecondVC() -> UIViewController {
         NavigationMoveTransitionSecondViewController()
     }
 }
@@ -113,42 +81,9 @@ final class NavigationMoveTransitionSecondViewController: UITableViewController 
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var prefersStatusBarHidden: Bool {
-        false
-    }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        .fade
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Second View"
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("viewWillAppear -> \(type(of: self))")
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewDidAppear -> \(type(of: self))")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("viewWillDisappear -> \(type(of: self))")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("viewDidDisappear -> \(type(of: self))")
     }
     
     // MARK: - Overridden: UITableViewController

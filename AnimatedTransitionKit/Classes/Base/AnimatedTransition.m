@@ -37,10 +37,11 @@
 #import "AnimatedTransition.h"
 #import "AnimatedTransitionKitMacro.h"
 #import "PanningInteractiveTransition.h"
+#import "AbstractInteractiveTransition.h"
 #import "WeakWrapper.h"
 #import <objc/runtime.h>
 
-@interface AnimatedTransition () <UIGestureRecognizerDelegate, InteractiveTransitionDataSource>
+@interface AnimatedTransition () <UIGestureRecognizerDelegate>
 @end
 
 @implementation AnimatedTransition
@@ -120,6 +121,10 @@
 - (void)prepareAppearanceFromViewController:(__weak UIViewController * _Nonnull)viewController {
     [_viewController setTransitionAsWeakReference];
     [_appearenceInteractor attach:viewController];
+
+    if ([viewController conformsToProtocol:@protocol(InteractiveTransitionDataSource)]) {
+        _appearenceInteractor.dataSource = (id<InteractiveTransitionDataSource>) viewController;
+    }
 }
 
 #pragma mark - UIViewControllerTransitioning delegate

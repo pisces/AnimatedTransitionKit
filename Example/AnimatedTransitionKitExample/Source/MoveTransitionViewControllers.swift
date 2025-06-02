@@ -43,32 +43,9 @@ final class MoveTransitionFirstViewController: UIViewController {
         moveTransition.prepareAppearance(from: self)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("first -> viewWillAppear")
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("first -> viewDidAppear")
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("first -> viewWillDisappear")
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("first -> viewDidDisappear")
-    }
-
     // MARK: - Private
 
-    private lazy var moveTransition = {
-        $0.appearenceInteractor?.dataSource = self
-        return $0
-    }(MoveTransition())
+    private lazy var moveTransition = MoveTransition()
 
     @IBAction private func clicked() {
         present(createSecondVC(), animated: true, completion: nil)
@@ -99,26 +76,6 @@ final class MoveTransitionSecondViewController: UITableViewController {
         navigationController?.transition?.disappearenceInteractor?.drivingScrollView = tableView
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("second -> viewWillAppear")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("second -> viewDidAppear")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("second -> viewWillDisappear")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("second -> viewDidDisappear")
-    }
-    
     // MARK: - Overridden: UITableViewController
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -144,9 +101,6 @@ final class MoveTransitionSecondViewController: UITableViewController {
     
     // MARK: - Private
     
-    private var isInteractionBegan = false
-    private var isViewAppeared = false
-    
     @objc private func close() {
         dismiss(animated: true)
     }
@@ -155,16 +109,7 @@ final class MoveTransitionSecondViewController: UITableViewController {
 // MARK: - InteractiveTransitionDelegate
 
 extension MoveTransitionSecondViewController: InteractiveTransitionDelegate {
-    
     func shouldTransition(_ interactor: AbstractInteractiveTransition) -> Bool {
         navigationController?.viewControllers.count == 1
-    }
-    
-    func didCancel(withInteractor interactor: AbstractInteractiveTransition) {
-        print("didCancel")
-    }
-    
-    func didComplete(withInteractor interactor: AbstractInteractiveTransition) {
-        print("didComplete")
     }
 }

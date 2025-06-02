@@ -50,11 +50,7 @@ final class ZoomTransitionFirstViewController: UIViewController {
 
     // MARK: - Private
 
-    private lazy var zoomTransition = {
-        $0.isAllowsInteraction = true
-        $0.appearenceInteractor?.dataSource = self
-        return $0
-    }(ZoomTransition())
+    private lazy var zoomTransition = ZoomTransition()
 
     @IBOutlet private weak var button: UIButton!
     

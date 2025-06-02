@@ -64,7 +64,6 @@ final class FadeTransitionFirstViewController: UIViewController {
 
     private lazy var fadeTransition = {
         $0.appearenceInteractor?.direction = .vertical
-        $0.appearenceInteractor?.dataSource = self
         $0.disappearenceInteractor?.direction = .vertical
         return $0
     }(FadeTransition())

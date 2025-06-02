@@ -153,13 +153,6 @@ open class AnimatedNavigationTransition: AbstractTransition {
         navigationTransitioning?.isPush ?? true
     }
 
-    public func destoryIfNeeded() {
-        guard let targetViewController,
-              let navigationController,
-              navigationController.viewControllers.contains(targetViewController) == false else { return }
-        targetViewController.cachedNavigationTransition = nil
-    }
-
     // MARK: Internal
 
     weak var navigationTransition: AnimatedNavigationTransition?
@@ -211,6 +204,7 @@ extension AnimatedNavigationTransition {
     private func bind() {
         let didShowViewController = Self.didShowViewControllerSubject
             .removeDuplicates()
+            .filter { [weak self] _ in self?.targetViewController != nil }
 
         let shouldAttachToInteractor: (UIViewController) -> Bool = { [weak self] in
             guard let self else { return false }
@@ -224,7 +218,7 @@ extension AnimatedNavigationTransition {
                 let cachedTransitions = navigationController?.viewControllers
                     .compactMap { $0.cachedNavigationTransition } ?? []
                 if cachedTransitions.count < 1 {
-                    self.navigationController?.navigationTransition = nil
+                    navigationController?.navigationTransition = nil
                 } else {
                     interactor?.detach()
                 }
