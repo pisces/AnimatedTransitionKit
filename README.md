@@ -403,6 +403,16 @@ class CustomTransitioning: AnimatedTransitioning {
 
 ### Using CustomTransition
 
+#### Using simply
+
+```swift
+let secondVC = SecondViewController()
+secondVC.transition = CustomTransition()
+present(secondVC, animated: true, completion: nil)
+```
+
+#### Use a gesture to present the second view controller
+
 ```swift
 final class FirstViewController: UIViewController {
     override func viewDidLoad() {
@@ -575,10 +585,18 @@ class CustomNavigationTransitioning: AnimatedNavigationTransitioning {
 
 ### Using CustomNavigationTransition
 
+#### Using simply
+
 ```swift
 navigationController.navigationTransition = CustomNavigationTransition()
-navigationController.push(secondViewController, animated: true, completion: nil)
 
+let secondVC = SecondViewController()
+navigationController.pushViewController(secondVC, animated: true)
+```
+
+#### Use a gesture to push the second view controller
+
+```swift
 final class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
