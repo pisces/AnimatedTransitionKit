@@ -33,8 +33,8 @@
 import UIKit
 
 public final class ZoomTransition: AnimatedTransition {
-    
-    public override func initProperties() {
+
+    override public func initProperties() {
         super.initProperties()
         appearenceInteractor = PinchInteractiveTransition()
         disappearenceInteractor = PinchInteractiveTransition()
@@ -43,12 +43,12 @@ public final class ZoomTransition: AnimatedTransition {
         disappearenceOptions.isUsingSpring = true
         disappearenceOptions.animationOptions = .init(rawValue: 7)
     }
-    
-    public override func transitioning(forDismissedController dismissed: UIViewController?) -> AnimatedTransitioning? {
+
+    override public func transitioning(forDismissedController dismissed: UIViewController?) -> AnimatedTransitioning? {
         ZoomTransitioning()
     }
-    
-    public override func transitioningFor(forPresentedController presented: UIViewController?, presenting: UIViewController?, sourceController source: UIViewController?) -> AnimatedTransitioning? {
+
+    override public func transitioningFor(forPresentedController presented: UIViewController?, presenting: UIViewController?, sourceController source: UIViewController?) -> AnimatedTransitioning? {
         ZoomTransitioning()
     }
 }

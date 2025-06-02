@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2021, Steve Kim
+//  Copyright (c) 2016 ~, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -24,23 +24,35 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  NavigationMoveTransition.m
+//  WeakWrapper.m
 //  AnimatedTransitionKit
 //
-//  Created by Steve Kim on 8/13/17.
+//  Created by Steve Kim on 5/30/25.
 //
 
-#import "NavigationMoveTransition.h"
-#import "NavigationMoveTransitioning.h"
+#import "WeakWrapper.h"
+#import <objc/runtime.h>
 
-@implementation NavigationMoveTransition
+@implementation WeakWrapper
+- (instancetype)initWithValue:(_Nullable id)value {
+    self = [super init];
+    if (self) {
+        _value = value;
+    }
+    return self;
+}
+@end
 
-#pragma mark - Overridden: UINavigationControllerTransition
-
-- (AnimatedNavigationTransitioning *)newTransitioning {
-    NavigationMoveTransitioning *transitioning = [NavigationMoveTransitioning new];
-    transitioning.allowsDeactivating = self.allowsDeactivating;
-    return transitioning;
+void setWeakAssociatedObject(id host, const void *key, _Nullable id value) {
+    WeakWrapper *wrapper = [[WeakWrapper alloc] initWithValue:value];
+    objc_setAssociatedObject(host, key, wrapper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-@end
+id getAssociatedObject(id host, const void *key) {
+    id value = objc_getAssociatedObject(host, key);
+    if ([value isKindOfClass:[WeakWrapper class]]) {
+        WeakWrapper *wrapper = (WeakWrapper *) value;
+        return wrapper.value;
+    }
+    return value;
+}

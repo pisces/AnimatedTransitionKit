@@ -41,8 +41,7 @@
     return _options.duration;
 }
 
-- (void)animationEnded:(BOOL)transitionCompleted {
-}
+- (void)animationEnded:(BOOL)transitionCompleted { }
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     _context = transitionContext;

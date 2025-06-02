@@ -44,7 +44,7 @@
 @property (nonatomic, readonly, getter=isInteracting) BOOL interacting;
 @property (nonatomic) BOOL isAllowsAppearanceTransition;
 @property (nullable, nonatomic, readonly) AbstractInteractiveTransition *currentInteractor;
-@property (nullable, nonatomic, readonly) AbstractAnimatedTransitioning *transitioning;
+@property (nullable, nonatomic) AbstractAnimatedTransitioning *transitioning;
 @property (nonnull, nonatomic, strong) TransitioningAnimationOptions *disappearenceOptions;
 @property (nonnull, nonatomic, strong) TransitioningAnimationOptions *appearenceOptions;
 - (void)beginInteration;

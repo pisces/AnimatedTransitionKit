@@ -40,7 +40,7 @@
 #pragma mark - Properties
 
 - (BOOL)isAppearing {
-    return _presentViewController != nil;
+    return _viewControllerForAppearing != nil;
 }
 
 - (BOOL)isVertical {
@@ -48,11 +48,7 @@
 }
 
 - (UIViewController *)currentViewController {
-    return self.isAppearing ? _presentViewController : _viewController;
-}
-
-- (AbstractTransition *)transition {
-    return self.currentViewController.transition;
+    return self.isAppearing ? _viewControllerForAppearing : _viewController;
 }
 
 #pragma mark - Con(De)structor
@@ -157,26 +153,30 @@
 
 #pragma mark - Public methods
 
-- (void)attach:(UIViewController *)viewController presentViewController:(UIViewController *)presentViewController {
+- (void)attach:(__weak UIViewController * _Nonnull)viewController {
+    if ([viewController isEqual:_viewController]) {
+        return;
+    }
     if (_viewController) {
         [self detach];
     }
-
     _viewController = viewController;
-    _presentViewController = presentViewController;
     [_viewController.view addGestureRecognizer:self.gestureRecognizer];
 }
 
 - (void)detach {
     [self.gestureRecognizer.view removeGestureRecognizer:self.gestureRecognizer];
     _viewController = nil;
-    _presentViewController = nil;
 }
 
 #pragma mark - Private methods
 
 - (void)completeInteraction {
     [self.transition.transitioning endAnimating];
+
+    if (!_viewControllerForAppearing.parentViewController) {
+        _viewControllerForAppearing = nil;
+    }
 
     if (self.shouldComplete) {
         if ([_delegate respondsToSelector:@selector(didCompleteWithInteractor:)]) {

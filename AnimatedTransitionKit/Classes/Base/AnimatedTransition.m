@@ -37,6 +37,8 @@
 #import "AnimatedTransition.h"
 #import "AnimatedTransitionKitMacro.h"
 #import "PanningInteractiveTransition.h"
+#import "AbstractInteractiveTransition.h"
+#import "WeakWrapper.h"
 #import <objc/runtime.h>
 
 @interface AnimatedTransition () <UIGestureRecognizerDelegate>
@@ -51,13 +53,28 @@
 - (void)initProperties {
     [super initProperties];
 
-    _appearenceInteractor = [PanningInteractiveTransition new];
-    _disappearenceInteractor = [PanningInteractiveTransition new];
+    self.appearenceInteractor = [PanningInteractiveTransition new];
+    self.disappearenceInteractor = [PanningInteractiveTransition new];
+}
+
+- (void)setAppearenceInteractor:(AbstractInteractiveTransition *)appearenceInteractor {
+    if ([appearenceInteractor isEqual:_appearenceInteractor]) {
+        return;
+    }
+    _appearenceInteractor = appearenceInteractor;
+    _appearenceInteractor.transition = self;
+}
+
+- (void)setDisappearenceInteractor:(AbstractInteractiveTransition *)disappearenceInteractor {
+    if ([disappearenceInteractor isEqual:_disappearenceInteractor]) {
+        return;
+    }
+    _disappearenceInteractor = disappearenceInteractor;
+    _disappearenceInteractor.transition = self;
 }
 
 - (BOOL)isAppearing:(AbstractInteractiveTransition *)interactor {
-    if (![interactor isKindOfClass:[PanningInteractiveTransition class]] ||
-        !interactor.isAppearing) {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
         return NO;
     }
     PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
@@ -96,7 +113,18 @@
     _viewController.transitioningDelegate = self;
     _viewController.modalPresentationStyle = UIModalPresentationCustom;
 
-    [_disappearenceInteractor attach:_viewController presentViewController:nil];
+    [_disappearenceInteractor attach:_viewController];
+}
+
+#pragma mark - Public
+
+- (void)prepareAppearanceFromViewController:(__weak UIViewController * _Nonnull)viewController {
+    [_viewController setTransitionAsWeakReference];
+    [_appearenceInteractor attach:viewController];
+
+    if ([viewController conformsToProtocol:@protocol(InteractiveTransitionDataSource)]) {
+        _appearenceInteractor.dataSource = (id<InteractiveTransitionDataSource>) viewController;
+    }
 }
 
 #pragma mark - UIViewControllerTransitioning delegate
@@ -128,6 +156,12 @@
     return (self.allowsInteraction && self.isInteracting) ? _appearenceInteractor : nil;
 }
 
+#pragma mark - InteractiveTransitionDataSource
+
+- (nullable UIViewController *)viewControllerForAppearing:(AbstractInteractiveTransition *)interactor {
+    return _viewController;
+}
+
 #pragma mark - Protected methods
 
 - (AnimatedTransitioning *)transitioningForDismissedController:(UIViewController *)dismissed {
@@ -151,11 +185,21 @@ static void *AssociatedKeyTransition = @"transition";
     self.modalPresentationStyle = UIModalPresentationCustom;
     transition.viewController = self;
 
-    objc_setAssociatedObject(self, &AssociatedKeyTransition, transition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (transition.appearenceInteractor.viewController) {
+        setWeakAssociatedObject(self, &AssociatedKeyTransition, transition);
+    } else {
+        objc_setAssociatedObject(self, &AssociatedKeyTransition, transition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
 }
 
 - (AnimatedTransition *)transition {
-    return objc_getAssociatedObject(self, &AssociatedKeyTransition);
+    return getAssociatedObject(self, &AssociatedKeyTransition);
+}
+
+- (void)setTransitionAsWeakReference {
+    if (self.transition) {
+        setWeakAssociatedObject(self, &AssociatedKeyTransition, self.transition);
+    }
 }
 
 @end

@@ -45,7 +45,18 @@ import AnimatedTransitionKit
 
 ## 🔥Using AnimatedTransition
 
-### Using ZoomTransition
+### Using ZoomTransition Simply
+#### Using single transition for dismission with pan gesture
+```swift
+import AnimatedTransitionKit
+
+let secondVC = SecondViewController()
+secondVC.transition = ZoomTransition()
+present(secondVC, animated: true, completion: nil)
+```
+
+### Using ZoomTransition Deeply
+#### Using pair transitions for presenting and dismission both with pinch gesture
 
 ```swift
 import AnimatedTransitionKit
@@ -53,7 +64,7 @@ import AnimatedTransitionKit
 final class ZoomTransitionFirstViewController: UIViewController {
     
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,31 +73,37 @@ final class ZoomTransitionFirstViewController: UIViewController {
         // View binding with any transition id
         button.transitionItem.id = "zoomTarget"
         
-        let transition = ZoomTransition()
-        transition.isAllowsInteraction = true
-        transition.appearenceInteractor?.attach(self, present: secondViewController)
-        
-        secondViewController.transition = transition
+        zoomTransition.prepareAppearance(from: self)
     }
 
     // MARK: - Private
-    
-    private lazy var secondViewController: UINavigationController = {
-        let rootViewController = UIStoryboard(name: "ZoomTransition", bundle: nil).instantiateViewController(withIdentifier: "SecondScene")
-        return UINavigationController(rootViewController: rootViewController)
-    }()
-    
+
+    private lazy var zoomTransition = ZoomTransition()
+
     @IBOutlet private weak var button: UIButton!
     
     @IBAction private func clicked() {
-        present(secondViewController, animated: true, completion: nil)
+        present(createSecondVC(), animated: true, completion: nil)
+    }
+}
+
+extension ZoomTransitionFirstViewController: InteractiveTransitionDataSource {
+    func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        createSecondVC()
+    }
+
+    private func createSecondVC() -> UIViewController {
+        let rootVC = UIStoryboard(name: "ZoomTransition", bundle: nil).instantiateViewController(withIdentifier: "SecondScene")
+        let navigationController = UINavigationController(rootViewController: rootVC)
+        navigationController.transition = zoomTransition
+        return navigationController
     }
 }
 
 final class ZoomTransitionSecondViewController: UIViewController {
     
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Second View"
@@ -106,7 +123,6 @@ final class ZoomTransitionSecondViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 }
-
 ```
 
 ### Using MoveTransition Simply
@@ -115,17 +131,9 @@ final class ZoomTransitionSecondViewController: UIViewController {
 ```swift
 import AnimatedTransitionKit
 
-final class ViewController: UIViewController {
-
-    // MARK: - Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let transition = MoveTransition()
-        transition.isAllowsInteraction = true
-        navigationController?.transition = transition
-    }
-}
+let secondVC = SecondViewController()
+secondVC.transition = MoveTransition()
+present(secondVC, animated: true, completion: nil)
 ```
 
 ### Using MoveTransition Deeply
@@ -137,37 +145,35 @@ import AnimatedTransitionKit
 final class MoveTransitionFirstViewController: UIViewController {
     
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "First View"
-        secondViewController.transition?.appearenceInteractor?.attach(self, present: secondViewController)
+        moveTransition.prepareAppearance(from: self)
     }
-    
+
     // MARK: - Private
-    
-    private lazy var secondViewController: UINavigationController = {
-        let viewController = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
-        let transition = MoveTransition()
-        transition.appearenceOptions.duration = 0.25
-        transition.disappearenceOptions.duration = 0.35
-        transition.isAllowsInteraction = true
-        transition.disappearenceInteractor?.delegate = viewController
-        
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.modalPresentationStyle = .fullScreen
-        navigationController.transition = transition
-        return navigationController
-    }()
-    
+
+    private lazy var moveTransition = MoveTransition()
+
     @IBAction private func clicked() {
-        present(secondViewController, animated: true, completion: nil)
+        present(createSecondVC(), animated: true, completion: nil)
     }
 }
-```
 
+extension MoveTransitionFirstViewController: InteractiveTransitionDataSource {
+    func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        createSecondVC()
+    }
 
-```swift
+    private func createSecondVC() -> UIViewController {
+        let rootVC = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
+        let navigationController = UINavigationController(rootViewController: rootVC)
+        navigationController.transition = moveTransition
+        return navigationController
+    }
+}
+
 final class MoveTransitionSecondViewController: UITableViewController {
     
     // MARK: - Lifecycle
@@ -204,18 +210,14 @@ final class MoveTransitionSecondViewController: UITableViewController {
     
     // MARK: - Private
     
-    private var isInteractionBegan = false
-    private var isViewAppeared = false
-    
     @objc private func close() {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }
 
 // MARK: - InteractiveTransitionDelegate
 
 extension MoveTransitionSecondViewController: InteractiveTransitionDelegate {
-    
     func shouldTransition(_ interactor: AbstractInteractiveTransition) -> Bool {
         navigationController?.viewControllers.count == 1
     }
@@ -251,7 +253,6 @@ final class DragDropTransitionFirstViewController: UIViewController {
         let secondNavigationController = UINavigationController(rootViewController: secondViewController)
         
         let transition = DragDropTransition()
-        transition.isAllowsInteraction = true
         transition.disappearenceInteractor?.delegate = secondViewController
         
         let w = view.frame.size.width
@@ -407,13 +408,41 @@ class CustomTransitioning: AnimatedTransitioning {
 
 ### Using CustomTransition
 
-```swift
-let transition = CustomTransition()
-transition.isAllowsInteraction = true
-transition.appearenceInteractor?.attach(self, present: secondViewController)
+#### Using simply
 
-secondViewController.transition = transition
-present(secondViewController, animated: true, completion: nil)
+```swift
+let secondVC = SecondViewController()
+secondVC.transition = CustomTransition()
+present(secondVC, animated: true, completion: nil)
+```
+
+#### Use a gesture to present the second view controller
+
+```swift
+final class FirstViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        customTransition.prepareAppearance(from: self)
+    }
+
+    private let customTransition = CustomTransition()
+    
+    @IBAction private func clicked() {
+        present(createSecondVC(), animated: true, completion: nil)
+    }
+}
+
+extension FirstViewController: InteractiveTransitionDataSource {
+    func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        createSecondVC()
+    }
+    
+    private func createSecondVC() -> UIViewController {
+        let vc = SecondViewController()
+        vc.transition = customTransition
+        return vc
+    }
+}
 ```
 
 ## 🔥Using AnimatedNavigationTransition
@@ -428,58 +457,21 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    override var prefersStatusBarHidden: Bool {
-        false
-    }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .default
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        .fade
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "First View"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self, action: #selector(close))
-        let transition = NavigationMoveTransition()
-        navigationController?.navigationTransition = transition
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("viewWillAppear -> \(type(of: self))")
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewDidAppear -> \(type(of: self))")
-        if let navigationController = navigationController {
-            navigationController.navigationTransition?.interactor?.attach(navigationController, present: secondViewController)
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("viewWillDisappear -> \(type(of: self))")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("viewDidDisappear -> \(type(of: self))")
+        navigationController?.navigationTransition = {
+            $0.interactor?.dataSource = self
+            return $0
+        }(NavigationMoveTransition())
     }
     
     // MARK: - Private
     
-    private lazy var secondViewController: NavigationMoveTransitionSecondViewController = {
-        .init(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
-    }()
-    
     @IBAction private func clicked() {
-        navigationController?.pushViewController(secondViewController, animated: true)
+        let vc = createSecondVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func close() {
@@ -487,47 +479,31 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
     }
 }
 
+extension NavigationMoveTransitionFirstViewController: InteractiveTransitionDataSource {
+    func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        createSecondVC()
+    }
+
+    private func createSecondVC() -> UIViewController {
+        NavigationMoveTransitionSecondViewController()
+    }
+}
+
 final class NavigationMoveTransitionSecondViewController: UITableViewController {
     
     // MARK: - Lifecycle
+
+    init() {
+        super.init(nibName: "NavigationMoveTransitionSecondView", bundle: nil)
+    }
     
-    override var prefersStatusBarHidden: Bool {
-        false
-    }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        .fade
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Second View"
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("viewWillAppear -> \(type(of: self))")
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController?.navigationTransition?.interactor?.delegate = self
-        print("viewDidAppear -> \(type(of: self))")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("viewWillDisappear -> \(type(of: self))")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("viewDidDisappear -> \(type(of: self))")
     }
     
     // MARK: - Overridden: UITableViewController
@@ -557,7 +533,6 @@ final class NavigationMoveTransitionSecondViewController: UITableViewController 
         cell.textLabel?.text = "\(indexPath.row + 1)"
     }
 }
-
 ```
 
 ### Customize AnimatedNavigationTransition
@@ -565,7 +540,6 @@ final class NavigationMoveTransitionSecondViewController: UITableViewController 
 import AnimatedTransitionKit
 
 class CustomNavigationTransition: UINavigationControllerTransition {
-
     override func newTransitioning() -> AnimatedNavigationTransitioning? {
         return CustomNavigationTransitioning()
     }
@@ -616,15 +590,41 @@ class CustomNavigationTransitioning: AnimatedNavigationTransitioning {
 
 ### Using CustomNavigationTransition
 
+#### Using simply
+
 ```swift
-guard let navigationController = navigationController else {return}
+navigationController.navigationTransition = CustomNavigationTransition()
 
-let transition = CustomNavigationTransition()
+let secondVC = SecondViewController()
+navigationController.pushViewController(secondVC, animated: true)
+```
 
-navigationController.navigationTransition = transition
-transition.interactor?.attach(navigationController, present: secondViewController)
+#### Use a gesture to push the second view controller
 
-navigationController.push(secondViewController, animated: true, completion: nil)
+```swift
+final class FirstViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.navigationTransition = {
+            $0.interactor?.dataSource = self
+            return $0
+        }(CustomNavigationTransition())
+    }
+    
+    @IBAction private func clicked() {
+        navigationController?.pushViewController(createSecondVC(), animated: true)
+    }
+}
+
+extension FirstViewController: InteractiveTransitionDataSource {
+    func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        createSecondVC()
+    }
+    
+    private func createSecondVC() -> UIViewController {
+        SecondViewController()
+    }
+}
 ```
 
 ## Installation
@@ -643,7 +643,7 @@ To integrate AnimatedTransitionKit into your Xcode project using CocoaPods, spec
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
+platform :ios, '13.0'
 
 target '<Your Target Name>' do
     pod 'AnimatedTransitionKit', '~> 4'
@@ -677,7 +677,7 @@ Run `carthage update` to build the framework and drag the built `AnimatedTransit
 
 ## Requirements
 
-iOS Deployment Target 9.0 higher
+iOS Deployment Target 13.0 higher
 
 ## Author
 

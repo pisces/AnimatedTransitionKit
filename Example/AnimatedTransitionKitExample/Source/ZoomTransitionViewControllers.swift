@@ -36,7 +36,7 @@ import AnimatedTransitionKit
 final class ZoomTransitionFirstViewController: UIViewController {
     
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,32 +44,38 @@ final class ZoomTransitionFirstViewController: UIViewController {
 
         // View binding with any transition id
         button.transitionItem.id = "zoomTarget"
-
-        secondViewController.transition = { [self] in
-            $0.isAllowsInteraction = true
-            $0.appearenceInteractor?.attach(self, present: secondViewController)
-            return $0
-        }(ZoomTransition())
+        
+        zoomTransition.prepareAppearance(from: self)
     }
 
     // MARK: - Private
-    
-    private lazy var secondViewController: UINavigationController = {
-        let rootViewController = UIStoryboard(name: "ZoomTransition", bundle: nil).instantiateViewController(withIdentifier: "SecondScene")
-        return UINavigationController(rootViewController: rootViewController)
-    }()
-    
+
+    private lazy var zoomTransition = ZoomTransition()
+
     @IBOutlet private weak var button: UIButton!
     
     @IBAction private func clicked() {
-        present(secondViewController, animated: true, completion: nil)
+        present(createSecondVC(), animated: true, completion: nil)
+    }
+}
+
+extension ZoomTransitionFirstViewController: InteractiveTransitionDataSource {
+    func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        createSecondVC()
+    }
+
+    private func createSecondVC() -> UIViewController {
+        let rootVC = UIStoryboard(name: "ZoomTransition", bundle: nil).instantiateViewController(withIdentifier: "SecondScene")
+        let navigationController = UINavigationController(rootViewController: rootVC)
+        navigationController.transition = zoomTransition
+        return navigationController
     }
 }
 
 final class ZoomTransitionSecondViewController: UIViewController {
     
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Second View"

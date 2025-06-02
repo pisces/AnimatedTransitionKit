@@ -37,59 +37,21 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    override var prefersStatusBarHidden: Bool {
-        false
-    }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .default
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        .fade
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "First View"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self, action: #selector(close))
         navigationController?.navigationTransition = {
+            $0.interactor?.dataSource = self
             return $0
         }(NavigationMoveTransition())
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("viewWillAppear -> \(type(of: self))")
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewDidAppear -> \(type(of: self))")
-        if let navigationController = navigationController {
-            navigationController.navigationTransition?.interactor?.attach(navigationController, present: secondViewController)
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("viewWillDisappear -> \(type(of: self))")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("viewDidDisappear -> \(type(of: self))")
-    }
-    
     // MARK: - Private
     
-    private lazy var secondViewController: NavigationMoveTransitionSecondViewController = {
-        .init(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
-    }()
-    
     @IBAction private func clicked() {
-        navigationController?.pushViewController(secondViewController, animated: true)
+        let vc = createSecondVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func close() {
@@ -97,46 +59,31 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
     }
 }
 
+extension NavigationMoveTransitionFirstViewController: InteractiveTransitionDataSource {
+    func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        createSecondVC()
+    }
+
+    private func createSecondVC() -> UIViewController {
+        NavigationMoveTransitionSecondViewController()
+    }
+}
+
 final class NavigationMoveTransitionSecondViewController: UITableViewController {
     
     // MARK: - Lifecycle
+
+    init() {
+        super.init(nibName: "NavigationMoveTransitionSecondView", bundle: nil)
+    }
     
-    override var prefersStatusBarHidden: Bool {
-        false
-    }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        .fade
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Second View"
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("viewWillAppear -> \(type(of: self))")
-        UIView.animate(withDuration: 0.4, delay: 0, options: UIView.AnimationOptions(rawValue: 0), animations: {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }, completion: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewDidAppear -> \(type(of: self))")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("viewWillDisappear -> \(type(of: self))")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("viewDidDisappear -> \(type(of: self))")
     }
     
     // MARK: - Overridden: UITableViewController

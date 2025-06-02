@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2021, Steve Kim
+//  Copyright (c) 2016 ~, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -24,13 +24,18 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  NavigationPanningInteractiveTransition.h
+//  NavigationMoveTransition.swift
 //  AnimatedTransitionKit
 //
-//  Created by Steve Kim on 8/16/17.
+//  Created by Steve Kim on 5/29/25.
 //
 
-#import "PanningInteractiveTransition.h"
+import Foundation
 
-@interface NavigationPanningInteractiveTransition : PanningInteractiveTransition
-@end
+public final class NavigationMoveTransition: AnimatedNavigationTransition {
+    override public func newTransitioning() -> AnimatedNavigationTransitioning? {
+        let transitioning = NavigationMoveTransitioning()
+        transitioning.isAllowsDeactivating = isAllowsDeactivating
+        return transitioning
+    }
+}
