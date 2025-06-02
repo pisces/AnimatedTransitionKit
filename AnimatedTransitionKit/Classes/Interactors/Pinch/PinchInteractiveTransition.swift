@@ -71,7 +71,17 @@ extension PinchInteractiveTransition {
 
 extension PinchInteractiveTransition {
     private var shouldBeginInteraction: Bool {
-        (pinchGestureRecognizer.scale > 1 ? presentViewController : viewController) != nil
+        let currentViewController = { isAppearing in
+            if isAppearing {
+                if viewControllerForAppearing == nil {
+                    viewControllerForAppearing = dataSource?.viewController(forAppearing: self)
+                }
+                return viewControllerForAppearing
+            } else {
+                return viewController
+            }
+        }(pinchGestureRecognizer.scale > 1)
+        return currentViewController != nil
     }
     
     private func pinchBegan() {
@@ -88,8 +98,8 @@ extension PinchInteractiveTransition {
     
     private func beginInteractiveTransition() -> Bool {
         if pinchGestureRecognizer.scale > 1 {
-            guard let presentViewController = presentViewController else { return false }
-            viewController?.present(presentViewController, animated: true)
+            guard let viewControllerForAppearing else { return false }
+            viewController?.present(viewControllerForAppearing, animated: true)
             return true
         }
         guard let viewController = viewController else { return false }

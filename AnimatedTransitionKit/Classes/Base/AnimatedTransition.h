@@ -47,8 +47,10 @@
 @property (nullable, nonatomic, weak) UIViewController *viewController;
 @property (nullable, nonatomic, strong) AbstractInteractiveTransition *appearenceInteractor;
 @property (nullable, nonatomic, strong) AbstractInteractiveTransition *disappearenceInteractor;
+- (void)prepareAppearanceFromViewController:(__weak UIViewController * _Nonnull)viewController;
 @end
 
 @interface UIViewController (AnimatedTransitionKit)
-@property (nullable, nonatomic, weak) AnimatedTransition *transition;
+@property (nullable, nonatomic) AnimatedTransition *transition;
+- (void)setTransitionAsWeakReference;
 @end

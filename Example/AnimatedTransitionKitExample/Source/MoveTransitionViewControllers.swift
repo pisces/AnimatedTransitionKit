@@ -36,11 +36,11 @@ import AnimatedTransitionKit
 final class MoveTransitionFirstViewController: UIViewController {
     
     // MARK: - Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "First View"
-        secondViewController.transition?.appearenceInteractor?.attach(self, present: secondViewController)
+        moveTransition.prepareAppearance(from: self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,23 +62,29 @@ final class MoveTransitionFirstViewController: UIViewController {
         super.viewDidDisappear(animated)
         print("first -> viewDidDisappear")
     }
-    
+
     // MARK: - Private
-    
-    private lazy var secondViewController: UINavigationController = {
-        let viewController = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
-        let navigationController = UINavigationController(rootViewController: viewController)
 
-        navigationController.transition = {
-            $0.disappearenceInteractor?.delegate = viewController
-            return $0
-        }(MoveTransition())
+    private lazy var moveTransition = {
+        $0.appearenceInteractor?.dataSource = self
+        return $0
+    }(MoveTransition())
 
-        return navigationController
-    }()
-    
     @IBAction private func clicked() {
-        present(secondViewController, animated: true, completion: nil)
+        present(createSecondVC(), animated: true, completion: nil)
+    }
+}
+
+extension MoveTransitionFirstViewController: InteractiveTransitionDataSource {
+    func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        createSecondVC()
+    }
+
+    private func createSecondVC() -> UIViewController {
+        let rootVC = MoveTransitionSecondViewController(nibName: "MoveTransitionSecondView", bundle: .main)
+        let navigationController = UINavigationController(rootViewController: rootVC)
+        navigationController.transition = moveTransition
+        return navigationController
     }
 }
 

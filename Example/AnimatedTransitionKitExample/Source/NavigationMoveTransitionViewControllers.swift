@@ -36,7 +36,7 @@ import AnimatedTransitionKit
 final class NavigationMoveTransitionFirstViewController: UIViewController {
     
     // MARK: - Lifecycle
-    
+
     override var prefersStatusBarHidden: Bool {
         false
     }
@@ -52,6 +52,7 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
         title = "First View"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "close", style: .plain, target: self, action: #selector(close))
         navigationController?.navigationTransition = {
+            $0.interactor?.dataSource = self
             return $0
         }(NavigationMoveTransition())
     }
@@ -68,7 +69,7 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
         super.viewDidAppear(animated)
         print("viewDidAppear -> \(type(of: self))")
         if let navigationController = navigationController {
-            navigationController.navigationTransition?.interactor?.attach(navigationController, present: secondViewController)
+            navigationController.navigationTransition?.interactor?.attach(navigationController)
         }
     }
     
@@ -84,12 +85,9 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
     
     // MARK: - Private
     
-    private lazy var secondViewController: NavigationMoveTransitionSecondViewController = {
-        .init(nibName: "NavigationMoveTransitionSecondView", bundle: .main)
-    }()
-    
     @IBAction private func clicked() {
-        navigationController?.pushViewController(secondViewController, animated: true)
+        let vc = NavigationMoveTransitionSecondViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func close() {
@@ -97,9 +95,23 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
     }
 }
 
+extension NavigationMoveTransitionFirstViewController: InteractiveTransitionDataSource {
+    func viewController(forAppearing interactor: AbstractInteractiveTransition) -> UIViewController? {
+        NavigationMoveTransitionSecondViewController()
+    }
+}
+
 final class NavigationMoveTransitionSecondViewController: UITableViewController {
     
     // MARK: - Lifecycle
+
+    init() {
+        super.init(nibName: "NavigationMoveTransitionSecondView", bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override var prefersStatusBarHidden: Bool {
         false

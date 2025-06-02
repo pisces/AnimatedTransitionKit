@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2021, Steve Kim
+//  Copyright (c) 2016 ~, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -24,31 +24,35 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  AnimatedNavigationTransition.h
+//  WeakWrapper.m
 //  AnimatedTransitionKit
 //
-//  Created by Steve Kim on 8/13/17.
+//  Created by Steve Kim on 5/30/25.
 //
 
-#import <UIKit/UIKit.h>
-#import "AnimatedNavigationTransitioning.h"
-#import "AbstractTransition.h"
-#import "TransitioningAnimationOptions.h"
+#import "WeakWrapper.h"
+#import <objc/runtime.h>
 
-@protocol AnimatedNavigationTransitionProtected <NSObject>
-- (AnimatedNavigationTransitioning * _Nullable)newTransitioning;
-- (BOOL)shouldUseTransitioningForOperation:(UINavigationControllerOperation)operation
-                           fromVC:(UIViewController * _Nullable)fromVC
-                             toVC:(UIViewController * _Nullable)toVC;
+@implementation WeakWrapper
+- (instancetype)initWithValue:(_Nullable id)value {
+    self = [super init];
+    if (self) {
+        _value = value;
+    }
+    return self;
+}
 @end
 
-@interface AnimatedNavigationTransition : AbstractTransition <UINavigationControllerDelegate, AnimatedNavigationTransitionProtected>
-@property (nonatomic) BOOL isEnabled;
-@property (nonatomic, readonly) BOOL isPush;
-@property (nullable, nonatomic, weak) UINavigationController *navigationController;
-@property (nullable, nonatomic, strong) AbstractInteractiveTransition *interactor;
-@end
+void setWeakAssociatedObject(id host, const void *key, _Nullable id value) {
+    WeakWrapper *wrapper = [[WeakWrapper alloc] initWithValue:value];
+    objc_setAssociatedObject(host, key, wrapper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
-@interface UINavigationController (AnimatedTransitionKit)
-@property (nullable, nonatomic, weak) AnimatedNavigationTransition *navigationTransition;
-@end
+id getAssociatedObject(id host, const void *key) {
+    id value = objc_getAssociatedObject(host, key);
+    if ([value isKindOfClass:[WeakWrapper class]]) {
+        WeakWrapper *wrapper = (WeakWrapper *) value;
+        return wrapper.value;
+    }
+    return value;
+}

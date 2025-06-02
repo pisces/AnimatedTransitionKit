@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2021, Steve Kim
+//  Copyright (c) 2016 ~, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -24,23 +24,41 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  NavigationMoveTransition.m
+//  NavigationPanningInteractiveTransition.swift
 //  AnimatedTransitionKit
 //
-//  Created by Steve Kim on 8/13/17.
+//  Created by Steve Kim on 5/29/25.
 //
 
-#import "NavigationMoveTransition.h"
-#import "NavigationMoveTransitioning.h"
+import Foundation
 
-@implementation NavigationMoveTransition
+public final class NavigationPanningInteractiveTransition: PanningInteractiveTransition {
+    override public var isInteractionEnabled: Bool {
+        guard let transition,
+              let navigationController else { return false }
+        return if transition.isAppearing(self) {
+            viewControllerForAppearing.map { !navigationController.viewControllers.contains($0) } ?? false
+        } else {
+            navigationController.viewControllers.count > 1
+        }
+    }
 
-#pragma mark - Overridden: UINavigationControllerTransition
+    override public func beginInteractiveTransition() -> Bool {
+        guard let transition,
+              let navigationController else { return false }
+        if transition.isAppearing(self) {
+            guard let viewControllerForAppearing else { return false }
+            let shouldPush = !navigationController.viewControllers.contains(viewControllerForAppearing)
+            if shouldPush {
+                navigationController.pushViewController(viewControllerForAppearing, animated: true)
+            }
+        } else {
+            navigationController.popViewController(animated: true)
+        }
+        return true
+    }
 
-- (AnimatedNavigationTransitioning *)newTransitioning {
-    NavigationMoveTransitioning *transitioning = [NavigationMoveTransitioning new];
-    transitioning.allowsDeactivating = self.allowsDeactivating;
-    return transitioning;
+    private var navigationController: UINavigationController? {
+        viewController as? UINavigationController
+    }
 }
-
-@end

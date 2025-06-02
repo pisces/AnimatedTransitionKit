@@ -74,9 +74,12 @@ const Percent PercentZero;
         return NO;
     }
     if ([self.transition isAppearing:self]) {
-        return self.presentViewController != nil;
+        if (!self.viewControllerForAppearing) {
+            self.viewControllerForAppearing = [self.dataSource viewControllerForAppearing:self];
+        }
+        return self.viewControllerForAppearing != nil;
     }
-    return self.viewController != nil;
+    return YES;
 }
 
 - (BOOL)shouldInteractiveTransition {
@@ -140,10 +143,10 @@ const Percent PercentZero;
 
 - (BOOL)beginInteractiveTransition {
     if ([self.transition isAppearing:self]) {
-        if (!self.presentViewController) {
+        if (!self.viewControllerForAppearing) {
             return NO;
         }
-        [self.viewController presentViewController:self.presentViewController animated:YES completion:nil];
+        [self.viewController presentViewController:self.viewControllerForAppearing animated:YES completion:nil];
     } else {
         if (!self.viewController) {
             return NO;
