@@ -45,7 +45,18 @@ import AnimatedTransitionKit
 
 ## 🔥Using AnimatedTransition
 
-### Using ZoomTransition
+### Using ZoomTransition Simply
+#### Using single transition for dismission with pan gesture
+```swift
+import AnimatedTransitionKit
+
+let secondVC = SecondViewController()
+secondVC.transition = ZoomTransition()
+present(secondVC, animated: true, completion: nil)
+```
+
+### Using ZoomTransition Deeply
+#### Using pair transitions for presenting and dismission both with pinch gesture
 
 ```swift
 import AnimatedTransitionKit
@@ -120,15 +131,9 @@ final class ZoomTransitionSecondViewController: UIViewController {
 ```swift
 import AnimatedTransitionKit
 
-final class ViewController: UIViewController {
-
-    // MARK: - Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.transition = MoveTransition()
-    }
-}
+let secondVC = SecondViewController()
+secondVC.transition = MoveTransition()
+present(secondVC, animated: true, completion: nil)
 ```
 
 ### Using MoveTransition Deeply
