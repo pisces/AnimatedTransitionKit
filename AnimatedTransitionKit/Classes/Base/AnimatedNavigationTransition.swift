@@ -217,7 +217,8 @@ extension AnimatedNavigationTransition {
     private func isValidForAppearing(_ interactor: AbstractInteractiveTransition) -> Bool {
         guard let navigationController else { return false }
         let hasInteractorDataSource = hasInteractorDataSource(navigationController.visibleViewController)
-        let isPushed = interactor.viewControllerForAppearing.map { navigationController.viewControllers.contains($0)
+        let isPushed = interactor.viewControllerForAppearing.map {
+            navigationController.viewControllers.contains($0)
         } ?? false
         return hasInteractorDataSource && !isPushed
     }
