@@ -32,10 +32,56 @@
 
 import Foundation
 
-public final class NavigationMoveTransition: AnimatedNavigationTransition {
-    override public func newTransitioning() -> AnimatedNavigationTransitioning? {
+open class NavigationMoveTransition: AnimatedNavigationTransition {
+    override open func newTransitioning() -> AnimatedNavigationTransitioning? {
         let transitioning = NavigationMoveTransitioning()
         transitioning.isAllowsDeactivating = isAllowsDeactivating
         return transitioning
+    }
+
+    override public func isAppearing(_ interactor: AbstractInteractiveTransition) -> Bool {
+        let startPanningDirection = (interactor as? PanningInteractiveTransition)?.startPanningDirection
+        return switch (interactor.direction, startPanningDirection) {
+        case (.vertical, .up),
+             (.horizontal, .left),
+             (.all, .up),
+             (.all, .left):
+            true
+        default:
+            false
+        }
+    }
+
+    override public func isDisappearing(_ interactor: AbstractInteractiveTransition!) -> Bool {
+        let startPanningDirection = (interactor as? PanningInteractiveTransition)?.startPanningDirection
+        return switch (interactor.direction, startPanningDirection) {
+        case (.vertical, .down),
+             (.horizontal, .right),
+             (.all, .down),
+             (.all, .right):
+            true
+        default:
+            false
+        }
+    }
+
+    override public func shouldCompleteInteractor(_ interactor: AbstractInteractiveTransition) -> Bool {
+        let panningDirection = (interactor as? PanningInteractiveTransition)?.panningDirection
+        return switch interactor.direction {
+        case .vertical:
+            isPush
+                ? panningDirection == .up
+                : panningDirection == .down
+        case .horizontal:
+            isPush
+                ? panningDirection == .left
+                : panningDirection == .right
+        case .all:
+            isPush
+                ? (panningDirection == .up || panningDirection == .left)
+                : (panningDirection == .down || panningDirection == .right)
+        default:
+            false
+        }
     }
 }
