@@ -80,6 +80,23 @@
     return direction == PanningDirectionRight;
 }
 
+- (BOOL)isDisappearing:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
+    if (_direction == MoveTransitioningDirectionUp) {
+        return direction == PanningDirectionDown;
+    }
+    if (_direction == MoveTransitioningDirectionDown) {
+        return direction == PanningDirectionUp;
+    }
+    if (_direction == MoveTransitioningDirectionLeft) {
+        return direction == PanningDirectionRight;
+    }
+    return direction == PanningDirectionLeft;
+}
+
 - (BOOL)shouldCompleteInteractor:(AbstractInteractiveTransition *)interactor {
     if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
         return NO;

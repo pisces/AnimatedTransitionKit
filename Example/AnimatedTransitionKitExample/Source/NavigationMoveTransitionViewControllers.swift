@@ -112,4 +112,9 @@ final class NavigationMoveTransitionSecondViewController: UITableViewController 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.textLabel?.text = "\(indexPath.row + 1)"
     }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = NavigationMoveTransitionSecondViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

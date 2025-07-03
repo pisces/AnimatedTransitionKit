@@ -73,6 +73,10 @@
     _disappearenceInteractor.transition = self;
 }
 
+- (BOOL)isValid:(AbstractInteractiveTransition *)interactor {
+    return [self isAppearing:interactor] || [self isDisappearing:interactor];
+}
+
 - (BOOL)isAppearing:(AbstractInteractiveTransition *)interactor {
     if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
         return NO;
@@ -81,8 +85,12 @@
     return interactor.isVertical ? direction == PanningDirectionUp : direction == PanningDirectionLeft;
 }
 
-- (BOOL)isValid:(AbstractInteractiveTransition *)interactor {
-    return interactor.isAppearing ? [self isAppearing:interactor] : YES;
+- (BOOL)isDisappearing:(AbstractInteractiveTransition *)interactor {
+    if (![interactor isKindOfClass:[PanningInteractiveTransition class]]) {
+        return NO;
+    }
+    PanningDirection direction = ((PanningInteractiveTransition *) interactor).startPanningDirection;
+    return interactor.isVertical ? direction == PanningDirectionDown : direction == PanningDirectionRight;
 }
 
 - (BOOL)shouldCompleteInteractor:(AbstractInteractiveTransition *)interactor {
@@ -96,6 +104,14 @@
     return isVertical ?
         (interactor.isAppearing ? direction == PanningDirectionUp : direction == PanningDirectionDown) :
         (interactor.isAppearing ? direction == PanningDirectionLeft : direction == PanningDirectionRight);
+}
+
+- (BOOL)isPresenting {
+    if (![_transitioning isKindOfClass:[AnimatedTransitioning class]]) {
+        return ((AnimatedTransitioning *) _transitioning).presenting;
+    }
+    AnimatedTransitioning *animatedTransitioning = (AnimatedTransitioning *) _transitioning;
+    return animatedTransitioning.presenting;
 }
 
 - (void)setAllowsInteraction:(BOOL)allowsInteraction {

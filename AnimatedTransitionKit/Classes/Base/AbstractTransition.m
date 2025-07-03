@@ -62,11 +62,15 @@
     _interacting = NO;
 }
 
+- (BOOL)isValid:(AbstractInteractiveTransition * _Nonnull)interactor {
+    return NO;
+}
+
 - (BOOL)isAppearing:(AbstractInteractiveTransition *)interactor {
     return NO;
 }
 
-- (BOOL)isValid:(AbstractInteractiveTransition * _Nonnull)interactor {
+- (BOOL)isDisappearing:(AbstractInteractiveTransition *)interactor {
     return NO;
 }
 

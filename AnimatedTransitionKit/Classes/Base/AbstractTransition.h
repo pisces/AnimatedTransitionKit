@@ -51,6 +51,7 @@
 - (void)clear;
 - (void)endInteration;
 - (BOOL)isAppearing:(AbstractInteractiveTransition * _Nonnull)interactor;
+- (BOOL)isDisappearing:(AbstractInteractiveTransition *)interactor;
 - (BOOL)isValid:(AbstractInteractiveTransition * _Nonnull)interactor;
 - (BOOL)shouldCompleteInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
 @end
