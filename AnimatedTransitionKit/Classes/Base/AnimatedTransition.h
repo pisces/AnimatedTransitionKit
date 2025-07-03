@@ -44,6 +44,7 @@
 @end
 
 @interface AnimatedTransition : AbstractTransition <UIViewControllerTransitioningDelegate, AnimatedTransitionProtected>
+@property (nonatomic, readonly) BOOL isPresenting;
 @property (nullable, nonatomic, weak) UIViewController *viewController;
 @property (nullable, nonatomic, strong) AbstractInteractiveTransition *appearenceInteractor;
 @property (nullable, nonatomic, strong) AbstractInteractiveTransition *disappearenceInteractor;
