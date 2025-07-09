@@ -32,6 +32,11 @@
 
 #import "AbstractAnimatedTransitioning.h"
 #import "AbstractInteractiveTransition.h"
+#import "PanningInteractiveTransition.h"
+
+@interface AbstractAnimatedTransitioning ()
+@property (nullable, nonatomic, weak) AbstractInteractiveTransition* interactor;
+@end
 
 @implementation AbstractAnimatedTransitioning
 
@@ -41,7 +46,9 @@
     return _options.duration;
 }
 
-- (void)animationEnded:(BOOL)transitionCompleted { }
+- (void)animationEnded:(BOOL)transitionCompleted {
+    [self endAnimating];
+}
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     _context = transitionContext;
@@ -101,12 +108,16 @@
 - (void)clear { }
 
 - (void)endAnimating {
+    if (_interactor) {
+        [_interactor clear];
+    }
     _animating = NO;
     _percentOfInteraction = 0;
     _percentOfCompletion = 0;
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
+    _interactor = interactor;
     _context = transitionContext;
 }
 

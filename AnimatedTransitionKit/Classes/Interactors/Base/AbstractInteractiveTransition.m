@@ -63,6 +63,11 @@
     return self;
 }
 
+- (void)dealloc {
+    [self detach];
+    [self clear];
+}
+
 #pragma mark - Overridden: UIPercentDrivenInteractiveTransition
 
 - (void)cancelInteractiveTransition {
@@ -169,15 +174,15 @@
     _viewController = nil;
 }
 
-#pragma mark - Private methods
-
-- (void)completeInteraction {
-    [self.transition.transitioning endAnimating];
-
+- (void)clear {
     if (!_viewControllerForAppearing.parentViewController) {
         _viewControllerForAppearing = nil;
     }
+}
 
+#pragma mark - Private methods
+
+- (void)completeInteraction {
     if (self.shouldComplete) {
         if ([_delegate respondsToSelector:@selector(didCompleteWithInteractor:)]) {
             [_delegate didCompleteWithInteractor:self];

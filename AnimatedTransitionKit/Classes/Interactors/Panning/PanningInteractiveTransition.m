@@ -96,10 +96,6 @@ const Percent PercentZero;
 
 #pragma mark - Con(De)structors
 
-- (void)dealloc {
-    [self detach];
-}
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -118,6 +114,11 @@ const Percent PercentZero;
     if (self.drivingScrollView) {
         [self.drivingScrollView.panGestureRecognizer removeTarget:self action:@selector(panned:)];
     }
+}
+
+- (void)clear {
+    [super clear];
+    _startPanningDirection = PanningDirectionNone;
 }
 
 - (CGFloat)translationOffset {
