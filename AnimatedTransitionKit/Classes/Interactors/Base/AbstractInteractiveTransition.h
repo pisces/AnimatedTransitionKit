@@ -66,6 +66,7 @@ typedef NS_ENUM(NSUInteger, InteractiveTransitionDirection) {
 @property (nullable, weak) AbstractTransition *transition;
 - (void)attach:(__weak UIViewController * _Nonnull)viewController;
 - (void)detach;
+- (void)clear;
 @end
 
 @protocol InteractiveTransitionDelegate <NSObject>
