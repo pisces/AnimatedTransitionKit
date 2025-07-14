@@ -102,6 +102,8 @@ const CGFloat unfocusedCompletionBounds = 50;
         self.aboveViewController.view.layer.transform = self.focusedTransformFrom;
         self.belowViewController.view.layer.transform = self.unfocusedTransformFrom;
     } completion:^{
+        self.aboveViewController.view.layer.transform = CATransform3DIdentity;
+        self.belowViewController.view.layer.transform = CATransform3DIdentity;
         self.belowViewController.view.hidden = !self.isPush;
         [self.context completeTransition:!self.context.transitionWasCancelled];
         completion();
@@ -121,6 +123,8 @@ const CGFloat unfocusedCompletionBounds = 50;
         self.aboveViewController.view.layer.transform = self.focusedTransformTo;
         self.belowViewController.view.layer.transform = self.unfocusedTransformTo;
     } completion:^{
+        self.aboveViewController.view.layer.transform = CATransform3DIdentity;
+        self.belowViewController.view.layer.transform = CATransform3DIdentity;
         self.belowViewController.view.hidden = self.isPush;
         [self.context completeTransition:!self.context.transitionWasCancelled];
         [self toggleIsPush];
