@@ -63,6 +63,15 @@ open class AnimatedNavigationTransition: AbstractTransition {
         return nil
     }
 
+    override open func interactionCancelled(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
+        super.interactionCancelled(interactor) { [weak self] in
+            if let self, let latestOperationInfo, latestOperationInfo.operation == .push {
+                pushedViewControllerWrappers.removeAll { $0.value === latestOperationInfo.toVC }
+            }
+            completion?()
+        }
+    }
+
     open func shouldUseTransitioning(
         for operation: UINavigationController.Operation,
         from fromVC: UIViewController,
@@ -111,8 +120,8 @@ open class AnimatedNavigationTransition: AbstractTransition {
 
     weak var navigationTransition: AnimatedNavigationTransition?
 
-    var lastPushedVC: UIViewController? {
-        pushedViewControllers.last
+    var lastPushedViewController: UIViewController? {
+        pushedViewControllerWrappers.last?.value as? UIViewController
     }
 
     // MARK: Fileprivate
@@ -125,7 +134,7 @@ open class AnimatedNavigationTransition: AbstractTransition {
 
     private weak var _navigationController: UINavigationController?
 
-    private var pushedViewControllers: [UIViewController] = []
+    private var pushedViewControllerWrappers: [WeakWrapper] = []
     private var cancellableSet: Set<AnyCancellable> = []
     private var latestOperationInfo: NavigationOperationInfo?
 
@@ -163,11 +172,12 @@ extension AnimatedNavigationTransition {
     private func bind() {
         let didShowViewController = Self.didShowViewControllerSubject
             .removeDuplicates()
-            .filter { [weak self] _ in self?.lastPushedVC != nil }
+            .filter { [weak self] _ in self?.lastPushedViewController != nil }
 
-        let shouldAttachToInteractor: (UIViewController) -> Bool = { [weak self] in
+        let shouldAttachToInteractor: (UIViewController) -> Bool = { [weak self] vc in
             guard let self else { return false }
-            return pushedViewControllers.contains($0) || hasInteractorDataSource($0)
+            let isContains = pushedViewControllerWrappers.contains { $0.value === vc }
+            return isContains || hasInteractorDataSource(vc)
         }
 
         didShowViewController
@@ -188,13 +198,13 @@ extension AnimatedNavigationTransition {
             .filter(shouldAttachToInteractor)
             .sink { [weak self] _ in
                 guard let self,
-                      let lastPushedVC,
-                      let navigationController = lastPushedVC.navigationController else { return }
+                      let lastPushedViewController,
+                      let navigationController = lastPushedViewController.navigationController else { return }
 
-                if let cached = lastPushedVC.cachedNavigationTransition {
+                if let cached = lastPushedViewController.cachedNavigationTransition {
                     navigationController.navigationTransition = cached
                 } else {
-                    lastPushedVC.cachedNavigationTransition = self
+                    lastPushedViewController.cachedNavigationTransition = self
                 }
                 interactor?.attach(navigationController)
             }
@@ -237,7 +247,7 @@ extension AnimatedNavigationTransition {
     private func isValidForDisappearing(_ interactor: AbstractInteractiveTransition) -> Bool {
         guard let navigationController else { return false }
         return navigationController.visibleViewController === interactor.viewControllerForAppearing ||
-            navigationController.visibleViewController === lastPushedVC
+            navigationController.visibleViewController === lastPushedViewController
     }
 }
 
@@ -257,7 +267,8 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
             }
             let isPush = operation == .push
             if isPush {
-                pushedViewControllers.append(toVC)
+                let wrapper = WeakWrapper(value: toVC)
+                pushedViewControllerWrappers.append(wrapper)
             }
             navigationTransitioning?.isPush = isPush
             return transitioning
@@ -296,7 +307,7 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
         Self.didShowViewControllerSubject.send(viewController)
 
         if let latestOperationInfo, latestOperationInfo.operation == .pop, latestOperationInfo.toVC === viewController {
-            pushedViewControllers.removeAll { $0 === latestOperationInfo.fromVC }
+            pushedViewControllerWrappers.removeAll { $0.value === latestOperationInfo.fromVC }
         }
     }
 

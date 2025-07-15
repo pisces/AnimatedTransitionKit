@@ -81,9 +81,9 @@
 #pragma mark - Protected Methods
 
 - (void)initProperties {
-    _allowsDeactivating = YES;
+    _allowsDeactivating = NO;
     _allowsInteraction = YES;
-    _isAllowsAppearanceTransition = YES;
+    _allowsAppearanceTransition = YES;
     _appearenceOptions = [[TransitioningAnimationOptions new] initWithDuration:UINavigationControllerHideShowBarDuration
                                                                          delay:0
                                                               animationOptions:7 << 16
@@ -96,6 +96,27 @@
                                                                     isUsingSpring:NO
                                                            usingSpringWithDamping:0.6
                                                             initialSpringVelocity:1.0];
+}
+
+- (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor
+       transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
+    [self.transitioning startAnimating];
+    [self.transitioning interactionBegan:interactor transitionContext:transitionContext];
+}
+
+- (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor
+                  completion:(void (^_Nullable)(void))completion {
+    [self.transitioning interactionCancelled:interactor completion:completion];
+}
+
+- (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor
+                   percent:(CGFloat)percent {
+    [self.transitioning interactionChanged:interactor percent:percent];
+}
+
+- (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor
+                  completion:(void (^_Nullable)(void))completion {
+    [self.transitioning interactionCompleted:interactor completion:completion];
 }
 
 @end

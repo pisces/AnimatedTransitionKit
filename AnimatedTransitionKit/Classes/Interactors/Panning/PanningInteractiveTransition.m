@@ -108,6 +108,20 @@ const Percent PercentZero;
 
 #pragma mark - Overridden: AbstractInteractiveTransition
 
+- (CGFloat)percentForCompletion {
+    switch (self.direction) {
+        case InteractiveTransitionDirectionVertical:
+            return 0.25;
+        case InteractiveTransitionDirectionHorizontal:
+            return 0.5;
+        case InteractiveTransitionDirectionAll:
+            const BOOL isVertical = PanningDirectionIsVertical(self.startPanningDirection);
+            return isVertical ? 0.25 : 0.5;
+        default:
+            return 0.5;
+    }
+}
+
 - (void)detach {
     [super detach];
     
@@ -128,7 +142,8 @@ const Percent PercentZero;
 }
 
 - (CGPoint)translation {
-    return [_selectedPanGestureRecognizer translationInView:self.currentViewController.view.superview];
+    const CGPoint point = [_selectedPanGestureRecognizer translationInView:self.currentViewController.view.superview];
+    return CGPointMake(point.x * 1.2, point.y * 1.2);
 }
 
 - (CGPoint)velocity {
@@ -140,7 +155,7 @@ const Percent PercentZero;
     [drivingScrollView.panGestureRecognizer addTarget:self action:@selector(panned:)];
 }
 
-#pragma mark - Protected Methods
+#pragma mark - Protected
 
 - (BOOL)beginInteractiveTransition {
     if ([self.transition isAppearing:self]) {
@@ -157,7 +172,7 @@ const Percent PercentZero;
     return YES;
 }
 
-#pragma mark - Private Methods
+#pragma mark - Private
 
 - (void)beginInterationIfAvailable {
     if (!self.shouldBeginInteraction ||
@@ -182,8 +197,6 @@ const Percent PercentZero;
     [self.transition.transitioning updateTranslationOffset:self];
 }
 
-#pragma mark - Private Selectors
-
 - (void)panned:(UIPanGestureRecognizer *)panGestureRecognizer {
     _selectedPanGestureRecognizer = panGestureRecognizer;
     
@@ -206,7 +219,6 @@ const Percent PercentZero;
 
             Percent percent = [self percentWhenPanningChanged];
             _shouldComplete = percent.processedValue > self.percentForCompletion && [self.transition shouldCompleteInteractor:self];
-
             [self updateInteractiveTransition:percent.rawValue];
             break;
         }

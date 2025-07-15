@@ -1,6 +1,6 @@
 //  BSD 2-Clause License
 //
-//  Copyright (c) 2016 ~ 2021, Steve Kim
+//  Copyright (c) 2016 ~, Steve Kim
 //  All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -24,14 +24,31 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  NavigationMoveTransitioning.h
+//  MoveTransitioningDirection.swift
 //  AnimatedTransitionKit
 //
-//  Created by pisces on 13/08/2017.
+//  Created by Steve Kim on 7/15/25.
 //
 
-#import "AnimatedNavigationTransitioning.h"
+import Foundation
 
-@interface NavigationMoveTransitioning : AnimatedNavigationTransitioning
+public enum MoveTransitioningDirection {
+    case left
+    case up
+    case right
+    case down
 
-@end
+    public var isHorizontal: Bool {
+        switch self {
+        case .left, .right: true
+        case .up, .down: false
+        }
+    }
+
+    public func toInteractorDirection() -> InteractiveTransitionDirection {
+        switch self {
+        case .up, .down: .vertical
+        case .left, .right: .horizontal
+        }
+    }
+}
