@@ -51,6 +51,9 @@ public final class MoveTransitioningProxy {
 
     public var isAppearing = false
     public var direction: MoveTransitioningDirection
+    private var isVertical: Bool {
+        !direction.isHorizontal
+    }
 
     public func animateTransition(
         fromVC: UIViewController?,
@@ -195,7 +198,6 @@ extension MoveTransitioningProxy {
         transitionContext.containerView.addSubview(toVC.view)
         fromVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext)
 
-        let isVertical = !direction.isHorizontal
         let x = isVertical ? 0 : transitionContext.containerView.bounds.width
         let y = isVertical ? transitionContext.containerView.bounds.height : 0
         toVC.view.transform = .init(translationX: x, y: y)
@@ -237,7 +239,6 @@ extension MoveTransitioningProxy {
         belowVC: UIViewController,
         transitionContext: UIViewControllerContextTransitioning)
     {
-        let isVertical = !direction.isHorizontal
         let x = isVertical ? 0 : transitionContext.containerView.bounds.width + interactor.translation.x
         let y = isVertical ? transitionContext.containerView.bounds.height + interactor.translation.y : 0
         let restrictedX = min(transitionContext.containerView.bounds.width, max(0, x))
@@ -254,8 +255,11 @@ extension MoveTransitioningProxy {
     {
         animationBlock(
             0.15,
-            {
-                aboveVC.view.transform = .init(translationX: transitionContext.containerView.bounds.width, y: 0)
+            { [weak self] in
+                guard let self else { return }
+                let x = isVertical ? 0 : transitionContext.containerView.bounds.width
+                let y = isVertical ? transitionContext.containerView.bounds.height : 0
+                aboveVC.view.transform = .init(translationX: x, y: y)
                 belowVC.view.transform = .identity
             },
             {
@@ -311,7 +315,6 @@ extension MoveTransitioningProxy {
             duration,
             { [weak self] in
                 guard let self else { return }
-                let isVertical = !direction.isHorizontal
                 let x = isVertical ? 0 : transitionContext.containerView.bounds.width
                 let y = isVertical ? transitionContext.containerView.bounds.height : 0
                 fromVC.view.transform = .init(translationX: x, y: y)
@@ -341,7 +344,6 @@ extension MoveTransitioningProxy {
         belowVC: UIViewController,
         transitionContext: UIViewControllerContextTransitioning)
     {
-        let isVertical = !direction.isHorizontal
         let x = isVertical ? 0 : interactor.translation.x
         let y = isVertical ? interactor.translation.y : 0
         let restrictedX = min(transitionContext.containerView.bounds.width, max(0, x))
@@ -360,12 +362,11 @@ extension MoveTransitioningProxy {
             0.15,
             { [weak self] in
                 guard let self else { return }
-                aboveVC.view.transform = .init(translationX: 0, y: 0)
-                belowVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext,)
+                aboveVC.view.transform = .identity
+                belowVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext)
             },
             {
                 transitionContext.completeTransition(false)
-                aboveVC.view.transform = .identity
                 belowVC.view.transform = .identity
                 completion?()
             })

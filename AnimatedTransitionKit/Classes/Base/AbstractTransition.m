@@ -100,23 +100,23 @@
 
 - (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor
        transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
-    [_transitioning startAnimating];
-    [_transitioning interactionBegan:interactor transitionContext:transitionContext];
+    [self.transitioning startAnimating];
+    [self.transitioning interactionBegan:interactor transitionContext:transitionContext];
 }
 
 - (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor
                   completion:(void (^_Nullable)(void))completion {
-    [_transitioning interactionCancelled:interactor completion:completion];
+    [self.transitioning interactionCancelled:interactor completion:completion];
 }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor
                    percent:(CGFloat)percent {
-    [_transitioning interactionChanged:interactor percent:percent];
+    [self.transitioning interactionChanged:interactor percent:percent];
 }
 
 - (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor
                   completion:(void (^_Nullable)(void))completion {
-    [_transitioning interactionCompleted:interactor completion:completion];
+    [self.transitioning interactionCompleted:interactor completion:completion];
 }
 
 @end

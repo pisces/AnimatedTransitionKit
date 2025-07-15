@@ -34,9 +34,9 @@ import Foundation
 
 open class NavigationMoveTransition: AnimatedNavigationTransition {
 
-    public init(direction: MoveTransitioningDirection = .left) {
-        super.init()
-        self.direction = direction
+    override open func initProperties() {
+        super.initProperties()
+        direction = .left
     }
 
     public var direction: MoveTransitioningDirection = .left {

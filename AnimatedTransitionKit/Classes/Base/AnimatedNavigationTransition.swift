@@ -67,7 +67,6 @@ open class AnimatedNavigationTransition: AbstractTransition {
         super.interactionCancelled(interactor) { [weak self] in
             if let self, let latestOperationInfo, latestOperationInfo.operation == .push {
                 pushedViewControllerWrappers.removeAll { $0.value === latestOperationInfo.toVC }
-                self.latestOperationInfo = nil
             }
             completion?()
         }
@@ -309,7 +308,6 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
 
         if let latestOperationInfo, latestOperationInfo.operation == .pop, latestOperationInfo.toVC === viewController {
             pushedViewControllerWrappers.removeAll { $0.value === latestOperationInfo.fromVC }
-            self.latestOperationInfo = nil
         }
     }
 
