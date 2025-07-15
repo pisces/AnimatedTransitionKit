@@ -24,15 +24,15 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  NavigationMoveTransition.swift
+//  MoveTransition.swift
 //  AnimatedTransitionKit
 //
-//  Created by Steve Kim on 5/29/25.
+//  Created by Steve Kim on 7/15/25.
 //
 
 import Foundation
 
-open class NavigationMoveTransition: AnimatedNavigationTransition {
+open class MoveTransition: AnimatedTransition {
 
     override open func initProperties() {
         super.initProperties()
@@ -41,13 +41,26 @@ open class NavigationMoveTransition: AnimatedNavigationTransition {
 
     public var direction: MoveTransitioningDirection = .left {
         didSet {
-            interactor?.direction = direction.toInteractorDirection()
+            let interactorDirection = direction.toInteractorDirection()
+            appearenceInteractor?.direction = interactorDirection
+            disappearenceInteractor?.direction = interactorDirection
         }
     }
 
-    override open func newTransitioning() -> AnimatedNavigationTransitioning? {
-        let animationOptions = isPush ? appearenceOptions : disappearenceOptions
-        return NavigationMoveTransitioning(direction: direction, animationOptions: animationOptions)
+    override open func transitioningFor(
+        forPresentedController presented: UIViewController?,
+        presenting: UIViewController?,
+        sourceController source: UIViewController?)
+        -> AnimatedTransitioning?
+    {
+        MoveTransitioning(direction: direction, animationOptions: appearenceOptions)
+    }
+
+    override open func transitioning(
+        forDismissedController dismissed: UIViewController?)
+        -> AnimatedTransitioning?
+    {
+        MoveTransitioning(direction: direction, animationOptions: disappearenceOptions)
     }
 
     override open func isAppearing(_ interactor: AbstractInteractiveTransition) -> Bool {

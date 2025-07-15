@@ -1,5 +1,5 @@
 PODS:
-  - AnimatedTransitionKit (4.2.0)
+  - AnimatedTransitionKit (4.4.0)
 
 DEPENDENCIES:
   - AnimatedTransitionKit (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AnimatedTransitionKit: a1e2a267c15a258233520737ba69d4bd171ebdc8
+  AnimatedTransitionKit: c21cb531049ca50abf97156306be962f5bcc522f
 
 PODFILE CHECKSUM: cfd905b6a73b2b51e76b492dc0d3d41931d673dc
 
