@@ -1,0 +1,410 @@
+//  BSD 2-Clause License
+//
+//  Copyright (c) 2016 ~, Steve Kim
+//  All rights reserved.
+//
+//  Redistribution and use in source and binary forms, with or without
+//  modification, are permitted provided that the following conditions are met:
+//
+//  * Redistributions of source code must retain the above copyright notice, this
+//  list of conditions and the following disclaimer.
+//
+//  * Redistributions in binary form must reproduce the above copyright notice,
+//  this list of conditions and the following disclaimer in the documentation
+//  and/or other materials provided with the distribution.
+//
+//  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+//  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+//  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+//  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+//  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+//  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+//  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+//  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+//  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+//  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+//  MoveTransitioningProxy.swift
+//  AnimatedTransitionKit
+//
+//  Created by Steve Kim on 7/15/25.
+//
+
+import Foundation
+
+public final class MoveTransitioningProxy {
+
+    public typealias AnimationBlock = (
+        Duration?,
+        @escaping Animation,
+        @escaping Completion)
+    -> Void
+
+    public typealias Duration = TimeInterval
+    public typealias Animation = () -> Void
+    public typealias Completion = () -> Void
+
+    public init(direction: MoveTransitioningDirection, animationBlock: @escaping AnimationBlock) {
+        self.direction = direction
+        self.animationBlock = animationBlock
+    }
+
+    public var isAppearing = false
+    public var direction: MoveTransitioningDirection
+
+    public func animateTransition(
+        fromVC: UIViewController?,
+        toVC: UIViewController?,
+        transitionContext: UIViewControllerContextTransitioning,
+        completion: Completion? = nil)
+    {
+        guard let fromVC,
+              let toVC else { return }
+
+        if isAppearing {
+            animateAppearance(
+                fromVC: fromVC,
+                toVC: toVC,
+                transitionContext: transitionContext,
+                completion: completion)
+        } else {
+            animateDisappearance(
+                fromVC: fromVC,
+                toVC: toVC,
+                transitionContext: transitionContext,
+                completion: completion)
+        }
+    }
+
+    public func interactionChanged(
+        _ interactor: AbstractInteractiveTransition,
+        percent: CGFloat,
+        aboveVC: UIViewController?,
+        belowVC: UIViewController?,
+        transitionContext: UIViewControllerContextTransitioning?)
+    {
+        guard let transitionContext,
+              let aboveVC,
+              let belowVC else { return }
+
+        if isAppearing {
+            if aboveVC === interactor.viewControllerForAppearing {
+                setTransformForAppearance(
+                    interactor,
+                    percent: percent,
+                    aboveVC: aboveVC,
+                    belowVC: belowVC,
+                    transitionContext: transitionContext)
+            }
+        } else {
+            setTransformForDisappearance(
+                interactor,
+                percent: percent,
+                aboveVC: aboveVC,
+                belowVC: belowVC,
+                transitionContext: transitionContext)
+        }
+    }
+
+    public func interactionCompleted(
+        _ interactor: AbstractInteractiveTransition,
+        transitionContext: UIViewControllerContextTransitioning?,
+        aboveVC: UIViewController?,
+        belowVC: UIViewController?,
+        completion: Completion? = nil)
+    {
+        guard let transitionContext,
+              let aboveVC,
+              let belowVC else { return }
+
+        let duration: TimeInterval = 0.15
+
+        if isAppearing {
+            if aboveVC === interactor.viewControllerForAppearing {
+                startAppearanceIfNeeded(
+                    withDuration: duration,
+                    fromVC: belowVC,
+                    toVC: aboveVC,
+                    transitionContext: transitionContext,
+                    completion: completion)
+            }
+        } else {
+            startDisappearanceIfNeeded(
+                withDuration: duration,
+                fromVC: aboveVC,
+                toVC: belowVC,
+                transitionContext: transitionContext,
+                completion: completion)
+        }
+    }
+
+    public func interactionCancelled(
+        _ interactor: AbstractInteractiveTransition,
+        transitionContext: UIViewControllerContextTransitioning?,
+        aboveVC: UIViewController?,
+        belowVC: UIViewController?,
+        completion: Completion?)
+    {
+        guard let transitionContext,
+              let aboveVC,
+              let belowVC else { return }
+
+        if isAppearing {
+            if aboveVC === interactor.viewControllerForAppearing {
+                cancelAppearance(
+                    aboveVC: aboveVC,
+                    belowVC: belowVC,
+                    transitionContext: transitionContext,
+                    completion: completion)
+            }
+        } else {
+            cancelDisappearance(
+                aboveVC: aboveVC,
+                belowVC: belowVC,
+                transitionContext: transitionContext,
+                completion: completion)
+        }
+    }
+
+    private let animationBlock: AnimationBlock
+}
+
+extension MoveTransitioningProxy {
+    private func animateAppearance(
+        fromVC: UIViewController,
+        toVC: UIViewController,
+        transitionContext: UIViewControllerContextTransitioning,
+        completion: Completion? = nil)
+    {
+        prepareAppearance(
+            fromVC: fromVC,
+            toVC: toVC,
+            transitionContext: transitionContext,)
+        startAppearanceIfNeeded(
+            fromVC: fromVC,
+            toVC: toVC,
+            transitionContext: transitionContext,
+            completion: completion)
+    }
+
+    private func prepareAppearance(
+        fromVC: UIViewController,
+        toVC: UIViewController,
+        transitionContext: UIViewControllerContextTransitioning)
+    {
+        transitionContext.containerView.addSubview(toVC.view)
+        fromVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext)
+
+        let isVertical = !direction.isHorizontal
+        let x = isVertical ? 0 : transitionContext.containerView.bounds.width
+        let y = isVertical ? transitionContext.containerView.bounds.height : 0
+        toVC.view.transform = .init(translationX: x, y: y)
+
+        if direction.isHorizontal {
+            toVC.applyDropShadow()
+        }
+    }
+
+    private func startAppearanceIfNeeded(
+        withDuration duration: TimeInterval? = nil,
+        fromVC: UIViewController,
+        toVC: UIViewController,
+        transitionContext: UIViewControllerContextTransitioning,
+        completion: Completion? = nil)
+    {
+        if transitionContext.isInteractive { return }
+
+        animationBlock(
+            duration,
+            { [weak self] in
+                guard let self else { return }
+                fromVC.view.transform = belowViewTransformWhileSliding(percent: 1, transitionContext: transitionContext)
+                toVC.view.transform = .identity
+            },
+            {
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+                fromVC.view.transform = .identity
+                toVC.view.transform = .identity
+                toVC.clearDropShadow()
+                completion?()
+            })
+    }
+
+    private func setTransformForAppearance(
+        _ interactor: AbstractInteractiveTransition,
+        percent: CGFloat,
+        aboveVC: UIViewController,
+        belowVC: UIViewController,
+        transitionContext: UIViewControllerContextTransitioning)
+    {
+        let isVertical = !direction.isHorizontal
+        let x = isVertical ? 0 : transitionContext.containerView.bounds.width + interactor.translation.x
+        let y = isVertical ? transitionContext.containerView.bounds.height + interactor.translation.y : 0
+        let restrictedX = min(transitionContext.containerView.bounds.width, max(0, x))
+        let restrictedY = min(transitionContext.containerView.bounds.height, max(0, y))
+        aboveVC.view.transform = .init(translationX: restrictedX, y: restrictedY)
+        belowVC.view.transform = belowViewTransformWhileSliding(percent: percent, transitionContext: transitionContext)
+    }
+
+    private func cancelAppearance(
+        aboveVC: UIViewController,
+        belowVC: UIViewController,
+        transitionContext: UIViewControllerContextTransitioning,
+        completion: Completion?)
+    {
+        animationBlock(
+            0.15,
+            {
+                aboveVC.view.transform = .init(translationX: transitionContext.containerView.bounds.width, y: 0)
+                belowVC.view.transform = .identity
+            },
+            {
+                transitionContext.completeTransition(false)
+                aboveVC.view.transform = .identity
+                completion?()
+            })
+    }
+}
+
+extension MoveTransitioningProxy {
+    private func animateDisappearance(
+        fromVC: UIViewController,
+        toVC: UIViewController,
+        transitionContext: UIViewControllerContextTransitioning,
+        completion: Completion? = nil)
+    {
+        prepareDisappearance(
+            fromVC: fromVC,
+            toVC: toVC,
+            transitionContext: transitionContext)
+        startDisappearanceIfNeeded(
+            fromVC: fromVC,
+            toVC: toVC,
+            transitionContext: transitionContext,
+            completion: completion)
+    }
+
+    private func prepareDisappearance(
+        fromVC: UIViewController,
+        toVC: UIViewController,
+        transitionContext: UIViewControllerContextTransitioning)
+    {
+        insertToContainerViewIfNeeded(transitionContext.containerView, fromVC: fromVC, toVC: toVC)
+        fromVC.view.transform = .identity
+        toVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext)
+
+        if direction.isHorizontal {
+            fromVC.applyDropShadow()
+        }
+    }
+
+    private func startDisappearanceIfNeeded(
+        withDuration duration: TimeInterval? = nil,
+        fromVC: UIViewController,
+        toVC: UIViewController,
+        transitionContext: UIViewControllerContextTransitioning,
+        completion: Completion?)
+    {
+        if transitionContext.isInteractive { return }
+
+        animationBlock(
+            duration,
+            { [weak self] in
+                guard let self else { return }
+                let isVertical = !direction.isHorizontal
+                let x = isVertical ? 0 : transitionContext.containerView.bounds.width
+                let y = isVertical ? transitionContext.containerView.bounds.height : 0
+                fromVC.view.transform = .init(translationX: x, y: y)
+                toVC.view.transform = .identity
+            },
+            {
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+                fromVC.view.transform = .identity
+                fromVC.clearDropShadow()
+                completion?()
+            })
+    }
+
+    private func insertToContainerViewIfNeeded(
+        _ containerView: UIView,
+        fromVC: UIViewController,
+        toVC: UIViewController)
+    {
+        guard toVC.view.superview == nil else { return }
+        containerView.insertSubview(toVC.view, belowSubview: fromVC.view)
+    }
+
+    private func setTransformForDisappearance(
+        _ interactor: AbstractInteractiveTransition,
+        percent: CGFloat,
+        aboveVC: UIViewController,
+        belowVC: UIViewController,
+        transitionContext: UIViewControllerContextTransitioning)
+    {
+        let isVertical = !direction.isHorizontal
+        let x = isVertical ? 0 : interactor.translation.x
+        let y = isVertical ? interactor.translation.y : 0
+        let restrictedX = min(transitionContext.containerView.bounds.width, max(0, x))
+        let restrictedY = min(transitionContext.containerView.bounds.height, max(0, y))
+        aboveVC.view.transform = .init(translationX: restrictedX, y: restrictedY)
+        belowVC.view.transform = belowViewTransformWhileSliding(percent: percent, transitionContext: transitionContext)
+    }
+
+    private func cancelDisappearance(
+        aboveVC: UIViewController,
+        belowVC: UIViewController,
+        transitionContext: UIViewControllerContextTransitioning,
+        completion: Completion?)
+    {
+        animationBlock(
+            0.15,
+            { [weak self] in
+                guard let self else { return }
+                aboveVC.view.transform = .init(translationX: 0, y: 0)
+                belowVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext,)
+            },
+            {
+                transitionContext.completeTransition(false)
+                aboveVC.view.transform = .identity
+                belowVC.view.transform = .identity
+                completion?()
+            })
+    }
+}
+
+extension MoveTransitioningProxy {
+    private func belowViewTransformWhileSliding(
+        percent: CGFloat,
+        transitionContext: UIViewControllerContextTransitioning,)
+        -> CGAffineTransform
+    {
+        if direction.isHorizontal {
+            let bounds = transitionContext.containerView.bounds.width * 0.3
+            let x = if isAppearing {
+                -bounds * percent
+            } else {
+                -(bounds - (bounds * percent))
+            }
+            let restrictedX = min(0, max(-bounds, x))
+            return .init(translationX: restrictedX, y: 0)
+        } else {
+            return .identity
+        }
+    }
+}
+
+extension UIViewController {
+    fileprivate func applyDropShadow() {
+        view.layer.shadowOffset = .init(width: -1, height: -1)
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowRadius = 3
+        view.layer.shadowOpacity = 0.3
+    }
+
+    fileprivate func clearDropShadow() {
+        view.layer.shadowOffset = .zero
+        view.layer.shadowColor = nil
+        view.layer.shadowRadius = 0
+        view.layer.shadowOpacity = 0
+    }
+}

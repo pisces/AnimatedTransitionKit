@@ -58,7 +58,6 @@
     if (self) {
         _shouldBeginWhenGestureChanged = YES;
         _direction = InteractiveTransitionDirectionVertical;
-        _percentForCompletion = 0.15;
     }
     return self;
 }
@@ -81,7 +80,7 @@
         [_delegate willCancelWithInteractor:self];
     }
 
-    [self.transition.transitioning interactionCancelled:self completion:^{
+    [self.transition interactionCancelled:self completion:^{
         [self completeInteraction];
     }];
 }
@@ -93,7 +92,7 @@
         [_delegate willCompleteWithInteractor:self];
     }
 
-    [self.transition.transitioning interactionCompleted:self completion:^{
+    [self.transition interactionCompleted:self completion:^{
         [self completeInteraction];
     }];
 }
@@ -101,8 +100,7 @@
 - (void)startInteractiveTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
     [super startInteractiveTransition:transitionContext];
 
-    [self.transition.transitioning startAnimating];
-    [self.transition.transitioning interactionBegan:self transitionContext:transitionContext];
+    [self.transition interactionBegan:self transitionContext:transitionContext];
 
     if ([_delegate respondsToSelector:@selector(didBeginWithInteractor:)]) {
         [_delegate didBeginWithInteractor:self];
@@ -112,7 +110,7 @@
 - (void)updateInteractiveTransition:(CGFloat)percentComplete {
     [super updateInteractiveTransition:percentComplete];
 
-    [self.transition.transitioning interactionChanged:self percent:percentComplete];
+    [self.transition interactionChanged:self percent:percentComplete];
 
     if ([_delegate respondsToSelector:@selector(didChangeWithInteractor:percent:)]) {
         [_delegate didChangeWithInteractor:self percent:percentComplete];
@@ -156,7 +154,11 @@
     return NO;
 }
 
-#pragma mark - Public methods
+#pragma mark - Public
+
+- (CGFloat)percentForCompletion {
+    return 0.15;
+}
 
 - (void)attach:(__weak UIViewController * _Nonnull)viewController {
     if ([viewController isEqual:_viewController]) {

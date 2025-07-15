@@ -38,7 +38,6 @@
 #import "DragDropTransitioning.h"
 #import "DragDropTransition.h"
 #import "FadeTransition.h"
-#import "MoveTransition.h"
 #import "PanningInteractiveTransition.h"
 #import "AnimatedTransitionKitMacro.h"
 
