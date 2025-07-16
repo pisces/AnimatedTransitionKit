@@ -111,12 +111,12 @@ const Percent PercentZero;
 - (CGFloat)percentForCompletion {
     switch (self.direction) {
         case InteractiveTransitionDirectionVertical:
-            return 0.25;
+            return 0.15;
         case InteractiveTransitionDirectionHorizontal:
             return 0.5;
         case InteractiveTransitionDirectionAll:
             const BOOL isVertical = PanningDirectionIsVertical(self.startPanningDirection);
-            return isVertical ? 0.25 : 0.5;
+            return isVertical ? 0.15 : 0.5;
         default:
             return 0.5;
     }
