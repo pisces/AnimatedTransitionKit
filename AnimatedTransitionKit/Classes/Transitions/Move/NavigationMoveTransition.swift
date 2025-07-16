@@ -34,15 +34,11 @@ import Foundation
 
 open class NavigationMoveTransition: AnimatedNavigationTransition {
 
+    // MARK: Open
+
     override open func initProperties() {
         super.initProperties()
         direction = .left
-    }
-
-    public var direction: MoveTransitioningDirection = .left {
-        didSet {
-            interactor?.direction = direction.toInteractorDirection()
-        }
     }
 
     override open func newTransitioning() -> AnimatedNavigationTransitioning? {
@@ -60,6 +56,14 @@ open class NavigationMoveTransition: AnimatedNavigationTransition {
 
     override open func shouldCompleteInteractor(_ interactor: AbstractInteractiveTransition) -> Bool {
         interactiveTransitionProxy.shouldCompleteInteractor(interactor, transition: self)
+    }
+
+    // MARK: Public
+
+    public var direction: MoveTransitioningDirection = .left {
+        didSet {
+            interactor?.direction = direction.toInteractorDirection()
+        }
     }
 
     // MARK: Private
