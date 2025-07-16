@@ -32,7 +32,7 @@
 
 import Foundation
 
-public final class NavigationPanningInteractiveTransition: PanningInteractiveTransition {
+open class NavigationPanningInteractiveTransition: PanningInteractiveTransition {
 
     // MARK: Public
 

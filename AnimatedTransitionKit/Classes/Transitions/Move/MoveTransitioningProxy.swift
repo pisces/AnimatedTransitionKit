@@ -32,28 +32,31 @@
 
 import Foundation
 
+// MARK: - MoveTransitioningProxy
+
 public final class MoveTransitioningProxy {
 
-    public typealias AnimationBlock = (
-        Duration?,
-        @escaping Animation,
-        @escaping Completion)
-    -> Void
-
-    public typealias Duration = TimeInterval
-    public typealias Animation = () -> Void
-    public typealias Completion = () -> Void
+    // MARK: Lifecycle
 
     public init(direction: MoveTransitioningDirection, animationBlock: @escaping AnimationBlock) {
         self.direction = direction
         self.animationBlock = animationBlock
     }
 
+    // MARK: Public
+
+    public typealias AnimationBlock = (
+        Duration?,
+        @escaping Animation,
+        @escaping Completion)
+        -> Void
+
+    public typealias Duration = TimeInterval
+    public typealias Animation = () -> Void
+    public typealias Completion = () -> Void
+
     public var isAppearing = false
     public var direction: MoveTransitioningDirection
-    private var isVertical: Bool {
-        !direction.isHorizontal
-    }
 
     public func animateTransition(
         fromVC: UIViewController?,
@@ -169,7 +172,14 @@ public final class MoveTransitioningProxy {
         }
     }
 
+    // MARK: Private
+
     private let animationBlock: AnimationBlock
+
+    private var isVertical: Bool {
+        !direction.isHorizontal
+    }
+
 }
 
 extension MoveTransitioningProxy {

@@ -214,6 +214,8 @@ extension AnimatedNavigationTransition {
 
 extension AnimatedNavigationTransition {
 
+    // MARK: Public
+
     override public func isValid(_ interactor: AbstractInteractiveTransition) -> Bool {
         if isAppearing(interactor) {
             isValidForAppearing(interactor)
@@ -223,6 +225,8 @@ extension AnimatedNavigationTransition {
             false
         }
     }
+
+    // MARK: Private
 
     private func isValidForAppearing(_ interactor: AbstractInteractiveTransition) -> Bool {
         guard let navigationController else { return false }
@@ -328,12 +332,19 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
     }
 }
 
+// MARK: - NavigationOperationInfo
+
 private final class NavigationOperationInfo {
+
+    // MARK: Lifecycle
+
     init(operation: UINavigationController.Operation, fromVC: UIViewController? = nil, toVC: UIViewController? = nil) {
         self.operation = operation
         self.fromVC = fromVC
         self.toVC = toVC
     }
+
+    // MARK: Internal
 
     let operation: UINavigationController.Operation
     weak var fromVC: UIViewController?

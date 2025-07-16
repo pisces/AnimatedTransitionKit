@@ -34,6 +34,8 @@ import Foundation
 
 open class NavigationMoveTransitioning: AnimatedNavigationTransitioning {
 
+    // MARK: Lifecycle
+
     public init(
         direction: MoveTransitioningDirection,
         animationOptions: TransitioningAnimationOptions?)
@@ -42,8 +44,7 @@ open class NavigationMoveTransitioning: AnimatedNavigationTransitioning {
         self.animationOptions = animationOptions
     }
 
-    public let direction: MoveTransitioningDirection
-    public let animationOptions: TransitioningAnimationOptions?
+    // MARK: Open
 
     override open var isPush: Bool {
         didSet {
@@ -91,6 +92,13 @@ open class NavigationMoveTransitioning: AnimatedNavigationTransitioning {
             belowVC: belowViewController,
             completion: completion)
     }
+
+    // MARK: Public
+
+    public let direction: MoveTransitioningDirection
+    public let animationOptions: TransitioningAnimationOptions?
+
+    // MARK: Private
 
     private lazy var transitioningProxy = MoveTransitioningProxy(
         direction: direction,
