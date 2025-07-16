@@ -34,6 +34,8 @@ import Foundation
 
 open class MoveTransitioning: AnimatedTransitioning {
 
+    // MARK: Lifecycle
+
     public init(
         direction: MoveTransitioningDirection,
         animationOptions: TransitioningAnimationOptions?)
@@ -42,8 +44,7 @@ open class MoveTransitioning: AnimatedTransitioning {
         self.animationOptions = animationOptions
     }
 
-    public let direction: MoveTransitioningDirection
-    public let animationOptions: TransitioningAnimationOptions?
+    // MARK: Open
 
     override open var isPresenting: Bool {
         didSet {
@@ -61,7 +62,6 @@ open class MoveTransitioning: AnimatedTransitioning {
             belowViewController?.endAppearanceTransition()
         }
     }
-
 
     override open func animateTransition(forDismission transitionContext: any UIViewControllerContextTransitioning) {
         transitioningProxy.animateTransition(
@@ -118,6 +118,13 @@ open class MoveTransitioning: AnimatedTransitioning {
             completion?()
         }
     }
+
+    // MARK: Public
+
+    public let direction: MoveTransitioningDirection
+    public let animationOptions: TransitioningAnimationOptions?
+
+    // MARK: Private
 
     private lazy var transitioningProxy = MoveTransitioningProxy(
         direction: direction,
