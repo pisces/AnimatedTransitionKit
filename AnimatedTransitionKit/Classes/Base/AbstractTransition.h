@@ -62,4 +62,5 @@
 - (BOOL)isDisappearing:(AbstractInteractiveTransition * _Nonnull)interactor;
 - (BOOL)isValid:(AbstractInteractiveTransition * _Nonnull)interactor;
 - (BOOL)shouldCompleteInteractor:(AbstractInteractiveTransition * _Nonnull)interactor;
+- (void)setViewControllerForAppearing:(UIViewController * _Nonnull)viewController;
 @end

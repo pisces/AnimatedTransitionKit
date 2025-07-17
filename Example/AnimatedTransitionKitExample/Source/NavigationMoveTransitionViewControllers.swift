@@ -51,6 +51,7 @@ final class NavigationMoveTransitionFirstViewController: UIViewController {
     
     @IBAction private func clicked() {
         let vc = createSecondVC()
+        navigationController?.navigationTransition?.setViewControllerForAppearing(vc)
         navigationController?.pushViewController(vc, animated: true)
     }
     

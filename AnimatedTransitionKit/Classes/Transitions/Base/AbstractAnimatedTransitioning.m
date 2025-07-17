@@ -74,7 +74,7 @@
     return nil;
 }
 
-#pragma mark - Public methods
+#pragma mark - Public
 
 - (void)animate:(void (^)(void))animations
      completion:(void (^)(void))completion {
@@ -105,6 +105,10 @@
     }
 }
 
+- (void)storeInteractor:(AbstractInteractiveTransition * _Nullable)interactor {
+    _interactor = interactor;
+}
+
 - (void)clear { }
 
 - (void)endAnimating {
@@ -117,7 +121,6 @@
 }
 
 - (void)interactionBegan:(AbstractInteractiveTransition * _Nonnull)interactor transitionContext:(id <UIViewControllerContextTransitioning> _Nonnull)transitionContext {
-    _interactor = interactor;
     _context = transitionContext;
 }
 
