@@ -132,6 +132,10 @@
     [_disappearenceInteractor attach:_viewController];
 }
 
+- (void)setViewControllerForAppearing:(UIViewController *)viewController {
+    _appearenceInteractor.viewControllerForAppearing = viewController;
+}
+
 #pragma mark - Public
 
 - (void)prepareAppearanceFromViewController:(__weak UIViewController * _Nonnull)viewController {
@@ -151,6 +155,7 @@
     _transitioning.allowsDeactivating = self.allowsDeactivating;
     _transitioning.isAllowsAppearanceTransition = self.isAllowsAppearanceTransition;
     _transitioning.options = self.disappearenceOptions;
+    [_transitioning storeInteractor:_disappearenceInteractor];
     return _transitioning;
 }
 
@@ -160,6 +165,7 @@
     _transitioning.allowsDeactivating = self.allowsDeactivating;
     _transitioning.isAllowsAppearanceTransition = self.isAllowsAppearanceTransition;
     _transitioning.options = self.appearenceOptions;
+    [_transitioning storeInteractor:_appearenceInteractor];
     ((AnimatedTransitioning *) _transitioning).presenting = YES;
     return _transitioning;
 }

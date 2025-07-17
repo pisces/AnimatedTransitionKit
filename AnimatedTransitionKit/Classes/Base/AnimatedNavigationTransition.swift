@@ -116,6 +116,10 @@ open class AnimatedNavigationTransition: AbstractTransition {
         navigationTransitioning?.isPush ?? true
     }
 
+    override public func setViewControllerForAppearing(_ viewController: UIViewController) {
+        interactor?.viewControllerForAppearing = viewController
+    }
+
     // MARK: Internal
 
     weak var navigationTransition: AnimatedNavigationTransition?
@@ -263,10 +267,10 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
 
         let shouldUseTransitioning = shouldUseTransitioning(for: operation, from: fromVC, to: toVC)
         if shouldUseTransitioning {
-            if transitioning == nil {
-                let transitioning = newTransitioning()
-                transitioning?.appearenceOptions = appearenceOptions
-                transitioning?.disappearenceOptions = disappearenceOptions
+            if transitioning == nil, let transitioning = newTransitioning() {
+                transitioning.appearenceOptions = appearenceOptions
+                transitioning.disappearenceOptions = disappearenceOptions
+                transitioning.storeInteractor(interactor)
                 self.transitioning = transitioning
             }
             let isPush = operation == .push
