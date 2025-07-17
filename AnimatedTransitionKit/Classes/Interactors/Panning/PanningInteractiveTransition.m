@@ -115,8 +115,7 @@ const Percent PercentZero;
         case InteractiveTransitionDirectionHorizontal:
             return 0.5;
         case InteractiveTransitionDirectionAll:
-            const BOOL isVertical = PanningDirectionIsVertical(self.startPanningDirection);
-            return isVertical ? 0.15 : 0.5;
+            return PanningDirectionIsVertical(self.startPanningDirection) ? 0.15 : 0.5;
         default:
             return 0.5;
     }

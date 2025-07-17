@@ -57,6 +57,7 @@
                  animations:(void (^ _Nullable)(void))animations
                  completion:(void (^ _Nullable)(void))completion;
 
+- (void)storeInteractor:(AbstractInteractiveTransition * _Nullable)interactor;
 - (void)clear;
 - (void)endAnimating;
 
