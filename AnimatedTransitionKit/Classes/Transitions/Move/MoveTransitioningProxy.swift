@@ -192,7 +192,7 @@ extension MoveTransitioningProxy {
         prepareAppearance(
             fromVC: fromVC,
             toVC: toVC,
-            transitionContext: transitionContext,)
+            transitionContext: transitionContext)
         startAppearanceIfNeeded(
             fromVC: fromVC,
             toVC: toVC,
@@ -386,7 +386,7 @@ extension MoveTransitioningProxy {
 extension MoveTransitioningProxy {
     private func belowViewTransformWhileSliding(
         percent: CGFloat,
-        transitionContext: UIViewControllerContextTransitioning,)
+        transitionContext: UIViewControllerContextTransitioning)
         -> CGAffineTransform
     {
         if direction.isHorizontal {
