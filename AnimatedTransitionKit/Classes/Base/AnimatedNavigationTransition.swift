@@ -103,6 +103,7 @@ open class AnimatedNavigationTransition: AbstractTransition {
                 } else {
                     newValue?.delegate
                 }
+                previousViewController = newValue?.visibleViewController
             }
             _navigationController = newValue
         }
@@ -137,6 +138,7 @@ open class AnimatedNavigationTransition: AbstractTransition {
     private static let didShowViewControllerSubject = PassthroughSubject<UIViewController, Never>()
 
     private weak var _navigationController: UINavigationController?
+    private weak var previousViewController: UIViewController?
 
     private var pushedViewControllerWrappers: [WeakWrapper] = []
     private var cancellableSet: Set<AnyCancellable> = []
@@ -204,7 +206,6 @@ extension AnimatedNavigationTransition {
                 guard let self,
                       let lastPushedViewController,
                       let navigationController = lastPushedViewController.navigationController else { return }
-
                 if let cached = lastPushedViewController.cachedNavigationTransition {
                     navigationController.navigationTransition = cached
                 } else {
@@ -273,12 +274,8 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
                 transitioning.storeInteractor(interactor)
                 self.transitioning = transitioning
             }
-            let isPush = operation == .push
-            if isPush {
-                let wrapper = WeakWrapper(value: toVC)
-                pushedViewControllerWrappers.append(wrapper)
-            }
-            navigationTransitioning?.isPush = isPush
+            navigationTransitioning?.isPush = operation == .push
+            appendPushedVC(toVC, for: operation)
             return transitioning
         } else {
             let selector = #selector(UINavigationControllerDelegate.navigationController(_:animationControllerFor:from:to:))
@@ -301,6 +298,8 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
     }
 
     public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        handlePopGestureException(navigationController, fromVC: previousViewController, toVC: viewController)
+
         let selector = #selector(UINavigationControllerDelegate.navigationController(_:willShow:animated:))
         if shouldSendToOriginNCDelegate(selector) {
             originNCDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
@@ -317,6 +316,8 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
         if let latestOperationInfo, latestOperationInfo.operation == .pop, latestOperationInfo.toVC === viewController {
             pushedViewControllerWrappers.removeAll { $0.value === latestOperationInfo.fromVC }
         }
+        previousViewController = viewController
+        latestOperationInfo = nil
     }
 
     public func navigationControllerSupportedInterfaceOrientations(_ navigationController: UINavigationController) -> UIInterfaceOrientationMask {
@@ -333,6 +334,44 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
             return originNCDelegate?.navigationControllerPreferredInterfaceOrientationForPresentation?(navigationController) ?? .unknown
         }
         return navigationController.topViewController?.preferredInterfaceOrientationForPresentation ?? .unknown
+    }
+
+    private func handlePopGestureException(
+        _ navigationController: UINavigationController,
+        fromVC: UIViewController?,
+        toVC: UIViewController)
+    {
+        guard latestOperationInfo == nil, let fromVC else { return }
+
+        let operation = operation(with: navigationController, fromVC: fromVC)
+
+        latestOperationInfo = .init(operation: operation, fromVC: fromVC, toVC: toVC)
+
+        let shouldUseTransitioning = shouldUseTransitioning(for: operation, from: fromVC, to: toVC)
+        if shouldUseTransitioning {
+            appendPushedVC(toVC, for: operation)
+        }
+    }
+
+    private func operation(
+        with navigationController: UINavigationController,
+        fromVC: UIViewController?)
+        -> UINavigationController.Operation
+    {
+        if let fromVC, !navigationController.viewControllers.contains(fromVC) {
+            .pop
+        } else {
+            .push
+        }
+    }
+
+    private func appendPushedVC(
+        _ viewController: UIViewController,
+        for operation: UINavigationController.Operation)
+    {
+        guard operation == .push else { return }
+        let wrapper = WeakWrapper(value: viewController)
+        pushedViewControllerWrappers.append(wrapper)
     }
 }
 
