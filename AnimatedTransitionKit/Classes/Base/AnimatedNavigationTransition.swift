@@ -123,8 +123,6 @@ open class AnimatedNavigationTransition: AbstractTransition {
 
     // MARK: Internal
 
-    weak var navigationTransition: AnimatedNavigationTransition?
-
     var lastPushedViewController: UIViewController? {
         pushedViewControllerWrappers.last?.value as? UIViewController
     }
@@ -312,10 +310,7 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
             originNCDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
         }
         Self.didShowViewControllerSubject.send(viewController)
-
-        if let latestOperationInfo, latestOperationInfo.operation == .pop, latestOperationInfo.toVC === viewController {
-            pushedViewControllerWrappers.removeAll { $0.value === latestOperationInfo.fromVC }
-        }
+        removePushedVC(viewController)
         previousViewController = viewController
         latestOperationInfo = nil
     }
@@ -373,6 +368,15 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
         let wrapper = WeakWrapper(value: viewController)
         pushedViewControllerWrappers.append(wrapper)
     }
+
+    private func removePushedVC(_ viewController: UIViewController) {
+        guard let latestOperationInfo,
+              latestOperationInfo.operation == .pop,
+              latestOperationInfo.toVC === viewController else { return }
+        pushedViewControllerWrappers.removeAll {
+            $0.value === latestOperationInfo.fromVC
+        }
+    }
 }
 
 // MARK: - NavigationOperationInfo
@@ -413,10 +417,10 @@ extension UINavigationController {
 extension UIViewController {
     fileprivate var cachedNavigationTransition: AnimatedNavigationTransition? {
         get {
-            objc_getAssociatedObject(self, &keyForCachedNavigationTransition) as? AnimatedNavigationTransition
+            getAssociatedObject(self, &keyForCachedNavigationTransition) as? AnimatedNavigationTransition
         }
         set {
-            objc_setAssociatedObject(self, &keyForCachedNavigationTransition, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            setWeakAssociatedObject(self, &keyForCachedNavigationTransition, newValue)
         }
     }
 }
