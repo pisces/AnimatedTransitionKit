@@ -52,6 +52,7 @@
 		C6F3C1A5AA8F3E301B113026745B3815 /* FadeTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 972E27CDCE7B18B0DEF1C9DA8BCCD6D1 /* FadeTransitioning.m */; };
 		C9758A3B6465E6FDBEEAE3D9E3680C74 /* PanningInteractiveTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = C80B836FEE8121A4DF417E032104C273 /* PanningInteractiveTransition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CBE4D2A75370336593A18CCB74FDB98D /* TransitioningAnimationOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 45ABD3B58F66764D53B00CB930554DDB /* TransitioningAnimationOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE0D153B2E38C71500CD6DCA /* UINavigationController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D153A2E38C71500CD6DCA /* UINavigationController+.swift */; };
 		D1D877F106845A3353B65DBA2C09B9D2 /* PinchInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F33DA238EAFF5661C7A7A68C67152B /* PinchInteractiveTransition.swift */; };
 		D49DCF1A379479FA2F46C632B5E36DFF /* AnimatedNavigationTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E01A189136886D8FF70F2C170E1DA0 /* AnimatedNavigationTransition.swift */; };
 		D93C3A7AEC92522BD54112F4C67A4D17 /* PanningInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8796DCB317089537905154E44B773E05 /* PanningInteractiveTransition.m */; };
@@ -85,7 +86,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00A11F2B4511FC6D0175F8E55C35699A /* AnimatedTransitionKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = AnimatedTransitionKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		00A11F2B4511FC6D0175F8E55C35699A /* AnimatedTransitionKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = AnimatedTransitionKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		01E01A189136886D8FF70F2C170E1DA0 /* AnimatedNavigationTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AnimatedNavigationTransition.swift; sourceTree = "<group>"; };
 		0AA7443DE7E19D8E6990DC0FD2D9B447 /* Pods-AnimatedTransitionKit_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AnimatedTransitionKit_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		0D0A6C1F87B4F399A30C6BCB643E551D /* DragDropTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = DragDropTransitioning.m; sourceTree = "<group>"; };
@@ -99,7 +100,7 @@
 		22CD36893AE83BE9B3E24AD5095E0B94 /* Pods-AnimatedTransitionKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AnimatedTransitionKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		26F33DA238EAFF5661C7A7A68C67152B /* PinchInteractiveTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PinchInteractiveTransition.swift; sourceTree = "<group>"; };
 		2AF8D4CD81E752D0C94F0AB4CD4AFE69 /* Pods-AnimatedTransitionKit_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AnimatedTransitionKit_Example-Info.plist"; sourceTree = "<group>"; };
-		2D38B7D5A485FEB966FAB3FF43E63F8D /* Pods-AnimatedTransitionKit_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-AnimatedTransitionKit_Tests"; path = Pods_AnimatedTransitionKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D38B7D5A485FEB966FAB3FF43E63F8D /* Pods_AnimatedTransitionKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimatedTransitionKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31939B58288F07EC22EB323F86482EB0 /* AbstractInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AbstractInteractiveTransition.m; sourceTree = "<group>"; };
 		3836A168463D85D1DD73D26E8870667C /* AbstractTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AbstractTransition.h; sourceTree = "<group>"; };
 		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -108,15 +109,15 @@
 		418BF4A31B0EE856CA5A9E19AE07F5B2 /* FadeTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = FadeTransition.m; sourceTree = "<group>"; };
 		427316AF0F0B77B1E24E45CB145EED93 /* AnimatedTransitionKitMacro.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AnimatedTransitionKitMacro.h; sourceTree = "<group>"; };
 		43AF41C5E3C2BBD144A2C79F9114433E /* AnimatedTransitionKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = AnimatedTransitionKit.modulemap; sourceTree = "<group>"; };
-		44D180AA2E6C1B66E178F4413C3A1C2C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		44D180AA2E6C1B66E178F4413C3A1C2C /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		45ABD3B58F66764D53B00CB930554DDB /* TransitioningAnimationOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = TransitioningAnimationOptions.h; sourceTree = "<group>"; };
 		492146E1AFC54AB7068F2853BDEF8148 /* AnimatedTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AnimatedTransitioning.m; sourceTree = "<group>"; };
 		4E11432A91B83C6CC6232C174746A80F /* FadeTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = FadeTransitioning.h; sourceTree = "<group>"; };
 		4E9A67D6CC1400A351842DBDD7AAFCBB /* AnimatedTransitionKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AnimatedTransitionKit.debug.xcconfig; sourceTree = "<group>"; };
 		4F88FD5B0C935E77ACEC2646A6CF2FB3 /* DragDropTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = DragDropTransitioning.h; sourceTree = "<group>"; };
 		529D21E39E5909F33992C5B68784681B /* UIScrollView+Utils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Utils.h"; sourceTree = "<group>"; };
-		52AF859D9468901B055FDB12771C4392 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		5E3B74D24B42869F6B6E46B3D0E636BA /* AnimatedTransitionKit */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AnimatedTransitionKit; path = AnimatedTransitionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52AF859D9468901B055FDB12771C4392 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5E3B74D24B42869F6B6E46B3D0E636BA /* AnimatedTransitionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimatedTransitionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61A6E25B3509A619014589105CB5EC23 /* AnimatedNavigationTransitioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AnimatedNavigationTransitioning.h; sourceTree = "<group>"; };
 		6FA4EBE8650555767208FD991CB0629A /* AbstractInteractiveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AbstractInteractiveTransition.h; sourceTree = "<group>"; };
 		72D76846B9EE5C18CFC0E87F23790DB9 /* Pods-AnimatedTransitionKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AnimatedTransitionKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -124,7 +125,7 @@
 		73F7225ABA4352F26751A1698ADE65BE /* Pods-AnimatedTransitionKit_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-AnimatedTransitionKit_Example.modulemap"; sourceTree = "<group>"; };
 		75062D7FED19157B2DCB79C4CAF94831 /* UIMaskedImageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = UIMaskedImageView.m; sourceTree = "<group>"; };
 		7F6359CCFFCAFD8DCC9FB7D1647C9FDC /* Pods-AnimatedTransitionKit_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AnimatedTransitionKit_Example-frameworks.sh"; sourceTree = "<group>"; };
-		8754C37CB1BF45CB853C05F1BE486A5A /* Pods-AnimatedTransitionKit_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-AnimatedTransitionKit_Example"; path = Pods_AnimatedTransitionKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8754C37CB1BF45CB853C05F1BE486A5A /* Pods_AnimatedTransitionKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimatedTransitionKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8796DCB317089537905154E44B773E05 /* PanningInteractiveTransition.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PanningInteractiveTransition.m; sourceTree = "<group>"; };
 		87B11F46F0ED9C59F162A44D2F1A5DD2 /* Pods-AnimatedTransitionKit_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-AnimatedTransitionKit_Tests.modulemap"; sourceTree = "<group>"; };
 		8B207B9B20408A6AA22356191509D64B /* AnimatedTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AnimatedTransition.h; sourceTree = "<group>"; };
@@ -135,7 +136,7 @@
 		96D293D0DD1FF09C4EBD12FC8CD5A634 /* AnimatedNavigationTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = AnimatedNavigationTransitioning.m; sourceTree = "<group>"; };
 		972E27CDCE7B18B0DEF1C9DA8BCCD6D1 /* FadeTransitioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = FadeTransitioning.m; sourceTree = "<group>"; };
 		9D7E37C21F1B3DFC7222BBA7981EF257 /* AnimatedTransitionKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = AnimatedTransitionKit.h; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A27D7827174D6AD716DF4B23DCAA381D /* AnimatedTransitionKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AnimatedTransitionKit-dummy.m"; sourceTree = "<group>"; };
 		A5FF145C3B2E40A13D830162480AC6D1 /* ZoomTransitioning.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ZoomTransitioning.swift; sourceTree = "<group>"; };
 		A74E3E0394A8EF86FB5FDF1C37064221 /* TransitionItemCompatible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TransitionItemCompatible.swift; sourceTree = "<group>"; };
@@ -150,6 +151,7 @@
 		C80B836FEE8121A4DF417E032104C273 /* PanningInteractiveTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PanningInteractiveTransition.h; sourceTree = "<group>"; };
 		C900FB484C2A874583FD1D8CA94957FE /* Pods-AnimatedTransitionKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AnimatedTransitionKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		CC5781D8C6497F3ADB8449B3591E026F /* ZoomTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ZoomTransition.swift; sourceTree = "<group>"; };
+		CE0D153A2E38C71500CD6DCA /* UINavigationController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+.swift"; sourceTree = "<group>"; };
 		CF277DFF7D9266E4669BA7152AA67CD1 /* NavigationMoveTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NavigationMoveTransition.swift; sourceTree = "<group>"; };
 		D0C6985BCD72B63F0B44523AA6B90D47 /* WeakWrapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = WeakWrapper.m; sourceTree = "<group>"; };
 		D2BA4C92ED52A4A8513BE2F6D8B1D098 /* UIPanGestureRecognizer+PanningDirection.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIPanGestureRecognizer+PanningDirection.m"; sourceTree = "<group>"; };
@@ -240,7 +242,6 @@
 				4E11432A91B83C6CC6232C174746A80F /* FadeTransitioning.h */,
 				972E27CDCE7B18B0DEF1C9DA8BCCD6D1 /* FadeTransitioning.m */,
 			);
-			name = Fade;
 			path = Fade;
 			sourceTree = "<group>";
 		};
@@ -259,9 +260,9 @@
 		334A47A24818761D632D43D4A2EC5020 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5E3B74D24B42869F6B6E46B3D0E636BA /* AnimatedTransitionKit */,
-				8754C37CB1BF45CB853C05F1BE486A5A /* Pods-AnimatedTransitionKit_Example */,
-				2D38B7D5A485FEB966FAB3FF43E63F8D /* Pods-AnimatedTransitionKit_Tests */,
+				5E3B74D24B42869F6B6E46B3D0E636BA /* AnimatedTransitionKit.framework */,
+				8754C37CB1BF45CB853C05F1BE486A5A /* Pods_AnimatedTransitionKit_Example.framework */,
+				2D38B7D5A485FEB966FAB3FF43E63F8D /* Pods_AnimatedTransitionKit_Tests.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -288,7 +289,6 @@
 				C80B836FEE8121A4DF417E032104C273 /* PanningInteractiveTransition.h */,
 				8796DCB317089537905154E44B773E05 /* PanningInteractiveTransition.m */,
 			);
-			name = Panning;
 			path = Panning;
 			sourceTree = "<group>";
 		};
@@ -320,7 +320,6 @@
 				CF277DFF7D9266E4669BA7152AA67CD1 /* NavigationMoveTransition.swift */,
 				C7495CC2A338C2DC2B6F89DA1657A764 /* NavigationMoveTransitioning.swift */,
 			);
-			name = Move;
 			path = Move;
 			sourceTree = "<group>";
 		};
@@ -337,6 +336,7 @@
 				45ABD3B58F66764D53B00CB930554DDB /* TransitioningAnimationOptions.h */,
 				FD841ADA47C608318F3AAFDC99F8EE02 /* TransitioningAnimationOptions.m */,
 				A74E3E0394A8EF86FB5FDF1C37064221 /* TransitionItemCompatible.swift */,
+				CE0D153A2E38C71500CD6DCA /* UINavigationController+.swift */,
 			);
 			name = Base;
 			path = AnimatedTransitionKit/Classes/Base;
@@ -348,7 +348,6 @@
 				6FA4EBE8650555767208FD991CB0629A /* AbstractInteractiveTransition.h */,
 				31939B58288F07EC22EB323F86482EB0 /* AbstractInteractiveTransition.m */,
 			);
-			name = Base;
 			path = Base;
 			sourceTree = "<group>";
 		};
@@ -367,7 +366,6 @@
 			children = (
 				E513612FCE1F7753039CFF0046802F59 /* NavigationPanningInteractiveTransition.swift */,
 			);
-			name = NavigationPanning;
 			path = NavigationPanning;
 			sourceTree = "<group>";
 		};
@@ -390,7 +388,6 @@
 				CC5781D8C6497F3ADB8449B3591E026F /* ZoomTransition.swift */,
 				A5FF145C3B2E40A13D830162480AC6D1 /* ZoomTransitioning.swift */,
 			);
-			name = Zoom;
 			path = Zoom;
 			sourceTree = "<group>";
 		};
@@ -442,7 +439,6 @@
 			children = (
 				26F33DA238EAFF5661C7A7A68C67152B /* PinchInteractiveTransition.swift */,
 			);
-			name = Pinch;
 			path = Pinch;
 			sourceTree = "<group>";
 		};
@@ -456,7 +452,6 @@
 				947FEA4A9A79B93812F8BFE1B7DB5A07 /* AnimatedTransitioning.h */,
 				492146E1AFC54AB7068F2853BDEF8148 /* AnimatedTransitioning.m */,
 			);
-			name = Base;
 			path = Base;
 			sourceTree = "<group>";
 		};
@@ -484,7 +479,6 @@
 				4F88FD5B0C935E77ACEC2646A6CF2FB3 /* DragDropTransitioning.h */,
 				0D0A6C1F87B4F399A30C6BCB643E551D /* DragDropTransitioning.m */,
 			);
-			name = DragDrop;
 			path = DragDrop;
 			sourceTree = "<group>";
 		};
@@ -566,7 +560,7 @@
 			);
 			name = "Pods-AnimatedTransitionKit_Tests";
 			productName = Pods_AnimatedTransitionKit_Tests;
-			productReference = 2D38B7D5A485FEB966FAB3FF43E63F8D /* Pods-AnimatedTransitionKit_Tests */;
+			productReference = 2D38B7D5A485FEB966FAB3FF43E63F8D /* Pods_AnimatedTransitionKit_Tests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		733BE06C352E6F7D8AE0616EAD10D39E /* AnimatedTransitionKit */ = {
@@ -584,7 +578,7 @@
 			);
 			name = AnimatedTransitionKit;
 			productName = AnimatedTransitionKit;
-			productReference = 5E3B74D24B42869F6B6E46B3D0E636BA /* AnimatedTransitionKit */;
+			productReference = 5E3B74D24B42869F6B6E46B3D0E636BA /* AnimatedTransitionKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		F060BF9EC55EC86441D6E7350671B99F /* Pods-AnimatedTransitionKit_Example */ = {
@@ -603,7 +597,7 @@
 			);
 			name = "Pods-AnimatedTransitionKit_Example";
 			productName = Pods_AnimatedTransitionKit_Example;
-			productReference = 8754C37CB1BF45CB853C05F1BE486A5A /* Pods-AnimatedTransitionKit_Example */;
+			productReference = 8754C37CB1BF45CB853C05F1BE486A5A /* Pods_AnimatedTransitionKit_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -624,8 +618,6 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			minimizedProjectReferenceProxies = 0;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = 334A47A24818761D632D43D4A2EC5020 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -693,6 +685,7 @@
 				3880A2D7D4BFBE17BC6811E64770F89D /* CGAffineTransform+Math.swift in Sources */,
 				EC21A0F498700B87CDB034E856CE86C8 /* DragDropTransition.m in Sources */,
 				9D0B4F8464B38F8593D72B4BCB0B1CCB /* DragDropTransitioning.m in Sources */,
+				CE0D153B2E38C71500CD6DCA /* UINavigationController+.swift in Sources */,
 				067901CBA587134F8063F2D36106E6DC /* FadeTransition.m in Sources */,
 				C6F3C1A5AA8F3E301B113026745B3815 /* FadeTransitioning.m in Sources */,
 				4023EC161DED186C139C5FCAF6C66595 /* MoveInteractiveTransitionProxy.swift in Sources */,
@@ -855,8 +848,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
