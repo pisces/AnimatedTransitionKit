@@ -218,7 +218,7 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
                 self.transitioning = transitioning
             }
             navigationTransitioning?.isPush = operation == .push
-            navigationController.appendTransitionVC(toVC, for: operation)
+            navigationController.appendTransitionViewController(toVC, for: operation)
             return transitioning
         } else {
             let selector = #selector(UINavigationControllerDelegate.navigationController(_:animationControllerFor:from:to:))
@@ -241,7 +241,7 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
     }
 
     public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        navigationController.handlePopGestureException(self, toVC: viewController)
+        navigationController.handlePopException(self, toVC: viewController)
 
         let selector = #selector(UINavigationControllerDelegate.navigationController(_:willShow:animated:))
         if shouldSendToOriginNCDelegate(selector) {

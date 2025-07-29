@@ -70,15 +70,17 @@ extension UINavigationController {
 
     func sendDidShowViewController(_ viewController: UIViewController, transition: AnimatedNavigationTransition) {
         didShowViewControllerSubject.send((viewController, transition))
-        removeTransitionVC(viewController)
+        removeTransitionViewControllers(for: viewController)
         previousViewController = viewController
         latestOperationInfo = nil
     }
 
-    func handlePopGestureException(
+    func handlePopException(
         _ navigationTransition: AnimatedNavigationTransition,
         toVC: UIViewController)
     {
+        removeCachedNavigationTransitionsIfNotContains()
+
         guard latestOperationInfo == nil, let fromVC = previousViewController else { return }
 
         let operation = operation(fromVC: fromVC)
@@ -87,15 +89,15 @@ extension UINavigationController {
 
         let shouldUseTransitioning = navigationTransition.shouldUseTransitioning(for: operation, from: fromVC, to: toVC)
         if shouldUseTransitioning {
-            appendTransitionVC(toVC, for: operation)
+            appendTransitionViewController(toVC, for: operation)
         }
     }
 
-    func appendTransitionVC(
+    func appendTransitionViewController(
         _ viewController: UIViewController,
         for operation: UINavigationController.Operation)
     {
-        guard operation == .push else { return }
+        guard operation == .push, !transitionVCWrappers.contains(where: { $0.value === viewController }) else { return }
         let wrapper = WeakWrapper(value: viewController)
         transitionVCWrappers.append(wrapper)
     }
@@ -174,8 +176,6 @@ extension UINavigationController {
                     }
                     self.navigationTransition?.interactor?.attach(self)
                 } else {
-                    removeCachedNavigationTransitionsIfNotContains()
-
                     if hasCacheNavigationTransition {
                         self.navigationTransition?.interactor?.detach()
                     } else {
@@ -214,12 +214,13 @@ extension UINavigationController {
         }
     }
 
-    private func removeTransitionVC(_ viewController: UIViewController) {
+    private func removeTransitionViewControllers(for viewController: UIViewController) {
         guard let latestOperationInfo,
               latestOperationInfo.operation == .pop,
               latestOperationInfo.toVC === viewController else { return }
         transitionVCWrappers.removeAll {
-            $0.value === latestOperationInfo.fromVC
+            guard let value = $0.value as? UIViewController else { return true }
+            return value === latestOperationInfo.fromVC || !viewControllers.contains(value)
         }
     }
 }
