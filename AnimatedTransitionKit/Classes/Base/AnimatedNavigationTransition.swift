@@ -46,7 +46,6 @@ open class AnimatedNavigationTransition: AbstractTransition {
     override public init() {
         super.init()
         setup()
-        bind()
     }
 
     // MARK: Open
@@ -65,9 +64,7 @@ open class AnimatedNavigationTransition: AbstractTransition {
 
     override open func interactionCancelled(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
         super.interactionCancelled(interactor) { [weak self] in
-            if let self, let latestOperationInfo, latestOperationInfo.operation == .push {
-                pushedViewControllerWrappers.removeAll { $0.value === latestOperationInfo.toVC }
-            }
+            self?.navigationController?.cancelTransition()
             completion?()
         }
     }
@@ -103,7 +100,6 @@ open class AnimatedNavigationTransition: AbstractTransition {
                 } else {
                     newValue?.delegate
                 }
-                previousViewController = newValue?.visibleViewController
             }
             _navigationController = newValue
         }
@@ -121,26 +117,13 @@ open class AnimatedNavigationTransition: AbstractTransition {
         interactor?.viewControllerForAppearing = viewController
     }
 
-    // MARK: Internal
-
-    var lastPushedViewController: UIViewController? {
-        pushedViewControllerWrappers.last?.value as? UIViewController
-    }
-
     // MARK: Fileprivate
 
     fileprivate var originNCDelegate: UINavigationControllerDelegate?
 
     // MARK: Private
 
-    private static let didShowViewControllerSubject = PassthroughSubject<UIViewController, Never>()
-
     private weak var _navigationController: UINavigationController?
-    private weak var previousViewController: UIViewController?
-
-    private var pushedViewControllerWrappers: [WeakWrapper] = []
-    private var cancellableSet: Set<AnyCancellable> = []
-    private var latestOperationInfo: NavigationOperationInfo?
 
     private var navigationTransitioning: AnimatedNavigationTransitioning? {
         transitioning as? AnimatedNavigationTransitioning
@@ -172,45 +155,6 @@ extension AnimatedNavigationTransition {
         appearenceOptions.duration = UINavigationController.hideShowBarDuration
         disappearenceOptions.duration = UINavigationController.hideShowBarDuration
     }
-
-    private func bind() {
-        let didShowViewController = Self.didShowViewControllerSubject
-            .removeDuplicates()
-            .filter { [weak self] _ in self?.lastPushedViewController != nil }
-
-        let shouldAttachToInteractor: (UIViewController) -> Bool = { [weak self] vc in
-            guard let self else { return false }
-            let isContains = pushedViewControllerWrappers.contains { $0.value === vc }
-            return isContains || hasInteractorDataSource(vc)
-        }
-
-        didShowViewController
-            .filter { !shouldAttachToInteractor($0) }
-            .sink { [weak self] _ in
-                guard let self, let navigationController else { return }
-                if navigationController.hasCacheNavigationTransition {
-                    interactor?.detach()
-                } else {
-                    navigationController.navigationTransition = nil
-                }
-            }
-            .store(in: &cancellableSet)
-
-        didShowViewController
-            .filter(shouldAttachToInteractor)
-            .sink { [weak self] _ in
-                guard let self,
-                      let lastPushedViewController,
-                      let navigationController = lastPushedViewController.navigationController else { return }
-                if let cached = navigationController.cachedNavigationTransition(for: lastPushedViewController) {
-                    navigationController.navigationTransition = cached
-                } else {
-                    navigationController.setCachedNavigationTransition(self, for: lastPushedViewController)
-                }
-                interactor?.attach(navigationController)
-            }
-            .store(in: &cancellableSet)
-    }
 }
 
 extension AnimatedNavigationTransition {
@@ -227,6 +171,19 @@ extension AnimatedNavigationTransition {
         }
     }
 
+    // MARK: Internal
+
+    func hasInteractorDataSource(_ viewController: UIViewController?) -> Bool {
+        guard let viewController else { return false }
+        if viewController === interactor?.dataSource { return true }
+        for child in viewController.children {
+            if hasInteractorDataSource(child) {
+                return true
+            }
+        }
+        return false
+    }
+
     // MARK: Private
 
     private func isValidForAppearing(_ interactor: AbstractInteractiveTransition) -> Bool {
@@ -238,21 +195,10 @@ extension AnimatedNavigationTransition {
         return hasInteractorDataSource && !isPushed
     }
 
-    private func hasInteractorDataSource(_ viewController: UIViewController?) -> Bool {
-        guard let viewController else { return false }
-        if viewController === interactor?.dataSource { return true }
-        for child in viewController.children {
-            if hasInteractorDataSource(child) {
-                return true
-            }
-        }
-        return false
-    }
-
     private func isValidForDisappearing(_ interactor: AbstractInteractiveTransition) -> Bool {
         guard let navigationController else { return false }
         return navigationController.visibleViewController === interactor.viewControllerForAppearing ||
-            navigationController.visibleViewController === lastPushedViewController
+            navigationController.visibleViewController === navigationController.lastestTransitionVC
     }
 }
 
@@ -260,10 +206,8 @@ extension AnimatedNavigationTransition {
 
 extension AnimatedNavigationTransition: UINavigationControllerDelegate {
 
-    // MARK: Public
-
     public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        latestOperationInfo = .init(operation: operation, fromVC: fromVC, toVC: toVC)
+        navigationController.latestOperationInfo = .init(operation: operation, fromVC: fromVC, toVC: toVC)
 
         let shouldUseTransitioning = shouldUseTransitioning(for: operation, from: fromVC, to: toVC)
         if shouldUseTransitioning {
@@ -274,7 +218,7 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
                 self.transitioning = transitioning
             }
             navigationTransitioning?.isPush = operation == .push
-            appendPushedVC(toVC, for: operation)
+            navigationController.appendTransitionVC(toVC, for: operation)
             return transitioning
         } else {
             let selector = #selector(UINavigationControllerDelegate.navigationController(_:animationControllerFor:from:to:))
@@ -297,7 +241,7 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
     }
 
     public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        handlePopGestureException(navigationController, fromVC: previousViewController, toVC: viewController)
+        navigationController.handlePopGestureException(self, toVC: viewController)
 
         let selector = #selector(UINavigationControllerDelegate.navigationController(_:willShow:animated:))
         if shouldSendToOriginNCDelegate(selector) {
@@ -310,10 +254,7 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
         if shouldSendToOriginNCDelegate(selector) {
             originNCDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
         }
-        Self.didShowViewControllerSubject.send(viewController)
-        removePushedVC(viewController)
-        previousViewController = viewController
-        latestOperationInfo = nil
+        navigationController.sendDidShowViewController(viewController, transition: self)
     }
 
     public func navigationControllerSupportedInterfaceOrientations(_ navigationController: UINavigationController) -> UIInterfaceOrientationMask {
@@ -331,126 +272,4 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
         }
         return navigationController.topViewController?.preferredInterfaceOrientationForPresentation ?? .unknown
     }
-
-    // MARK: Private
-
-    private func handlePopGestureException(
-        _ navigationController: UINavigationController,
-        fromVC: UIViewController?,
-        toVC: UIViewController)
-    {
-        guard latestOperationInfo == nil, let fromVC else { return }
-
-        let operation = operation(with: navigationController, fromVC: fromVC)
-
-        latestOperationInfo = .init(operation: operation, fromVC: fromVC, toVC: toVC)
-
-        let shouldUseTransitioning = shouldUseTransitioning(for: operation, from: fromVC, to: toVC)
-        if shouldUseTransitioning {
-            appendPushedVC(toVC, for: operation)
-        }
-    }
-
-    private func operation(
-        with navigationController: UINavigationController,
-        fromVC: UIViewController?)
-        -> UINavigationController.Operation
-    {
-        if let fromVC, !navigationController.viewControllers.contains(fromVC) {
-            .pop
-        } else {
-            .push
-        }
-    }
-
-    private func appendPushedVC(
-        _ viewController: UIViewController,
-        for operation: UINavigationController.Operation)
-    {
-        guard operation == .push else { return }
-        let wrapper = WeakWrapper(value: viewController)
-        pushedViewControllerWrappers.append(wrapper)
-    }
-
-    private func removePushedVC(_ viewController: UIViewController) {
-        guard let latestOperationInfo,
-              latestOperationInfo.operation == .pop,
-              latestOperationInfo.toVC === viewController else { return }
-        pushedViewControllerWrappers.removeAll {
-            $0.value === latestOperationInfo.fromVC
-        }
-    }
 }
-
-// MARK: - NavigationOperationInfo
-
-private final class NavigationOperationInfo {
-
-    // MARK: Lifecycle
-
-    init(operation: UINavigationController.Operation, fromVC: UIViewController? = nil, toVC: UIViewController? = nil) {
-        self.operation = operation
-        self.fromVC = fromVC
-        self.toVC = toVC
-    }
-
-    // MARK: Internal
-
-    let operation: UINavigationController.Operation
-    weak var fromVC: UIViewController?
-    weak var toVC: UIViewController?
-}
-
-extension UINavigationController {
-
-    // MARK: Public
-
-    public var navigationTransition: AnimatedNavigationTransition? {
-        get {
-            objc_getAssociatedObject(self, &keyForNavigationTransition) as? AnimatedNavigationTransition
-        }
-        set {
-            if newValue !== navigationTransition {
-                navigationTransition?.isEnabled = false
-                newValue?.navigationController = self
-                objc_setAssociatedObject(self, &keyForNavigationTransition, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-            navigationTransition?.isEnabled = true
-        }
-    }
-
-    // MARK: Fileprivate
-
-    fileprivate var hasCacheNavigationTransition: Bool {
-        cachedNavigationTransitionDict.count > 0
-    }
-
-    fileprivate func cachedNavigationTransition(for viewController: UIViewController) -> AnimatedNavigationTransition? {
-        cachedNavigationTransitionDict[viewController.hashValue]
-    }
-
-    fileprivate func setCachedNavigationTransition(_ transition: AnimatedNavigationTransition?, for viewController: UIViewController) {
-        cachedNavigationTransitionDict[viewController.hashValue] = transition
-    }
-
-    // MARK: Private
-
-    private typealias DictType = [Int: AnimatedNavigationTransition]
-
-    private var cachedNavigationTransitionDict: DictType {
-        get {
-            guard let value = objc_getAssociatedObject(self, &keyForCachedNavigationTransitionDict) as? DictType else {
-                let value: DictType = [:]
-                objc_setAssociatedObject(self, &keyForCachedNavigationTransitionDict, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-                return value
-            }
-            return value
-        }
-        set {
-            objc_setAssociatedObject(self, &keyForCachedNavigationTransitionDict, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-}
-
-private var keyForNavigationTransition: UInt8 = 0
-private var keyForCachedNavigationTransitionDict: UInt8 = 0
