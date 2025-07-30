@@ -63,10 +63,8 @@ open class AnimatedNavigationTransition: AbstractTransition {
     }
 
     override open func interactionCancelled(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
-        super.interactionCancelled(interactor) { [weak self] in
-            self?.navigationController?.cancelTransition()
-            completion?()
-        }
+        super.interactionCancelled(interactor, completion: completion)
+        navigationController?.didPushCancel()
     }
 
     open func shouldUseTransitioning(
@@ -254,7 +252,7 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
         if shouldSendToOriginNCDelegate(selector) {
             originNCDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
         }
-        navigationController.sendDidShowViewController(viewController, transition: self)
+        navigationController.didShowViewController(viewController, transition: self)
     }
 
     public func navigationControllerSupportedInterfaceOrientations(_ navigationController: UINavigationController) -> UIInterfaceOrientationMask {
