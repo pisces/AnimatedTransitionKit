@@ -68,10 +68,15 @@ extension UINavigationController {
         }
     }
 
-    func sendDidShowViewController(_ viewController: UIViewController, transition: AnimatedNavigationTransition) {
+    func didShowViewController(_ viewController: UIViewController, transition: AnimatedNavigationTransition) {
         didShowViewControllerSubject.send((viewController, transition))
         removeTransitionViewControllers(for: viewController)
         previousViewController = viewController
+        latestOperationInfo = nil
+    }
+
+    func didPushCancel() {
+        removeTransitionVCIfPushCancelled()
         latestOperationInfo = nil
     }
 
@@ -100,11 +105,6 @@ extension UINavigationController {
         guard operation == .push, !transitionVCWrappers.contains(where: { $0.value === viewController }) else { return }
         let wrapper = WeakWrapper(value: viewController)
         transitionVCWrappers.append(wrapper)
-    }
-
-    func cancelTransition() {
-        guard let latestOperationInfo, latestOperationInfo.operation == .push else { return }
-        transitionVCWrappers.removeAll { $0.value === latestOperationInfo.toVC }
     }
 
     // MARK: Private
@@ -212,6 +212,11 @@ extension UINavigationController {
         } else {
             .push
         }
+    }
+
+    private func removeTransitionVCIfPushCancelled() {
+        guard let latestOperationInfo, latestOperationInfo.operation == .push else { return }
+        transitionVCWrappers.removeAll { $0.value === latestOperationInfo.toVC }
     }
 
     private func removeTransitionViewControllers(for viewController: UIViewController) {
