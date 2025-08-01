@@ -70,30 +70,36 @@
 #pragma mark - Overridden: UIPercentDrivenInteractiveTransition
 
 - (void)cancelInteractiveTransition {
+    id<InteractiveTransitionDelegate> delegate = _delegate;
+    AbstractTransition *transition = _transition;
+
     [super cancelInteractiveTransition];
 
-    if (!self.transition.transitioning.context) {
+    if (!transition.transitioning.context) {
         return;
     }
 
-    if ([_delegate respondsToSelector:@selector(willCancelWithInteractor:)]) {
-        [_delegate willCancelWithInteractor:self];
+    if ([delegate respondsToSelector:@selector(willCancelWithInteractor:)]) {
+        [delegate willCancelWithInteractor:self];
     }
 
-    [self.transition interactionCancelled:self completion:^{
-        [self completeInteraction];
+    [transition interactionCancelled:self completion:^{
+        [self completeInteraction:delegate transition:transition];
     }];
 }
 
 - (void)finishInteractiveTransition {
+    id<InteractiveTransitionDelegate> delegate = _delegate;
+    AbstractTransition *transition = _transition;
+
     [super finishInteractiveTransition];
 
-    if ([_delegate respondsToSelector:@selector(willCompleteWithInteractor:)]) {
-        [_delegate willCompleteWithInteractor:self];
+    if ([delegate respondsToSelector:@selector(willCompleteWithInteractor:)]) {
+        [delegate willCompleteWithInteractor:self];
     }
 
-    [self.transition interactionCompleted:self completion:^{
-        [self completeInteraction];
+    [transition interactionCompleted:self completion:^{
+        [self completeInteraction:delegate transition:transition];
     }];
 }
 
@@ -184,14 +190,14 @@
 
 #pragma mark - Private methods
 
-- (void)completeInteraction {
+- (void)completeInteraction:(id<InteractiveTransitionDelegate>)delegate transition:(AbstractTransition *)transition {
     if (self.shouldComplete) {
-        if ([_delegate respondsToSelector:@selector(didCompleteWithInteractor:)]) {
-            [_delegate didCompleteWithInteractor:self];
+        if ([delegate respondsToSelector:@selector(didCompleteWithInteractor:)]) {
+            [delegate didCompleteWithInteractor:self];
         }
     } else {
-        if ([_delegate respondsToSelector:@selector(didCancelWithInteractor:)]) {
-            [_delegate didCancelWithInteractor:self];
+        if ([delegate respondsToSelector:@selector(didCancelWithInteractor:)]) {
+            [delegate didCancelWithInteractor:self];
         }
     }
 }
