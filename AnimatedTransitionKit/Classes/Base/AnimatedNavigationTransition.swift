@@ -43,11 +43,6 @@ open class AnimatedNavigationTransition: AbstractTransition {
         isEnabled = false
     }
 
-    override public init() {
-        super.init()
-        setup()
-    }
-
     // MARK: Open
 
     override open var isAllowsInteraction: Bool {
@@ -60,6 +55,11 @@ open class AnimatedNavigationTransition: AbstractTransition {
             return interactor
         }
         return nil
+    }
+
+    override open func initProperties() {
+        super.initProperties()
+        setup()
     }
 
     override open func interactionCancelled(_ interactor: AbstractInteractiveTransition, completion: (() -> Void)? = nil) {
