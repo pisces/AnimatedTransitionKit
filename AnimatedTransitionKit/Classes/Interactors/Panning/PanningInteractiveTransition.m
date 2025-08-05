@@ -174,15 +174,21 @@ const Percent PercentZero;
 #pragma mark - Private
 
 - (void)beginInterationIfAvailable {
-    if (!self.shouldBeginInteraction ||
+    if (self.isTerminating ||
         self.transition.transitioning.isAnimating ||
-        self.transition.isInteracting ||
+        self.transition.isInteracting) {
+        return;
+    }
+
+    [self panningBegan];
+
+    if (!self.shouldBeginInteraction ||
         !self.shouldInteractiveTransition ||
         ([self.delegate respondsToSelector:@selector(interactor:shouldInteract:)] &&
         ![self.delegate interactor:self shouldInteract:_selectedPanGestureRecognizer])) {
         return;
     }
-    
+
     [self.transition beginInteration];
     
     if (![self beginInteractiveTransition]) {
@@ -201,7 +207,6 @@ const Percent PercentZero;
     
     switch (panGestureRecognizer.state) {
         case UIGestureRecognizerStateBegan: {
-            [self panningBegan];
             [self beginInterationIfAvailable];
             break;
         }
@@ -209,8 +214,9 @@ const Percent PercentZero;
             if (self.shouldBeginWhenGestureChanged) {
                 [self beginInterationIfAvailable];
             }
-            
-            if (!self.transition.isInteracting ||
+
+            if (self.isTerminating ||
+                !self.transition.isInteracting ||
                 ![self.transition.currentInteractor isEqual:self] ||
                 !self.shouldInteractiveTransition) {
                 return;
@@ -223,7 +229,8 @@ const Percent PercentZero;
         }
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
-            if (!self.transition.isInteracting || ![self.transition.currentInteractor isEqual:self]) {
+            if (!self.transition.isInteracting ||
+                ![self.transition.currentInteractor isEqual:self]) {
                 [self.transition endInteration];
                 return;
             }
@@ -233,8 +240,6 @@ const Percent PercentZero;
             } else {
                 [self cancelInteractiveTransition];
             }
-            
-            [self.transition endInteration];
             break;
         }
         default:

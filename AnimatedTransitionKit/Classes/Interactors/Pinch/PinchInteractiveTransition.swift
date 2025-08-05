@@ -59,7 +59,6 @@ extension PinchInteractiveTransition {
             update(gestureRecognizer.scale)
         case .cancelled where transition?.isInteracting == true:
             cancel()
-            transition?.endInteration()
         case .ended where transition?.isInteracting == true:
             switch isAppearing {
             case true where gestureRecognizer.scale >= 1.2,
@@ -68,7 +67,6 @@ extension PinchInteractiveTransition {
             default:
                 cancel()
             }
-            transition?.endInteration()
         default:
             break
         }

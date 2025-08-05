@@ -36,6 +36,7 @@
 #import "AnimatedTransitionKit.h"
 
 @implementation AbstractInteractiveTransition
+@synthesize terminating = _terminating;
 
 #pragma mark - Properties
 
@@ -70,12 +71,16 @@
 #pragma mark - Overridden: UIPercentDrivenInteractiveTransition
 
 - (void)cancelInteractiveTransition {
+    _terminating = YES;
+
     id<InteractiveTransitionDelegate> delegate = _delegate;
     AbstractTransition *transition = _transition;
 
     [super cancelInteractiveTransition];
 
     if (!transition.transitioning.context) {
+        [transition endInteration];
+        _terminating = NO;
         return;
     }
 
@@ -89,6 +94,8 @@
 }
 
 - (void)finishInteractiveTransition {
+    _terminating = YES;
+
     id<InteractiveTransitionDelegate> delegate = _delegate;
     AbstractTransition *transition = _transition;
 
@@ -191,6 +198,9 @@
 #pragma mark - Private methods
 
 - (void)completeInteraction:(id<InteractiveTransitionDelegate>)delegate transition:(AbstractTransition *)transition {
+    [transition endInteration];
+    _terminating = NO;
+
     if (self.shouldComplete) {
         if ([delegate respondsToSelector:@selector(didCompleteWithInteractor:)]) {
             [delegate didCompleteWithInteractor:self];
