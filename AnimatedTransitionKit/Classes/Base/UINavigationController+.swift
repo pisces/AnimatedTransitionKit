@@ -71,6 +71,7 @@ extension UINavigationController {
     func didShowViewController(_ viewController: UIViewController, transition: AnimatedNavigationTransition) {
         didShowViewControllerSubject.send((viewController, transition))
         removeTransitionViewControllers(for: viewController)
+        transition.transitioning?.endAnimating()
         previousViewController = viewController
         latestOperationInfo = nil
     }
