@@ -42,18 +42,19 @@
 
 #pragma mark - UIViewControllerAnimatedTransitioning protocol
 
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
+    _context = transitionContext;
+    _fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    _toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    [self startAnimating];
+}
+
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
     return _options.duration;
 }
 
 - (void)animationEnded:(BOOL)transitionCompleted {
     [self endAnimating];
-}
-
-- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
-    _context = transitionContext;
-    _fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    _toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
 }
 
 #pragma mark - Properties
@@ -124,16 +125,14 @@
     _context = transitionContext;
 }
 
-- (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-}
+- (void)interactionCancelled:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion { }
 
 - (void)interactionChanged:(AbstractInteractiveTransition * _Nonnull)interactor percent:(CGFloat)percent {
     _percentOfInteraction = percent;
     _percentOfCompletion = percent / interactor.percentForCompletion;
 }
 
-- (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion {
-}
+- (void)interactionCompleted:(AbstractInteractiveTransition * _Nonnull)interactor completion:(void (^_Nullable)(void))completion { }
 
 - (BOOL)shouldTransition:(AbstractInteractiveTransition *)interactor {
     return YES;
@@ -143,7 +142,6 @@
     _animating = YES;
 }
 
-- (void)updateTranslationOffset:(AbstractInteractiveTransition *)interactor {
-}
+- (void)updateTranslationOffset:(AbstractInteractiveTransition *)interactor { }
 
 @end

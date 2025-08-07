@@ -78,6 +78,8 @@
     return YES;
 }
 
+- (void)setViewControllerForAppearing:(UIViewController * _Nonnull)viewController { }
+
 #pragma mark - Protected Methods
 
 - (void)initProperties {
