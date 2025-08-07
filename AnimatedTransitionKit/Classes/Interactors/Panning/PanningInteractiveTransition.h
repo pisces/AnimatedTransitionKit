@@ -37,6 +37,7 @@
 #import "UIPanGestureRecognizer+PanningDirection.h"
 
 @protocol PanningInteractiveTransitionProtected <NSObject>
+@property (nonatomic, readonly) BOOL shouldBeginInteraction;
 - (BOOL)beginInteractiveTransition;
 @end
 
