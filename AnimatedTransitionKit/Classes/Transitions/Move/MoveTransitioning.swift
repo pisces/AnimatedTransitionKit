@@ -97,8 +97,9 @@ open class MoveTransitioning: AnimatedTransitioning {
             aboveVC: aboveViewController,
             belowVC: belowViewController)
         { [weak self] in
-            guard let self, isAllowsAppearanceTransition else { return }
-            belowViewController?.endAppearanceTransition()
+            if let self, isAllowsAppearanceTransition {
+                belowViewController?.endAppearanceTransition()
+            }
             completion?()
         }
     }
@@ -113,8 +114,9 @@ open class MoveTransitioning: AnimatedTransitioning {
             aboveVC: aboveViewController,
             belowVC: belowViewController)
         { [weak self] in
-            guard let self, isAllowsAppearanceTransition else { return }
-            belowViewController?.endAppearanceTransition()
+            if let self, isAllowsAppearanceTransition {
+                belowViewController?.endAppearanceTransition()
+            }
             completion?()
         }
     }
