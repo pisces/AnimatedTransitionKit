@@ -210,6 +210,7 @@ extension MoveTransitioningProxy {
 
         let x = isVertical ? 0 : transitionContext.containerView.bounds.width
         let y = isVertical ? transitionContext.containerView.bounds.height : 0
+        toVC.view.frame.origin = .zero
         toVC.view.transform = .init(translationX: x, y: y)
 
         if direction.isHorizontal {
