@@ -171,7 +171,6 @@ extension UINavigationController {
                 if shouldAttachToInteractor {
                     if let cached = cachedNavigationTransition(for: viewController) {
                         self.navigationTransition = cached
-                        removeCachedNavigationTransition(for: viewController)
                     } else {
                         setCachedNavigationTransition(navigationTransition, for: viewController)
                     }
@@ -195,10 +194,6 @@ extension UINavigationController {
         if let transition {
             cachedNavigationTransitionDict[viewController.hashValue] = transition
         }
-    }
-
-    private func removeCachedNavigationTransition(for viewController: UIViewController) {
-        cachedNavigationTransitionDict.removeValue(forKey: viewController.hashValue)
     }
 
     private func removeCachedNavigationTransitionsIfNotContains() {

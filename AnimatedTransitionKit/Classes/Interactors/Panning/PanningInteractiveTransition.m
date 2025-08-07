@@ -69,19 +69,6 @@ const Percent PercentZero;
 
 #pragma mark - Private Properties
 
-- (BOOL)shouldBeginInteraction {
-    if (![self.transition isValid:self]) {
-        return NO;
-    }
-    if ([self.transition isAppearing:self]) {
-        if (!self.viewControllerForAppearing) {
-            self.viewControllerForAppearing = [self.dataSource viewControllerForAppearing:self];
-        }
-        return self.viewControllerForAppearing != nil;
-    }
-    return YES;
-}
-
 - (BOOL)shouldInteractiveTransition {
     BOOL shouldTransitionOfTransitioning = _selectedPanGestureRecognizer == self.drivingScrollView.panGestureRecognizer && self.transition.transitioning ?
         [self.transition.transitioning shouldTransition:self] :
@@ -155,6 +142,19 @@ const Percent PercentZero;
 }
 
 #pragma mark - Protected
+
+- (BOOL)shouldBeginInteraction {
+    if (![self.transition isValid:self]) {
+        return NO;
+    }
+    if ([self.transition isAppearing:self]) {
+        if (!self.viewControllerForAppearing) {
+            self.viewControllerForAppearing = [self.dataSource viewControllerForAppearing:self];
+        }
+        return self.viewControllerForAppearing != nil;
+    }
+    return YES;
+}
 
 - (BOOL)beginInteractiveTransition {
     if ([self.transition isAppearing:self]) {

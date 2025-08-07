@@ -36,9 +36,10 @@ open class NavigationPanningInteractiveTransition: PanningInteractiveTransition 
 
     // MARK: Public
 
-    override public var isInteractionEnabled: Bool {
+    override public var shouldBeginInteraction: Bool {
         guard let transition,
-              let navigationController else { return false }
+              let navigationController,
+              super.shouldBeginInteraction else { return false }
         return if transition.isAppearing(self) {
             viewControllerForAppearing.map { !navigationController.viewControllers.contains($0) } ?? false
         } else {
