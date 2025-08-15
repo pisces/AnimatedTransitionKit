@@ -229,7 +229,8 @@ const Percent PercentZero;
         }
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
-            if (!self.transition.isInteracting ||
+            if (self.isTerminating ||
+                !self.transition.isInteracting ||
                 ![self.transition.currentInteractor isEqual:self]) {
                 [self.transition endInteration];
                 return;
