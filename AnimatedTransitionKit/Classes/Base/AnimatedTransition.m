@@ -34,6 +34,7 @@
 //      - Refactoring design for 3.0.0
 //
 
+#import "AnimatedTransitionKit/AnimatedTransitionKit-Swift.h"
 #import "AnimatedTransition.h"
 #import "AnimatedTransitionKitMacro.h"
 #import "PanningInteractiveTransition.h"
@@ -108,10 +109,10 @@
 
 - (BOOL)isPresenting {
     if (![_transitioning isKindOfClass:[AnimatedTransitioning class]]) {
-        return ((AnimatedTransitioning *) _transitioning).presenting;
+        return ((AnimatedTransitioning *) _transitioning).isPresenting;
     }
     AnimatedTransitioning *animatedTransitioning = (AnimatedTransitioning *) _transitioning;
-    return animatedTransitioning.presenting;
+    return animatedTransitioning.isPresenting;
 }
 
 - (void)setAllowsInteraction:(BOOL)allowsInteraction {
@@ -152,7 +153,7 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     _currentInteractor = _disappearenceInteractor;
     _transitioning = [self transitioningForDismissedController:dismissed];
-    _transitioning.allowsDeactivating = self.allowsDeactivating;
+    _transitioning.isAllowsDeactivating = self.allowsDeactivating;
     _transitioning.isAllowsAppearanceTransition = self.isAllowsAppearanceTransition;
     _transitioning.options = self.disappearenceOptions;
     [_transitioning storeInteractor:_disappearenceInteractor];
@@ -162,11 +163,11 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     _currentInteractor = _appearenceInteractor;
     _transitioning = [self transitioningForForPresentedController:presented presentingController:presenting sourceController:source];
-    _transitioning.allowsDeactivating = self.allowsDeactivating;
+    _transitioning.isAllowsDeactivating = self.allowsDeactivating;
     _transitioning.isAllowsAppearanceTransition = self.isAllowsAppearanceTransition;
     _transitioning.options = self.appearenceOptions;
     [_transitioning storeInteractor:_appearenceInteractor];
-    ((AnimatedTransitioning *) _transitioning).presenting = YES;
+    ((AnimatedTransitioning *) _transitioning).isPresenting = YES;
     return _transitioning;
 }
 

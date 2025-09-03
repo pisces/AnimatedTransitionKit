@@ -30,9 +30,10 @@
 //  Created by Steve Kim on 8/14/17.
 //
 
-#import "AbstractAnimatedTransitioning.h"
 #import "AbstractInteractiveTransition.h"
 #import "TransitioningAnimationOptions.h"
+
+@class AbstractAnimatedTransitioning;
 
 @protocol AbstractTransitionProtected <NSObject>
 - (void)initProperties;

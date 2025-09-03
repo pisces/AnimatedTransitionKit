@@ -134,6 +134,7 @@ open class MoveTransitioning: AnimatedTransitioning {
             let duration = duration
                 ?? animationOptions?.duration
                 ?? UINavigationController.hideShowBarDuration
+
             animate(withDuration: duration, animations: animation, completion: completion)
         })
 }

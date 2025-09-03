@@ -30,6 +30,7 @@
 //  Created by Steve Kim on 8/14/17.
 //
 
+#import "AnimatedTransitionKit/AnimatedTransitionKit-Swift.h"
 #import "AbstractTransition.h"
 
 @implementation AbstractTransition

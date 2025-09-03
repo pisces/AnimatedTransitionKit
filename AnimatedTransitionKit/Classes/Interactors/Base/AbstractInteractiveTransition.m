@@ -32,6 +32,7 @@
 //      - Renew design and add new feature interactive transition
 //
 
+#import "AnimatedTransitionKit/AnimatedTransitionKit-Swift.h"
 #import "AbstractInteractiveTransition.h"
 #import "AnimatedTransitionKit.h"
 
@@ -75,7 +76,7 @@
 
     id<InteractiveTransitionDelegate> delegate = _delegate;
     AbstractTransition *transition = _transition;
-
+    
     [super cancelInteractiveTransition];
 
     if (!transition.transitioning.context) {

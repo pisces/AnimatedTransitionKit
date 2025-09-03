@@ -35,9 +35,7 @@
 #ifndef AnimatedTransitionKit_h
 #define AnimatedTransitionKit_h
 
-#import "DragDropTransitioning.h"
-#import "DragDropTransition.h"
-#import "FadeTransition.h"
+#import "AnimatedTransition.h"
 #import "PanningInteractiveTransition.h"
 #import "AnimatedTransitionKitMacro.h"
 

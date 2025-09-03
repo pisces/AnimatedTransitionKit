@@ -33,6 +33,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AnimatedTransitionKit/AnimatedTransitionKit-Swift.h"
 #import "PanningInteractiveTransition.h"
 #import "AbstractTransition.h"
 #import "UIScrollView+Utils.h"

@@ -34,9 +34,11 @@
 //      - Refactoring design for 3.0.0
 //
 
+
 #import <UIKit/UIKit.h>
 #import "AbstractTransition.h"
-#import "AnimatedTransitioning.h"
+
+@class AnimatedTransitioning;
 
 @protocol AnimatedTransitionProtected <NSObject>
 - (AnimatedTransitioning * _Nullable)transitioningForDismissedController:(UIViewController * _Nullable)dismissed;

@@ -64,25 +64,34 @@ final class DragDropTransitionFirstViewController: UIViewController {
             let navigationBarHeight = navigationController!.navigationBar.frame.size.height
             let bigRect = CGRect(x: 0, y: statusBarHeight + navigationBarHeight, width: w, height: w)
             let smallRect = imageView.frame
-
-            $0.presentingSource = .image(
-                { imageView.image },
-                from: { smallRect },
-                to: { bigRect },
-                rotation: { 0 },
-                completion: {
-                    imageView.isHidden = true
-                    secondViewController.imageView.isHidden = false
-                })
-            $0.dismissionSource = .image(
-                { secondViewController.imageView.image },
-                from: { bigRect },
-                to: { smallRect },
-                rotation: { 0 },
-                completion: { imageView.isHidden = false })
+            
+            $0.presentingSource = .image({ [weak self] in
+                self?.imageView.image ?? UIImage()
+            }, from: {
+                smallRect
+            }, to: {
+                bigRect
+            }, rotation: { 0 },
+                                         completion: { [weak self, weak secondViewController] in
+                self?.imageView.isHidden = true
+                secondViewController?.imageView.isHidden = false
+            })
+            
+            $0.dismissionSource = .image({ [weak secondViewController] in
+                secondViewController?.imageView.image ?? UIImage()
+            }, from: {
+                bigRect
+            }, to: {
+                smallRect
+            },
+                                         rotation: { 0 },
+                                         completion: { [weak self] in
+                self?.imageView.isHidden = false
+            })
+          
             return $0
         }(DragDropTransition())
-
+        
         navigationController?.present(secondNavigationController, animated: true, completion: nil)
     }
 }

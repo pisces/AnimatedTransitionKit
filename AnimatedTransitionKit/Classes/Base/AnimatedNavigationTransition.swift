@@ -210,8 +210,8 @@ extension AnimatedNavigationTransition: UINavigationControllerDelegate {
         let shouldUseTransitioning = shouldUseTransitioning(for: operation, from: fromVC, to: toVC)
         if shouldUseTransitioning {
             if transitioning == nil, let transitioning = newTransitioning() {
-                transitioning.appearenceOptions = appearenceOptions
-                transitioning.disappearenceOptions = disappearenceOptions
+                transitioning.appearanceOption = appearenceOptions
+                transitioning.disappearanceOption = disappearenceOptions
                 transitioning.storeInteractor(interactor)
                 self.transitioning = transitioning
             }
