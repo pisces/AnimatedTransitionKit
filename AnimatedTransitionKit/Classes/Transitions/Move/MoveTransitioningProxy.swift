@@ -206,6 +206,7 @@ extension MoveTransitioningProxy {
         transitionContext: UIViewControllerContextTransitioning)
     {
         transitionContext.containerView.addSubview(toVC.view)
+        toVC.view.frame = transitionContext.finalFrame(for: toVC)
         fromVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext)
 
         let x = isVertical ? 0 : transitionContext.containerView.bounds.width
