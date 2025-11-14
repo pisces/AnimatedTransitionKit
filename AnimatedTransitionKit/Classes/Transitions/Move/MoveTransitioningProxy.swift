@@ -236,10 +236,10 @@ extension MoveTransitioningProxy {
                 toVC.view.transform = .identity
             },
             {
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 fromVC.view.transform = .identity
                 toVC.view.transform = .identity
                 toVC.clearDropShadow()
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 completion?()
             })
     }
@@ -275,8 +275,8 @@ extension MoveTransitioningProxy {
                 belowVC.view.transform = .identity
             },
             {
-                transitionContext.completeTransition(false)
                 aboveVC.view.transform = .identity
+                transitionContext.completeTransition(false)
                 completion?()
             })
     }
@@ -333,9 +333,9 @@ extension MoveTransitioningProxy {
                 toVC.view.transform = .identity
             },
             {
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 fromVC.view.transform = .identity
                 fromVC.clearDropShadow()
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 completion?()
             })
     }
@@ -378,8 +378,8 @@ extension MoveTransitioningProxy {
                 belowVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext)
             },
             {
-                transitionContext.completeTransition(false)
                 belowVC.view.transform = .identity
+                transitionContext.completeTransition(false)
                 completion?()
             })
     }
