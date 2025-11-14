@@ -75,7 +75,6 @@ final class ZoomTransitioning: AnimatedTransitioning {
                 }
             },
             completion: { [weak self] in
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 fromVC.view.removeFromSuperview()
 
                 if self?.isAllowsAppearanceTransition == true {
@@ -85,6 +84,7 @@ final class ZoomTransitioning: AnimatedTransitioning {
                 self?.removeSnapshotView()
                 fromView.isHidden = false
                 toView.isHidden = false
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             })
     }
 
