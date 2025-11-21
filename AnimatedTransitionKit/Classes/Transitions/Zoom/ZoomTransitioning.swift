@@ -42,7 +42,8 @@ final class ZoomTransitioning: AnimatedTransitioning {
               let id = fromVC.view.transitionItem.findID(),
               let fromView = fromVC.view.transitionItem.find(withID: id),
               let toView = toVC.view.transitionItem.find(withID: id),
-              let snapshotView = fromView.snapshotView(afterScreenUpdates: true) else { return }
+              fromView.window != nil,
+              let snapshotView = fromView.snapshotView(afterScreenUpdates: false) else { return }
 
         let center = toView.superview?.convert(
             toView.center,
@@ -74,14 +75,16 @@ final class ZoomTransitioning: AnimatedTransitioning {
                     toVC.view.tintAdjustmentMode = .normal
                 }
             },
-            completion: { [weak self] in
-                fromVC.view.removeFromSuperview()
+            completion: { [weak self, weak fromVC, weak toVC] in
+                guard let self else { return }
 
-                if self?.isAllowsAppearanceTransition == true {
-                    toVC.endAppearanceTransition()
+                fromVC?.view.removeFromSuperview()
+
+                if isAllowsAppearanceTransition {
+                    toVC?.endAppearanceTransition()
                 }
 
-                self?.removeSnapshotView()
+                removeSnapshotView()
                 fromView.isHidden = false
                 toView.isHidden = false
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
@@ -96,7 +99,8 @@ final class ZoomTransitioning: AnimatedTransitioning {
         let toVisibleVC = (toVC as? UINavigationController)?.visibleViewController ?? toVC
 
         guard let fromView = fromVC.view.transitionItem.find(withID: id),
-              let snapshotView = fromView.snapshotView(afterScreenUpdates: true),
+              fromView.window != nil,
+              let snapshotView = fromView.snapshotView(afterScreenUpdates: false),
               let toView = toVisibleVC.view.transitionItem.find(withID: id) else { return }
 
         transitionContext.containerView.addSubview(toVC.view)
@@ -131,14 +135,16 @@ final class ZoomTransitioning: AnimatedTransitioning {
                     fromVC.view.tintAdjustmentMode = .dimmed
                 }
             },
-            completion: { [weak self] in
+            completion: { [weak self, weak fromVC, weak toVC] in
+                guard let self else { return }
+
                 fromView.isHidden = false
                 toView.isHidden = false
-                if self?.isAllowsAppearanceTransition == true {
-                    fromVC.endAppearanceTransition()
+                if isAllowsAppearanceTransition {
+                    fromVC?.endAppearanceTransition()
                 }
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-                self?.removeSnapshotView()
+                removeSnapshotView()
             })
     }
 
@@ -171,16 +177,15 @@ final class ZoomTransitioning: AnimatedTransitioning {
                 }
             },
             completion: { [weak self] in
-                guard let self = self,
-                      let context = self.context else { return }
+                guard let self, let context else { return }
 
-                self.fromView?.isHidden = false
-                self.toView?.isHidden = false
+                fromView?.isHidden = false
+                toView?.isHidden = false
 
-                if self.isPresenting {
+                if isPresenting {
                     aboveVC.view.removeFromSuperview()
                 }
-                self.removeSnapshotView()
+                removeSnapshotView()
                 context.completeTransition(false)
                 completion?()
             })
@@ -236,23 +241,23 @@ final class ZoomTransitioning: AnimatedTransitioning {
                 }
             },
             completion: { [weak self] in
-                guard let self = self else { return }
+                guard let self else { return }
 
                 self.fromView?.isHidden = false
                 self.toView?.isHidden = false
 
-                if self.isPresenting {
-                    if self.isAllowsAppearanceTransition {
+                if isPresenting {
+                    if isAllowsAppearanceTransition {
                         belowVC.endAppearanceTransition()
                     }
                     context.completeTransition(!context.transitionWasCancelled)
-                    self.removeSnapshotView()
+                    removeSnapshotView()
                 } else {
                     context.completeTransition(!context.transitionWasCancelled)
-                    self.removeSnapshotView()
+                    removeSnapshotView()
                     aboveVC.view.removeFromSuperview()
 
-                    if self.isAllowsAppearanceTransition {
+                    if isAllowsAppearanceTransition {
                         belowVC.endAppearanceTransition()
                     }
                 }
