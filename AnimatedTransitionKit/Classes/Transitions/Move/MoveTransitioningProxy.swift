@@ -235,10 +235,10 @@ extension MoveTransitioningProxy {
                 fromVC.view.transform = belowViewTransformWhileSliding(percent: 1, transitionContext: transitionContext)
                 toVC.view.transform = .identity
             },
-            {
-                fromVC.view.transform = .identity
-                toVC.view.transform = .identity
-                toVC.clearDropShadow()
+            { [weak fromVC, weak toVC] in
+                fromVC?.view.transform = .identity
+                toVC?.view.transform = .identity
+                toVC?.clearDropShadow()
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 completion?()
             })
@@ -274,8 +274,8 @@ extension MoveTransitioningProxy {
                 aboveVC.view.transform = .init(translationX: x, y: y)
                 belowVC.view.transform = .identity
             },
-            {
-                aboveVC.view.transform = .identity
+            { [weak aboveVC] in
+                aboveVC?.view.transform = .identity
                 transitionContext.completeTransition(false)
                 completion?()
             })
@@ -306,6 +306,7 @@ extension MoveTransitioningProxy {
         transitionContext: UIViewControllerContextTransitioning)
     {
         insertToContainerViewIfNeeded(transitionContext.containerView, fromVC: fromVC, toVC: toVC)
+        toVC.view.layoutIfNeeded()
         fromVC.view.transform = .identity
         toVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext)
 
@@ -332,9 +333,9 @@ extension MoveTransitioningProxy {
                 fromVC.view.transform = .init(translationX: x, y: y)
                 toVC.view.transform = .identity
             },
-            {
-                fromVC.view.transform = .identity
-                fromVC.clearDropShadow()
+            { [weak fromVC] in
+                fromVC?.view.transform = .identity
+                fromVC?.clearDropShadow()
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 completion?()
             })
@@ -377,8 +378,8 @@ extension MoveTransitioningProxy {
                 aboveVC.view.transform = .identity
                 belowVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext)
             },
-            {
-                belowVC.view.transform = .identity
+            { [weak belowVC] in
+                belowVC?.view.transform = .identity
                 transitionContext.completeTransition(false)
                 completion?()
             })
