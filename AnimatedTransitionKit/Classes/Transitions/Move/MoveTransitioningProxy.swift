@@ -215,7 +215,7 @@ extension MoveTransitioningProxy {
         toVC.view.transform = .init(translationX: x, y: y)
 
         if direction.isHorizontal {
-            toVC.applyDropShadow()
+            toVC.view.applyDropShadow()
         }
     }
 
@@ -235,10 +235,15 @@ extension MoveTransitioningProxy {
                 fromVC.view.transform = belowViewTransformWhileSliding(percent: 1, transitionContext: transitionContext)
                 toVC.view.transform = .identity
             },
-            { [weak fromVC, weak toVC] in
-                fromVC?.view.transform = .identity
-                toVC?.view.transform = .identity
-                toVC?.clearDropShadow()
+            {
+                if let fromView = transitionContext.view(forKey: .from) {
+                    fromView.transform = .identity
+                }
+                if let toView = transitionContext.view(forKey: .to) {
+                    toView.transform = .identity
+                    toView.clearDropShadow()
+                }
+                
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 completion?()
             })
@@ -311,7 +316,7 @@ extension MoveTransitioningProxy {
         toVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext)
 
         if direction.isHorizontal {
-            fromVC.applyDropShadow()
+            fromVC.view.applyDropShadow()
         }
     }
 
@@ -333,9 +338,12 @@ extension MoveTransitioningProxy {
                 fromVC.view.transform = .init(translationX: x, y: y)
                 toVC.view.transform = .identity
             },
-            { [weak fromVC] in
-                fromVC?.view.transform = .identity
-                fromVC?.clearDropShadow()
+            {
+                if let fromView = transitionContext.view(forKey: .from) {
+                    fromView.transform = .identity
+                    fromView.clearDropShadow()
+                }
+                
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 completion?()
             })
@@ -407,18 +415,18 @@ extension MoveTransitioningProxy {
     }
 }
 
-extension UIViewController {
+extension UIView {
     fileprivate func applyDropShadow() {
-        view.layer.shadowOffset = .init(width: -1, height: -1)
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowRadius = 3
-        view.layer.shadowOpacity = 0.3
+        layer.shadowOffset = .init(width: -1, height: -1)
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowRadius = 3
+        layer.shadowOpacity = 0.3
     }
 
     fileprivate func clearDropShadow() {
-        view.layer.shadowOffset = .zero
-        view.layer.shadowColor = nil
-        view.layer.shadowRadius = 0
-        view.layer.shadowOpacity = 0
+        layer.shadowOffset = .zero
+        layer.shadowColor = nil
+        layer.shadowRadius = 0
+        layer.shadowOpacity = 0
     }
 }
