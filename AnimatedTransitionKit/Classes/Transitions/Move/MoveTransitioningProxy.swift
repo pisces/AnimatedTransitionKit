@@ -338,14 +338,16 @@ extension MoveTransitioningProxy {
                 fromVC.view.transform = .init(translationX: x, y: y)
                 toVC.view.transform = .identity
             },
-            {
-                if let fromView = transitionContext.view(forKey: .from) {
-                    fromView.transform = .identity
-                    fromView.clearDropShadow()
+            { [weak fromVC] in
+                DispatchQueue.main.async {
+                    if let fromView = fromVC?.view {
+                        fromView.transform = .identity
+                        fromView.clearDropShadow()
+                    }
+
+                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+                    completion?()
                 }
-                
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-                completion?()
             })
     }
 

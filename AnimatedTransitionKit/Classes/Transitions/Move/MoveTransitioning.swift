@@ -130,7 +130,11 @@ open class MoveTransitioning: AnimatedTransitioning {
 
     private lazy var transitioningProxy = MoveTransitioningProxy(
         direction: direction,
-        animationBlock: { [unowned self] duration, animation, completion in
+        animationBlock: { [weak self] duration, animation, completion in
+            guard let self else {
+                completion()
+                return
+            }
             let duration = duration
                 ?? animationOptions?.duration
                 ?? UINavigationController.hideShowBarDuration
