@@ -235,15 +235,11 @@ extension MoveTransitioningProxy {
                 fromVC.view.transform = belowViewTransformWhileSliding(percent: 1, transitionContext: transitionContext)
                 toVC.view.transform = .identity
             },
-            {
-                if let fromView = transitionContext.view(forKey: .from) {
-                    fromView.transform = .identity
-                }
-                if let toView = transitionContext.view(forKey: .to) {
-                    toView.transform = .identity
-                    toView.clearDropShadow()
-                }
-                
+            { [weak fromVC, weak toVC] in
+                fromVC?.view.transform = .identity
+                toVC?.view.transform = .identity
+                toVC?.view.clearDropShadow()
+
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 completion?()
             })
@@ -339,15 +335,11 @@ extension MoveTransitioningProxy {
                 toVC.view.transform = .identity
             },
             { [weak fromVC] in
-                DispatchQueue.main.async {
-                    if let fromView = fromVC?.view {
-                        fromView.transform = .identity
-                        fromView.clearDropShadow()
-                    }
+                fromVC?.view.transform = .identity
+                fromVC?.view.clearDropShadow()
 
-                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-                    completion?()
-                }
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+                completion?()
             })
     }
 
