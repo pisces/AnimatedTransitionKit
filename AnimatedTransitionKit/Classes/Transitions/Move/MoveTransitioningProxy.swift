@@ -230,16 +230,16 @@ extension MoveTransitioningProxy {
 
         animationBlock(
             duration,
-            { [weak self] in
-                guard let self else { return }
-                fromVC.view.transform = belowViewTransformWhileSliding(percent: 1, transitionContext: transitionContext)
-                toVC.view.transform = .identity
+            { [weak self, weak fromVC, weak toVC, weak transitionContext] in
+                guard let self, let transitionContext else { return }
+                fromVC?.view.transform = belowViewTransformWhileSliding(percent: 1, transitionContext: transitionContext)
+                toVC?.view.transform = .identity
             },
-            { [weak fromVC, weak toVC] in
+            { [weak self, weak fromVC, weak toVC, weak transitionContext] in
+                guard let _ = self, let transitionContext else { return }
                 fromVC?.view.transform = .identity
                 toVC?.view.transform = .identity
                 toVC?.view.clearDropShadow()
-
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 completion?()
             })
@@ -268,16 +268,17 @@ extension MoveTransitioningProxy {
     {
         animationBlock(
             0.15,
-            { [weak self] in
-                guard let self else { return }
+            { [weak self, weak aboveVC, weak belowVC, weak transitionContext] in
+                guard let self, let transitionContext else { return }
                 let x = isVertical ? 0 : transitionContext.containerView.bounds.width
                 let y = isVertical ? transitionContext.containerView.bounds.height : 0
-                aboveVC.view.transform = .init(translationX: x, y: y)
-                belowVC.view.transform = .identity
+                aboveVC?.view.transform = .init(translationX: x, y: y)
+                belowVC?.view.transform = .identity
             },
-            { [weak aboveVC] in
+            { [weak self, weak aboveVC, weak transitionContext] in
+                guard let _ = self else { return }
                 aboveVC?.view.transform = .identity
-                transitionContext.completeTransition(false)
+                transitionContext?.completeTransition(false)
                 completion?()
             })
     }
@@ -327,17 +328,17 @@ extension MoveTransitioningProxy {
 
         animationBlock(
             duration,
-            { [weak self] in
-                guard let self else { return }
+            { [weak self, weak fromVC, weak toVC, weak transitionContext] in
+                guard let self, let transitionContext else { return }
                 let x = isVertical ? 0 : transitionContext.containerView.bounds.width
                 let y = isVertical ? transitionContext.containerView.bounds.height : 0
-                fromVC.view.transform = .init(translationX: x, y: y)
-                toVC.view.transform = .identity
+                fromVC?.view.transform = .init(translationX: x, y: y)
+                toVC?.view.transform = .identity
             },
-            { [weak fromVC] in
+            { [weak self, weak fromVC, weak transitionContext] in
+                guard let _ = self, let transitionContext else { return }
                 fromVC?.view.transform = .identity
                 fromVC?.view.clearDropShadow()
-
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
                 completion?()
             })
@@ -375,12 +376,13 @@ extension MoveTransitioningProxy {
     {
         animationBlock(
             0.15,
-            { [weak self] in
-                guard let self else { return }
-                aboveVC.view.transform = .identity
-                belowVC.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext)
+            { [weak self, weak aboveVC, weak belowVC, weak transitionContext] in
+                guard let self, let transitionContext else { return }
+                aboveVC?.view.transform = .identity
+                belowVC?.view.transform = belowViewTransformWhileSliding(percent: 0, transitionContext: transitionContext)
             },
-            { [weak belowVC] in
+            { [weak self, weak belowVC, weak transitionContext] in
+                guard let _ = self, let transitionContext else { return }
                 belowVC?.view.transform = .identity
                 transitionContext.completeTransition(false)
                 completion?()

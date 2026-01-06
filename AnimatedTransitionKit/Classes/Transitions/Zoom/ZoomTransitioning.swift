@@ -135,7 +135,7 @@ final class ZoomTransitioning: AnimatedTransitioning {
                     fromVC.view.tintAdjustmentMode = .dimmed
                 }
             },
-            completion: { [weak self, weak fromVC, weak toVC] in
+            completion: { [weak self, weak fromVC] in
                 guard let self else { return }
 
                 fromView.isHidden = false
