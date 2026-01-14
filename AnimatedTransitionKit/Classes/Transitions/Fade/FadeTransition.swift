@@ -24,18 +24,36 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
-//  FadeTransitioning.h
+//  FadeTransition.swift
 //  AnimatedTransitionKit
 //
 //  Created by Steve Kim on 6/18/16.
 //  Modified by Steve Kim on 4/14/17.
 //      - Renew design and add new feature interactive transition
-//  Modified by Steve Kim on 8/13/17.
-//      - Rename AnimatedFadeTransitioning to FadeTransitioning
+//      - Rename UIViewControllerFadeTransition to FadeTransition
+//  Modified by Steve Kim on 8/14/17.
+//      - Refactoring extract methods
 //
 
-#import "AnimatedTransitioning.h"
+import Foundation
 
-@interface FadeTransitioning : AnimatedTransitioning
+public class FadeTransition: AnimatedTransition {
 
-@end
+    // MARK: - Overridden
+
+    override public func transitioningFor(
+        forPresentedController presented: UIViewController?,
+        presenting: UIViewController?,
+        sourceController source: UIViewController?)
+        -> AnimatedTransitioning?
+    {
+        FadeTransitioning()
+    }
+
+    override public func transitioning(
+        forDismissedController dismissed: UIViewController?)
+        -> AnimatedTransitioning?
+    {
+        FadeTransitioning()
+    }
+}
